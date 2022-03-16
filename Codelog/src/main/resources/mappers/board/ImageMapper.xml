@@ -9,4 +9,8 @@
 </resultMap>
 <insert id="image"> INSERT INTO image(img_id,board_id, img_path) 
 VALUES(image_seq.NEXTVAL, '1',#{imgPath} )</insert>
+<select id="test">
+ SELECT img_path FROM image
+ WHERE(img_id = 6)
+</select>
 </mapper>

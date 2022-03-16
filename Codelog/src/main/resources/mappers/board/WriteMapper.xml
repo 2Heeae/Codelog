@@ -32,4 +32,5 @@
 </resultMap>
 <insert id="write"> INSERT INTO proj_board(board_id, user_id, title, writer, tags, content, img_path, reg_date,preview, thumbnail, view_all) 
 VALUES(board_seq.NEXTVAL, 'id', #{title}, #{writer}, #{tags}, #{content}, 'dd',to_date(sysdate, 'yyyy.mm.dd hh24:mi'),#{preview}, #{thumbnail}, '1' )</insert>
+<select id="test" resultType="com.spring.codelog.board.model.BoardVO"> SELECT * FROM proj_board WHERE board_id = #{boardId} </select>
 </mapper>
