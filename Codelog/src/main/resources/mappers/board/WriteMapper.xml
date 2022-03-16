@@ -13,6 +13,7 @@
 	<result property="viewAll" column="view_all" />
 	<result property="imgPath" column="img_path" />
 	<result property="regDate" column="reg_date" />
+	
 
 <!--private int boardId;
 	private String userId;

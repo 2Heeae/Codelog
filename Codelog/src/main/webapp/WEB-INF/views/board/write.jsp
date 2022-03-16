@@ -35,7 +35,7 @@
 </head>
 
 <body>
-<form action="<c:url value='/boardController/write' />" class="write-bbs">
+<form action="<c:url value='/boardController/write' />" class="write-bbs" enctype= multipart/form-data>
 <!-- 글등록 페이지에 따로 작성자를 기입하지는 않으므로 현재 로그인 세션에서 작성자 명을 뽑아옵니다. -->
   <input type="hidden" name="writer" value="작성자명">
   <input type="hidden" name="userId" value="유저id">
@@ -133,14 +133,14 @@
                      <!--썸네일 부분-->
 
                      <p class="my-md-1" style="font-weight: bold; font-size: 1.7rem;">포스터 미리보기</p>
-                     <div class="thumbnailBox" id="thumbnailBox"
-                        style="height: 22rem; background-color: rgba(128, 128, 128, 0.185); text-align: center;">
+                     <div class="thumbnailBox" id="thumbnailBox" 
+                        style="height: 22rem; background-color: rgba(128, 128, 128, 0.185); text-align: center;" onclick="document.all.thumbnailUpload.click();">
                         <i class="fa-regular fa-image my-md-4" style="font-size: 6rem;"></i>
 
-                        <!-- <img src="" class="btn" type="button" id="img-preview"
+                     <img src="" class="btn" type="button" id="img-preview"
                                     onclick="document.all.thumbnailUpload.click();"
-                                    style="margin: 0rem auto 2rem auto; padding: 0.2rem 3rem; display: block; background-color: white; width: 70%; height: 70%;"><span
-                                        style="color: rgb(77, 238, 98);">썸네일 업로드</span></button> -->
+                                    style="display: block; background-color: white; width: 100%; height: 100%;"><span
+                                        style="color: rgb(77, 238, 98);">썸네일 업로드</span> 
                         <input type="file" id="thumbnailUpload" name="thumbnail" accept="image/*"
                            onchange="readURL(this)">
                         <script>
@@ -153,6 +153,7 @@
                                  var reader = new FileReader();
                                  reader.onload = function (e) {
                                     $('#img-preview').attr('src', e.target.result);
+                                    $('#test').val(e.target.result);
                                  }
                                  reader.readAsDataURL(input.files[0]);
                               }
@@ -173,6 +174,7 @@
                            <textarea placeholder="Leave a comment here" id="floatingTextarea" name="preview"
                               style="width: 100%; height: 6rem; resize: none;"></textarea>
                            <span style="float: right">/100</span><span id="textL" style="float: right">0</span>
+                           <input type="text" id="test">
                         </div>
 
                      </div>

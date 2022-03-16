@@ -26,12 +26,9 @@ public class BoardController {
 	
 	@GetMapping("/write")
 	public String write(BoardVO vo, HttpServletRequest hsr) {
-		System.out.println(vo);
+		
 		System.out.println("글 작성 요청");
 		command.execute(hsr, vo);
-		System.out.println(vo.getTitle());
-		System.out.println(vo.getTags());
-		System.out.println(vo.getContent());
 		System.out.println("글 작성 완료");
 
 		return "home";
