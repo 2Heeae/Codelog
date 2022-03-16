@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.codelog.board.command.Command;
+import com.spring.codelog.board.commons.ImgVO;
 import com.spring.codelog.board.model.BoardVO;
 
 
@@ -25,10 +26,10 @@ public class BoardController {
 	}
 	
 	@GetMapping("/write")
-	public String write(BoardVO vo, HttpServletRequest hsr) {
+	public String write(BoardVO vo, ImgVO vo2, HttpServletRequest hsr) {
 		
 		System.out.println("글 작성 요청");
-		command.execute(hsr, vo);
+		command.execute(hsr, vo, vo2);
 		System.out.println("글 작성 완료");
 
 		return "home";
