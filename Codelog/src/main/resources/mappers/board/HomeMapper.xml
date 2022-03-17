@@ -13,14 +13,14 @@
 
 <select id="RPosters" resultMap="boardMap">
 			
-	SELECT * FROM(
-      SELECT ROWNUM AS rn , a.* FROM(
-      SELECT * FROM proj_board ORDER BY board_id DESC)a)t      
-            <![CDATA[
-      
-      WHERE rn<=3 AND rn>=1 AND board_id<=20
-      ]]>
-		
+
+	
+  SELECT * FROM(
+		SELECT ROWNUM AS rn , a.* FROM(
+		SELECT * FROM proj_board ORDER BY board_id DESC)a)t		
+				<![CDATA[
+		WHERE rn<=3 AND rn>=1 AND board_id<=20
+		]]>
 </select>
 
 
