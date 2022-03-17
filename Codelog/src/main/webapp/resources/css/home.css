@@ -36,7 +36,13 @@ animation-fill-mode: forwards;
 }
 
 @-webkit-keyframes totrend {
- 
+  0% {
+    left:10%
+  
+  }
+  100% {
+    left:14.7%
+  }
 }
 
  .toto2{
@@ -51,8 +57,14 @@ animation-fill-mode: forwards;
 }
 
 @-webkit-keyframes torent {
-
+  0% {
+    left:14.7%
+  }
+  100% {
+    left:7.4%
+  }
 }
+
 
 .toto3 {
 margin-left:10%; 
