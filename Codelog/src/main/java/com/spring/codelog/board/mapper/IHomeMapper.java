@@ -1,13 +1,24 @@
 package com.spring.codelog.board.mapper;
 
+import java.util.List;
+
 import com.spring.codelog.board.model.BoardVO;
 
 public interface IHomeMapper {
+
+	List<BoardVO> TPosters(int i);
+
+	List<BoardVO> RPosters(int i);
+
+	List<BoardVO> FPosters(String startDate, String endDate, String userId);
 	
-	BoardVO TPosters();
+	BoardVO SelectOne(int i);
 	
-	BoardVO RPosters();
+	BoardVO SelectOneT(int i);
+
 	
-	BoardVO FPosters();
+	int FPCount(String userId);
+	
+	int PCount();
 
 }
