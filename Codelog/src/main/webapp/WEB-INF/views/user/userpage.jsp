@@ -25,12 +25,12 @@
           <img src="<c:url value='/img/user_icon.png' />" alt="user_icon" width="130">
         </div>
         <div class="col-md-8 profile">
-          <h3 class="id">${userInfo.nickname}&nbsp;&nbsp;</h3>
-          <p class="posts">게시물  &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal"
+          <h3 class="id">${vo.nickname }&nbsp;&nbsp;<button class="follow-button">팔로우</button></h3>
+          <p class="posts">게시물 3 &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal"
               data-bs-target="#followers_modal" style="cursor:pointer;">팔로워 0</a> &nbsp;&nbsp;&nbsp;
             <a class="folloing" data-bs-toggle="modal" data-bs-target="#following_modal" style="cursor:pointer;">팔로우
               0</a></p>
-          <p class="intro">${userInfo.userInfo}</p>
+          <p class="intro">${vo.userInfo }</p>
         </div>
       </div> <!-- end main-->
 
@@ -171,7 +171,49 @@
       integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
     </script>
     
-    
+    <script>
+      // 팔로우버튼 누를시 팔로잉, 다시클릭시 팔로우
+      $(function () {
+        $('.follow-button').click(function () {
+          if ($(this).html() == '팔로우') {
+            $(this).css("background-color", "#C0D8C0")
+            $.ajax({
+            	type: "post",
+            	url: "<c:url value='/follow/${user.id}' />",
+            	content-type: "application/json",
+            	success: function(data){
+            		console.log('연결 성공:'+ data);
+            		if(data === 'followOk'){
+			            $(this).html('<i class="fa-solid fa-check"></i>&nbsp;팔로잉');
+			            location.href="<c:url value='userpage/${user.id}'/>";
+            		}
+            	}, 
+            	error: function(){
+            		alert('실패');
+            	}
+            }); //end ajax
+          } else {
+            $.ajax({
+            	type: "post",
+            	url: "<c:url value='/unfollow/${user.id}' />",
+            	content-type: "application/json",
+            	success: function(data){
+            		console.log('연결 성공:'+ data);
+            		if(data === 'unfollowOk'){
+            			console
+			            $(this).html('팔로우');
+			            $(this).css("background-color", "gray");
+			            location.href="<c:url value='userpage/${user.id}'/>";
+            		}
+            	}, 
+            	error: function(){
+            		alert('실패');
+            	}
+            });
+          }
+        });
+      });
+     </script>
     <script>
       $(document).ready(function () {
         $("#so").click(function () {

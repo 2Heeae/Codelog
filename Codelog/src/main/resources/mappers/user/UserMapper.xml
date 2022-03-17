@@ -4,13 +4,24 @@
 
 <mapper namespace="com.spring.codelog.user.mapper.IUserMapper">
 
-	<resultMap type="com.spring.codelog.user.model.UserVO" id="UserMap">
-		<result property="userId" column="user_id" />
-		<result property="userPw" column="user_pw" />
-		<result property="userInfo" column="user_info" />
-		<result property="userImg" column="user_img" />
-	</resultMap>
-
+   <resultMap type="com.spring.codelog.user.model.UserVO" id="UserMap">
+      <result property="userId" column="user_id" />
+      <result property="nickname" column="nickname" />
+      <result property="userPw" column="user_pw" />
+      <result property="userInfo" column="user_info" />
+      <result property="userImg" column="user_img" />
+      <collection property="boardList" resultMap="list"/>
+   </resultMap>
+   
+   <resultMap type="com.spring.codelog.board.model.BoardVO" id="list">
+   		<id property="boardId" column="board_id"/>
+   		<result property="title" column="title"/>
+   		<result property="preview" column="preview"/>
+   		<result property="thumbnail" column="thumbnail"/>
+   		<result property="likes" column="likes"/>
+   		<result property="regDate" column="reg_date"/>
+   </resultMap>
+   
 	<insert id="join">
 		INSERT INTO proj_user(user_id, user_pw, nickname, email1, email2)
 		VALUES(#{userId}, #{userPw}, #{nickname}, #{email1}, #{email2})
@@ -37,5 +48,24 @@
 		DELETE FROM proj_user
 		WHERE user_id = #{userId}
 	</delete>
+	
+	<select id="getInfo" resultMap="UserMap">
+		SELECT u.user_id,
+		nickname,
+		user_pw,
+		user_info,
+		user_img,
+		b.board_id,
+		b.title,
+		b.preview,
+		b.likes,
+		b.reg_date,
+		b.thumbnail
+		FROM proj_user u
+		LEFT OUTER JOIN proj_board b
+		ON u.user_id = b.writer
+		WHERE u.user_id = #{userId}
+		ORDER BY b.board_id DESC
+	</select>
 
 </mapper>

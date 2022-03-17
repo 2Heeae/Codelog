@@ -1,5 +1,9 @@
 package com.spring.codelog.user.model;
 
+import java.util.List;
+
+import com.spring.codelog.board.model.BoardVO;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +24,5 @@ public class UserVO {
 	private String userInfo;
 	private String userImg;
 	
+	private List<BoardVO> boardList;
 }
