@@ -3,4 +3,81 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.spring.codelog.board.mapper.IHomeMapper">
+<resultMap type="com.spring.codelog.board.model.BoardVO" id="boardMap">
+<id property="boardId" column="board_id"/>
+<result property="userId" column="user_id"/>
+<result property="viewAll" column="view_all"/>
+<result property="imgPath" column="img_path"/>
+<result property="regDate" column="reg_date"/>
+</resultMap>
+
+
+<select id="RPosters" resultMap="boardMap">
+			
+	
+	SELECT * FROM(
+		SELECT ROWNUM AS rn , a.* FROM(
+		SELECT * FROM proj_board ORDER BY board_id DESC)a)t		
+		<![CDATA[
+		WHERE rn<=3 AND rn>=1 AND board_id<=20
+				]]>
+		
+</select>
+
+
+<select id="SelectOne" resultMap="boardMap">
+			
+		SELECT * FROM(
+		SELECT ROWNUM AS rn , a.* FROM(
+		SELECT * FROM proj_board ORDER BY board_id DESC)a)t		
+		<![CDATA[
+		WHERE rn=#{i}
+		]]>
+</select>
+
+<select id="SelectOneT" resultMap="boardMap">
+			
+		SELECT * FROM(
+		SELECT ROWNUM AS rn , a.* FROM(
+		SELECT * FROM proj_board ORDER BY likes DESC)a)t		
+		<![CDATA[
+		WHERE rn=#{i}
+		]]>
+</select>
+
+<select id="TPosters" resultMap="boardMap">
+SELECT * FROM(
+		SELECT ROWNUM AS rn , a.* FROM(
+		SELECT * FROM proj_board ORDER BY likes  DESC)a)t		
+		<![CDATA[
+		WHERE rn<=(#{i}+1)*3 AND rn>=#{i}*3+1
+		]]>
+		
+		</select>
+
+<select id="FPosters">
+SELECT z.* FROM(
+SELECT ROWNUM as rn, f.*  FROM(
+SELECT q.user_id,q.title,q.reg_date,q.content FROM(
+SELECT ROWNUM as rn,t.* FROM(
+SELECT a.* FROM proj_board  a, (SELECT to_id FROM followers WHERE user_id = 'kim123') b
+<![CDATA[
+WHERE user_id = b.to_id AND reg_date>='2022-03-08'
+]]> ORDER BY reg_date DESC)t)q
+UNION
+SELECT t.user_id,t.title,t.reg_date,t.content FROM(
+		SELECT ROWNUM AS rn , a.* FROM(
+		SELECT * FROM proj_board ORDER BY board_id DESC)a)t		
+		<![CDATA[
+		WHERE rn<=15 AND rn>=1
+		)f)z WHERE rn>=5
+		]]>
+</select>
+
+<select id="FPCount"></select>
+
+<select id="PCount">
+	SELECT COUNT(*) FROM proj_board;
+</select>
+
 </mapper>

@@ -1,13 +1,25 @@
 package com.spring.codelog.board.service;
 
+import java.util.List;
+
 import com.spring.codelog.board.model.BoardVO;
 
 public interface IHomeService {
 	
-	BoardVO TPosters();
 	
-	BoardVO RPosters();
+	List<BoardVO> TPosters(int i);
+
+	List<BoardVO> RPosters(int i);
+
+	List<BoardVO> FPosters(String startDate, String endDate, String userId);
 	
-	BoardVO FPosters();
+	BoardVO SelectOne(int i);
+	
+	BoardVO SelectOneT(int i);
+
+	
+	int FPCount(String userId);
+	
+	int PCount();
 
 }

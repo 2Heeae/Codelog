@@ -8,8 +8,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-	<!-- bootstrap css -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<!-- bootstrap css -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<!-- bootstrap icon -->
@@ -123,6 +124,9 @@
 									<div style="text-align: right;">
 										<span class="card-text"><strong>로그아웃</strong></span>
 									</div>
+								</div>	
+							</div>	
+						</div>	
 					</button>
 				</div>
 				<!--글 작성-->
@@ -130,6 +134,7 @@
 					>새 글 작성</button>
 			</div>
 		</div>
+	</div>	
 	<!-- Button trigger modal -->
 
 	<!-- bootstrap js -->
@@ -159,11 +164,12 @@
 				$(location).attr("href", "https://www.naver.com/")
 			});
 			
-			/*화면 클릭시 알람,프로필 토글 숨김*/
 			var LayerPopup = $("#collapseExample");
 			var LayerPopup2 = $("#collapseExample2");
 
-			$(document).click(function (e){
+					$(document).click(function (e){
+
+
 			if(LayerPopup.hasClass("show")){
 			LayerPopup.removeClass("show");
 			}
@@ -171,10 +177,16 @@
 			if(LayerPopup2.has(e.target).length === 0){
 			LayerPopup2.removeClass("show");
 			}
+
 					});
 
 		});
 
+
+		
+
+
+		
 	</script>
 
 </body>

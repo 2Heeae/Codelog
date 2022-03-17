@@ -1,14 +1,18 @@
 package com.spring.codelog.board.model;
 
-import java.security.Timestamp;
 
+
+import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class BoardVO {
 	private int boardId;
 	private String userId;
