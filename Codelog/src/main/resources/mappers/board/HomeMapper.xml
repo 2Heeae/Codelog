@@ -15,32 +15,13 @@
 <select id="RPosters" resultMap="boardMap">
 			
 	
-	SELECT * FROM(
+  SELECT * FROM(
 		SELECT ROWNUM AS rn , a.* FROM(
 		SELECT * FROM proj_board ORDER BY board_id DESC)a)t		
-		<![CDATA[
-		WHERE rn<=3 AND rn>=1 AND board_id<=20
-				]]>
-				
-				SELECT DISTINCT
-    a.*, b.*
-FROM
-    proj_board a LEFT OUTER JOIN
-    (
-        SELECT
-            to_id
-        FROM
-            followers
-        WHERE
-            user_id = 'kim123'
-    ) b
-ON
-        user_id = b.to_id
-    AND reg_date >= '2022-03-08'
-    AND reg_date <= '2022-03-31'
-ORDER BY
-    to_id, reg_date DESC;
+				<![CDATA[
 		
+		WHERE rn<=3 AND rn>=1 AND board_id<=20
+		]]>
 </select>
 
 
