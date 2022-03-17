@@ -43,6 +43,16 @@ public class UserService implements IUserService {
 		mapper.delete(userId);
 	}
 
+	@Override
+	public UserVO selectUser(String nickname) {
+		return mapper.selectUser(nickname);
+	}
+
+	@Override
+	public UserVO getInfo(String userId) {
+		return mapper.getInfo(userId);
+	}
+
 
 
 

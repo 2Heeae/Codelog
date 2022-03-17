@@ -31,6 +31,7 @@
 	<!-- 마이바티스 xml파일을 빈으로 등록하기 위한 스캔 설정 (인터페이스 어디있는지 경로 써 주세요) -->
 	<mybatis-spring:scan base-package="com.spring.codelog.user.mapper"/>
 	<mybatis-spring:scan base-package="com.spring.codelog.board.mapper"/>
+	<mybatis-spring:scan base-package="com.spring.codelog.follow.mapper"/>
 	 
 
 </beans>

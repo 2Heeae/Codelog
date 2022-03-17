@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,10 +65,27 @@ public class UserController {
 	
 	//마이페이지 이동 처리
 	@GetMapping("/mypage")
-	public ModelAndView mypage() {
+	public ModelAndView mypage(HttpSession session) {
 		System.out.println("/user/mypage: GET");
-		return new ModelAndView("/user/mypage");
+		String id = ((UserVO) session.getAttribute("loginSession")).getUserId();
+		UserVO userInfo = service.getInfo(id);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("userInfo", userInfo);
+		mv.setViewName("/user/mypage");
+		
+		return mv;
 	}
+	//다른사람 페이지 이동 처리
+	@GetMapping("/userpage/{userId}")
+	public ModelAndView userpage(@PathVariable String id ,String nickname) {
+		System.out.println("user/userpage: get");
+		UserVO vo = service.selectUser(nickname);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("id", vo.getUserId());
+		mv.setViewName("user/userpage");
+		return mv;
+	}
+	
 	
 	//회원정보수정 페이지 이동 처리
 	@GetMapping("/editUser")

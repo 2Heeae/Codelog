@@ -23,4 +23,9 @@ public interface IUserMapper {
 	//회원 탈퇴 기능
 	void delete(String userId);
 	
+	//닉네임으로 정보 가져오는 기능
+	UserVO selectUser(String nickname);
+
+	//마이페이지 정보 
+	UserVO getInfo(String userId);
 }

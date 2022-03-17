@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.codelog.user.mapper.IFollowMapper">
+
+	<resultMap type="com.spring.codelog.user.commons.FollowingVO" id="FollowMap">
+		<result property="userId" column="user_id" />
+		<result property="fromId" column="from_id" />
+		<result property="regDate" column="reg_date" />
+		<result property="likes" column="likes" />
+	</resultMap>
+
+	<insert id="follow">
+		INSERT INTO following(id, user_id, from_id)
+		VALUES(following_seq.NEXTVAL, #{userId}, #{fromId})
+	</insert>
+
+</mapper>
