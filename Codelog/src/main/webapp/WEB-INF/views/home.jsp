@@ -90,6 +90,44 @@
 					</div>
 				</button>
 			</c:if>
+
+			
+			
+			
+			
+			<c:if test="${recent==true }">	
+				<button type="button" class="btn c rounded-circle p-0 position-relative"
+					style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
+					href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
+					<span class="m-0" style="font-size: 1.1rem;">팔로워<i class="fa-solid fa-caret-down mx-md-1"></i></span>
+
+					<div class="collapse" id="collapseExample3"
+						style="position: absolute; width: 10rem; top:2.5rem; left: -3.6rem; z-index: 1000;">
+						<div class="card" style="width: 8rem;">
+
+							<div class="card-body cc" id="so">
+								<div style="text-align: right;">
+									<span class="card-text"><strong>모든 사람</strong></span>
+								</div>
+							</div>
+
+							<div class="card-body cc" id="so">
+								<div style="text-align: right;">
+									<span class="card-text"><strong>팔로워</strong></span>
+								</div>
+							</div>
+
+							
+						</div>	
+					</div>
+				</button>
+			</c:if>
+			
+			
+			
+			
+			
+			
 			</div>
 		</div>
 	<!-- 최신, 트랜딩 밑줄 애니매이션 -->

@@ -127,6 +127,8 @@
 								</div>	
 							</div>	
 						</div>	
+								</div>
+								</div>
 					</button>
 				</div>
 				<!--글 작성-->
@@ -135,6 +137,7 @@
 			</div>
 		</div>
 	</div>	
+		</div>
 	<!-- Button trigger modal -->
 
 	<!-- bootstrap js -->

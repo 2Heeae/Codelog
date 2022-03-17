@@ -14,14 +14,9 @@
 
 <select id="RPosters" resultMap="boardMap">
 			
-	
-  SELECT * FROM(
-		SELECT ROWNUM AS rn , a.* FROM(
-		SELECT * FROM proj_board ORDER BY board_id DESC)a)t		
-				<![CDATA[
-		
-		WHERE rn<=3 AND rn>=1 AND board_id<=20
-		]]>
+
+ SELECT ROWNUM as rn, a.* FROM(
+    SELECT * FROM proj_board ORDER BY reg_date)a;
 </select>
 
 
@@ -56,22 +51,12 @@ SELECT * FROM(
 		</select>
 
 <select id="FPosters">
-SELECT z.* FROM(
-SELECT ROWNUM as rn, f.*  FROM(
-SELECT q.user_id,q.title,q.reg_date,q.content FROM(
-SELECT ROWNUM as rn,t.* FROM(
-SELECT a.* FROM proj_board  a, (SELECT to_id FROM followers WHERE user_id = 'kim123') b
-<![CDATA[
-WHERE user_id = b.to_id AND reg_date>='2022-03-08'
-]]> ORDER BY reg_date DESC)t)q
-UNION
-SELECT t.user_id,t.title,t.reg_date,t.content FROM(
-		SELECT ROWNUM AS rn , a.* FROM(
-		SELECT * FROM proj_board ORDER BY board_id DESC)a)t		
-		<![CDATA[
-		WHERE rn<=15 AND rn>=1
-		)f)z WHERE rn>=5
+ SELECT ROWNUM as rn, a.* FROM proj_board a JOIN (SELECT to_id FROM followers WHERE user_id = 'kim123' )b
+    on a.user_id = b.to_id 
+    <![CDATA[
+		WHERE rn<=100 AND rn>=1
 		]]>
+		ORDER BY a.reg_date
 </select>
 
 <select id="FPCount"></select>

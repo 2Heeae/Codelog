@@ -10,7 +10,7 @@ public interface IHomeMapper {
 
 	List<BoardVO> RPosters(int i);
 
-	List<BoardVO> FPosters(String startDate, String endDate, String userId);
+	List<BoardVO> FPosters(String userId);
 	
 	BoardVO SelectOne(int i);
 	
