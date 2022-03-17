@@ -11,15 +11,14 @@
 <result property="regDate" column="reg_date"/>
 </resultMap>
 
-
 <select id="RPosters" resultMap="boardMap">
 			
+
 	
   SELECT * FROM(
 		SELECT ROWNUM AS rn , a.* FROM(
 		SELECT * FROM proj_board ORDER BY board_id DESC)a)t		
 				<![CDATA[
-		
 		WHERE rn<=3 AND rn>=1 AND board_id<=20
 		]]>
 </select>
@@ -77,7 +76,7 @@ SELECT t.user_id,t.title,t.reg_date,t.content FROM(
 <select id="FPCount"></select>
 
 <select id="PCount">
-	SELECT COUNT(*) FROM proj_board;
+	SELECT COUNT(*) FROM proj_board
 </select>
 
 </mapper>
