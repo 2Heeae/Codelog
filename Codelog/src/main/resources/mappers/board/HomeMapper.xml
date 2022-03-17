@@ -16,7 +16,7 @@
 			
 
  SELECT ROWNUM as rn, a.* FROM(
-    SELECT * FROM proj_board ORDER BY reg_date)a;
+    SELECT * FROM proj_board ORDER BY reg_date)a
 </select>
 
 

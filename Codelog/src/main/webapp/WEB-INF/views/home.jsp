@@ -548,7 +548,6 @@
 			/*최신, 트랜딩 밑줄 애니매이션*/
 			$(document).ready(function () {
 		        function test2(name, date) { console.log(`프로젝트명: ${name} 일자: ${date}`); } test2('print', '2019-05-13');
-		        console.log(${Posters3});
 
 		
 			if(${recent}==true){
