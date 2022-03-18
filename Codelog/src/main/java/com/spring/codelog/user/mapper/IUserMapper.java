@@ -20,9 +20,6 @@ public interface IUserMapper {
 	//회원정보 수정 기능
 	void updateUser(UserVO vo);
 	
-	//닉네임 & 자기소개 수정 기능
-	void nickChange(UserVO vo);
-
 	//회원 탈퇴 기능
 	void delete(String userId);
 	
@@ -31,5 +28,4 @@ public interface IUserMapper {
 
 	//마이페이지 정보 
 	UserVO getInfo(String userId);
-
 }

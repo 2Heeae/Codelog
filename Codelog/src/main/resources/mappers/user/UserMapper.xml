@@ -10,8 +10,6 @@
       <result property="userPw" column="user_pw" />
       <result property="userInfo" column="user_info" />
       <result property="userImg" column="user_img" />
-      <result property="email1" column="email1" />
-      <result property="email2" column="email2" />
       <collection property="boardList" resultMap="list"/>
    </resultMap>
    
@@ -37,12 +35,6 @@
 	<update id="updateProfileImg">
 		UPDATE proj_user
 		SET user_img = #{fileName}
-		WHERE user_id = #{userId}
-	</update>
-	
-	<update id="nickChange">
-		UPDATE proj_user
-		SET nickname = #{nickname}, user_info = #{userInfo}
 		WHERE user_id = #{userId}
 	</update>
 	

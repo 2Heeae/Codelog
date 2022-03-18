@@ -28,12 +28,15 @@
           <div class="col-md-12">
             <!-- 프로필 이미지 -->
             <c:choose>
-	            <c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
-	            	<img src="<c:url value='/img/user_icon.png' />" id="img-preview" class="img-circle" alt="" width="130px" height="130px">
-	            </c:when>
-	            <c:otherwise>
-	            	<img src="<c:url value='/user/display' />" id="img-preview" class="img-circle" alt="" width="130px" height="130px">
-	            </c:otherwise>
+            <c:when test="${loginSession.userImg == null}">
+            	<img src="<c:url value='/img/user_icon.png' />" id="img-preview" class="img-circle" alt="" width="130px" height="130px">
+            </c:when>
+            <c:when test="${loginSession.userImg eq 'null'}">
+            	<img src="<c:url value='/img/user_icon.png' />" id="img-preview" class="img-circle" alt="" width="130px" height="130px">
+            </c:when>
+            <c:otherwise>
+            	<img src="<c:url value='/user/display' />" id="img-preview" class="img-circle" alt="" width="130px" height="130px">
+            </c:otherwise>
             </c:choose>
             <!-- 이미지 업로드 버튼 -->
             <label for="img_upload" class="upload-btn">이미지 업로드</label>
@@ -51,7 +54,7 @@
         </div>
         <div class="row">
           <div class="col-md-2">
-            <button class="btn btn-primary" id="nick-mod-btn">수정</button>
+            <button class="mod-btn btn btn-primary">수정</button>
           </div>
         </div>
       </div>
@@ -61,7 +64,7 @@
         <textarea name="" id="profile-input" cols="50" rows="4" class="mt-3">${loginSession.userInfo}</textarea>
         <div class="row">
           <div class="col-md-2">
-            <button class="btn btn-primary" id="nick-save-btn">저장</button>
+            <button class="save btn btn-primary">저장</button>
           </div>
         </div>
       </div>
@@ -74,7 +77,7 @@
           <label for="id" class="col-md-12 col-form-label"><b>아이디</b></label>
         </div>
         <div class="col-md-4">
-          <input type="text" readonly class="form-control-plaintext" name="userId" id="userId" value="${loginSession.userId}">
+          <input type="text" readonly class="form-control-plaintext" name="userId" id="id" value="${loginSession.userId}">
         </div>
         <div class="col-md-4"></div>
       </div>
@@ -197,50 +200,22 @@
 	  } //프로필 이미지 업로드 버튼 클릭 이벤트 끝
     	
       // 닉네임/자기소개 수정 인풋창 보여주기
-      $('#nick-mod-btn').click(function () {
+      $('.mod-btn').click(function () {
 	      console.log('수정버튼 클릭됨');
 	      $('.info-area').hide();
 	      $('.mod-info').show();
       }); // 닉네임/자기소개 수정 인풋창 보여주기 끝
 
-      //닉네임&자기소개 저장 버튼 클릭 이벤트 처리
-      $('#nick-save-btn').click(function () {
+      // 닉네임/자기소개 수정 인풋창 숨겨주기
+      $('.save').click(function () {
           console.log('저장버튼 클릭됨');
           var nick = $('#nick-input').val();
           var profile = $('#profile-input').val();
-          var user_id = $('#userId').val();
-          console.log(nick);
-          console.log(profile);
           $('.nickname').text(nick);
           $('.profile').text(profile);
-          $('.mod-info').hide(); //인풋창 숨겨주기
-          $('.info-area').show(); //닉네임, 자기소개 보여주기
-          
-          const user = {
-        		  	"userId" :  user_id,
-					"nickname" : nick,
-					"userInfo" : profile,
-			};
-          
-          console.log(user);
-			
-			//비동기 통신 시작!
-			$.ajax({
-				type : 'POST',
-				url : '/codelog/user/nickChange',
-				contentType : 'application/json',
-				dataType : 'text',
-				data : JSON.stringify(user),
-				success : function(result) {
-					console.log('통신 성공!: ' + result);
-					alert('수정되었습니다.');
-				},
-				error : function() {
-					alert('수정 실패!');
-				}
-			}); //end ajax(회원가입 처리)
-          
-      }); //닉네임&자기소개 저장 버튼 클릭 이벤트 처리 끝
+          $('.mod-info').hide();
+          $('.info-area').show();
+      }); // 닉네임/자기소개 수정 인풋창 숨겨주기 끝
 
       //프로필 이미지 업로드 시 미리보기
       $('#img_upload').change(function () {
@@ -262,6 +237,7 @@
       $('#img-del-btn').click(function() {
     	  img_del();
     	  function img_del() {
+    		  //$('#img-preview').attr('src', '/img/user_icon.png');
               
               //프로필 이미지 삭제 ajax 시작
               $.ajax({
@@ -273,7 +249,7 @@
             	  
            		  success : function(result) {
            			  if(result === 'success') {
-           				$('#img-preview').attr('src', '<c:url value="/img/user_icon.png" />');
+           				$('#img-preview').attr('src', '/img/user_icon.png');
            			  } else {
            				  alert('프로필 이미지를 먼저 등록해주세요.');
            			  }

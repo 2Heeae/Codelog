@@ -17,9 +17,6 @@ public interface IUserService {
 	//프로필 이미지 업로드 기능
 	void updateProfileImg(profileImgVO vo);
 	
-	//닉네임 & 자기소개 수정 기능
-	void nickChange(UserVO vo);
-
 	//회원정보 수정 기능
 	void updateUser(UserVO vo);
 	
@@ -31,6 +28,5 @@ public interface IUserService {
 
 	//마이페이지 정보 
 	UserVO getInfo(String userId);
-
 
 }

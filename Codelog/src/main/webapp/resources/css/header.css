@@ -16,61 +16,8 @@
     font-style: normal;
 }
 
-/* 다크모드 css 시작 */
 body {
-  --text-color: #222;
-  --bkg-color: #fff;
-}
-
-body.dark-theme {
-  --text-color: #eee;
-  --bkg-color: #121212;
-}
-
-body, div {
-  background: var(--bkg-color);
-}
-
-span, i, div {
-  color: var(--text-color);
-}
-
-body {
-  background: var(--bkg-color);
-}
-
-h1, p {
-  color: var(--text-color);
-}
-
-.card-footer {
-	background-color: var(--bkg-color) !important;
-}
-
-/* 포스트 테두리
-.card {
-	border-color: var(--bkg-color) !important;
-}
-*/
-
-#tot {
-	background-color: var(--text-color) !important;
-}
-
-.fa-heart {
-	color: red !important;
-}
-/* 다크모드 css 끝 */
-
-* {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* 헤더 프로필 이미지 */
-#small-profile-img {
-	width: 50px;
-	height: 50px;
-	border-radius: 70px;
+    background-color: rgb(249, 249, 250);
 }
 
 button {
@@ -153,11 +100,4 @@ button {
 .bc:hover {
     background-color: rgba(0, 0, 0, 0.849);
     color: white;
-}
-
-
-
-/* 회원가입/로그인 모달 input type=password 글씨 안나오는 것 따로 지정 */
-input[type="password"] {
-  font: small-caption;
 }

@@ -34,11 +34,6 @@ public class UserService implements IUserService {
 	}
 	
 	@Override
-	public void nickChange(UserVO vo) {
-		mapper.nickChange(vo);
-	}
-	
-	@Override
 	public void updateUser(UserVO vo) {
 		mapper.updateUser(vo);
 	}
@@ -57,7 +52,6 @@ public class UserService implements IUserService {
 	public UserVO getInfo(String userId) {
 		return mapper.getInfo(userId);
 	}
-
 
 
 
