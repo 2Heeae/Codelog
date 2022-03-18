@@ -1,5 +1,7 @@
 package com.spring.codelog.user.service;
 
+import java.util.List;
+
 import com.spring.codelog.user.commons.FollowingVO;
 
 public interface IFollowService {
@@ -9,4 +11,13 @@ public interface IFollowService {
 	
 	//언팔로우
 	void unfollow(FollowingVO fvo);
+	
+	//팔로우 유무
+	int isFollow(FollowingVO fvo);
+	
+	//팔로우 리스트 조회
+	List<FollowingVO> selectActiveUserList(String userId);
+	
+	//팔로워 리스트 조회
+	List<FollowingVO> selectPassiveUserList(String toId);
 }
