@@ -44,21 +44,21 @@ h1, p {
 }
 
 .card-footer {
-	background-color: var(--bkg-color) !important;
+   background-color: var(--bkg-color) !important;
 }
 
 /* 포스트 테두리
 .card {
-	border-color: var(--bkg-color) !important;
+   border-color: var(--bkg-color) !important;
 }
 */
 
 #tot {
-	background-color: var(--text-color) !important;
+   background-color: var(--text-color) !important;
 }
 
 .fa-heart {
-	color: red !important;
+   color: red !important;
 }
 /* 다크모드 css 끝 */
 
@@ -68,9 +68,9 @@ h1, p {
 
 /* 헤더 프로필 이미지 */
 #small-profile-img {
-	width: 50px;
-	height: 50px;
-	border-radius: 70px;
+   width: 50px;
+   height: 50px;
+   border-radius: 70px;
 }
 
 button {
