@@ -4,7 +4,7 @@
 
 <mapper namespace="com.spring.codelog.user.mapper.IFollowMapper">
 
-	<resultMap type="com.spring.codelog.user.commons.FollowingVO" id="FollowMap">
+	<resultMap type="com.spring.codelog.user.commons.FollowVO" id="FollowMap">
 		<result property="userId" column="user_id" />
 		<result property="fromId" column="from_id" />
 		<result property="regDate" column="reg_date" />
