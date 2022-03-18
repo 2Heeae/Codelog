@@ -179,7 +179,7 @@
             $(this).css("background-color", "#C0D8C0")
             $.ajax({
             	type: "post",
-            	url: "<c:url value='/follow/${vo.userId}' />",
+            	url: "<c:url value='/follow/${user.id}' />",
             	content-type: "application/json",
             	success: function(data){
             		console.log('연결 성공:'+ data);
@@ -195,7 +195,7 @@
           } else {
             $.ajax({
             	type: "post",
-            	url: "<c:url value='/unfollow/${vo.userId}' />",
+            	url: "<c:url value='/unfollow/${user.id}' />",
             	content-type: "application/json",
             	success: function(data){
             		console.log('연결 성공:'+ data);
@@ -213,18 +213,6 @@
           }
         });
       });
-      
-      //팔로워리스트 처리
-      $('.follow-button').click(function(){
-    	  $.ajax({
-    		 type: 'get',
-    		 url: "<c:url value='followList/${vo.userId}'/>",
-    		 content: "application/json",
-    		 success: function(data){
-    			 
-    		 }
-    	  }); //end ajax
-      });//end jQuery
      </script>
     <script>
       $(document).ready(function () {
