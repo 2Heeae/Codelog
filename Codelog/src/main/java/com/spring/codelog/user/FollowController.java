@@ -26,7 +26,7 @@ public class FollowController {
 	@Autowired 
 	private IUserService uservice;
 	
-	//�뙏濡쒖슦 �슂泥�
+	//팔로우기능
 	@ResponseBody
 	@PostMapping("/follow/{id}")
 	public String follow(@PathVariable String id, HttpSession session, Model model) {
@@ -39,7 +39,7 @@ public class FollowController {
 		return "followOK";
 	}
 	
-	//�뼵�뙏濡쒖슦 �슂泥�
+	//언팔로우 기능
 	@ResponseBody
 	@PostMapping("/unfollow/{id}")
 	public String unfollow(@PathVariable String id, HttpSession session, Model model) {
@@ -52,10 +52,13 @@ public class FollowController {
 		return "unfollowOk";
 	}
 	
-	//�뙏濡쒖슦由ъ뒪�듃蹂댁씠湲� 
+	//팔로우리스트 보여주기
 //	@GetMapping("/followList/{id}")
 //	public String followList(@PathVariable String id, HttpSession session) {
+//		UserVO user = uservice.selectOne(id);
+//		UserVO loginUser = (UserVO) session.getAttribute("loginSession");
 //		
+//		FollowingVO follow
 //	}
 	
 	
