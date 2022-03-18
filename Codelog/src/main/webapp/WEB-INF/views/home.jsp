@@ -9,21 +9,21 @@
 
 <head>
 
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<style>
+   <style>
 
-	    @import url("<c:url value='/css/home.css'/>");
-	
-	</style>
-	<title>Document</title>
+       @import url("<c:url value='/css/home.css'/>");
+   
+   </style>
+   <title>Document</title>
 </head>
 
 <body style="margin-top: 1rem; font-family: ONE-Mobile-Regular;">
 
-	<div class="container">
+   <div class="container">
 <!-- 최신, 트랜딩 메뉴판 날짜설정메뉴는은 트랜딩메뉴 적용시만 활성 -->
 		<div class="row" style="padding: 1.5rem 1.5rem 0.5rem 1.5rem;">
 			<div class="col-md-1 px-md-0" id="recent2">
@@ -439,12 +439,13 @@
 	<!-- bootstrap js -->
 	
 
+
 <script>
 
 
-			/*최신, 트랜딩 밑줄 애니매이션*/
-			$(document).ready(function () {
-		        function test2(name, date) { console.log(`프로젝트명: ${name} 일자: ${date}`); } test2('print', '2019-05-13');
+         /*최신, 트랜딩 밑줄 애니매이션*/
+         $(document).ready(function () {
+              function test2(name, date) { console.log(`프로젝트명: ${name} 일자: ${date}`); } test2('print', '2019-05-13');
 
 		
 			if(${recent}==true){
@@ -465,7 +466,8 @@
 			var LayerPopup3 = $("#collapseExample3");
 			var LayerPopup4 = $("#collapseExample4");
 
-			$(document).click(function (e){
+
+         $(document).click(function (e){
 
 
 				if(LayerPopup3.hasClass("show")){
@@ -477,12 +479,13 @@
 					}
 
 
-			});
-			});
 
-	
-		
-		
+         });
+         });
+
+   
+      
+      
 /*화면 클릭시 열려있는 토글창 닫기*/
 
 	

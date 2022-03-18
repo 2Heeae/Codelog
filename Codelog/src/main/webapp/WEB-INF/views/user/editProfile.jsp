@@ -28,12 +28,12 @@
           <div class="col-md-12">
             <!-- 프로필 이미지 -->
             <c:choose>
-	            <c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
-	            	<img src="<c:url value='/img/user_icon.png' />" id="img-preview" class="img-circle" alt="" width="130px" height="130px">
-	            </c:when>
-	            <c:otherwise>
-	            	<img src="<c:url value='/user/display' />" id="img-preview" class="img-circle" alt="" width="130px" height="130px">
-	            </c:otherwise>
+               <c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
+                  <img src="<c:url value='/img/user_icon.png' />" id="img-preview" class="img-circle" alt="" width="130px" height="130px">
+               </c:when>
+               <c:otherwise>
+                  <img src="<c:url value='/user/display' />" id="img-preview" class="img-circle" alt="" width="130px" height="130px">
+               </c:otherwise>
             </c:choose>
             <!-- 이미지 업로드 버튼 -->
             <label for="img_upload" class="upload-btn">이미지 업로드</label>
@@ -141,66 +141,66 @@
   <script>
     // start jQuery
     $(document).ready(function () {
-    	
+       
       //프로필 이미지 업로드 버튼 클릭 이벤트
       $('#img_upload').change(function() {
-    	  upload();
-	  });
-    	
+         upload();
+     });
+       
       //이미지 업로드를 담당하는 함수
       function upload() {
-    	  //자바스크립트의 파일 확장자 체크 검색
-    	  let file = $('#img_upload').val();
-    	  
-    	  console.log(file);
-    	  
-    	  file = file.slice(file.indexOf('.') + 1).toLowerCase();
-    	  console.log(file);
-    	  if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp') {
-    		  alert('이미지 파일(jpg, png, jpeg, bmp)만 등록이 가능합니다.');
-    		  $('#img_upload').val('');
-			  return;    		  
-    	  }
-    	  
-    	  //ajax 폼 전송의 핵심 FormData 객체
-    	  const formData = new FormData();
-    	  const data = $('#img_upload');
-    	  
-    	  console.log('폼 데이터: ' + formData);
-    	  console.log('data: ' + data);
-    	  
-    	  //FormData 객체에 사용자가 업로드한 파일의 정보들이 들어있는 객체에 전달
-		  formData.append('file', data[0].files[0]);
-    	  
-    	  //비동기 방식으로 파일 업로드 및 게시글 등록을 진행
-    	  //ajax 시작
-    	  $.ajax({
-    		  url : '<c:url value="/user/editUser/imgUpload" />',
-    		  type : 'POST',
-    		  data : formData,
-    		  contentType : false,
-    		  processData : false,
-    		  
-    		  success : function(result) {
-    			  if(result === 'success') {
-    				  $('#img_upload').val('');
-    			  } else {
-    				  alert('업로드에 실패했습니다.');
-    			  }
-				
-			  },
-			  error : function(request, status, error) {
-				  console.log('code: ' + request + '\n' + 'message: ' + request.responseText + '\n' + 'error: ' + error);
-				
-			  }
-    	  }); //ajax 끝
-	  } //프로필 이미지 업로드 버튼 클릭 이벤트 끝
-    	
+         //자바스크립트의 파일 확장자 체크 검색
+         let file = $('#img_upload').val();
+         
+         console.log(file);
+         
+         file = file.slice(file.indexOf('.') + 1).toLowerCase();
+         console.log(file);
+         if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp') {
+            alert('이미지 파일(jpg, png, jpeg, bmp)만 등록이 가능합니다.');
+            $('#img_upload').val('');
+           return;            
+         }
+         
+         //ajax 폼 전송의 핵심 FormData 객체
+         const formData = new FormData();
+         const data = $('#img_upload');
+         
+         console.log('폼 데이터: ' + formData);
+         console.log('data: ' + data);
+         
+         //FormData 객체에 사용자가 업로드한 파일의 정보들이 들어있는 객체에 전달
+        formData.append('file', data[0].files[0]);
+         
+         //비동기 방식으로 파일 업로드 및 게시글 등록을 진행
+         //ajax 시작
+         $.ajax({
+            url : '<c:url value="/user/editUser/imgUpload" />',
+            type : 'POST',
+            data : formData,
+            contentType : false,
+            processData : false,
+            
+            success : function(result) {
+               if(result === 'success') {
+                  $('#img_upload').val('');
+               } else {
+                  alert('업로드에 실패했습니다.');
+               }
+            
+           },
+           error : function(request, status, error) {
+              console.log('code: ' + request + '\n' + 'message: ' + request.responseText + '\n' + 'error: ' + error);
+            
+           }
+         }); //ajax 끝
+     } //프로필 이미지 업로드 버튼 클릭 이벤트 끝
+       
       // 닉네임/자기소개 수정 인풋창 보여주기
       $('#nick-mod-btn').click(function () {
-	      console.log('수정버튼 클릭됨');
-	      $('.info-area').hide();
-	      $('.mod-info').show();
+         console.log('수정버튼 클릭됨');
+         $('.info-area').hide();
+         $('.mod-info').show();
       }); // 닉네임/자기소개 수정 인풋창 보여주기 끝
 
       //닉네임&자기소개 저장 버튼 클릭 이벤트 처리
@@ -217,28 +217,28 @@
           $('.info-area').show(); //닉네임, 자기소개 보여주기
           
           const user = {
-        		  	"userId" :  user_id,
-					"nickname" : nick,
-					"userInfo" : profile,
-			};
+                   "userId" :  user_id,
+               "nickname" : nick,
+               "userInfo" : profile,
+         };
           
           console.log(user);
-			
-			//비동기 통신 시작!
-			$.ajax({
-				type : 'POST',
-				url : '/codelog/user/nickChange',
-				contentType : 'application/json',
-				dataType : 'text',
-				data : JSON.stringify(user),
-				success : function(result) {
-					console.log('통신 성공!: ' + result);
-					alert('수정되었습니다.');
-				},
-				error : function() {
-					alert('수정 실패!');
-				}
-			}); //end ajax(회원가입 처리)
+         
+         //비동기 통신 시작!
+         $.ajax({
+            type : 'POST',
+            url : '/codelog/user/nickChange',
+            contentType : 'application/json',
+            dataType : 'text',
+            data : JSON.stringify(user),
+            success : function(result) {
+               console.log('통신 성공!: ' + result);
+               alert('수정되었습니다.');
+            },
+            error : function() {
+               alert('수정 실패!');
+            }
+         }); //end ajax(회원가입 처리)
           
       }); //닉네임&자기소개 저장 버튼 클릭 이벤트 처리 끝
 
@@ -260,60 +260,60 @@
 
       //프로필 이미지 삭제
       $('#img-del-btn').click(function() {
-    	  img_del();
-    	  function img_del() {
+         img_del();
+         function img_del() {
               
               //프로필 이미지 삭제 ajax 시작
               $.ajax({
-            	  type : 'POST',
-            	  url : '<c:url value="/user/editUser/imgDel" />',
-            	  dataType : 'text',
-            	  data : '',
-            	  contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
-            	  
-           		  success : function(result) {
-           			  if(result === 'success') {
-           				$('#img-preview').attr('src', '<c:url value="/img/user_icon.png" />');
-           			  } else {
-           				  alert('프로필 이미지를 먼저 등록해주세요.');
-           			  }
-       				
-       			  },
-       			  error : function(request, status, error) {
-       				  console.log('code: ' + request + '\n' + 'message: ' + request.responseText + '\n' + 'error: ' + error);
-       				
-       			  }
-            	  
+                 type : 'POST',
+                 url : '<c:url value="/user/editUser/imgDel" />',
+                 dataType : 'text',
+                 data : '',
+                 contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+                 
+                   success : function(result) {
+                      if(result === 'success') {
+                       $('#img-preview').attr('src', '<c:url value="/img/user_icon.png" />');
+                      } else {
+                         alert('프로필 이미지를 먼저 등록해주세요.');
+                      }
+                   
+                  },
+                  error : function(request, status, error) {
+                     console.log('code: ' + request + '\n' + 'message: ' + request.responseText + '\n' + 'error: ' + error);
+                   
+                  }
+                 
               }); //ajax 끝
-    	  }
+         }
           
       }); //프로필 이미지 삭제 끝
       
       //회원정보 수정 (비밀번호, 이메일) 버튼 이벤트
       $('#update-form-btn').click(function() {
-    	  if(confirm('수정하시겠습니까?')) {
-    		  $('#updateForm').submit();
-    	  } else {
-    		  return;
-    	  }
-	  }); //회원정보 수정 (비밀번호, 이메일) 버튼 이벤트 끝
+         if(confirm('수정하시겠습니까?')) {
+            $('#updateForm').submit();
+         } else {
+            return;
+         }
+     }); //회원정보 수정 (비밀번호, 이메일) 버튼 이벤트 끝
       
       //회원정보수정 취소 버튼 클릭 이벤트 처리
       $('#cancel-btn').click(function() {
-    	  location.href = "<c:url value='/user/mypage' />";	 
-	  }); //회원정보수정 취소 버튼 클릭 이벤트 처리 끝
+         location.href = "<c:url value='/user/mypage' />";    
+     }); //회원정보수정 취소 버튼 클릭 이벤트 처리 끝
       
       //회원탈퇴 버튼 클릭 이벤트 처리
       $('#del-user-btn').click(function() {
-    	  const result = confirm('정말 탈퇴하시겠습니까?');
-    	  
-    	  if(result) {
-    		  location.href = "<c:url value='/user/delete' />";			
-    	  } else {
-    		  
-    	  }
-    	  
-	  }); //회원탈퇴 버튼 클릭 이벤트 처리 끝
+         const result = confirm('정말 탈퇴하시겠습니까?');
+         
+         if(result) {
+            location.href = "<c:url value='/user/delete' />";         
+         } else {
+            
+         }
+         
+     }); //회원탈퇴 버튼 클릭 이벤트 처리 끝
 
     }); // end jQuery
   </script>

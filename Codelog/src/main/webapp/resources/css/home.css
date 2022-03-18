@@ -1,31 +1,31 @@
 @charset "UTF-8";
-	/*포스터 카드 호버 시 크기 확대+위로 올리가기*/
+   /*포스터 카드 호버 시 크기 확대+위로 올리가기*/
 
-		.poster:hover {
-			transform: scale(1.02) translateY(-0.5em);
-			transition-duration: 0.5s;
-		}
-		.poster:not(:hover) { 
-			transform: scale(1.0) translateY();
-			transition-duration: 0.5s;
+      .poster:hover {
+         transform: scale(1.02) translateY(-0.5em);
+         transition-duration: 0.5s;
+      }
+      .poster:not(:hover) { 
+         transform: scale(1.0) translateY();
+         transition-duration: 0.5s;
 
-		 } 
-		 
-		
-		 
-		 .z{
-		 	font-weight: bold;
-		 }
-		 .lo {
-		 	color: rgba(128, 128, 128, 0.654);
-		 	font-weight: lighter;
-		 
-		 	
-		 }
-	
+       } 
+       
+      
+       
+       .z{
+          font-weight: bold;
+       }
+       .lo {
+          color: rgba(128, 128, 128, 0.654);
+          font-weight: lighter;
+       
+          
+       }
+   
 /* 밑줄 애니매이션 */
-	 
-		 .toto{
+    
+       .toto{
   position:absolute;
   background-color:#000;
   color:#fff;
@@ -73,5 +73,5 @@ margin-left:10%;
 .toto4 {
 margin-left:14%; 
 }
-		
-		 
+      
+       

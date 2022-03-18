@@ -34,6 +34,21 @@ public class UserController {
 	private IUserService service;
 	
 	//아이디 중복 확인 처리
+	@PostMapping("/checkId")
+	public String checkId(@RequestBody String userId) {
+		System.out.println("/user/checkId: POST");
+		System.out.println("param: " + userId);
+		
+		int checkNum = service.checkId(userId);
+		
+		if(checkNum == 1) {
+			System.out.println("아이디가 중복됨!");
+			return "duplicated";
+		} else {
+			System.out.println("아이디 사용 가능!");
+			return "available";
+		}
+	}
 	
 	//회원가입 요청 처리
 	@PostMapping("/")

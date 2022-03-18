@@ -51,25 +51,29 @@
 
       <div class="modal-body p-5 pt-0">
         <form>
+          <label for="basic-url" class="form-label">아이디</label>
           <div class="form-floating mb-3">
             <input class="form-control rounded-4" id="user-id">
-            <label for="floatingInput">아이디</label>
+            <label for="floatingInput" id="id-msg">아이디 블라블라~~~</label>
           </div>
+          <label for="basic-url" class="form-label">비밀번호</label>
           <div class="form-floating mb-3">
             <input type="password" class="form-control rounded-4" id="user-pw">
-            <label for="floatingPassword">비밀번호</label>
+            <label for="floatingPassword">비밀번호 블라블라~~~</label>
           </div>
+          <label for="basic-url" class="form-label">비밀번호 확인</label>
           <div class="form-floating mb-3">
             <input type="password" class="form-control rounded-4" id="user-pw-check">
-            <label for="floatingPassword">비밀번호 확인</label>
+            <label for="floatingPassword">비밀번호 일치하지 않을 때 블라블라~~~</label>
           </div>
+          <label for="basic-url" class="form-label">닉네임</label>
           <div class="form-floating mb-3">
             <input class="form-control rounded-4" id="user-nick">
-            <label for="floatingInput">사용자이름</label>
+            <label for="floatingInput">닉네임 몇자 블라블라~~~</label>
           </div>
+          <label for="basic-url" class="form-label">이메일</label>
           <div class="form-floating input-group mb-3">
             <input type="text" class="form-control rounded-4" id="email1">
-            <label for="floatingInput">이메일주소</label>
             <span class="input-group-text">@</span>
             <input type="text" class="form-control rounded-4" id="email2-input" placeholder="Server"
               aria-label="Server" style="display: none;">
@@ -101,6 +105,33 @@
 	
 	//start jQuery
 	$(function() {
+		//회원가입
+		/*
+		//각 입력값들의 유효성 검증을 위한 정규표현식을 변수로 선언
+		const get_id_check = RegExp(/^[a-z0-9]{4,14}$/);
+		const get_pw_check = RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~]{8,16}$)|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9]{8,16}$)/);
+		const get_name_check = RegExp(/([가-힣a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[가-힣a-zA-Z0-9])/);
+		
+		//입력값 중 하나라도 만족하지 못한다면 회원가입 처리를 막기 위한 논리형 변수 선언
+		let chk1 = false, chk2 = false, chk3 = false, chk4 = false, chk5 = false;
+		
+		//1. ID 입력값 검증
+		$('#user-id').keyup(function() {
+			if($(this).val() === '') {
+				$(this).css('border-color', 'red');
+				$('#id-msg').html('<b style="font-size: 14px; color: red">[아이디를 입력하세요.]</b>');
+				chk1 = false;
+			}
+			//아이디 입력값 유효성 검사
+			else if(!get_id_check.test($(this).val())) {
+				$(this).css('border-color', 'red');
+				$('#id-msg').html('<b style="font-size: 14px; color: red">[아이디는 영문, 숫자 조합으로 4~14자로 입력하세요.]</b>');
+				chk1 = false;
+			}
+		}); //ID 입력값 검증 끝
+		*/
+		
+		
 		//회원가입 창 이메일 셀렉트 직접 입력 옵션
 		//평상시에는 직접 입력 인풋박스 안보이는 상태
 		$('#email2-input').hide();
