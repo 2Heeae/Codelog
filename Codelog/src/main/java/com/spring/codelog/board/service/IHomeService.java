@@ -10,6 +10,8 @@ public interface IHomeService {
 	List<BoardVO> TPosters(int i);
 
 	List<BoardVO> RPosters();
+	
+	List<BoardVO> RAPosters(int i, int boardId);
 
 	List<BoardVO> FPosters(String userId);
 	

@@ -486,10 +486,12 @@
 /*화면 클릭시 열려있는 토글창 닫기*/
 
 	
-
+posterbox
 
 /*무한스크롤*/
-		var i = 3;
+		var i = 6;
+		var boardId = $("#posterbox div:last-child").data('bno');
+		console.log(boardId);
 	$(window).scroll(function() { 
   	if(Math.round($(window).scrollTop()) === $(document).height() - $(window).height()) { 
   		
@@ -497,7 +499,8 @@
   		 
   		 console.log("i값은 "+i);
      	const info = {
-						"i" : i			
+						"i" : i,
+						"boardId" : boardId
 				};
      	 i = i+1;
      	 
@@ -670,11 +673,12 @@
 							        
 								
 							 
-						*/
+						
 						} else if(RPosters.i1 == null) {
 							console.log('더이상의 포스터는 없습니다');
 							
 						} 
+						*/
 					},
 					error : function() {
 						console.log('통신 실패!');
@@ -683,7 +687,7 @@
 				}); //end ajax (로그인 비동기 처리) 
      	}
      	
-     	
+     	/*
      	else if(url=="http://localhost:8181/codelog/trending"){
      		console.log("트렌딩");
      	
@@ -860,7 +864,7 @@
 					
 				}); //end ajax (로그인 비동기 처리) 
      	}
-  		
+  		*/
   	 }
 	});
 

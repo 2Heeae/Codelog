@@ -83,11 +83,17 @@ public class HomeController {
    
    @ResponseBody
    @RequestMapping(value = "/radd", method = RequestMethod.POST)
-   public List<BoardVO> RHome(Model model, @RequestBody Map<String,Integer> i,
+   public List<BoardVO> RHome(Model model, @RequestBody Map<String,Integer> info,
 		   HttpServletRequest request, 
 			HttpServletResponse response) {
 	   
 	   List<BoardVO> list = new ArrayList<BoardVO>();
+	   
+	   System.out.println("boardId는 " + info.get("boardId"));
+	   
+	   list = service.RAPosters(info.get("i"),info.get("boardId"));
+	   
+	   
 	   /*
 	   //int t = Integer.parseInt(i);
 	   System.out.println("recent radd");
