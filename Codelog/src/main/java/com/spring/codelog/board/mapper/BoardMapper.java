@@ -11,5 +11,5 @@ public interface BoardMapper {
 
  public void image(ImgVO vo);
  
- public BoardVO test(int bno);
+
 }

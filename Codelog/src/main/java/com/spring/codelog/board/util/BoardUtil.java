@@ -5,12 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 
 public class BoardUtil {
 
-	public boolean ContainImage(HttpServletRequest hsr)
+	public boolean ContainImage(HttpServletRequest hsr) //jsp 페이지에 게시글 이미지 등록 여부 확인
 	{
 		if( hsr.getParameter("image") != null) return true;
 		else return false;
 	}
-	public boolean ContainThumbnail(HttpServletRequest hsr)
+	public boolean ContainThumbnail(HttpServletRequest hsr) //jsp 페이지에 썸네일 등록 여부 확인
 	{
 		if(hsr.getParameter("thumbnail") != null) return true;
 		else return false;
