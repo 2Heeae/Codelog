@@ -8,7 +8,7 @@ public interface IHomeMapper {
 
 	List<BoardVO> TPosters(int i);
 
-	List<BoardVO> RPosters(int i);
+	List<BoardVO> RPosters();
 
 	List<BoardVO> FPosters(String userId);
 	

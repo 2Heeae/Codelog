@@ -98,10 +98,10 @@
 			<c:if test="${recent==true }">	
 				<button type="button" class="btn c rounded-circle p-0 position-relative"
 					style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
-					href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
+					href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample4">
 					<span class="m-0" style="font-size: 1.1rem;">팔로워<i class="fa-solid fa-caret-down mx-md-1"></i></span>
 
-					<div class="collapse" id="collapseExample3"
+					<div class="collapse" id="collapseExample4"
 						style="position: absolute; width: 10rem; top:2.5rem; left: -3.6rem; z-index: 1000;">
 						<div class="card" style="width: 8rem;">
 
@@ -140,11 +140,11 @@
 	<!-- Button trigger modal -->
 	<div class="container" style="margin-top: 2rem;" id="posterbox">
 	
-	<c:if test="${not empty Posters1 }">
+	<c:if test="${not empty Posters }">
 	<div class="row py-md-3">
-	<c:forEach var="Poster" items="${Posters1 }">
-			<div class="col-md-4 px-md-4">
-				<div class="card poster" style="width: 100%; height: 27rem;">
+	<c:forEach var="Poster" items="${Posters }">
+			<div class="col-md-4 px-md-4 py-md-4">
+				<div class="card poster" style="width: 100%; height: 27rem;" data-bno="${Poster.boardId }">
 					<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
 					<a href="aa" class="stretched-link"></a>
 					<!--썸네일 이미지-->
@@ -190,109 +190,6 @@
 		</div>
 	</c:if>
 			
-	
-	
-	<c:if test="${not empty Posters2 }">
-	<div class="row py-md-3">
-	<c:forEach var="Poster" items="${Posters2 }">
-			<div class="col-md-4 px-md-4">
-				<div class="card poster" style="width: 100%; height: 27rem;">
-					<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
-					<a href="aa" class="stretched-link"></a>
-					<!--썸네일 이미지-->
-					<img src="<c:url value='/img/cat.jpg'/>" class="card-img-top" alt="...">
-					<!--제목 내용-->
-					<div class="card-body ">
-						<strong>${Poster.title }</strong>
-						<p class="card-text" style="padding-top: 0.3rem;">${Poster.content }
-
-						</p>
-					</div>
-					<div class="card-footer my-md-0 py-md-0"
-						style="font-size: 0.8rem; border-top: 0; background-color: white;">
-
-						<p class="card-text"
-							style="border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;">
-							${Poster.regDate }</p>
-
-							<!--계정사진 계정명 댓글수 좋아요수-->
-						<div>
-
-							<div style="margin-top: 0.3rem;">
-								<div style="display: inline-block; float: left;">
-									<div style="border-radius: 70%; overflow: hidden; display: inline-block;">
-										<img src="<c:url value='/img/pome3.jpg'/>" class="img-rounded" width="25rem">
-									</div>
-
-								</div>
-								<div style="display: inline-block; float: left; margin-top: 0.13rem;">
-									<span class="mx-md-1" style="color: gray;">by</span><span>${Poster.writer }</span>
-								</div>
-								<div style="display: inline-block; float: right; margin-top: 0.13rem">
-									<i class="fa-solid fa-comment" style=""></i>
-									<span style="margin-right: 0.5rem;" class="">3</span>
-									<i class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes }</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-	</c:forEach>
-		</div>
-	</c:if>
-	
-	
-	
-	<c:if test="${not empty Posters3 }">
-	<div class="row py-md-3">
-	<c:forEach var="Poster" items="${Posters3 }">
-			<div class="col-md-4 px-md-4">
-				<div class="card poster" style="width: 100%; height: 27rem;">
-					<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
-					<a href="aa" class="stretched-link"></a>
-					<!--썸네일 이미지-->
-					<img src="<c:url value='/img/cat.jpg'/>" class="card-img-top" alt="...">
-					<!--제목 내용-->
-					<div class="card-body ">
-						<strong>${Poster.title }</strong>
-						<p class="card-text" style="padding-top: 0.3rem;">${Poster.content }
-
-						</p>
-					</div>
-					<div class="card-footer my-md-0 py-md-0"
-						style="font-size: 0.8rem; border-top: 0; background-color: white;">
-
-						<p class="card-text"
-							style="border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;">
-							${Poster.regDate }</p>
-
-							<!--계정사진 계정명 댓글수 좋아요수-->
-						<div>
-
-							<div style="margin-top: 0.3rem;">
-								<div style="display: inline-block; float: left;">
-									<div style="border-radius: 70%; overflow: hidden; display: inline-block;">
-										<img src="<c:url value='/img/pome3.jpg'/>" class="img-rounded" width="25rem">
-									</div>
-
-								</div>
-								<div style="display: inline-block; float: left; margin-top: 0.13rem;">
-									<span class="mx-md-1" style="color: gray;">by</span><span>${Poster.writer }</span>
-								</div>
-								<div style="display: inline-block; float: right; margin-top: 0.13rem">
-									<i class="fa-solid fa-comment" style=""></i>
-									<span style="margin-right: 0.5rem;" class="">3</span>
-									<i class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes }</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-	</c:forEach>
-		</div>
-	</c:if>
 	
 	
 	
@@ -566,6 +463,7 @@
 			
 			/*화면 클릭시 날짜토글 숨기기*/
 			var LayerPopup3 = $("#collapseExample3");
+			var LayerPopup4 = $("#collapseExample4");
 
 			$(document).click(function (e){
 
@@ -573,6 +471,10 @@
 				if(LayerPopup3.hasClass("show")){
 				LayerPopup3.removeClass("show");
 				}
+				
+				if(LayerPopup4.hasClass("show")){
+					LayerPopup4.removeClass("show");
+					}
 
 
 			});

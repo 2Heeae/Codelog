@@ -55,16 +55,14 @@ public class HomeController {
 		 
 		  
 		   
-		   service.FPosters(startDate,endDate,login.getUserId());
+		   service.FPosters(login.getUserId());
 		   
 	   }
 	   
-	   System.out.println("Posters1: "+service.RPosters(0));
-	   System.out.println("Posters2: "+service.RPosters(1));
-	   System.out.println("Posters3: "+service.RPosters(2));
-	   model.addAttribute("Posters1", service.RPosters(0));
-	   model.addAttribute("Posters2", service.RPosters(1));
-	   model.addAttribute("Posters3", service.RPosters(2));
+	   System.out.println("Posters: "+service.RPosters());
+	  
+	   model.addAttribute("Posters", service.RPosters());
+	  
       System.out.println("겟 formT "+fromT); 
       model.addAttribute("recent", true);
       model.addAttribute("trending", false);
@@ -160,13 +158,10 @@ if(service.SelectOne(t*3+3) != null) {
    @RequestMapping(value = "/", method = RequestMethod.POST)
    public String home2(Locale locale, Model model, String fromT) {
 	   
-	   System.out.println("Posters1: "+service.RPosters(0));
-	   System.out.println("Posters2: "+service.RPosters(1));
-	   System.out.println("Posters3: "+service.RPosters(2));
-	   model.addAttribute("Posters1", service.RPosters(0));
-	   model.addAttribute("Posters2", service.RPosters(1));
-	   model.addAttribute("Posters3", service.RPosters(2));
-	   
+	  
+	   System.out.println("Posters: "+service.RPosters());
+	   model.addAttribute("Posters", service.RPosters());
+	 
       System.out.println("포스트 formT "+fromT);      
       model.addAttribute("recent", true);
       model.addAttribute("trending", false);

@@ -13,10 +13,10 @@
 
 
 <select id="RPosters" resultMap="boardMap">
-			
-
+    SELECT board_id,user_id,title,writer,preview,likes,thumbnail FROM(
  SELECT ROWNUM as rn, a.* FROM(
-    SELECT * FROM proj_board ORDER BY reg_date)a
+    SELECT * FROM proj_board ORDER BY reg_date)a) 
+    <![CDATA[ WHERE rn<=18]]>
 </select>
 
 

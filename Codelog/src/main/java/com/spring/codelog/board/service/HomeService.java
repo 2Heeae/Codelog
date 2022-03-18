@@ -33,15 +33,15 @@ public class HomeService implements IHomeService {
 	}
 
 	@Override
-	public List<BoardVO> RPosters(int i) {
-		List<BoardVO> list = mapper.RPosters(i);
+	public List<BoardVO> RPosters() {
+		List<BoardVO> list = mapper.RPosters();
 		//System.out.println("result: " + list);
 		return list;
 		
 	}
 
 	@Override
-	public List<BoardVO> FPosters(String startDate, String endDate, String userId) {
+	public List<BoardVO> FPosters(String userId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
