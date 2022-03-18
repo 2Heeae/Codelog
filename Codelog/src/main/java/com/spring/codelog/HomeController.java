@@ -237,4 +237,11 @@ if(service.SelectOne(t*3+3) != null) {
       }
       return "home";
    }
+   @RequestMapping(value = "/write", method = RequestMethod.GET)
+   public String write(HttpServletRequest request ,Model model)
+   {
+      
+      return "board/write";
+      
+   }
 }
