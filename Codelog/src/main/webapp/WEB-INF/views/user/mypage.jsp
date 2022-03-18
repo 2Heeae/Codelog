@@ -128,43 +128,33 @@
                 </div>
               </div>
             </div>
+            
+            <c:forEach var="vo" items="${userInfo.boardList}"> 
             <div class="col-md-4">
               <div class="card " style="width: 100%">
                 <a href="#">
-                  <img src="<c:url value='/img/java.jfif'/>" class="card-img-top img-fluid" alt="...">
+                  <img src="<c:url value='/img/bootstrap.png' />" class="card-img-top" alt="...">
                 </a>
                 <div class="card-body">
                   <a href="#">
-                    <h5 class="card-title">Card title</h5>
+                    <h5 class="card-title">${vo.title}</h5>
                   </a>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                  <br>
-                  <p class="card-text text-muted">2022년 3월 4일</small></p>
+                  <p class="card-text">${vo.preview}</p><br>
+                  <p class="card-text text-muted">${vo.regDate}</small></p>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="card 0" style="width: auto">
-                <a href="#">
-                  <img src="<c:url value='/img/spring.png'/>" class="card-img-top img-fluid" alt="...">
-                </a>
-                <div class="card-body">
-                  <a href="#">
-                    <h5 class="card-title">제목</h5>
-                  </a>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                  <br>
-                  <p class="card-text text-muted">3일전</small></p>
-                </div>
-              </div>
-            </div>
+            
+            </c:forEach>
 
+            
+
+          
           </div>
 
+		
         </div>
-      </div>
+      </div>y
     </div> <!-- end container-->
 <%@include file="../include/footer.jsp"%>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
