@@ -152,7 +152,7 @@
 					<!--제목 내용-->
 					<div class="card-body ">
 						<strong>${Poster.title }</strong>
-						<p class="card-text" style="padding-top: 0.3rem;">${Poster.content }
+						<p class="card-text" style="padding-top: 0.3rem;">${Poster.preview }
 
 						</p>
 					</div>
@@ -518,6 +518,8 @@
 				
 					     //console.log(RPosters.i1.title);
 					     //console.log(RPosters.empty);
+					     
+					     /*
 
 						if(RPosters.i1 != null) {
 							console.log('추가 포스터를 가져옵니다');
@@ -668,7 +670,7 @@
 							        
 								
 							 
-						
+						*/
 						} else if(RPosters.i1 == null) {
 							console.log('더이상의 포스터는 없습니다');
 							

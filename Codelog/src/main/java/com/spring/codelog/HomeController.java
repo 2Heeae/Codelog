@@ -83,16 +83,19 @@ public class HomeController {
    
    @ResponseBody
    @RequestMapping(value = "/radd", method = RequestMethod.POST)
-   public Map<String, BoardVO> RHome(Model model, @RequestBody Map<String,Integer> i,
+   public List<BoardVO> RHome(Model model, @RequestBody Map<String,Integer> i,
 		   HttpServletRequest request, 
 			HttpServletResponse response) {
+	   
+	   List<BoardVO> list = new ArrayList<BoardVO>();
+	   /*
 	   //int t = Integer.parseInt(i);
 	   System.out.println("recent radd");
 	   System.out.println("추가포스터 로드 i값은 "+i);
 	   int t = i.get("i");
 	   System.out.println("t값은 "+t);
 	   Map<String, BoardVO> map = new HashMap<String, BoardVO>();
-
+	
 if(service.SelectOne(t*3+3) != null) {
 		   System.out.println("추가할꺼있어");
 		 //  map.put("title", service.SelectOne(t*3+1).getTitle());
@@ -111,7 +114,8 @@ if(service.SelectOne(t*3+3) != null) {
 		   map.put("i1", null);
 
 	   }
-	return map;
+	   */
+	return list;
 
    }
    
