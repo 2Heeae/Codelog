@@ -39,7 +39,7 @@
             <!--해,알림,검색,글작성,메뉴토글 바-->
 			<div class="col-md-3 offset-7 p-0">
 				<!--해(다크모드)-->
-				<button type="button" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" ><i
+				<button type="button" id="theme-btn" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" ><i
 						class="fa-regular fa-sun ic"></i></button>
 				<!--알림,알림 목록 토글-->		
 				<button type="button" class="btn rounded-circle position-relative c mx-md-1 my-md-3 px-md-3 hc" style=""
@@ -108,8 +108,17 @@
 						 data-bs-toggle="collapse" style="background-color:transparent; border-color: transparent;"
 						href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
 						<!--메뉴 이미지+화살표 아래 아이콘-->
-						<img width="50rem" src="<c:url value='/img/user_icon.png'/>" class="card-img-right rounded-circle mx-md-1"
-							alt="."><i class="fa-solid fa-caret-down"></i>
+						<!-- 프로필 이미지 -->
+						<c:choose>
+							<c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
+								<img width="50rem" id="small-profile-img" src="<c:url value='/img/user_icon.png'/>" class="card-img-right rounded-circle mx-md-1"
+									alt="."><i class="fa-solid fa-caret-down"></i>
+							</c:when>
+							<c:otherwise>
+									<img width="50rem" id="small-profile-img" src="<c:url value='/user/display'/>" class="card-img-right rounded-circle mx-md-1"
+									alt="."><i class="fa-solid fa-caret-down"></i>
+							</c:otherwise>
+						</c:choose>
 				<!--메뉴, 메뉴 토글(위에꺼랑 세트)-->	
 						<div class="collapse" id="collapseExample2"
 							style="position: absolute; top:3.8rem; left: -3.6rem; z-index: 1000;">
@@ -156,6 +165,28 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
 	</script>
+	
+	<script>
+		//자바스크립트 시작
+		//다크모드 토글 이벤트 처리
+		const theme_btn = document.querySelector('#theme-btn');
+		
+		const current_theme = localStorage.getItem('theme');
+		if(current_theme === 'dark') {
+			document.body.classList.add("dark-theme");
+		}
+		
+		theme_btn.addEventListener("click", function() {
+			document.body.classList.toggle('dark-theme');
+			
+			let theme = 'light';
+			if(document.body.classList.contains('dark-theme')) {
+				theme = 'dark';
+			}
+			localStorage.setItem('theme', theme);
+		}); //다크모드 토글 이벤트 처리 끝
+		//자바스크립트 끝
+	</script>
 
 	<script>
 		//start jQuery
@@ -167,7 +198,6 @@
 				$("#so4").click(function() {
 					$(location).attr("href", "https://www.naver.com/")
 				});
-				
 				
 				//로고버튼 클릭 시 메인페이지 이동 이벤트 처리
 				$('#logo-btn').click(function() {
@@ -210,8 +240,20 @@
 				}); //로그아웃 이벤트 끝
 
 			}); //end jQuery
+			
 	</script>
 
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+

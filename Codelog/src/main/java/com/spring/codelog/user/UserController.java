@@ -38,7 +38,7 @@ public class UserController {
 	//회원가입 요청 처리
 	@PostMapping("/")
 	public String join(@RequestBody UserVO vo) {
-		System.out.println("/user/:POST");
+		System.out.println("/user/: POST");
 		service.join(vo);
 		return "joinSuccess";
 	}
@@ -75,6 +75,7 @@ public class UserController {
 		
 		return mv;
 	}
+	
 	//다른사람 페이지 이동 처리
 	@GetMapping("/userpage/{userId}")
 	public ModelAndView userpage(@PathVariable String id ,String nickname) {
@@ -85,7 +86,6 @@ public class UserController {
 		mv.setViewName("user/userpage");
 		return mv;
 	}
-	
 	
 	//회원정보수정 페이지 이동 처리
 	@GetMapping("/editUser")
@@ -128,6 +128,11 @@ public class UserController {
 			profileImgVO vo = new profileImgVO(userId, fileName);
 			service.updateProfileImg(vo);
 			
+			UserVO user = (UserVO) session.getAttribute("loginSession");
+			String uId = vo.getUserId();
+			UserVO dbData = service.selectOne(uId);
+			session.setAttribute("loginSession", dbData);
+			
 			return "success";
 		} catch (Exception e) {
 			System.out.println("업로드 중 에러 발생: " + e.getMessage());
@@ -136,7 +141,7 @@ public class UserController {
 		
 	}
 	
-	//프로필 이미지 파일 전송 요청
+	//프로필 이미지 파일 보여주기 요청
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> getFile(HttpSession session) {
 		String fileName = ((UserVO)session.getAttribute("loginSession")).getUserImg();
@@ -180,6 +185,11 @@ public class UserController {
 			profileImgVO vo = new profileImgVO(userId, fileName);
 			service.updateProfileImg(vo);
 			
+			UserVO user = (UserVO) session.getAttribute("loginSession");
+			String uId = vo.getUserId();
+			UserVO dbData = service.selectOne(uId);
+			session.setAttribute("loginSession", dbData);
+			
 			return "success";
 		} catch (Exception e) {
 			System.out.println("프로필 이미지 파일 삭제 중 에러 발생: " + e.getMessage());
@@ -188,14 +198,25 @@ public class UserController {
 		
 	}
 	
+	//닉네임 & 자기소개 수정 처리
+	@PostMapping("/nickChange")
+	public String nickChange(@RequestBody UserVO vo) {
+		System.out.println("/user/nickChange: POST");
+		System.out.println(vo.getNickname());
+		System.out.println(vo.getUserInfo());
+		service.nickChange(vo);
+		return "changed";
+	}
+	
+	
 	//회원정보 수정 처리
 	@PostMapping("/updateUser")
 	public ModelAndView updateUser(UserVO vo) {
-		System.out.println("user/updateUser: POST");
+		System.out.println("/user/updateUser: POST");
 		System.out.println("param: " + vo);
 		service.updateUser(vo);
 		System.out.println("회원정보 수정 성공!");
-		return new ModelAndView("/user/mypage");
+		return new ModelAndView("redirect:/user/mypage");
 	}
 	
 	//회원탈퇴 처리
@@ -204,6 +225,7 @@ public class UserController {
 		System.out.println("/user/delete: GET");
 		UserVO vo = (UserVO) session.getAttribute("loginSession");
 		service.delete(vo.getUserId());
+		session.invalidate();
 		return new ModelAndView("redirect:/");
 	}
 	
