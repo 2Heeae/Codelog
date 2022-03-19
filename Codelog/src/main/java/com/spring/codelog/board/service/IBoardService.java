@@ -27,3 +27,4 @@ public interface IBoardService {
     public void increaseViewcnt(int bno, HttpSession session) ;
     
 }
+

@@ -4,14 +4,22 @@ import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class followersVO {
+@NoArgsConstructor
+public class FollowVO {
 	private int id;
 	private String userId;
-	private String toId;
+	private String fromId;
 	private Timestamp regDate;
+	
+	private String activeUserId;
+	private String passiveUserId;
+	
+	
+	
 }

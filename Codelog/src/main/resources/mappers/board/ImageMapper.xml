@@ -13,4 +13,5 @@ VALUES(image_seq.NEXTVAL, '1',#{imgPath} )</insert>
  SELECT img_path FROM image
  WHERE(img_id = 6)
 </select>
+
 </mapper>

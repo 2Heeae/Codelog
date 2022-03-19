@@ -1,18 +1,19 @@
 package com.spring.codelog.user.commons;
 
-import java.sql.Timestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
-public class FollowingVO {
-	private int id;
+@ToString
+public class profileImgVO {
+
 	private String userId;
-	private String fromId;
-	private Timestamp regDate;
+	private String fileName;
 	
 }
