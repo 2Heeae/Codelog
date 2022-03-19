@@ -19,7 +19,7 @@ public class HomeService implements IHomeService {
 		// TODO Auto-generated method stub
 		return mapper.TPosters(i);
 	}
-	
+/*	
 	@Override
 	public BoardVO SelectOne(int i) {
 		// TODO Auto-generated method stub
@@ -31,7 +31,7 @@ public class HomeService implements IHomeService {
 		// TODO Auto-generated method stub
 		return mapper.SelectOneT(i);
 	}
-
+*/
 	@Override
 	public List<BoardVO> RPosters() {
 		List<BoardVO> list = mapper.RPosters();

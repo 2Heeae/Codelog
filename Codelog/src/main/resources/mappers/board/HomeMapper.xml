@@ -28,8 +28,7 @@
      WHERE rn<=6*3+6 AND rn>=6*3+1 AND board_id<=30;
      ]]>
 </select>
-
-<select id="SelectOne" resultMap="boardMap">
+<!-- <select id="SelectOne" resultMap="boardMap">
 			
 		SELECT * FROM(
 		SELECT ROWNUM AS rn , a.* FROM(
@@ -48,6 +47,7 @@
 		WHERE rn=#{i}
 		]]>
 </select>
+ -->
 
 <select id="TPosters" resultMap="boardMap">
 SELECT * FROM(

@@ -16,9 +16,9 @@ public interface IHomeMapper {
 
 	List<BoardVO> FPosters(String userId);
 	
-	BoardVO SelectOne(int i);
+	//BoardVO SelectOne(int i);
 	
-	BoardVO SelectOneT(int i);
+//	BoardVO SelectOneT(int i);
 
 	
 	int FPCount(String userId);

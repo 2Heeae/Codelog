@@ -137,7 +137,7 @@ if(service.SelectOne(t*3+3) != null) {
 	   int t = i.get("i");
 	   System.out.println("t값은 "+t);
 	   Map<String, BoardVO> map = new HashMap<String, BoardVO>();
-
+/*
 if(service.SelectOne(t*3+3) != null) {
 		   System.out.println("추가할꺼있어");
 		 //  map.put("title", service.SelectOne(t*3+1).getTitle());
@@ -159,8 +159,9 @@ if(service.SelectOne(t*3+3) != null) {
 		   System.out.println("추가할꺼없어");
 		     //map.put("empty",null );
 		   map.put("i1", null);
-
-	   }
+		   }
+*/
+	   
 	return map;
 
    }
