@@ -12,7 +12,7 @@
    <result property="thumbnail" column="thumbnail" />
    <result property="viewAll" column="view_all" />
    <result property="imgPath" column="img_path" />
-   <result property="regdate" column="reg_date" />
+   <result property="regDate" column="reg_date" />
    <result property="bno" column="bno" />
    <result property="viewcnt" column="viewcnt" />
  </resultMap> 
