@@ -78,6 +78,4 @@ SELECT t.user_id,t.title,t.reg_date,t.content FROM(
 <select id="PCount">
 	SELECT COUNT(*) FROM proj_board
 </select>
-
-
-</mapper>
+ </mapper>

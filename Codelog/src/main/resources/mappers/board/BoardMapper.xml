@@ -20,12 +20,12 @@
  
  <!-- 01. 게시글 전체 목록 조회 및 검색조회까지-->
     <select id="listAll" resultType="com.spring.codelog.board.model.BoardVO">
-            SELECT ROWNUM, bno, title, content, b.regdate, viewcnt, user_name AS userName, 
+            SELECT ROWNUM, bno, title, content, b.reg_date, viewcnt, user_name AS userName, 
                     <!-- ** 댓글숫자표시 -->
                     (SELECT COUNT(*) FROM tbl_reply WHERE bno=b.bno) AS recnt
             FROM tbl_board b, tbl_member m
             <include refid="search"></include>
-            ORDER BY bno DESC, b.regdate DESC 
+            ORDER BY bno DESC, b.reg_date DESC 
     </select>
     
         <!-- sql code 조각 -->

@@ -55,10 +55,10 @@ public class BoardVO {
     public void setWriter(String writer) {
         this.writer = writer;
     }
-    public Timestamp getRegdate() {
+    public Timestamp getRegDate() {
         return regDate;
     }
-    public void setRegdate(Timestamp regDate) {
+    public void setRegDate(Timestamp regDate) {
         this.regDate = regDate;
     }
     public int getViewcnt() {
