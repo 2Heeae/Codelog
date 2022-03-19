@@ -14,3 +14,4 @@ public class UploadVO {
    private int boardId;
    private String imgPath;
 }
+
