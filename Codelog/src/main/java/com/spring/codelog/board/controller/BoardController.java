@@ -31,7 +31,7 @@ public class BoardController {
 	public String write(BoardVO vo, RedirectAttributes ra, HttpServletRequest hsr) {
 		
 		System.out.println("글 작성 요청");
-		service.write(hsr, vo);
+		service.write(vo);
 		ra.addFlashAttribute("msg", "글 작성 완료");
 
 		return "redirect:/";
