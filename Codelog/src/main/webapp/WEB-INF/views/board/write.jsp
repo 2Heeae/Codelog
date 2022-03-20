@@ -47,10 +47,9 @@
 	<form action="<c:url value='/boardController/write' />"
 		class="write-bbs" enctype=multipart/form-data>
 		<!-- 글등록 페이지에 따로 작성자를 기입하지는 않으므로 현재 로그인 세션에서 작성자 명을 뽑아옵니다. -->
-		<input type="hidden" name="writer" value="작성자명"> <input
-			type="hidden" name="userId" value="유저id">
-		<!--   <input type="hidden" name="writer" value="{loginSession.nickname}">
-  <input type="hidden" name="userId" value="{loginSession.userId}">  -->
+		
+		 <input type="hidden" name="writer" value="{loginSession.nickname}"> <!-- 로그인 세션에 있는 사용자의 닉네임 -->
+         <input type="hidden" name="userId" value="{loginSession.userId}"> <!-- 로그인 세션에 있는 사용자의 id -->
 		<div id="articles">
 			<!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
 			<div class="write-left-side">

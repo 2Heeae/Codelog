@@ -31,7 +31,7 @@
 	 -->
 </resultMap>
 <insert id="write"> INSERT INTO proj_board(board_id, user_id, title, writer, tags, content, img_path, reg_date,preview, thumbnail, view_all) 
-VALUES(board_seq.NEXTVAL, 'id', #{title}, #{writer}, #{tags}, #{content}, 'dd',to_date(sysdate, 'yyyy.mm.dd hh24:mi'),#{preview}, #{thumbnail}, '1' )</insert>
+VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, 'dd',to_date(sysdate, 'yyyy.mm.dd hh24:mi'),#{preview}, #{thumbnail}, #{viewAll} )</insert>
 
 
 </mapper>
