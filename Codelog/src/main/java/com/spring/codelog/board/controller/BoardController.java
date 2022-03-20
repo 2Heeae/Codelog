@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.service.BoardService;
+
 
 
 
@@ -24,7 +26,7 @@ public class BoardController {
 		return "home";
 	}
 	
-	@GetMapping("/write")
+	@RequestMapping(value = "/write", method = {RequestMethod.POST})
 	public String write(BoardVO vo, RedirectAttributes ra) {
 		
 		System.out.println("글 작성 요청");
@@ -33,6 +35,7 @@ public class BoardController {
 
 		return "redirect:/";
 	}
+	
 	
 	
 

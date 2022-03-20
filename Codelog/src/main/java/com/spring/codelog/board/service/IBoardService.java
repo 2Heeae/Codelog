@@ -8,9 +8,9 @@ import com.spring.codelog.board.model.BoardVO;
 public interface IBoardService {
 	//글 등록
 	void write(BoardVO vo);
-
+    
 	void imageUpload(HttpServletRequest hsr, ImgVO vo);
 	
 
-    //
+    
 }

@@ -45,11 +45,13 @@
 
 <body>
 	<form action="<c:url value='/boardController/write' />"
-		class="write-bbs" enctype=multipart/form-data>
+		class="write-bbs" enctype=multipart/form-data method="post">
 		<!-- 글등록 페이지에 따로 작성자를 기입하지는 않으므로 현재 로그인 세션에서 작성자 명을 뽑아옵니다. -->
-		
-		 <input type="hidden" name="writer" value="${loginSession.nickname}"> <!-- 로그인 세션에 있는 사용자의 닉네임 -->
-         <input type="hidden" name="userId" value="${loginSession.userId}"> <!-- 로그인 세션에 있는 사용자의 id -->
+
+		<input type="hidden" name="writer" value="${loginSession.nickname}">
+		<!-- 로그인 세션에 있는 사용자의 닉네임 -->
+		<input type="hidden" name="userId" value="${loginSession.userId}">
+		<!-- 로그인 세션에 있는 사용자의 id -->
 		<div id="articles">
 			<!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
 			<div class="write-left-side">
@@ -109,11 +111,11 @@
 					<button class="ok" id="show" type="button">
 						<i class="fa-solid fa-check"></i>
 					</button>
-					<button class="exit">
+					<button class="exit" onclick="history.back()">
 						<i class="fa-solid fa-right-from-bracket"></i>
 					</button>
 
-				</div> 
+				</div>
 				<script>
                            $('#chooseFile').change(function () {
                               readURL(this);
@@ -177,7 +179,7 @@
 		<div id="check">
 			<div class="container-down">
 
-				<div class="row py-md-3" style="margin: 5% 15% 0% 15%">
+				<div class="row py-md-3" style="margin: 5% 15% 0% 15%;">
 
 					<div class="col-md-6 px-md-4" style="margin: 0 auto;">
 						<div class="card"
@@ -192,13 +194,10 @@
 								onclick="document.all.thumbnailUpload.click();">
 								<i class="fa-regular fa-image my-md-4" style="font-size: 6rem;"></i>
 
-								<img
-									src="${article.imgPath}"
-									class="btn" type="button" id="img-preview"
-									onclick="document.all.thumbnailUpload.click();"
-									style="display: block; background-color: white; width: 100%; height: 100%;"><span
-									style="color: rgb(77, 238, 98);">썸네일 업로드</span> <input
-									type="file" id="thumbnailUpload" name="thumbsnail"
+								
+
+								<span style="color: rgb(77, 238, 98);">썸네일 업로드</span> 
+									<input type="file" id="thumbnailUpload" name="thumbsnail"
 									accept="image/*" onchange="readURL(this)">
 								<script>
                            $('#thumbnailUpload').change(function () {
@@ -211,6 +210,13 @@
                                  reader.onload = function (e) {
                                     $('#img-preview').attr('src', e.target.result);
                                     $('#thumbnail').val(e.target.result);
+                                  
+                                   thumb = $('<img'), {
+                                	   'src' : e.target.result,
+                                	   'width' : '100%',
+                                	   'height' : '100%'
+                                   });
+                                   $(thumb).appendTo('#thumbnailBox')
                                  }
                                  reader.readAsDataURL(input.files[0]);
                               }
@@ -244,15 +250,15 @@
 					<div class="row">
 						<div class="form-check form-switch"
 							style="margin: 1.5% 0% 0% 61.5%;">
-							<input class="form-check-input" type="checkbox" id="viewAll"
-								 id="flexSwitchCheckDefault">
-								<input type="hidden" id="viewAll2" name="viewAll">
+							<input class="form-check-input" type="checkbox" 
+								id="flexSwitchCheckDefault"> <input type="hidden"
+								id="viewAll" name="viewAll">
 							<script>
-         $("#viewAll").is(":checked")
+         $("#flexSwitchCheckDefault").is(":checked")
          {
-        	 $("#viewAll2").val('1');
+        	 $("#viewAll").val('1');
          } else {
-        	 $("#viewAll2").val('0');
+        	 $("#viewAll").val('0');
          }
            
      
