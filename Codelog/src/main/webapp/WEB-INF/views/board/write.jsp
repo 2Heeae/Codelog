@@ -176,40 +176,28 @@
 		<!--contanier 1개에 row 1개 col 2개로 영역 구분
         썸네일 직접 업로드 가능(기본값은 글 작성에 이미지를 넣었으면 그 중 최상단 이미지 없으면 null)
     -->
-		<div id="check">
-			<div class="container-down" style="padding: 30px; width:100%; height:100%">
+<div id="check">
+      <div class="container-down">
+       
+            <div class="row py-md-3" style="margin: 5% 15% 0% 15%">
 
-				<div class="row py-md-3" style="margin: 5% 15% 0% 15%;">
+               <div class="col-md-6 px-md-4" style="margin: 0 auto;">
+                  <div class="card" style="width: 100%; height: 40rem; border: 0; background-color: transparent;">
 
-					<div class="col-md-6 px-md-4" style="margin: 0 auto;">
-						<div class="card"
-							style="width: 100%; height: 27rem; border: 0; background-color: transparent;">
+                     <!--썸네일 부분-->
 
-							<!--썸네일 부분-->
-
-							<p class="my-md-1" style="font-weight: bold; font-size: 1.7rem;">포스터
-								미리보기</p>
-							<div class="thumbnailBox" id="thumbnailBox"
-								style="height: 22rem; width: 22rem; padding:10px; background-color: rgba(128, 128, 128, 0.185); text-align: center;"
-								onclick="document.all.thumbnailUpload.click();">
-							<img src=""
-									class="btn"  id="img-preview"
-									style="display: block; background-color: white; width: 100%; height: 100%;"><span
-									style="color: rgb(77, 238, 98);">썸네일 업로드</span> <input
-									type="file" id="thumbnailUpload" name="thumbsnail"
-									accept="image/*" onchange="readURL(this)">
-									
-								<!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
-								<div class="form-floating" style="margin-top: 3rem;">
-									<strong>한글 입숨</strong>
-									<textarea placeholder="Leave a comment here"
-										id="floatingTextarea" name="preview"
-										style="width: 100%; height: 6rem; resize: none;"></textarea>
-									<span style="float: right">/100</span><span id="textL"
-										style="float: right">0</span> <input type="hidden"
-										id="thumbnail" name="thumbnail">
-								</div>
-								<script>
+                     <p class="my-md-1" style="font-weight: bold; font-size: 1.7rem; text-align: center">포스터 미리보기</p>
+                     <div class="thumbnailBox" id="thumbnailBox" onclick="document.all.thumbnailUpload.click();"
+                        style="height: 40rem; position: relative; background-color: rgba(128, 128, 128, 0.185); text-align: center;">                   
+                       <img src="<c:url value='/img/cat.jpg'/>" class="btn" type="button" id="img-preview"
+                                    onclick="document.all.thumbnailUpload.click();"
+                                    style="width: 100%; height: 100%; position: relative">
+                                    
+                                    <span style="color: rgb(77, 238, 98);">이미지를 클릭하여 썸네일을 변경하세요</span>
+                                        
+                        <input type="file" id="thumbnailUpload" name="thumbnailUpload" accept="image/*"
+                           onchange="readURL(this)">
+                        <script>
                            $('#thumbnailUpload').change(function () {
                               readURL(this);
                            });
@@ -219,7 +207,8 @@
                                  var reader = new FileReader();
                                  reader.onload = function (e) {
                                     $('#img-preview').attr('src', e.target.result);
-                                    $('#thumbnail').val(e.target.result);
+									$('#thumbnail').val(e.target.result);
+
                                  }
                                  reader.readAsDataURL(input.files[0]);
                               }
@@ -230,62 +219,57 @@
                               $('#img-preview').attr('src', './images/user_icon.png');
                            });
                         </script>
-							</div>
+                     </div>
 
-							<!--제목은 글작성 페이지에서 가져오기-->
-							
-							
-<!--  <div class="card-body my-md-2 p-0 ">
-							</div> -->
+                     <!--제목은 글작성 페이지에서 가져오기-->
+					 <input type="hidden"	id="thumbnail" name="thumbnail">
+                     <div class="card-body my-md-2 p-0 " style="margin-top:2.7rem; margin-bottom:1rem">
+                       
+                        <!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
+                        <div class="form-floating" style="margin-top: 1rem;">
+                           <textarea placeholder="Leave a comment here" id="floatingTextarea"
+                              style="width: 100%; height: 6rem; resize: none;"></textarea>
+                           <span style="float: right">/100</span><span id="textL" style="float: right">0</span>
+                        </div>
 
-						</div>
-					</div>
-					<!--내 글 공개 여부 설정 default값은 전체 공개-->
-					<div class="row">
-						<div class="form-check form-switch"
-							style="margin: 1.5% 0% 0% 61.5%;">
-							<input class="form-check-input" type="checkbox" 
-								id="flexSwitchCheckDefault"> <input type="hidden"
-								id="viewAll" name="viewAll">
-							<script>
-         $("#flexSwitchCheckDefault").is(":checked")
-         {
-        	 $("#viewAll").val('1');
-         } else {
-        	 $("#viewAll").val('0');
-         }
-           
-     
-         </script>
-							<label class="form-check-label" for="flexSwitchCheckDefault">전체
-								공개</label>
-						</div>
-					</div>
+                     </div>
+                <div class="row" style="margin-top:1rem">
+                  <div class="form-check form-switch" style="margin: 1.5% 0% 0% 61.5%; margin-top:0.5rem">
+                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked>
+                     <label class="form-check-label" for="flexSwitchCheckDefault">전체 공개</label>
+					 <input type="hidden" id="viewAll" name="viewAll">
+                  </div>
+                   <div class="btn-group my-md-0" role="group" aria-label="Basic radio toggle button group"
+                  style="height: 2.7rem;">
 
-				</div>
-				<!--취소시 글 작성 페이지로 back 저장 누르면 글 작성 완료-->
-				<div class="row my-md-3" style="width: 30%; margin: 0 auto;" >
+                  <input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off">
+                  <label class="btn btn-outline-primary hide" for="btnradio3"
+                     style="font-size: 1.3rem; width: 2rem;  border: 0">취소</label>
+                  &nbsp;&nbsp;&nbsp;
+                  <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
+                  <label class="btn btn-outline-primary show px-md-0" for="btnradio4"
+                     style="font-size: 1.3rem;  width: 2rem; background-color: #0d6efd; color: white;">작성</label>
 
-					<div class="btn-group my-md-0" role="group"
-						aria-label="Basic radio toggle button group"
-						style="height: 2.7rem; margin-top: 6rem;">
+         
+      </div>
+               </div>
+                  </div>
+               </div>
+               <!--내 글 공개 여부 설정 default값은 전체 공개-->
+               
 
-						<input type="radio" class="btn-check" id="btnradio3"
-							autocomplete="off"> <label
-							class="btn btn-outline-primary hide" for="btnradio3"
-							style="font-size: 1.3rem; width: 2rem; border: 0">취소</label>
-						&nbsp;&nbsp;&nbsp; <input type="radio" class="btn-check"
-							name="btnradio2" id="btnradio4" autocomplete="off"> <input
-							type="submit" class="btn btn-outline-primary show px-md-0"
-							for="btnradio4" value="작성"
-							style="font-size: 1.3rem; width: 2rem; background-color: #0d6efd; color: white;">
+            </div>
+            <!--취소시 글 작성 페이지로 back 저장 누르면 글 작성 완료-->
+            <div class="row my-md-3" style="width: 30%; margin: 0 auto; margin-top:3rem">
 
+              
+   </div>
+   </div>
 
-					</div>
-				</div>
-			</div>
+   </div>
+   </div>
 
-		</div>
+   </div>
 	</form>
 	<script>
       /*작성과 작성검토 부분을 버튼으로 연결함(버튼은 임시)
