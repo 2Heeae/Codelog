@@ -42,7 +42,13 @@
 
 <title>Document</title>
 </head>
+<c:if test="${loginSession == null }">
+   <script>
+    alert("로그인 후 이용이 가능합니다.");
+    history.back();
+   </script>
 
+ </c:if>
 <body>
 	<form action="<c:url value='/boardController/write' />"
 		class="write-bbs" enctype=multipart/form-data method="post">
