@@ -241,7 +241,7 @@
                   <div class="form-check form-switch" style="margin: 1.5% 0% 0% 61.5%; margin-top:0.5rem">
                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked>
                      <label class="form-check-label" for="flexSwitchCheckDefault">전체 공개</label>
-					 <input type="hidden" id="viewAll" name="viewAll">
+					 <input type="hidden" id="viewAll" name="viewAll" value="1">
                   </div>
                    <div class="btn-group my-md-0" role="group" aria-label="Basic radio toggle button group"
                   style="height: 2.7rem;">
@@ -312,12 +312,12 @@
             if (!checked) {
                $(".form-check-label").html('&nbsp;비공개');
                checkVal = 0;
-               $("viewAll").val(checkVal);	
+               $("#viewAll").val(checkVal);	
                // $('.form-switch').attr('checked',true);
             } else {
                $(".form-check-label").text('전체 공개');
                checkVal = 1;
-               $("viewAll").val('1');	
+               $("#viewAll").val('1');	
 
             }
          });
