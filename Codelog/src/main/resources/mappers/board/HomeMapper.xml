@@ -5,27 +5,37 @@
 <mapper namespace="com.spring.codelog.board.mapper.IHomeMapper">
 <resultMap type="com.spring.codelog.board.model.BoardVO" id="boardMap">
 <id property="boardId" column="board_id"/>
-<result property="userId" column="user_id"/>
-<result property="viewAll" column="view_all"/>
-<result property="imgPath" column="img_path"/>
-<result property="regDate" column="reg_date"/>
+   <result property="userId" column="user_id" />
+   <result property="writer" column="writer" />
+   <result property="tags" column="tags" />
+   <result property="content" column="content" />
+   <result property="preview" column="preview" />
+   <result property="thumbnail" column="thumbnail" />
+   <result property="viewAll" column="view_all" />
+   <result property="imgPath" column="img_path" />
+   <result property="regDate" column="reg_date" />
+   <result property="bno" column="bno" />
+   <result property="viewcnt" column="viewcnt" />
 </resultMap>
 
 
 <select id="RPosters" resultMap="boardMap">
-    SELECT board_id,user_id,title,writer,preview,likes,thumbnail FROM(
+    SELECT board_id,user_id,title,writer,preview,likes,thumbnail,reg_date FROM(
  SELECT ROWNUM as rn, a.* FROM(
-    SELECT * FROM proj_board ORDER BY reg_date)a) 
+    SELECT * FROM proj_board ORDER BY  board_id DESC)a) 
     <![CDATA[ WHERE rn<=18]]>
 </select>
 
 
 <select id="RAPosters" resultMap="boardMap">
-    SELECT board_id,user_id,title,writer,preview,likes,thumbnail FROM(
+    SELECT board_id,user_id,title,writer,preview,likes,thumbnail, reg_date FROM(
  SELECT ROWNUM as rn, a.* FROM(
-    SELECT * FROM proj_board ORDER BY reg_date)a) 
+    SELECT * FROM proj_board WHERE      <![CDATA[
+    board_id<#{boardId} 
+         ]]>
+    ORDER BY  board_id DESC)a) 
      <![CDATA[
-     WHERE rn<=6*3+6 AND rn>=6*3+1 AND board_id<=30;
+     WHERE rn<=6 AND rn>=1
      ]]>
 </select>
 <!-- <select id="SelectOne" resultMap="boardMap">

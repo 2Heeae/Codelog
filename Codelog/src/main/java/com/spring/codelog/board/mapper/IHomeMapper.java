@@ -3,6 +3,8 @@ package com.spring.codelog.board.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.spring.codelog.board.model.BoardVO;
 
 public interface IHomeMapper {
@@ -11,7 +13,8 @@ public interface IHomeMapper {
 
 	List<BoardVO> RPosters();
 	
-	List<BoardVO> RAPosters(int i, int boardId);
+	List<BoardVO> RAPosters(@Param("i") int keyword,
+			@Param("boardId") int boardId);
 
 	
 

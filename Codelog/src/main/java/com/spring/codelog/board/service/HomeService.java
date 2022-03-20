@@ -43,6 +43,7 @@ public class HomeService implements IHomeService {
 	@Override
 	public List<BoardVO> RAPosters(int i, int boardId) {
 		// TODO Auto-generated method stub
+		System.out.println("i값은: "+i+" boardId는 "+boardId);
 		return mapper.RAPosters(i, boardId);
 	}
 

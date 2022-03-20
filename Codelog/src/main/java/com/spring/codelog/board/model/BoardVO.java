@@ -7,12 +7,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class BoardVO {
 	private int bno;            // 게시글 번호
 	private int boardId;
@@ -74,12 +76,7 @@ public class BoardVO {
     public void setRecnt(int recnt) {
         this.recnt = recnt;
     }
-    // toString()
-    @Override
-    public String toString() {
-        return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer + ", regdate="
-                + regDate + ", viewcnt=" + viewcnt + ", recnt=\" + recnt + \"]";
-    }
+  
 	
 }
 
