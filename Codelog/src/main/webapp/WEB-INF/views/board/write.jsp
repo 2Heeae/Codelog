@@ -177,7 +177,7 @@
         썸네일 직접 업로드 가능(기본값은 글 작성에 이미지를 넣었으면 그 중 최상단 이미지 없으면 null)
     -->
 		<div id="check">
-			<div class="container-down">
+			<div class="container-down" style="padding: 30px; width:100%; height:100%">
 
 				<div class="row py-md-3" style="margin: 5% 15% 0% 15%;">
 
@@ -190,15 +190,25 @@
 							<p class="my-md-1" style="font-weight: bold; font-size: 1.7rem;">포스터
 								미리보기</p>
 							<div class="thumbnailBox" id="thumbnailBox"
-								style="height: 22rem; background-color: rgba(128, 128, 128, 0.185); text-align: center;"
+								style="height: 22rem; width: 22rem; padding:10px; background-color: rgba(128, 128, 128, 0.185); text-align: center;"
 								onclick="document.all.thumbnailUpload.click();">
-								<i class="fa-regular fa-image my-md-4" style="font-size: 6rem;"></i>
-
-								
-
-								<span style="color: rgb(77, 238, 98);">썸네일 업로드</span> 
-									<input type="file" id="thumbnailUpload" name="thumbsnail"
+							<img src=""
+									class="btn"  id="img-preview"
+									style="display: block; background-color: white; width: 100%; height: 100%;"><span
+									style="color: rgb(77, 238, 98);">썸네일 업로드</span> <input
+									type="file" id="thumbnailUpload" name="thumbsnail"
 									accept="image/*" onchange="readURL(this)">
+									
+								<!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
+								<div class="form-floating" style="margin-top: 3rem;">
+									<strong>한글 입숨</strong>
+									<textarea placeholder="Leave a comment here"
+										id="floatingTextarea" name="preview"
+										style="width: 100%; height: 6rem; resize: none;"></textarea>
+									<span style="float: right">/100</span><span id="textL"
+										style="float: right">0</span> <input type="hidden"
+										id="thumbnail" name="thumbnail">
+								</div>
 								<script>
                            $('#thumbnailUpload').change(function () {
                               readURL(this);
@@ -210,13 +220,6 @@
                                  reader.onload = function (e) {
                                     $('#img-preview').attr('src', e.target.result);
                                     $('#thumbnail').val(e.target.result);
-                                  
-                                   thumb = $('<img'), {
-                                	   'src' : e.target.result,
-                                	   'width' : '100%',
-                                	   'height' : '100%'
-                                   });
-                                   $(thumb).appendTo('#thumbnailBox')
                                  }
                                  reader.readAsDataURL(input.files[0]);
                               }
@@ -230,19 +233,10 @@
 							</div>
 
 							<!--제목은 글작성 페이지에서 가져오기-->
-							<div class="card-body my-md-2 p-0 ">
-								<strong>한글 입숨</strong>
-								<!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
-								<div class="form-floating" style="margin-top: 0.5rem;">
-									<textarea placeholder="Leave a comment here"
-										id="floatingTextarea" name="preview"
-										style="width: 100%; height: 6rem; resize: none;"></textarea>
-									<span style="float: right">/100</span><span id="textL"
-										style="float: right">0</span> <input type="text"
-										id="thumbnail" name="thumbnail">
-								</div>
-
-							</div>
+							
+							
+<!--  <div class="card-body my-md-2 p-0 ">
+							</div> -->
 
 						</div>
 					</div>
@@ -270,11 +264,11 @@
 
 				</div>
 				<!--취소시 글 작성 페이지로 back 저장 누르면 글 작성 완료-->
-				<div class="row my-md-3" style="width: 30%; margin: 0 auto;">
+				<div class="row my-md-3" style="width: 30%; margin: 0 auto;" >
 
 					<div class="btn-group my-md-0" role="group"
 						aria-label="Basic radio toggle button group"
-						style="height: 2.7rem;">
+						style="height: 2.7rem; margin-top: 6rem;">
 
 						<input type="radio" class="btn-check" id="btnradio3"
 							autocomplete="off"> <label
