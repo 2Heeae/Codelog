@@ -111,7 +111,7 @@
 					<button class="ok" id="show" type="button">
 						<i class="fa-solid fa-check"></i>
 					</button>
-					<button class="exit" onclick="history.back()">
+					<button  type="button" class="exit" onclick="history.back()">
 						<i class="fa-solid fa-right-from-bracket"></i>
 					</button>
 
@@ -132,10 +132,7 @@
                               }
                            }
 
-                           //프로필 이미지 삭제
-                           $('#img-del-btn').click(function (e) {
-                              $('#img-preview').attr('src', './images/user_icon.png');
-                           });
+                         
                         </script>
 
 
@@ -197,6 +194,7 @@
                                         
                         <input type="file" id="thumbnailUpload" name="thumbnailUpload" accept="image/*"
                            onchange="readURL(this)">
+                           <input type="hidden"	id="thumbnail" name="thumbnail">
                         <script>
                            $('#thumbnailUpload').change(function () {
                               readURL(this);
@@ -214,7 +212,7 @@
                               }
                            }
 
-                           //프로필 이미지 삭제
+                           //미리보기 이미지 삭제
                            $('#img-del-btn').click(function (e) {
                               $('#img-preview').attr('src', './images/user_icon.png');
                            });
@@ -222,7 +220,7 @@
                      </div>
 
                      <!--제목은 글작성 페이지에서 가져오기-->
-					 <input type="hidden"	id="thumbnail" name="thumbnail">
+					 
                      <div class="card-body my-md-2 p-0 " style="margin-top:2.7rem; margin-bottom:1rem">
                        
                         <!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->

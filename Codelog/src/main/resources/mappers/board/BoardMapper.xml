@@ -32,6 +32,8 @@
 </resultMap>
 <insert id="write"> INSERT INTO proj_board(board_id, user_id, title, writer, tags, content, img_path, reg_date,preview, thumbnail, view_all) 
 VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, 'dd',to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'),#{preview}, #{thumbnail}, #{viewAll} )</insert>
-<select id="detail"></select>
 
+<delete id="delete"> DELETE FROM proj_board 
+                     WHERE board_id = ?
+</delete>
 </mapper>
