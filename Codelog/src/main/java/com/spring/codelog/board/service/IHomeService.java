@@ -7,7 +7,10 @@ import com.spring.codelog.board.model.BoardVO;
 public interface IHomeService {
 	
 	
-	List<BoardVO> TPosters(int i);
+	List<BoardVO> TPosters(String start, String end);
+	
+	List<BoardVO> TAPosters(int likes, String start, String end);
+
 
 	List<BoardVO> RPosters();
 	

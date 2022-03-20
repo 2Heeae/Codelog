@@ -40,16 +40,7 @@ public class HomeController {
    public String home(Locale locale, Model model, String fromT, HttpServletRequest request) {    
 	   
 	   System.out.println("---------------------------GET:/ HOME:RECENT-------------------------");
-	   Calendar calendar = Calendar.getInstance();
-	   calendar.add(Calendar.DAY_OF_MONTH, -7);
-	   Date date = calendar.getTime();
-	   
-	   String pattern = "yyyy-MM-dd";
-	   SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-	   String startDate = simpleDateFormat.format(date);
-	   String endDate = simpleDateFormat.format(new Date());
-	   System.out.println("끝 날짜: "+endDate);
-	   System.out.println("시작 날짜: "+startDate);
+	 
 	   
 	   HttpSession session = request.getSession();
 	   if(session.getAttribute("loginSession")!=null) {
@@ -112,41 +103,71 @@ public class HomeController {
    
    @ResponseBody
    @RequestMapping(value = "/tadd", method = RequestMethod.POST)
-   public Map<String, BoardVO> THome(Model model, @RequestBody Map<String,Integer> i,
+   public List<BoardVO> THome(Model model, @RequestBody Map<String,Integer> info,
 		   HttpServletRequest request, 
-			HttpServletResponse response) {
-	   //int t = Integer.parseInt(i);
-	   System.out.println("trending tadd");
-	   System.out.println("추가포스터 로드 i값은 "+i);
-	   int t = i.get("i");
-	   System.out.println("t값은 "+t);
-	   Map<String, BoardVO> map = new HashMap<String, BoardVO>();
-/*
-if(service.SelectOne(t*3+3) != null) {
-		   System.out.println("추가할꺼있어");
-		 //  map.put("title", service.SelectOne(t*3+1).getTitle());
-		 //  map.put("content", service.SelectOne(t*3+1).getContent());
-		   System.out.println(service.SelectOneT(t*3+1));
-		//  	("RPosters", service.RPosters(t));
-		   
-		   System.out.println("Posters1: "+service.SelectOneT(t*3+1));
-		   System.out.println("Posters2: "+service.SelectOneT(t*3+2));
-		   System.out.println("Posters3: "+service.SelectOneT(t*3+3));
-		   
-		   map.put("i1",service.SelectOneT(t*3+1) );
-		   map.put("i2", service.SelectOneT(t*3+2) );
-		   map.put("i3", service.SelectOneT(t*3+3) );
-
-	    System.out.println("i값은: "+(t+1));
-	   }
-	   else {
-		   System.out.println("추가할꺼없어");
-		     //map.put("empty",null );
-		   map.put("i1", null);
-		   }
-*/
+			HttpServletResponse response,String period) {
 	   
-	return map;
+	   System.out.println("--------------------POST:/TAdd HOME:TRENDING:ADD--------------------");
+
+	   
+	   List<BoardVO> list = new ArrayList<BoardVO>();
+	   
+	   
+
+	   System.out.println("기간은?: "+period);
+	   Calendar calendar = Calendar.getInstance();
+	   if(period == null) {
+		   calendar.add(Calendar.DATE, -7);
+		   model.addAttribute("period", "week");
+
+	   }else  {
+	   if(period == "week") {
+	   calendar.add(Calendar.DATE, -7);
+	   model.addAttribute("period", "week");
+
+	   }else if(period == "month") {
+	   calendar.add(Calendar.MONTH, -1);
+	   model.addAttribute("period", "month");
+
+
+	   }else if(period == "year") {
+	   calendar.add(Calendar.YEAR, -1);
+	   model.addAttribute("period", "year");
+
+	   
+	   }else if(period == "day") {
+	   calendar.add(Calendar.DATE, -1);
+	   model.addAttribute("period", "day");
+	   }
+	   }
+	   Date date = calendar.getTime();
+	   
+	   String pattern = "yyyy-MM-dd";
+	   SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+	   String start = simpleDateFormat.format(date);
+	   String end = simpleDateFormat.format(new Date());
+	   System.out.println("끝 날짜: "+end);
+	   System.out.println("시작 날짜: "+start);
+
+	   
+	   
+	   System.out.println("추가 리스트는 : "+service.TAPosters(info.get("likes"),start, end));
+	   list = service.TAPosters(info.get("likes"),start, end);
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	 
+	   
+	
+	   
+	   System.out.println("-----------------------------------------------------------------------");
+
+	   
+	return list;
 
    }
    
@@ -174,18 +195,47 @@ if(service.SelectOne(t*3+3) != null) {
    }
    
    @RequestMapping(value = "/trending", method = RequestMethod.GET)
-   public String trending(Locale locale, Model model, String fromR) {
+   public String trending(Locale locale, Model model, String fromR, String period) {
 	   
 	   //service.TPosters(); 
-	   
+	   System.out.println("기간은?: "+period);
+	   Calendar calendar = Calendar.getInstance();
+	   if(period.equals(null)) {
+		   calendar.add(Calendar.DATE, -7);
+		   model.addAttribute("period", "week");
 
-	   System.out.println("Posters1: "+service.TPosters(0));
-	   System.out.println("Posters2: "+service.TPosters(1));
-	   System.out.println("Posters3: "+service.TPosters(2));
-	   model.addAttribute("Posters1", service.TPosters(0));
-	   model.addAttribute("Posters2", service.TPosters(1));
-	   model.addAttribute("Posters3", service.TPosters(2));
+	   }else  {
+		   if(period.equals("week")) {
+			   calendar.add(Calendar.DATE, -7);
+			   model.addAttribute("period", "week");
+
+			   }else if(period.equals("month")) {
+			   calendar.add(Calendar.MONTH, -1);
+			   model.addAttribute("period", "month");
+
+
+			   }else if(period.equals("year")) {
+			   calendar.add(Calendar.YEAR, -1);
+			   model.addAttribute("period", "year");
+
+			   
+			   }else if(period.equals("day")) {
+	   calendar.add(Calendar.DATE, -1);
+	   model.addAttribute("period", "day");
+	   }
+	   }
+	   Date date = calendar.getTime();
 	   
+	   String pattern = "yyyy-MM-dd";
+	   SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+	   String start = simpleDateFormat.format(date);
+	   String end = simpleDateFormat.format(new Date());
+	   System.out.println("끝 날짜: "+end);
+	   System.out.println("시작 날짜: "+start);
+
+	   System.out.println("Posters: "+service.TPosters(start, end));
+	   model.addAttribute("Posters", service.TPosters(start, end));
+	 
 	  System.out.println("겟 formR "+fromR);      
       model.addAttribute("trending", true);
       model.addAttribute("recent", false);
@@ -204,14 +254,51 @@ if(service.SelectOne(t*3+3) != null) {
    }
    
    @RequestMapping(value = "/trending", method = RequestMethod.POST)
-   public String trending2(Locale locale, Model model, String fromR) {	
+   public String trending2(Locale locale, Model model, String fromR, String period) {	
 	   
-	   System.out.println("Posters1: "+service.TPosters(0));
-	   System.out.println("Posters2: "+service.TPosters(1));
-	   System.out.println("Posters3: "+service.TPosters(2));
-	   model.addAttribute("Posters1", service.TPosters(0));
-	   model.addAttribute("Posters2", service.TPosters(1));
-	   model.addAttribute("Posters3", service.TPosters(2));
+	   
+	   System.out.println("--------------------POST:/trending HOME:TRENDING--------------------");
+
+	   
+	   System.out.println("기간은?: "+period);
+	   Calendar calendar = Calendar.getInstance();
+	   if(period == null) {
+		   calendar.add(Calendar.DATE, -7);
+		   model.addAttribute("period", "week");
+
+	   }else  {
+	   if(period.equals("week")) {
+	   calendar.add(Calendar.DATE, -7);
+	   model.addAttribute("period", "week");
+
+	   }else if(period.equals("month")) {
+	   calendar.add(Calendar.MONTH, -1);
+	   model.addAttribute("period", "month");
+
+
+	   }else if(period.equals("year")) {
+	   calendar.add(Calendar.YEAR, -1);
+	   model.addAttribute("period", "year");
+
+	   
+	   }else if(period.equals("day")) {
+	   calendar.add(Calendar.DATE, -1);
+	   model.addAttribute("period", "day");
+	   }
+	   }
+	   Date date = calendar.getTime();
+	   
+	   String pattern = "yyyy-MM-dd";
+	   SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+	   String start = simpleDateFormat.format(date);
+	   String end = simpleDateFormat.format(new Date());
+	   System.out.println("끝 날짜: "+end);
+	   System.out.println("시작 날짜: "+start);
+	   
+	 
+	   System.out.println("Posters: "+service.TPosters(start, end));
+	   model.addAttribute("Posters", service.TPosters(start, end));
+	 
 	  System.out.println("포스트 formR "+fromR);
       model.addAttribute("trending", true);
       model.addAttribute("recent", false);
@@ -225,13 +312,10 @@ if(service.SelectOne(t*3+3) != null) {
     	  model.addAttribute("fromR", false);
           model.addAttribute("fromT", false);
       }
+      
+	   System.out.println("-----------------------------------------------------------------------");
+
       return "home";
    }
-   @RequestMapping(value = "/write", method = RequestMethod.GET)
-   public String write(HttpServletRequest request ,Model model)
-   {
-      
-      return "board/write";
-      
-   }
+ 
 }

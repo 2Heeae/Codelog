@@ -15,9 +15,17 @@ public class HomeService implements IHomeService {
 	@Autowired
 	private IHomeMapper mapper;
 	@Override
-	public List<BoardVO> TPosters(int i) {
+	public List<BoardVO> TPosters(String start, String end) {
 		// TODO Auto-generated method stub
-		return mapper.TPosters(i);
+		System.out.println("start,end"+start+end);
+		return mapper.TPosters(start,end);
+	}
+	
+	@Override
+	public List<BoardVO> TAPosters(int likes, String start, String end) {
+		// TODO Auto-generated method stub
+		System.out.println("start,end"+start+end);
+		return mapper.TAPosters(likes, start, end);
 	}
 /*	
 	@Override

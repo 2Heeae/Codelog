@@ -53,6 +53,7 @@
 			
 			
 			<c:if test="${trending==true }">	
+				
 				<button type="button" class="btn c rounded-circle p-0 position-relative"
 					style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
 					href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
@@ -62,26 +63,26 @@
 						style="position: absolute; width: 10rem; top:2.5rem; left: -3.6rem; z-index: 1000;">
 						<div class="card" style="width: 8rem;">
 
-							<div class="card-body cc" id="so">
+							<div class="card-body cc" id="day">
 								<div style="text-align: right;">
 									<span class="card-text"><strong>오늘</strong></span>
 								</div>
 							</div>
 
-							<div class="card-body cc" id="so">
+							<div class="card-body cc" id="week">
 								<div style="text-align: right;">
 									<span class="card-text"><strong>이번 주</strong></span>
 								</div>
 							</div>
 
-							<div class="card-body cc" id="so">
+							<div class="card-body cc" id="month">
 								<div style="text-align: right;">
 									<span class="card-text"><strong>이번 달</strong></span>
 								</div>
 							</div>
 
 
-							<div class="card-body cc" id="so">
+							<div class="card-body cc" id="year">
 								<div style="text-align: right;">
 									<span class="card-text"><strong>올해</strong></span>
 								</div>
@@ -96,6 +97,7 @@
 			
 			
 			<c:if test="${recent==true }">	
+				<c:if test="sessionScope.loginSession!=null">
 				<button type="button" class="btn c rounded-circle p-0 position-relative"
 					style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
 					href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample4">
@@ -105,13 +107,13 @@
 						style="position: absolute; width: 10rem; top:2.5rem; left: -3.6rem; z-index: 1000;">
 						<div class="card" style="width: 8rem;">
 
-							<div class="card-body cc" id="so">
+							<div class="card-body cc" id="all">
 								<div style="text-align: right;">
 									<span class="card-text"><strong>모든 사람</strong></span>
 								</div>
 							</div>
 
-							<div class="card-body cc" id="so">
+							<div class="card-body cc" id="fol">
 								<div style="text-align: right;">
 									<span class="card-text"><strong>팔로워</strong></span>
 								</div>
@@ -121,6 +123,7 @@
 						</div>	
 					</div>
 				</button>
+				</c:if>
 			</c:if>
 			
 			
@@ -144,7 +147,7 @@
 	<div class="row py-md-3" id="start">
 	<c:forEach var="Poster" items="${Posters }">
 			<div class="col-md-4 px-md-4 py-md-4">
-				<div class="card poster" style="width: 100%; height: 27rem;" data-bno="${Poster.boardId }">
+				<div class="card poster" style="width: 100%; height: 27rem;" data-bno="${Poster.boardId }" data-lno="${Poster.likes }">
 					<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
 					<a href="aa" class="stretched-link"></a>
 					<!--썸네일 이미지-->
@@ -222,6 +225,89 @@
 				}
 			}	
 			
+			
+			
+			$('#collapseExample3').click(function(e){
+				var target = $(e.target);
+				var date="";
+				if(target.is('#day')){
+					date="day";
+				}else if(target.is('#week')){
+					date="week";
+				}
+				else if(target.is('#month')){
+					date="month";
+				}
+				else if(target.is('#year')){
+					date="year";
+				}
+				
+				console.log("date는 "+date);
+				
+				var form = document.createElement('form');
+
+				var objs;
+
+				objs = document.createElement('input');
+				
+				objs.setAttribute('type', 'hidden');
+
+				objs.setAttribute('name', 'period');
+
+				objs.setAttribute('value', date);
+				
+				form.appendChild(objs);
+
+				form.setAttribute('method', 'post');
+
+				form.setAttribute('action', "/codelog/trending");
+
+				document.body.appendChild(form);
+
+				form.submit();
+				
+				
+			});
+			
+			
+			$('#collapseExample4').click(function(e){
+				var target = $(e.target);
+				var allChk="";
+				if(target.is('#all')){
+					allChk="all";
+				}else if(target.is('#fol')){
+					allChk="fal";
+				}
+			
+				
+				console.log("allChk는 "+allChk);
+				
+				var form = document.createElement('form');
+
+				var objs;
+
+				objs = document.createElement('input');
+				
+				objs.setAttribute('type', 'hidden');
+
+				objs.setAttribute('name', 'allChk');
+
+				objs.setAttribute('value', allChk);
+				
+				form.appendChild(objs);
+
+				form.setAttribute('method', 'post');
+
+				form.setAttribute('action', "/codelog/");
+
+				document.body.appendChild(form);
+
+				form.submit();
+				
+				
+			});
+			
+			
 			/*화면 클릭시 날짜토글 숨기기*/
 			var LayerPopup3 = $("#collapseExample3");
 			var LayerPopup4 = $("#collapseExample4");
@@ -252,27 +338,32 @@
 
 /*무한스크롤*/
 		var i = 0;
+		console.log('기간은 ${period}');
 		
 		
 	$(window).scroll(function() { 
   	if(Math.round($(window).scrollTop()) === $(document).height() - $(window).height()) { 
   		var boardId = $("#posterbox .poster").last().data('bno');
+  		var likes = $("#posterbox .poster").last().data('lno');
+
 		var lastPoster = $("#start");
   		console.log(lastPoster);
 
 		console.log("보드아이디: "+boardId);
+		console.log("좋아요: "+likes);
   		 
   		 console.log("i값은 "+i);
      	const info = {
 						"i" : i,
-						"boardId" : boardId
+						"boardId" : boardId,
+						"likes" : likes
 				};
      	
      	var url = $(location).attr('href');
      	console.log(url);
      	
      	if(url=="http://localhost:8181/codelog/"){
-     		console.log("리센트");
+     		console.log("RECENT");
      	
 		
 				$.ajax({
@@ -294,7 +385,7 @@
                                 
 								   var str ="";
 								   str += "<div class=" + "'col-md-4 px-md-4 py-md-4'"+">"
-									+ "<div class="+"'card poster'"+" style="+"'width: 100%; height: 27rem;'"+ "data-bno='"+this.boardId+"'>"
+									+ "<div class="+"'card poster'"+" style="+"'width: 100%; height: 27rem;'"+ "data-bno='"+this.boardId+"'"+"data-lno='"+this.likes+"'>"
 	                				+ "<a href="+"'aa'"+" class="+"'stretched-link'"+"></a>"
                              		+ "<img src="+"'img/cat.jpg'"+ "class="+"'card-img-top'"+" alt="+"'...'"+">"
                 					+ "<div class="+"'card-body'"+ " >"
@@ -331,17 +422,7 @@
         							lastPoster.append(str);
         							
 								     //     document.querySelector('#posterbox').appendChild(addContent);
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
+
                              });
 
 						}
@@ -352,6 +433,80 @@
 					}
 					
 				}); //end ajax (로그인 비동기 처리) 
+     	}
+     	
+     	else if(url=="http://localhost:8181/codelog/trending"){
+     		
+     		console.log("TRENDING");
+     		
+    		$.ajax({
+				type : 'POST',
+				url : '/codelog/tadd',
+				contentType : 'application/json',
+				dataType : 'json',
+				data : JSON.stringify(info),
+				success : function(TPosters) {
+					 i = i+1;
+			     	 console.log("성공")
+					if(TPosters != ""){
+						$(TPosters).each(function(){  
+                            
+							console.log('-------------------');
+							console.log(this.boardId);
+                            console.log(boardId);
+                            console.log('-------------------');
+                            
+							   var str ="";
+							   str += "<div class=" + "'col-md-4 px-md-4 py-md-4'"+">"
+								+ "<div class="+"'card poster'"+" style="+"'width: 100%; height: 27rem;'"+ "data-bno='"+this.boardId+"'"+"data-lno='"+this.likes+"'>"
+                				+ "<a href="+"'aa'"+" class="+"'stretched-link'"+"></a>"
+                         		+ "<img src="+"'img/cat.jpg'"+ "class="+"'card-img-top'"+" alt="+"'...'"+">"
+            					+ "<div class="+"'card-body'"+ " >"
+            					+ "<strong>타이틀"+this.title+"보드아이디"+this.boardId+"</strong>"
+								+ "<p class="+"'card-text'"+" style="+"'padding-top: 0.3rem;'"+">"+this.preview+"</p></div>"
+                          
+								
+								+ "<div class="+"'card-footer my-md-0 py-md-0'"+"style="+"'font-size: 0.8rem; border-top: 0; background-color: white;'"+">"
+								+ "<p class="+"'card-text'"+"style="+"'border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;'"+">"
+								+ this.regDate+"</p>"
+								+ "<div>"
+
+    							+ "<div style="+"'margin-top: 0.3rem;'"+">"
+    							+ "<div style="+"'display: inline-block; float: left;'"+">"
+    							+ "<div style="+"'border-radius: 70%; overflow: hidden; display: inline-block;'"+">"
+    							+ "<img src="+"'img/pome3.jpg'"+" class="+"'img-rounded'"+" width="+"'25rem'"+">"
+    							+ "</div>"	
+    							+ "</div>"	
+    							
+    							+"<div style="+"'display: inline-block; float: left; margin-top: 0.13rem;'"+">"
+								+"<span class="+"'mx-md-1'"+" style="+"'color: gray;'"+">by</span><span>"+this.writer+"</span>"
+								+ "</div>"	
+								+"<div style="+"'display: inline-block; float: right; margin-top: 0.13rem'"+">"
+            					+ "<i class="+"'fa-solid fa-comment'"+"></i>"
+            					+"<span style="+"'margin-right: 0.5rem;'"+">3</span>"	
+            					+"<i class="+"'fa-solid fa-heart'"+"></i><span class="+"'mx-md-1'"+">"+this.likes+"</span>"		
+            					+ "</div>"	
+    							+ "</div>"	
+    							+ "</div>"	
+    							+ "</div>"	
+    							+ "</div>"	
+    							+ "</div>"	;
+    							
+    							lastPoster.append(str);
+    							
+							     //     document.querySelector('#posterbox').appendChild(addContent);
+
+                         });
+
+					}
+				  
+				},
+				error : function() {
+					console.log('통신 실패!');
+				}
+				
+			}); //end ajax (로그인 비동기 처리) 
+
      	}
      	
      

@@ -9,7 +9,10 @@ import com.spring.codelog.board.model.BoardVO;
 
 public interface IHomeMapper {
 
-	List<BoardVO> TPosters(int i);
+	List<BoardVO> TPosters(@Param("start") String start,
+			@Param("end") String end);
+	List<BoardVO> TAPosters(@Param("likes") int likes, @Param("start") String start,
+			@Param("end") String end);
 
 	List<BoardVO> RPosters();
 	
