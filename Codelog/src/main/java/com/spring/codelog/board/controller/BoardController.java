@@ -1,5 +1,6 @@
 package com.spring.codelog.board.controller;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,10 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/write", method = {RequestMethod.POST})
-	public String write(BoardVO vo, RedirectAttributes ra) {
+	public String write(BoardVO vo, RedirectAttributes ra, HttpServletRequest hsr) {
 		
 		System.out.println("글 작성 요청");
-		service.write(vo);
+		service.write(hsr, vo);
 		ra.addFlashAttribute("msg", "글 작성 완료");
 
 		return "redirect:/";

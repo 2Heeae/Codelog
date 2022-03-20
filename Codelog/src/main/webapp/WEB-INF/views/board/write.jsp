@@ -228,7 +228,7 @@
                         <!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
                         <div class="form-floating" style="margin-top: 1rem;">
                            <textarea placeholder="Leave a comment here" id="floatingTextarea"
-                              style="width: 100%; height: 6rem; resize: none;"></textarea>
+                            name="preview"  style="width: 100%; height: 6rem; resize: none;"></textarea>
                            <span style="float: right">/100</span><span id="textL" style="float: right">0</span>
                         </div>
 
@@ -243,12 +243,12 @@
                   style="height: 2.7rem;">
 
                   <input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off">
-                  <label class="btn btn-outline-primary hide" for="btnradio3"
-                     style="font-size: 1.3rem; width: 2rem;  border: 0">취소</label>
+                  <button type="button" class="btn btn-outline-primary hide" for="btnradio3"
+                     style="font-size: 1.3rem; width: 2rem;  border: 0">취소</button>
                   &nbsp;&nbsp;&nbsp;
                   <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
-                  <label class="btn btn-outline-primary show px-md-0" for="btnradio4"
-                     style="font-size: 1.3rem;  width: 2rem; background-color: #0d6efd; color: white;">작성</label>
+                  <button class="btn btn-outline-primary show px-md-0" for="btnradio4"
+                     style="font-size: 1.3rem;  width: 2rem; background-color: #0d6efd; color: white;">작성</button>
 
          
       </div>
@@ -256,14 +256,11 @@
                   </div>
                </div>
                <!--내 글 공개 여부 설정 default값은 전체 공개-->
-               
+                <!--내 글 공개 여부 설정 default값은 전체 공개-->
 
             </div>
-            <!--취소시 글 작성 페이지로 back 저장 누르면 글 작성 완료-->
-            <div class="row my-md-3" style="width: 30%; margin: 0 auto; margin-top:3rem">
-
-              
-   </div>
+            
+  
    </div>
 
    </div>
@@ -306,13 +303,17 @@
 
 
             var checked = $('.form-check-input').is(':checked');
-
+            var checkVal;
             console.log('check여부' + checked);
             if (!checked) {
                $(".form-check-label").html('&nbsp;비공개');
+               checkVal = 0;
+               $("viewAll").val(checkVal);	
                // $('.form-switch').attr('checked',true);
             } else {
                $(".form-check-label").text('전체 공개');
+               checkVal = 1;
+               $("viewAll").val('1');	
 
             }
          });
@@ -333,6 +334,8 @@
                $('.content').val(content + "~텍스트~");
             })
          });
+         
+     
       })
    </script>
 
