@@ -19,7 +19,7 @@ public class HomeService implements IHomeService {
 		// TODO Auto-generated method stub
 		return mapper.TPosters(i);
 	}
-	
+/*	
 	@Override
 	public BoardVO SelectOne(int i) {
 		// TODO Auto-generated method stub
@@ -31,17 +31,24 @@ public class HomeService implements IHomeService {
 		// TODO Auto-generated method stub
 		return mapper.SelectOneT(i);
 	}
-
+*/
 	@Override
-	public List<BoardVO> RPosters(int i) {
-		List<BoardVO> list = mapper.RPosters(i);
+	public List<BoardVO> RPosters() {
+		List<BoardVO> list = mapper.RPosters();
 		//System.out.println("result: " + list);
 		return list;
 		
 	}
+	
+	@Override
+	public List<BoardVO> RAPosters(int i, int boardId) {
+		// TODO Auto-generated method stub
+		System.out.println("i값은: "+i+" boardId는 "+boardId);
+		return mapper.RAPosters(i, boardId);
+	}
 
 	@Override
-	public List<BoardVO> FPosters(String startDate, String endDate, String userId) {
+	public List<BoardVO> FPosters(String userId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -59,3 +66,4 @@ public class HomeService implements IHomeService {
 	}
 
 }
+

@@ -5,26 +5,40 @@
 <mapper namespace="com.spring.codelog.board.mapper.IHomeMapper">
 <resultMap type="com.spring.codelog.board.model.BoardVO" id="boardMap">
 <id property="boardId" column="board_id"/>
-<result property="userId" column="user_id"/>
-<result property="viewAll" column="view_all"/>
-<result property="imgPath" column="img_path"/>
-<result property="regDate" column="reg_date"/>
+   <result property="userId" column="user_id" />
+   <result property="writer" column="writer" />
+   <result property="tags" column="tags" />
+   <result property="content" column="content" />
+   <result property="preview" column="preview" />
+   <result property="thumbnail" column="thumbnail" />
+   <result property="viewAll" column="view_all" />
+   <result property="imgPath" column="img_path" />
+   <result property="regDate" column="reg_date" />
+   <result property="bno" column="bno" />
+   <result property="viewcnt" column="viewcnt" />
 </resultMap>
 
-<select id="RPosters" resultMap="boardMap">
-			
 
-	
-  SELECT * FROM(
-		SELECT ROWNUM AS rn , a.* FROM(
-		SELECT * FROM proj_board ORDER BY board_id DESC)a)t		
-				<![CDATA[
-		WHERE rn<=3 AND rn>=1 AND board_id<=20
-		]]>
+<select id="RPosters" resultMap="boardMap">
+    SELECT board_id,user_id,title,writer,preview,likes,thumbnail,reg_date FROM(
+ SELECT ROWNUM as rn, a.* FROM(
+    SELECT * FROM proj_board ORDER BY  board_id DESC)a) 
+    <![CDATA[ WHERE rn<=18]]>
 </select>
 
 
-<select id="SelectOne" resultMap="boardMap">
+<select id="RAPosters" resultMap="boardMap">
+    SELECT board_id,user_id,title,writer,preview,likes,thumbnail, reg_date FROM(
+ SELECT ROWNUM as rn, a.* FROM(
+    SELECT * FROM proj_board WHERE      <![CDATA[
+    board_id<#{boardId} 
+         ]]>
+    ORDER BY  board_id DESC)a) 
+     <![CDATA[
+     WHERE rn<=6 AND rn>=1
+     ]]>
+</select>
+<!-- <select id="SelectOne" resultMap="boardMap">
 			
 		SELECT * FROM(
 		SELECT ROWNUM AS rn , a.* FROM(
@@ -43,6 +57,7 @@
 		WHERE rn=#{i}
 		]]>
 </select>
+ -->
 
 <select id="TPosters" resultMap="boardMap">
 SELECT * FROM(
@@ -55,27 +70,18 @@ SELECT * FROM(
 		</select>
 
 <select id="FPosters">
-SELECT z.* FROM(
-SELECT ROWNUM as rn, f.*  FROM(
-SELECT q.user_id,q.title,q.reg_date,q.content FROM(
-SELECT ROWNUM as rn,t.* FROM(
-SELECT a.* FROM proj_board  a, (SELECT to_id FROM followers WHERE user_id = 'kim123') b
-<![CDATA[
-WHERE user_id = b.to_id AND reg_date>='2022-03-08'
-]]> ORDER BY reg_date DESC)t)q
-UNION
-SELECT t.user_id,t.title,t.reg_date,t.content FROM(
-		SELECT ROWNUM AS rn , a.* FROM(
-		SELECT * FROM proj_board ORDER BY board_id DESC)a)t		
-		<![CDATA[
-		WHERE rn<=15 AND rn>=1
-		)f)z WHERE rn>=5
+ SELECT ROWNUM as rn, a.* FROM proj_board a JOIN (SELECT to_id FROM followers WHERE user_id = 'kim123' )b
+    on a.user_id = b.to_id 
+    <![CDATA[
+		WHERE rn<=100 AND rn>=1
 		]]>
+		ORDER BY a.reg_date
 </select>
 
 <select id="FPCount"></select>
 
 <select id="PCount">
-	SELECT COUNT(*) FROM proj_board
+	SELECT COUNT(*) FROM proj_board;
 </select>
- </mapper>
+
+</mapper>

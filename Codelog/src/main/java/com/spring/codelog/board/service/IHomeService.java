@@ -9,17 +9,20 @@ public interface IHomeService {
 	
 	List<BoardVO> TPosters(int i);
 
-	List<BoardVO> RPosters(int i);
+	List<BoardVO> RPosters();
+	
+	List<BoardVO> RAPosters(int i, int boardId);
 
-	List<BoardVO> FPosters(String startDate, String endDate, String userId);
+	List<BoardVO> FPosters(String userId);
 	
-	BoardVO SelectOne(int i);
+	//BoardVO SelectOne(int i);
 	
-	BoardVO SelectOneT(int i);
+//	BoardVO SelectOneT(int i);
 
 	
 	int FPCount(String userId);
 	
 	int PCount();
+
 
 }

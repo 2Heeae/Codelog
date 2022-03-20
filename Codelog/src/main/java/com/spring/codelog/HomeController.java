@@ -38,6 +38,8 @@ public class HomeController {
 	private	HomeService service;
    @RequestMapping(value = "/", method = RequestMethod.GET)
    public String home(Locale locale, Model model, String fromT, HttpServletRequest request) {    
+	   
+	   System.out.println("---------------------------GET:/ HOME:RECENT-------------------------");
 	   Calendar calendar = Calendar.getInstance();
 	   calendar.add(Calendar.DAY_OF_MONTH, -7);
 	   Date date = calendar.getTime();
@@ -55,17 +57,15 @@ public class HomeController {
 		 
 		  
 		   
-		   service.FPosters(startDate,endDate,login.getUserId());
+		   service.FPosters(login.getUserId());
 		   
 	   }
 	   
-	   System.out.println("Posters1: "+service.RPosters(0));
-	   System.out.println("Posters2: "+service.RPosters(1));
-	   System.out.println("Posters3: "+service.RPosters(2));
-	   model.addAttribute("Posters1", service.RPosters(0));
-	   model.addAttribute("Posters2", service.RPosters(1));
-	   model.addAttribute("Posters3", service.RPosters(2));
-      System.out.println("겟 formT "+fromT); 
+	   System.out.println("Posters: "+service.RPosters());
+	  
+	   model.addAttribute("Posters", service.RPosters());
+	  
+      System.out.println("formT?: "+fromT); 
       model.addAttribute("recent", true);
       model.addAttribute("trending", false);
       model.addAttribute("i", 3);
@@ -80,40 +80,32 @@ public class HomeController {
     	  model.addAttribute("fromT", false);
     	  model.addAttribute("fromR", false);
       }    
+      
+	   System.out.println("------------------------------------------------------");
+
       return "home";
    }
    
    @ResponseBody
    @RequestMapping(value = "/radd", method = RequestMethod.POST)
-   public Map<String, BoardVO> RHome(Model model, @RequestBody Map<String,Integer> i,
+   public List<BoardVO> RHome(Model model, @RequestBody Map<String,Integer> info,
 		   HttpServletRequest request, 
 			HttpServletResponse response) {
-	   //int t = Integer.parseInt(i);
-	   System.out.println("recent radd");
-	   System.out.println("추가포스터 로드 i값은 "+i);
-	   int t = i.get("i");
-	   System.out.println("t값은 "+t);
-	   Map<String, BoardVO> map = new HashMap<String, BoardVO>();
+	   
+	   System.out.println("--------------------POST:/radd HOME:RECENT:ADD--------------------");
 
-if(service.SelectOne(t*3+3) != null) {
-		   System.out.println("추가할꺼있어");
-		 //  map.put("title", service.SelectOne(t*3+1).getTitle());
-		 //  map.put("content", service.SelectOne(t*3+1).getContent());
-		   System.out.println(service.SelectOne(t*3+1));
-		//  	("RPosters", service.RPosters(t));
-		   map.put("i1",service.SelectOne(t*3+1) );
-		   map.put("i2", service.SelectOne(t*3+2) );
-		   map.put("i3", service.SelectOne(t*3+3) );
+	   
+	   List<BoardVO> list = new ArrayList<BoardVO>();
+	   
+	   
+	   list = service.RAPosters(info.get("i"),info.get("boardId"));
+	   
+	   System.out.println("추가 리스트는 "+list);
+	   
+	   
+	   System.out.println("-----------------------------------------------------------------------");
 
-	    System.out.println("i값은: "+(t+1));
-	   }
-	   else {
-		   System.out.println("추가할꺼없어");
-		     //map.put("empty",null );
-		   map.put("i1", null);
-
-	   }
-	return map;
+	return list;
 
    }
    
@@ -129,7 +121,7 @@ if(service.SelectOne(t*3+3) != null) {
 	   int t = i.get("i");
 	   System.out.println("t값은 "+t);
 	   Map<String, BoardVO> map = new HashMap<String, BoardVO>();
-
+/*
 if(service.SelectOne(t*3+3) != null) {
 		   System.out.println("추가할꺼있어");
 		 //  map.put("title", service.SelectOne(t*3+1).getTitle());
@@ -151,8 +143,9 @@ if(service.SelectOne(t*3+3) != null) {
 		   System.out.println("추가할꺼없어");
 		     //map.put("empty",null );
 		   map.put("i1", null);
-
-	   }
+		   }
+*/
+	   
 	return map;
 
    }
@@ -160,13 +153,10 @@ if(service.SelectOne(t*3+3) != null) {
    @RequestMapping(value = "/", method = RequestMethod.POST)
    public String home2(Locale locale, Model model, String fromT) {
 	   
-	   System.out.println("Posters1: "+service.RPosters(0));
-	   System.out.println("Posters2: "+service.RPosters(1));
-	   System.out.println("Posters3: "+service.RPosters(2));
-	   model.addAttribute("Posters1", service.RPosters(0));
-	   model.addAttribute("Posters2", service.RPosters(1));
-	   model.addAttribute("Posters3", service.RPosters(2));
-	   
+	  
+	   System.out.println("Posters: "+service.RPosters());
+	   model.addAttribute("Posters", service.RPosters());
+	 
       System.out.println("포스트 formT "+fromT);      
       model.addAttribute("recent", true);
       model.addAttribute("trending", false);
