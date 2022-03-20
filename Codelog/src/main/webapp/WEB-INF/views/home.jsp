@@ -113,7 +113,7 @@
                <!--포스터카드 아무대나 클릭해도 링크 걸리기-->
                <a href="aa" class="stretched-link"></a>
                <!--썸네일 이미지-->
-               <img src="<c:url value='/img/cat.jpg'/>" class="card-img-top" alt="...">
+               <img src="${Poster.thumbnail }" class="card-img-top" alt="...">
                <!--제목 내용-->
                <div class="card-body ">
                   <strong>${Poster.title }</strong>

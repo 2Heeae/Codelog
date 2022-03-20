@@ -10,5 +10,7 @@ public interface IBoardService {
 	void write(BoardVO vo);
 
 	void imageUpload(HttpServletRequest hsr, ImgVO vo);
+	
+
     //
 }

@@ -31,7 +31,7 @@ public class BoardController {
 		service.write(vo);
 		ra.addFlashAttribute("msg", "글 작성 완료");
 
-		return "redirect:/home";
+		return "redirect:/";
 	}
 	
 	

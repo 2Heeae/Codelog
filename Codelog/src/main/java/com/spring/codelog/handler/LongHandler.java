@@ -2,7 +2,6 @@ package com.spring.codelog.handler;
 
 import java.io.StringReader;
 import java.sql.CallableStatement;
-import java.sql.JDBCType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
