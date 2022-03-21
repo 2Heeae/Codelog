@@ -89,8 +89,8 @@
 <select id="FPosters" resultMap="boardMap">
     SELECT board_id,user_id,title,writer,preview,likes,thumbnail,reg_date FROM(
      SELECT ROWNUM as rn, t.* FROM(
-    SELECT a.* FROM proj_board a JOIN (SELECT * FROM follow WHERE active_user = #{userId})b
-    ON a.user_id = b.passive_user ORDER BY  board_id DESC)t)
+    SELECT a.* FROM proj_board a JOIN (SELECT * FROM follow WHERE active_user = #{userNo})b
+    ON a.user_no = b.passive_user ORDER BY  board_id DESC)t)
    <![CDATA[ 
  WHERE rn<=18
      ]]>
@@ -99,8 +99,8 @@
 <select id="FAPosters" resultMap="boardMap">
       SELECT board_id,user_id,title,writer,preview,likes,thumbnail,reg_date FROM(
      SELECT ROWNUM as rn, t.* FROM(
-    SELECT a.* FROM proj_board a JOIN (SELECT * FROM follow WHERE active_user = #{userId})b
-    ON a.user_id = b.passive_user 
+    SELECT a.* FROM proj_board a JOIN (SELECT * FROM follow WHERE active_user = #{userNo})b
+    ON a.user_no = b.passive_user 
     <![CDATA[WHERE a.board_id<#{boardId]]>
      ORDER BY  board_id DESC)t)
      <![CDATA[

@@ -70,16 +70,16 @@ public class HomeController {
 		   if(allChk == null) {
 			   System.out.println("출력:팔로워");
 			   model.addAttribute("allChk", "fol");
-			   System.out.println("Posters: "+service.FPosters(login.getUserId()));		  
-			   model.addAttribute("Posters", service.FPosters(login.getUserId()));
+			   System.out.println("Posters: "+service.FPosters(login.getUserNo()));		  
+			   model.addAttribute("Posters", service.FPosters(login.getUserNo()));
 		   }
 		   else
 		   {
 			   if(allChk.equals("fol")) {
 				   System.out.println("출력:팔로워");
 				   model.addAttribute("allChk", "fol");
-				   System.out.println("Posters: "+service.FPosters(login.getUserId()));		  
-				   model.addAttribute("Posters", service.FPosters(login.getUserId()));
+				   System.out.println("Posters: "+service.FPosters(login.getUserNo()));		  
+				   model.addAttribute("Posters", service.FPosters(login.getUserNo()));
 
 			   }else if(allChk.equals("all")) {
 				   System.out.println("출력:모든사람");
@@ -126,8 +126,8 @@ public class HomeController {
 		 
 		   System.out.println("출력:팔로우");
 		   System.out.println("로그인 중 id: "+login.getUserId());
-		   System.out.println("Posters: "+service.FAPosters(info.get("boardId"), login.getUserId()));
-		   list = service.FAPosters(info.get("boardId"),login.getUserId());
+		   System.out.println("Posters: "+service.FAPosters(info.get("boardId"), login.getUserNo()));
+		   list = service.FAPosters(info.get("boardId"),login.getUserNo());
 		   System.out.println("-----------------------------------------------------------------------");
 
 		   return list;
@@ -233,16 +233,16 @@ public class HomeController {
 		   if(allChk == null) {
 			   System.out.println("출력:팔로워");
 			   model.addAttribute("allChk", "fol");
-			   System.out.println("Posters: "+service.FPosters(login.getUserId()));		  
-			   model.addAttribute("Posters", service.FPosters(login.getUserId()));
+			   System.out.println("Posters: "+service.FPosters(login.getUserNo()));		  
+			   model.addAttribute("Posters", service.FPosters(login.getUserNo()));
 		   }
 		   else
 		   {
 			   if(allChk.equals("fol")) {
 				   System.out.println("출력:팔로워");
 				   model.addAttribute("allChk", "fol");
-				   System.out.println("Posters: "+service.FPosters(login.getUserId()));		  
-				   model.addAttribute("Posters", service.FPosters(login.getUserId()));
+				   System.out.println("Posters: "+service.FPosters(login.getUserNo()));		  
+				   model.addAttribute("Posters", service.FPosters(login.getUserNo()));
 
 			   }else if(allChk.equals("all")) {
 				   System.out.println("출력:모든사람");
@@ -255,8 +255,8 @@ public class HomeController {
 		   }
 		   
 		   System.out.println("로그인 중 id: "+login.getUserId());
-		   System.out.println("Posters: "+service.FPosters(login.getUserId()));
-		   model.addAttribute("Posters", service.FPosters(login.getUserId()));
+		   System.out.println("Posters: "+service.FPosters(login.getUserNo()));
+		   model.addAttribute("Posters", service.FPosters(login.getUserNo()));
 		   System.out.println("-----------------------------------------------------------------------");
 
 		   return "home";
