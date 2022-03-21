@@ -57,7 +57,7 @@
 				<button type="button" class="btn c rounded-circle p-0 position-relative"
 					style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
 					href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
-					<span class="m-0" id="dateT" style="font-size: 1.1rem;">
+					<span id ="period" class="m-0" id="dateT" style="font-size: 1.1rem;">
 					<c:choose>
 						<c:when test="${period=='year'}">올해</c:when>
 						<c:when test="${period=='month'}">이번 달</c:when>
@@ -109,7 +109,14 @@
 				<button type="button" class="btn c rounded-circle p-0 position-relative"
 					style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
 					href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample4">
-					<span class="m-0" style="font-size: 1.1rem;">팔로워<i class="fa-solid fa-caret-down mx-md-1"></i></span>
+					<span id="allChk" class="m-0" style="font-size: 1.1rem;">
+					<c:choose>
+						<c:when test="${allChk=='fol'}">팔로워</c:when>
+						<c:when test="${allChk=='all'}">모든 사람</c:when>
+						<c:otherwise>팔로워</c:otherwise>
+					</c:choose>
+					
+					<i class="fa-solid fa-caret-down mx-md-1"></i></span>
 
 					<div class="collapse" id="collapseExample4"
 						style="position: absolute; width: 10rem; top:2.5rem; left: -3.6rem; z-index: 1000;">
@@ -287,7 +294,7 @@
 				if(target.is('#all')){
 					allChk="all";
 				}else if(target.is('#fol')){
-					allChk="fal";
+					allChk="fol";
 				}
 			
 				
@@ -356,7 +363,12 @@
   	if(Math.round($(window).scrollTop()) === $(document).height() - $(window).height()) { 
   		var boardId = $("#posterbox .poster").last().data('bno');
   		var likes = $("#posterbox .poster").last().data('lno');
-
+  		var period = $("#period").text;
+  		var allChk = $("#allChk").text;
+  		
+  		console.log("기간: "+period);
+		console.log("올첵: "+allChk);
+  		
 		var lastPoster = $("#start");
   		console.log(lastPoster);
 
@@ -367,7 +379,9 @@
      	const info = {
 						"i" : i,
 						"boardId" : boardId,
-						"likes" : likes
+						"likes" : likes,
+						"period" : period,
+						"allChk" : allChk
 				};
      	
      	var url = $(location).attr('href');
@@ -385,7 +399,9 @@
 					data : JSON.stringify(info),
 					success : function(RPosters) {
 						 i = i+1;
-				     	 
+				     		console.log("RECENT:ADD 통신 성공");
+				     		console.log(RPosters);
+
 						if(RPosters != ""){
 							$(RPosters).each(function(){  
                                 

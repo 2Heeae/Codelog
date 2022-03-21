@@ -23,6 +23,10 @@ public interface IHomeMapper {
 
 	List<BoardVO> FPosters(String userId);
 	
+	List<BoardVO> FAPosters(@Param("boardId") int boardId,
+			@Param("userId") String userId);
+
+	
 	//BoardVO SelectOne(int i);
 	
 //	BoardVO SelectOneT(int i);

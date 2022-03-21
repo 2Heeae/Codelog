@@ -64,9 +64,10 @@ public class HomeController {
 		   UserVO login = (UserVO)session.getAttribute("loginSession");
 		 		   
 		   System.out.println("로그인 중 id: "+login.getUserId());
-		   
+		   System.out.println("들어온 allChk"+allChk);
 		   
 		   if(allChk == null) {
+			   System.out.println("출력:팔로워");
 			   model.addAttribute("allChk", "fol");
 			   System.out.println("Posters: "+service.FPosters(login.getUserId()));		  
 			   model.addAttribute("Posters", service.FPosters(login.getUserId()));
@@ -74,11 +75,13 @@ public class HomeController {
 		   else
 		   {
 			   if(allChk.equals("fol")) {
+				   System.out.println("출력:팔로워");
 				   model.addAttribute("allChk", "fol");
 				   System.out.println("Posters: "+service.FPosters(login.getUserId()));		  
 				   model.addAttribute("Posters", service.FPosters(login.getUserId()));
 
 			   }else if(allChk.equals("all")) {
+				   System.out.println("출력:모든사람");
 				   model.addAttribute("allChk", "all");
 				   System.out.println("Posters: "+service.RPosters()); 
 				   model.addAttribute("Posters", service.RPosters());
@@ -114,6 +117,23 @@ public class HomeController {
 
 	   
 	   List<BoardVO> list = new ArrayList<BoardVO>();
+	   
+	   
+	   HttpSession session = request.getSession();
+	   if(session.getAttribute("loginSession")!=null) {
+		   UserVO login = (UserVO)session.getAttribute("loginSession");
+		 
+		   System.out.println("출력:팔로우");
+		   System.out.println("로그인 중 id: "+login.getUserId());
+		   System.out.println("Posters: "+service.FAPosters(info.get("boardId"), login.getUserId()));
+		   list = service.FAPosters(info.get("boardId"),login.getUserId());
+		   System.out.println("-----------------------------------------------------------------------");
+
+		   return list;
+
+		   
+	   }
+	   
 	   
 	   
 	   list = service.RAPosters(info.get("i"),info.get("boardId"));
@@ -187,36 +207,65 @@ public class HomeController {
    }
    
    @RequestMapping(value = "/", method = RequestMethod.POST)
-   public String home2(Locale locale, Model model, String fromT, HttpServletRequest request) {
+   public String home2(Locale locale, Model model, String fromT, HttpServletRequest request, String allChk) {
 	   
 	   System.out.println("---------------------------POST:/ HOME:RECENT-------------------------");
 
+	   System.out.println("포스트 formT "+fromT);      
+	      model.addAttribute("recent", true);
+	      model.addAttribute("trending", false);
+	      if(fromT!=null) {
+	      if(fromT.equals("true")) {
+	    	  model.addAttribute("fromT", true);
+	    	  model.addAttribute("fromR", false);
+	      }
+	      }
+	      else {
+	    	  model.addAttribute("fromT", false);
+	    	  model.addAttribute("fromR", false);     
+	      }     
 	   
 	   HttpSession session = request.getSession();
 	   if(session.getAttribute("loginSession")!=null) {
 		   UserVO login = (UserVO)session.getAttribute("loginSession");
-		 
-		  
+		   
+		   if(allChk == null) {
+			   System.out.println("출력:팔로워");
+			   model.addAttribute("allChk", "fol");
+			   System.out.println("Posters: "+service.FPosters(login.getUserId()));		  
+			   model.addAttribute("Posters", service.FPosters(login.getUserId()));
+		   }
+		   else
+		   {
+			   if(allChk.equals("fol")) {
+				   System.out.println("출력:팔로워");
+				   model.addAttribute("allChk", "fol");
+				   System.out.println("Posters: "+service.FPosters(login.getUserId()));		  
+				   model.addAttribute("Posters", service.FPosters(login.getUserId()));
+
+			   }else if(allChk.equals("all")) {
+				   System.out.println("출력:모든사람");
+				   model.addAttribute("allChk", "all");
+				   System.out.println("Posters: "+service.RPosters()); 
+				   model.addAttribute("Posters", service.RPosters());
+		    }
+
+		   
+		   }
+		   
 		   System.out.println("로그인 중 id: "+login.getUserId());
-		   service.FPosters(login.getUserId());
+		   System.out.println("Posters: "+service.FPosters(login.getUserId()));
+		   model.addAttribute("Posters", service.FPosters(login.getUserId()));
+		   System.out.println("-----------------------------------------------------------------------");
+
+		   return "home";
+
 		   
 	   }
 	   System.out.println("Posters: "+service.RPosters());
 	   model.addAttribute("Posters", service.RPosters());
 	 
-      System.out.println("포스트 formT "+fromT);      
-      model.addAttribute("recent", true);
-      model.addAttribute("trending", false);
-      if(fromT!=null) {
-      if(fromT.equals("true")) {
-    	  model.addAttribute("fromT", true);
-    	  model.addAttribute("fromR", false);
-      }
-      }
-      else {
-    	  model.addAttribute("fromT", false);
-    	  model.addAttribute("fromR", false);     
-      }     
+    
 	   System.out.println("-----------------------------------------------------------------------");
 
       return "home";
@@ -228,7 +277,7 @@ public class HomeController {
 	   //service.TPosters(); 
 	   System.out.println("기간은?: "+period);
 	   Calendar calendar = Calendar.getInstance();
-	   if(period.equals(null)) {
+	   if(period ==null) {
 		   calendar.add(Calendar.DATE, -7);
 		   model.addAttribute("period", "week");
 

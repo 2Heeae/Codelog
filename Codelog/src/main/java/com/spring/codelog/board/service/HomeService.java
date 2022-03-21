@@ -60,6 +60,13 @@ public class HomeService implements IHomeService {
 		// TODO Auto-generated method stub
 		return mapper.FPosters(userId);
 	}
+	
+	@Override
+	public List<BoardVO> FAPosters(int boardId, String userId) {
+		// TODO Auto-generated method stub
+		return mapper.FAPosters(boardId, userId);
+	}
+
 
 	@Override
 	public int FPCount(String userId) {
