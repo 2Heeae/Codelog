@@ -16,28 +16,27 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class BoardVO {
-	private int board_id;        // 게시글 번호
-	private String user_id;
+	private int boardId;        // 게시글 번호
+	private String userId;
 	private String title;
 	private String writer;
 	private String tags;
 	private String content;
 	private String imgPath;
-	private int hit;
 	private int likes;
 	private Timestamp regDate;
 	private String preview;
 	private String thumbnail;
 	private String  viewAll;
-	private int viewcnt;        // 게시글 조회수
+	private int hit;        // 게시글 조회수
 	private int recnt;            // **게시글 댓글의 수 추가
 	private int userNo;
 	
-	public int getBoard_id() {
-        return board_id;
+	public int getboardId() {
+        return boardId;
     }
-    public void setBoard_id(int board_id) {
-        this.board_id = board_id;
+    public void setboardId(int boardId) {
+        this.boardId = boardId;
     }
     public String getTitle() {
         return title;
@@ -63,11 +62,11 @@ public class BoardVO {
     public void setRegDate(Timestamp regDate) {
         this.regDate = regDate;
     }
-    public int getViewcnt() {
-        return viewcnt;
+    public int getHit() {
+        return hit;
     }
-    public void setViewcnt(int viewcnt) {
-        this.viewcnt = viewcnt;
+    public void setHit(int hit) {
+        this.hit = hit;
     }
     public int getRecnt() {
         return recnt;
