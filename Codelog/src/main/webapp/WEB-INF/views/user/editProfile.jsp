@@ -17,7 +17,6 @@
 </head>
 
 <body>
-  
 
   <!-- 회원정보 수정 페이지 바디 시작 -->
   <div class="container px-1 py-5 mt-5" id="user-modify-container">
@@ -74,7 +73,7 @@
           <label for="id" class="col-md-12 col-form-label"><b>아이디</b></label>
         </div>
         <div class="col-md-4">
-          <input type="text" readonly class="form-control-plaintext" name="userId" id="userId" value="${loginSession.userId}">
+          <input type="text" readonly class="form-control-plaintext" name="userId" value="${loginSession.userId}">
         </div>
         <div class="col-md-4"></div>
       </div>
@@ -107,13 +106,17 @@
           <label for="email" class="col-md-12 col-form-label"><b>이메일</b></label>
         </div>
         <div class="col-md-8">
-          <input type="text" class="form-control email-id" name="email1" value="${loginSession.email1}" id="">
-          <span class="at">@</span>
-          <select name="email2" id="" class="form-select mail-select">
-            <option value="naver.com" ${loginSession.email2 == 'naver.com' ? 'selected' : ''}>naver.com</option>
-            <option value="google.com" ${loginSession.email2 == 'google.com' ? 'selected' : ''}>google.com</option>
-            <option value="hanmail.net" ${loginSession.email2 == 'hanmail.net' ? 'selected' : ''}>hanmail.net</option>
-          </select>
+          <div class="form-floating input-group mb-3">
+            <input type="text" class="form-control rounded-4" name="email1" value="${loginSession.email1}">            
+            <span class="input-group-text">@</span>
+            <input type="text" class="form-control rounded-4 email2input" name="email2" value="${loginSession.email2}">
+            <select class="form-select email2-select">
+              <option value="naver" ${loginSession.email2 == 'naver.com' ? 'selected' : ''}>naver.com</option>
+              <option value="google" ${loginSession.email2 == 'google.com' ? 'selected' : ''}>google.com</option>
+              <option value="daum" ${loginSession.email2 == 'hanmail.net' ? 'selected' : ''}>hanmail.net</option>
+              <option value="self" ${loginSession.email2 != 'naver.com' && loginSession.email2 != 'google.com' && loginSession.email2 != 'hanmail.net' ? 'selected' : ''}>직접 입력</option>
+            </select>
+          </div>
         </div>
         <div class="col-sm-7"></div>
       </div>
@@ -126,6 +129,7 @@
         </div>
         <div class="col-md-3"></div>
       </div>
+     </form>
       <!-- 회원탈퇴 버튼 -->
       <div class="mb-3 row">
         <div class="col-md-10"></div>
@@ -133,7 +137,6 @@
           <button type="button" id="del-user-btn" class="btn btn-dark" style="float: right;">회원탈퇴</button>
         </div>
       </div>
-    </form>
   </div>
   
  <%@ include file="../include/footer.jsp" %>
@@ -184,6 +187,7 @@
             success : function(result) {
                if(result === 'success') {
                   $('#img_upload').val('');
+                  location.reload();
                } else {
                   alert('업로드에 실패했습니다.');
                }
@@ -203,42 +207,58 @@
          $('.mod-info').show();
       }); // 닉네임/자기소개 수정 인풋창 보여주기 끝
 
+    //닉네임 수정하고 저장 버튼 눌렀을 때 닉네임 입력값 검증해줄 정규표현식
+      const get_nick_check = RegExp(/^[가-힣a-zA-Z0-9]{2,20}$/);
+      
       //닉네임&자기소개 저장 버튼 클릭 이벤트 처리
       $('#nick-save-btn').click(function () {
-          console.log('저장버튼 클릭됨');
-          var nick = $('#nick-input').val();
-          var profile = $('#profile-input').val();
-          var user_id = $('#userId').val();
-          console.log(nick);
-          console.log(profile);
-          $('.nickname').text(nick);
-          $('.profile').text(profile);
-          $('.mod-info').hide(); //인풋창 숨겨주기
-          $('.info-area').show(); //닉네임, 자기소개 보여주기
+    	  if($('#nick-input').val() === '') {
+    		  alert('닉네임을 입력하세요.');
+    		  $('#nick-input').focus();
+    	  } else if(!get_nick_check.test($('#nick-input').val())) {
+    		  alert('닉네임은 한글, 영문, 숫자 조합으로 2~20자까지 입력 가능합니다.');
+    		  $('#nick-input').focus();
+    	  } else {
+    		  if(confirm('수정하시겠습니까?')) {
+    			  //console.log('저장버튼 클릭됨');
+    	          var nick = $('#nick-input').val();
+    	          var profile = $('#profile-input').val();
+    	          var user_id = $('#userId').val();
+    	          //console.log(nick);
+    	          //console.log(profile);
+    	          $('.nickname').text(nick);
+    	          $('.profile').text(profile);
+    	          $('.mod-info').hide(); //인풋창 숨겨주기
+    	          $('.info-area').show(); //닉네임, 자기소개 보여주기
+    	          
+    	          const user = {
+    	        		  	"userId" :  user_id,
+    						"nickname" : nick,
+    						"userInfo" : profile,
+    				};
+    	          
+    	          //console.log(user);
+    				
+    				//비동기 통신 시작!
+    				$.ajax({
+    					type : 'POST',
+    					url : '/codelog/user/nickChange',
+    					contentType : 'application/json',
+    					dataType : 'text',
+    					data : JSON.stringify(user),
+    					success : function(result) {
+    						console.log('통신 성공!: ' + result);
+    						alert('수정되었습니다.');
+    					},
+    					error : function() {
+    						alert('수정 실패!');
+    					}
+    				}); //end ajax(회원가입 처리)
+    		  } else {
+    			  return;
+    		  }
+    	  }
           
-          const user = {
-                   "userId" :  user_id,
-               "nickname" : nick,
-               "userInfo" : profile,
-         };
-          
-          console.log(user);
-         
-         //비동기 통신 시작!
-         $.ajax({
-            type : 'POST',
-            url : '/codelog/user/nickChange',
-            contentType : 'application/json',
-            dataType : 'text',
-            data : JSON.stringify(user),
-            success : function(result) {
-               console.log('통신 성공!: ' + result);
-               alert('수정되었습니다.');
-            },
-            error : function() {
-               alert('수정 실패!');
-            }
-         }); //end ajax(회원가입 처리)
           
       }); //닉네임&자기소개 저장 버튼 클릭 이벤트 처리 끝
 
@@ -274,6 +294,7 @@
                    success : function(result) {
                       if(result === 'success') {
                        $('#img-preview').attr('src', '<c:url value="/img/user_icon.png" />');
+                       location.reload();
                       } else {
                          alert('프로필 이미지를 먼저 등록해주세요.');
                       }
@@ -289,19 +310,61 @@
           
       }); //프로필 이미지 삭제 끝
       
+      //이메일 select 선택 이벤트
+      $(".email2-select").change(function() {
+    	  $(".email2-select option:selected").each(function() {
+    		  if($(this).val() == 'self') { //직접입력일 경우
+    			  $('.email2input').val('');
+    		  } else {
+    			  $('.email2input').val($(this).text());
+    		  }
+    		  
+		});
+    	  
+	  });
+     
+    //회원정보 수정 (비밀번호, 이메일) 버튼 눌렀을 때 입력값 검증해줄 정규표현식
+      const get_pw_check = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*()\-_=+\\\|\[\]{};:\'",.<>\/?]).{8,16}$/);
+	  const get_email1_check = RegExp(/^[a-zA-Z0-9]{4,20}$/i);
+	  const get_email2_check = RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
+      
       //회원정보 수정 (비밀번호, 이메일) 버튼 이벤트
       $('#update-form-btn').click(function() {
-         if(confirm('수정하시겠습니까?')) {
-            $('#updateForm').submit();
-         } else {
-            return;
-         }
-     }); //회원정보 수정 (비밀번호, 이메일) 버튼 이벤트 끝
+    	  if($('#pw').val() === '') {
+    		  alert('비밀번호를 입력하세요.');
+    		  $('#pw').focus();
+    	  } else if(!get_pw_check.test($('#pw').val())) {
+    		  alert('비밀번호를 영대소문자 특수문자 1개 이상 조합 8~16자로 입력해주세요.');
+    		  $('#pw').focus();
+    	  } else if($('#pw').val() !== $('#pw-check').val()) {
+    		  alert('비밀번호가 일치하지 않습니다. 비밀번호를 다시 확인해주세요.');
+    		  $('#pw-check').focus();
+    	  } else if($('input[name=email1]').val() === '') {
+    		  alert('이메일을 입력해주세요.');
+    		  $('input[name=email1]').focus();
+    	  } else if(!get_email1_check.test($('input[name=email1]').val())) {
+    		  alert('이메일을 다시 확인해주세요.');
+    		  $('input[name=email1]').focus();
+    	  } else if($('input[name=email2]').val() === '') {
+    		  alert('이메일을 입력해주세요.');
+    		  $('input[name=email2]').focus();
+    	  } else if(!get_email2_check.test($('input[name=email2]').val())) {
+    		  alert('이메일을 다시 확인해주세요.');
+    		  $('input[name=email2]').focus();
+    	  } else {
+    		  if(confirm('수정하시겠습니까?')) {
+    			  $('#updateForm').submit();
+    		  } else {
+    			  return;
+    		  }
+    	  }
+    	  
+	  }); //회원정보 수정 (비밀번호, 이메일) 버튼 이벤트 끝
       
       //회원정보수정 취소 버튼 클릭 이벤트 처리
       $('#cancel-btn').click(function() {
          location.href = "<c:url value='/user/mypage' />";    
-     }); //회원정보수정 취소 버튼 클릭 이벤트 처리 끝
+      }); //회원정보수정 취소 버튼 클릭 이벤트 처리 끝
       
       //회원탈퇴 버튼 클릭 이벤트 처리
       $('#del-user-btn').click(function() {
@@ -313,11 +376,11 @@
             
          }
          
-     }); //회원탈퇴 버튼 클릭 이벤트 처리 끝
+      }); //회원탈퇴 버튼 클릭 이벤트 처리 끝
 
     }); // end jQuery
   </script>
-  <!-- 회원정보 수정 페이지 바디 끝 -->
+  
 </body>
 
 </html>
