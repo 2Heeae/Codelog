@@ -26,7 +26,7 @@
 			<!-- 프로필 이미지 -->
 			<c:choose>
 				<c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
-					<img src="<c:url value='/img/user_icon.png' />" alt="user_icon">
+					<img src="<c:url value='/img/user_icon.png' />" alt="user_icon" width="130" height="130" style="border-radius:70px;">
 				</c:when>
 				<c:otherwise>
 					<img src="<c:url value='/user/display' />" alt="user_icon" width="130" height="130" style="border-radius:70px;">
