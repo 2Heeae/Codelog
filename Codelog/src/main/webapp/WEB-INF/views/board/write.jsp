@@ -193,7 +193,7 @@
                      style="font-size: 1.3rem; width: 2rem;  border: 0">취소</label>
                   &nbsp;&nbsp;&nbsp;
                   <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
-                  <label class="btn btn-outline-primary show px-md-0" for="btnradio4"
+                  <label class="btn btn-outline-primary show px-md-0" for="btnradio4" id="write-btn"
                      style="font-size: 1.3rem;  width: 2rem; background-color: #0d6efd; color: white;">작성</label>
 
          </form>
@@ -266,6 +266,8 @@
             })
          });
       })
+      
+
    </script>
 
    <!-- 글 작성 페이지에만 적용되는 bootstrap js. 여기는 헤더가 없어요. 지우지 마세요. -->

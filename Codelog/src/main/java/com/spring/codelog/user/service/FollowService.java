@@ -32,13 +32,19 @@ public class FollowService implements IFollowService {
 	}
 
 	@Override
-	public List<FollowVO> selectActiveUserList(String userId) {
-		return mapper.selectActiveUserList(userId);
+	public List<FollowVO> selectActiveUserList(int activeUser) {
+		return mapper.selectActiveUserList(activeUser);
 	}
 
 	@Override
-	public List<FollowVO> selectPassiveUserList(String toId) {
-		return mapper.selectPassiveUserList(toId);
+	public List<FollowVO> selectPassiveUserList(int passiveUser) {
+		return mapper.selectPassiveUserList(passiveUser);
+	}
+
+	@Override
+	public void deleteUserAllFollow(int activeUser) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

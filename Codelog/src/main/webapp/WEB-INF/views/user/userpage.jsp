@@ -185,7 +185,7 @@
             		console.log('연결 성공:'+ data);
             		if(data === 'followOk'){
 			            $(this).html('<i class="fa-solid fa-check"></i>&nbsp;팔로잉');
-			            location.href="<c:url value='userpage/${user.id}'/>";
+			            location.href="<c:url value='userpage/${vo.userId}'/>";
             		}
             	}, 
             	error: function(){
@@ -203,7 +203,7 @@
             			console
 			            $(this).html('팔로우');
 			            $(this).css("background-color", "gray");
-			            location.href="<c:url value='userpage/${user.id}'/>";
+			            location.href="<c:url value='userpage/${vo.userId}'/>";
             		}
             	}, 
             	error: function(){

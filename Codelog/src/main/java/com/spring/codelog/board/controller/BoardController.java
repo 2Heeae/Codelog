@@ -24,6 +24,7 @@ public class BoardController {
 		return "home";
 	}
 	
+	
 	@GetMapping("/write")
 	public String write(BoardVO vo, RedirectAttributes ra) {
 		
@@ -34,6 +35,7 @@ public class BoardController {
 		return "redirect:/home";
 	}
 	
+
 	
 
 }
