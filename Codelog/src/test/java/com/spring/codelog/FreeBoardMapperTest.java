@@ -27,7 +27,7 @@ public class FreeBoardMapperTest {
 	      for(int i=1; i<=30; i++) {
 	         BoardVO vo = new BoardVO();
 	         
-	         vo.setUserId("qweasdzxc"+i);
+	         vo.setUser_id("qweasdzxc"+i);
 	         vo.setTitle("테스트 제목 " + i);
 	         vo.setWriter("작성자"+i);
 	         vo.setContent("테스트 글쓰기 내용입니다. " + i);

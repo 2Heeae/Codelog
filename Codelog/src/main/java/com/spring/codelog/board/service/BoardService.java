@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +37,8 @@ public class BoardService implements IBoardService {
 
 	// 게시글 상세보기
 	@Override
-	public BoardVO read(int bno)  {
-		return boardMapper.read(bno);
+	public BoardVO read(int board_id)  {
+		return boardMapper.read(board_id);
 	}
 
 	// 게시글 수정
@@ -48,8 +49,8 @@ public class BoardService implements IBoardService {
 
 	// 게시글 삭제
 	@Override
-	public void delete(int bno)  {
-		boardMapper.delete(bno);
+	public void delete(int board_id)  {
+		boardMapper.delete(board_id);
 	}
 
 	// 게시글 전체 목록
@@ -60,22 +61,22 @@ public class BoardService implements IBoardService {
 
 	// 게시글 조회수 증가
 	@Override
-	public void increaseViewcnt(int bno, HttpSession session)  {
+	public void increaseViewcnt(int board_id, HttpSession session)  {
 		long update_time = 0;
 		// 세션에 저장된 조회시간 검색
 		// 최초로 조회할 경우 세션에 저장된 값이 없기 때문에 if문은 실행X
-		if (session.getAttribute("update_time_" + bno) != null) {
+		if (session.getAttribute("update_time_" + board_id) != null) {
 			// 세션에서 읽어오기
-			update_time = (long) session.getAttribute("update_time_" + bno);
+			update_time = (long) session.getAttribute("update_time_" + board_id);
 		}
 		// 시스템의 현재시간을 current_time에 저장
 		long current_time = System.currentTimeMillis();
 		// 일정시간이 경과 후 조회수 증가 처리 24*60*60*1000(24시간)
 		// 시스템현재시간 - 열람시간 > 일정시간(조회수 증가가 가능하도록 지정한 시간)
 		if (current_time - update_time > 5 * 1000) {
-			boardMapper.increaseViewcnt(bno);
-			// 세션에 시간을 저장 : "update_time_"+bno는 다른변수와 중복되지 않게 명명한 것
-			session.setAttribute("update_time_" + bno, current_time);
+			boardMapper.increaseViewcnt(board_id, session);
+			// 세션에 시간을 저장 : "update_time_"+board_id는 다른변수와 중복되지 않게 명명한 것
+			session.setAttribute("update_time_" + board_id, current_time);
 
 		}
 	}

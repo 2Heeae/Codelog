@@ -16,9 +16,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class BoardVO {
-	private int bno;            // 게시글 번호
-	private int boardId;
-	private String userId;
+	private int board_id;        // 게시글 번호
+	private String user_id;
 	private String title;
 	private String writer;
 	private String tags;
@@ -34,11 +33,11 @@ public class BoardVO {
 	private int recnt;            // **게시글 댓글의 수 추가
 	private int userNo;
 	
-	public int getBno() {
-        return bno;
+	public int getBoard_id() {
+        return board_id;
     }
-    public void setBno(int bno) {
-        this.bno = bno;
+    public void setBoard_id(int board_id) {
+        this.board_id = board_id;
     }
     public String getTitle() {
         return title;
