@@ -36,15 +36,8 @@
             <span style="font-size: 1.7rem; color: rgb(241, 31, 129);">g</span>-->
          </div>
 
-        <div class="col-md-3 offset-2">
-            <form class="form-inline my-2 my-lg-0 input-group">
-               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-             </form>
-         </div>
-
             <!--해,알림,검색,글작성,메뉴토글 바-->
-         <div class="col-md-3 offset-2 p-0">
+         <div class="col-md-3 offset-7 p-0">
             <!--해(다크모드)-->
             <button type="button" id="theme-btn" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" ><i
                   class="fa-regular fa-sun ic"></i></button>
