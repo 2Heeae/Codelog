@@ -25,7 +25,7 @@ public interface IBoardService {
     //  게시글 전체 목록
     public List<BoardVO> listAll() ;
     //  게시글 조회
-    public void increaseHit(int boardID, HttpSession session) ;
+    public void increaseHit(int boardId, HttpSession session) ;
     
 }
 
