@@ -25,7 +25,6 @@
 </head>
 
 <body style="margin-top: 1rem; font-family: ONE-Mobile-Regular;">
-
    <div class="container">
       <div class="row px-md-4">
          <!--로고 부분-->
