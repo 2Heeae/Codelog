@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.codelog.board.mapper.BoardMapper;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.service.HomeService;
 import com.spring.codelog.user.model.UserVO;
@@ -33,7 +34,7 @@ import com.spring.codelog.user.model.UserVO;
  */
 @Controller
 public class HomeController {
-    		  
+    		  BoardMapper boardmap;
 	@Autowired
 	private	HomeService service;
    @RequestMapping(value = "/", method = RequestMethod.GET)
