@@ -60,15 +60,15 @@
 				</div>
 				<div class="modal-body">
 					<ul class="list-unstyled">
-					<c:if test="${followingList.size() <= 0}">
-						<p>팔로잉한 회원이 없습니다.
+					<c:if test="${followerList.size() <= 0}">
+						<p>팔로우한 회원이 없습니다.
 					</c:if>
-					<c:if test="${followingList.size() > 0 }">
-						<c:forEach var="list" items="${followingList }">
+					<c:if test="${followerList.size() > 0 }">
+						<c:forEach var="list" items="${followerList }">
 							<li class="follow-li">
 								<p class="profile-id"><a href="c:url value='/userpage/${list.passiveUserId}'/>">${list.passiveUserId} </a></p>
 							</li>
-							
+							-
 						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
 						
 						</c:forEach>

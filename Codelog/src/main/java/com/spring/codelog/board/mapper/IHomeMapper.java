@@ -21,10 +21,10 @@ public interface IHomeMapper {
 
 	
 
-	List<BoardVO> FPosters(String userId);
+	List<BoardVO> FPosters(int userNo);
 	
 	List<BoardVO> FAPosters(@Param("boardId") int boardId,
-			@Param("userId") String userId);
+			@Param("userNo") int userNo);
 
 	
 	//BoardVO SelectOne(int i);

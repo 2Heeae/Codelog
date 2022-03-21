@@ -16,9 +16,9 @@ public interface IHomeService {
 	
 	List<BoardVO> RAPosters(int i, int boardId);
 
-	List<BoardVO> FPosters(String userId);
+	List<BoardVO> FPosters(int userNo);
 	
-	List<BoardVO> FAPosters(int boardId, String userId);
+	List<BoardVO> FAPosters(int boardId, int userNo);
 
 	//BoardVO SelectOne(int i);
 	

@@ -15,6 +15,7 @@
    <result property="regDate" column="reg_date" />
    <result property="bno" column="bno" />
    <result property="viewcnt" column="viewcnt" />
+   <result property="userNo" column="user_no" />
  </resultMap> 
  <select id="getContent" ></select>
  
@@ -63,8 +64,8 @@
           #{writer}
         )
     </insert>
-    <insert id="write"> INSERT INTO proj_board(board_id, user_id, title, writer, tags, content, img_path, reg_date,preview, thumbnail, view_all) 
-VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, 'dd',to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'),#{preview}, #{thumbnail}, #{viewAll} )</insert>
+    <insert id="write"> INSERT INTO proj_board(board_id, user_id, title, writer, tags, content, img_path, reg_date,preview, thumbnail, view_all, user_no) 
+VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, 'dd',to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'),#{preview}, #{thumbnail}, #{viewAll}, #{userNo})</insert>
 
     <!--03. 게시글 상세보기 조회 -->
     <select id="view" resultType="com.spring.codelog.board.model.BoardVO">
