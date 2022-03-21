@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ReplyVO {
 	private Integer rno;        // 댓글 번호
-    private Integer board_id;        // 게시글 번호
+    private Integer boardId;        // 게시글 번호
     private String replytext;    // 댓글 내용
     private String replyer;        // 댓글 작성자
     private String userName;    // 댓글 작성자의 이름(회원의 이름)
@@ -28,10 +28,10 @@ public class ReplyVO {
         this.rno = rno;
     }
     public Integer getBoard_id() {
-        return board_id;
+        return boardId;
     }
     public void setBoard_id(Integer board_id) {
-        this.board_id = board_id;
+        this.boardId = board_id;
     }
     public String getReplytext() {
         return replytext;
@@ -67,7 +67,7 @@ public class ReplyVO {
     // toString()
     @Override
     public String toString() {
-        return "ReplyVO [rno=" + rno + ", board_id=" + board_id + ", replytext=" + replytext + ", replyer=" + replyer
+        return "ReplyVO [rno=" + rno + ", board_id=" + boardId + ", replytext=" + replytext + ", replyer=" + replyer
                 + ", userName=" + userName + ", regdate=" + regdate + ", updatedate=" + updatedate + "]";
     }
     

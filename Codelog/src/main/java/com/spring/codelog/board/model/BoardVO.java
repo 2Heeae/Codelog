@@ -16,8 +16,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class BoardVO {
-	private int board_id;        // 게시글 번호
-	private String user_id;
+	private int boardId;        // 게시글 번호
+	private String userId;
 	private String title;
 	private String writer;
 	private String tags;
@@ -34,10 +34,10 @@ public class BoardVO {
 	private int userNo;
 	
 	public int getBoard_id() {
-        return board_id;
+        return boardId;
     }
     public void setBoard_id(int board_id) {
-        this.board_id = board_id;
+        this.boardId = board_id;
     }
     public String getTitle() {
         return title;
