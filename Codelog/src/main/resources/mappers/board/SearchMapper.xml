@@ -3,9 +3,32 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spring.codelog.board.mapper.ISearchMapper">
-
 	
-
-
-
+	<resultMap type="com.spring.codelog.board.model.BoardVO" id="searchMap">
+		<id property="boardId" column="board_id" />
+		<result property="userId" column="user_id" />
+		<result property="title" column="title" />
+		<result property="writer" column="writer" />
+		<result property="tags" column="tags" />
+		<result property="content" column="content" />
+		<result property="imgPath" column="img_path" />
+		<result property="hit" column="hit" />
+		<result property="likes" column="likes" />
+		<result property="regDate" column="reg_date" />
+		<result property="preview" column="preview" />
+		<result property="thumbnail" column="thumbnail" />
+		<result property="viewAll" column="view_all" />
+		<result property="userNo" column="user_no" />
+		<result property="recnt" column="recnt" />
+	</resultMap>
+	
+	<select id="search" resultMap="searchMap">
+		SELECT * FROM proj_board
+		WHERE title like '%'||#{keyword}||'%'
+		OR tags like '%'||#{keyword}||'%'
+		OR content like '%'||#{keyword}||'%'
+		OR preview like '%'||#{keyword}||'%'
+		ORDER BY board_id DESC
+	</select>
+	
 </mapper>
