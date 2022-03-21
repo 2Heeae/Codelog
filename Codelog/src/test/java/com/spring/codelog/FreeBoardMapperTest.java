@@ -29,6 +29,7 @@ public class FreeBoardMapperTest {
          System.out.println("포맷 지정 전 : " + nowDate); 
          SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy/MM/dd"); //원하는 데이터 포맷 지정 String strNowDate = simpleDateFormat.format(nowDate);
 
+
             
             
          Timestamp timestamp = new Timestamp(System.currentTimeMillis()-7);
