@@ -27,11 +27,11 @@ public class ReplyVO {
     public void setRno(Integer rno) {
         this.rno = rno;
     }
-    public Integer getBoard_id() {
+    public Integer getboardId() {
         return boardId;
     }
-    public void setBoard_id(Integer board_id) {
-        this.boardId = board_id;
+    public void setboardId(Integer boardId) {
+        this.boardId = boardId;
     }
     public String getReplytext() {
         return replytext;
@@ -67,7 +67,7 @@ public class ReplyVO {
     // toString()
     @Override
     public String toString() {
-        return "ReplyVO [rno=" + rno + ", board_id=" + boardId + ", replytext=" + replytext + ", replyer=" + replyer
+        return "ReplyVO [rno=" + rno + ", boardId=" + boardId + ", replytext=" + replytext + ", replyer=" + replyer
                 + ", userName=" + userName + ", regdate=" + regdate + ", updatedate=" + updatedate + "]";
     }
     

@@ -13,18 +13,18 @@ public interface IBoardMapper {
 
 	  void image(ImgVO vo);
 	 
-	  BoardVO test(int board_id);
+	  BoardVO test(int boardId);
 	
 
    // 02. 게시글 상세보기
-    BoardVO read(int board_id) ;
+    BoardVO read(int boardId) ;
    // 03. 게시글 수정
     void update(BoardVO vo) ;
    // 04. 게시글 삭제
-    void delete(int board_id) ;
+    void delete(int boardId) ;
    // 05. 게시글 전체 목록
     List<BoardVO> listAll() ;
    // 06. 게시글 조회 증가
-    void increaseViewcnt(int board_id, HttpSession session) ;
+    void increaseHit(int boardId, HttpSession session) ;
 
 }
