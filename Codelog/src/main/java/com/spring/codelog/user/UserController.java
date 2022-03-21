@@ -62,7 +62,7 @@ public class UserController {
 	@PostMapping("/login")
 	public String login(@RequestBody UserVO vo, HttpSession session) {
 		System.out.println("/user/login: POST");
-		System.out.println("param: " + vo);
+		System.out.println("로그인 param(id, pw): " + vo);
 		
 		UserVO dbData = service.selectOne(vo.getUserId());
 		
@@ -226,11 +226,16 @@ public class UserController {
 	
 	//회원정보 수정 처리
 	@PostMapping("/updateUser")
-	public ModelAndView updateUser(UserVO vo) {
+	public ModelAndView updateUser(UserVO vo, HttpSession session) {
 		System.out.println("/user/updateUser: POST");
 		System.out.println("param: " + vo);
+		System.out.println("이메일1" + vo.getEmail1());
+		System.out.println("이메일2" + vo.getEmail2());
 		service.updateUser(vo);
 		System.out.println("회원정보 수정 성공!");
+		//정보 수정 후 재로그인 전까지는 세션데이터 업데이트가 안되어서 강제로 다시 세션 값 넣어줌
+		UserVO dbData = service.selectOne(vo.getUserId());
+		session.setAttribute("loginSession", dbData);
 		return new ModelAndView("redirect:/user/mypage");
 	}
 	
