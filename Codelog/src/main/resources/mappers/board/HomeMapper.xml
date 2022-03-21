@@ -15,7 +15,7 @@
    <result property="imgPath" column="img_path" />
    <result property="regDate" column="reg_date" />
    <result property="bno" column="bno" />
-   <result property="viewcnt" column="viewcnt" />
+   <result property="hit" column="hit" />
 </resultMap>
 
 
@@ -31,7 +31,7 @@
     SELECT board_id,user_id,title,writer,preview,likes,thumbnail, reg_date FROM(
  SELECT ROWNUM as rn, a.* FROM(
     SELECT * FROM proj_board WHERE      <![CDATA[
-    board_id<#{boardId} 
+    board_id<#{board_id} 
          ]]>
     ORDER BY  board_id DESC)a) 
      <![CDATA[
@@ -64,7 +64,7 @@
  SELECT ROWNUM as rn, a.* FROM(
     SELECT * FROM proj_board 
     <![CDATA[
-    WHERE reg_date>#{start} AND reg_date<=#{end}]]>
+    WHERE TO_CHAR(reg_date)>#{start} AND TO_CHAR(reg_date)<=#{end}]]>
      ORDER BY  likes DESC)a) 
     <![CDATA[
     WHERE rn<=18]]>
@@ -75,7 +75,7 @@
         SELECT board_id,user_id,title,writer,preview,likes,thumbnail, reg_date FROM(
  SELECT ROWNUM as rn, a.* FROM(
     SELECT * FROM proj_board WHERE      <![CDATA[
-    likes<#{likes} AND reg_date>#{start} AND reg_date<=#{end}
+    likes<#{likes} AND TO_CHAR(reg_date)>#{start} AND TO_CHAR(reg_date)<=#{end}
          ]]>
     ORDER BY  likes DESC)a) 
      <![CDATA[
@@ -85,7 +85,7 @@
 </select> 
 
 <select id="FPosters" resultMap="boardMap">
-    SELECT board_id,user_id,title,writer,preview,likes,thumbnail,reg_date FROM(
+    SELECT board_id,user_id,title,writer,preview,likes,thumbnail, reg_date FROM(
      SELECT ROWNUM as rn, t.* FROM(
     SELECT a.* FROM proj_board a JOIN (SELECT * FROM follow WHERE active_user = #{userNo})b
     ON a.user_no = b.passive_user ORDER BY  board_id DESC)t)
@@ -95,12 +95,12 @@
 </select>
 
 <select id="FAPosters" resultMap="boardMap">
-      SELECT board_id,user_id,title,writer,preview,likes,thumbnail,reg_date FROM(
+      SELECT board_id,user_id,title,writer,preview,likes,thumbnail, reg_date FROM(
      SELECT ROWNUM as rn, t.* FROM(
     SELECT a.* FROM proj_board a JOIN (SELECT * FROM follow WHERE active_user = #{userNo})b
 
     ON a.user_no = b.passive_user 
-    <![CDATA[WHERE a.board_id<#{boardId]]>
+    <![CDATA[WHERE a.board_id<#{board_id]]>
      ORDER BY  board_id DESC)t)
      <![CDATA[
  WHERE rn<=6 AND rn>=1]]>

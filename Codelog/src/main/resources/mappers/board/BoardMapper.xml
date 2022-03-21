@@ -13,20 +13,20 @@
    <result property="viewAll" column="view_all" />
    <result property="imgPath" column="img_path" />
    <result property="regDate" column="reg_date" />
-   <result property="board_id" column="board_id" />
-   <result property="viewcnt" column="viewcnt" />
+   <result property="boardId" column="boardId" />
+   <result property="hit" column="hit" />
    <result property="userNo" column="user_no" />
  </resultMap> 
  <select id="getContent" ></select>
  
  <!-- 01. 게시글 전체 목록 조회 및 검색조회까지-->
     <select id="listAll" resultType="com.spring.codelog.board.model.BoardVO">
-            SELECT ROWNUM, board_id, title, content, b.reg_date, viewcnt, user_name AS userName, 
+            SELECT ROWNUM, boardId, title, content, b.reg_date, hit, user_name AS userName, 
                     <!-- ** 댓글숫자표시 -->
-                    (SELECT COUNT(*) FROM tbl_reply WHERE board_id=b.board_id) AS recnt
-            FROM proj_board b, tbl_member m
+                    (SELECT COUNT(*) FROM tbl_reply WHERE boardId=b.boardId) AS recnt
+            FROM tbl_board b, tbl_member m
             <include refid="search"></include>
-            ORDER BY board_id DESC, b.reg_date DESC 
+            ORDER BY boardId DESC, b.reg_date DESC 
     </select>
     
         <!-- sql code 조각 -->
@@ -51,34 +51,32 @@
     </sql>
     
     <!-- 02. 게시글 작성 -->
-
-    <insert id="write"> INSERT INTO proj_board(board_id, user_id, title, writer, tags, content, img_path, reg_date,preview, thumbnail, view_all) 
-VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, 'dd',to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'),#{preview}, #{thumbnail}, #{viewAll} )</insert>
-
+ 
+    <insert id="write"> INSERT INTO proj_board(board_id, user_id, title, writer, tags, content, img_path, reg_date,preview, thumbnail, view_all, user_no) 
+VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, 'dd',to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'),#{preview}, #{thumbnail}, #{viewAll}, #{userNo})</insert>
 
     <!--03. 게시글 상세보기 조회 -->
     <select id="view" resultType="com.spring.codelog.board.model.BoardVO">
-        SELECT * FROM proj_board 
-        WHERE board_id = #{board_id}
+        SELECT * FROM tbl_board 
+        WHERE boardId = #{boardId}
     </select>
     <!-- 04. 게시글 조회수 증가처리 -->
-    <update id="increaseViewcnt">
-        UPDATE proj_board SET viewcnt = viewcnt + 1 
-        WHERE board_id = #{board_id}
+    <update id="increaseHit">
+        UPDATE tbl_board SET hit = hit + 1 
+        WHERE boardId = #{boardId}
     </update>
     <!-- 05. 게시글 수정처리 -->
     <update id="updateArticle">
-        UPDATE proj_board SET
+        UPDATE tbl_board SET
             title = #{title},
             content = #{content},
             writer = #{writer}
-        WHERE board_id = #{board_id}
+        WHERE boardId = #{boardId}
     </update>
     <!-- 06. 게시글 삭제처리 -->
     <delete id="deleteArticle">
-        DELETE FROM proj_board
-        WHERE board_id = #{board_id}
+        DELETE FROM tbl_board
+        WHERE boardId = #{boardId}
     </delete>
  
  </mapper>
-

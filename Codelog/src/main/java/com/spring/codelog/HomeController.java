@@ -190,7 +190,7 @@ public class HomeController {
 	   }
 	   Date date = calendar.getTime();
 	   
-	   String pattern = "yyyy-MM-dd";
+	   String pattern = "yy/MM/dd";
 	   SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 	   String start = simpleDateFormat.format(date);
 	   String end = simpleDateFormat.format(new Date());
@@ -304,7 +304,7 @@ public class HomeController {
 	   }
 	   Date date = calendar.getTime();
 	   
-	   String pattern = "yyyy-MM-dd";
+	   String pattern =  "yy/MM/dd";
 	   SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 	   String start = simpleDateFormat.format(date);
 	   String end = simpleDateFormat.format(new Date());
@@ -366,7 +366,7 @@ public class HomeController {
 	   }
 	   Date date = calendar.getTime();
 	   
-	   String pattern = "yyyy-MM-dd";
+	   String pattern =  "yy/MM/dd";
 	   SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 	   String start = simpleDateFormat.format(date);
 	   String end = simpleDateFormat.format(new Date());
