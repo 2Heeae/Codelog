@@ -57,6 +57,7 @@
 		<input type="hidden" name="writer" value="${loginSession.nickname}">
 		<!-- 로그인 세션에 있는 사용자의 닉네임 -->
 		<input type="hidden" name="userId" value="${loginSession.userId}">
+		<input type="hidden" name="userNo" value="${loginSession.userNo}">
 		<!-- 로그인 세션에 있는 사용자의 id -->
 		<div id="articles">
 			<!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
