@@ -13,5 +13,5 @@ public interface BoardMapper {
  
  public List<BoardVO> getList();
  
- public BoardVO test(int bno);
+ public BoardVO test(int board_id);
 }

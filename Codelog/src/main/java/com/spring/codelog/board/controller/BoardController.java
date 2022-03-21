@@ -55,15 +55,15 @@ public class BoardController {
     // @RequestParam : get/post방식으로 전달된 변수 1개
     // HttpSession 세션객체
     @RequestMapping(value="view.do", method=RequestMethod.GET)
-    public ModelAndView view(@RequestParam int bno, HttpSession session) {
+    public ModelAndView view(@RequestParam int board_id, HttpSession session) {
         // 조회수 증가 처리
-        service.increaseViewcnt(bno, session);
+        service.increaseViewcnt(board_id, session);
         // 모델(데이터)+뷰(화면)를 함께 전달하는 객체
         ModelAndView mav = new ModelAndView();
         // 뷰의 이름
         mav.setViewName("board/view");
         // 뷰에 전달할 데이터
-        mav.addObject("dto", service.read(bno));
+        mav.addObject("dto", service.read(board_id));
         return mav;
     }
 	
@@ -77,8 +77,8 @@ public class BoardController {
     
     //  게시글 삭제
     @RequestMapping("delete.do")
-    public String delete(@RequestParam int bno) {
-        service.delete(bno);
+    public String delete(@RequestParam int board_id) {
+        service.delete(board_id);
         return "redirect:list.do";
     }
 	
