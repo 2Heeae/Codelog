@@ -29,8 +29,8 @@ public class BoardVO {
 	private String preview;
 	private String thumbnail;
 	private String  viewAll;
-	private int viewcnt;        // 게시글 조회수
-	private int recnt;            // **게시글 댓글의 수 추가
+	private int viewcnt;     // 게시글 조회수
+	private int recnt;       // **게시글 댓글의 수 추가
 	private int userNo;
 	
 	public int getBoard_id() {

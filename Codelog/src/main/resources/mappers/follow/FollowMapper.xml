@@ -32,7 +32,8 @@
 			active_user,
 			passive_user,
 			F.reg_date,
-			U.user_id as passive_user_id
+			U.user_id as passive_user_id,
+			U.user_img as user_img
 		FROM follow F
 		LEFT OUTER JOIN proj_user U
 		on (F.passive_user = U.user_no)
@@ -47,7 +48,8 @@
 			active_user,
 			passive_user,
 			F.reg_date,
-			U.user_id as active_user_id
+			U.user_id as active_user_id,
+			U.user_img as user_img
 		FROM follow F
 		LEFT OUTER JOIN proj_user U
 		on (F.active_user = U.user_no)

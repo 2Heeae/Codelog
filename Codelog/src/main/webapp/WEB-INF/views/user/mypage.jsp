@@ -61,14 +61,14 @@
 				<div class="modal-body">
 					<ul class="list-unstyled">
 					<c:if test="${followerList.size() <= 0}">
-						<p>팔로우한 회원이 없습니다.
+						<p>회원님을 팔로우 하는 사람들이 여기에 표시됩니다.
 					</c:if>
 					<c:if test="${followerList.size() > 0 }">
 						<c:forEach var="list" items="${followerList }">
 							<li class="follow-li">
 								<p class="profile-id"><a href="c:url value='/userpage/${list.passiveUserId}'/>">${list.passiveUserId} </a></p>
 							</li>
-							-
+							
 						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
 						
 						</c:forEach>
@@ -92,11 +92,20 @@
 				</div>
 				<div class="modal-body">
 					<ul class="list-unstyled">
+					<c:if test="${followingList.size() <=0}">
+						<p> 팔로잉 하는 회원이 없습니다.
+					</c:if>
+					<c:if test="${followingList.size() > 0 }">
+						<c:forEach var="list" items="${followingList }">
+							
+							<li class="follow-li">
+								<p class="profile-id"><a href="c:url value='/userpage/${list.activeUserId}'/>">${list.activeUserId} </a></p>
+							</li>
+							
 						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
-						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
-						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
-						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
-
+						
+						</c:forEach>
+					</c:if>
 					</ul>
 				</div>
 			</div>

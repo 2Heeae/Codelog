@@ -67,7 +67,7 @@ public class BoardController {
         return mav;
     }
 	
- //  게시글 수정
+    //  게시글 수정
     // 폼에서 입력한 내용들은 @ModelAttribute BoardVO vo로 전달됨
     @RequestMapping(value="update.do", method=RequestMethod.POST)
     public String update(@ModelAttribute BoardVO vo) {
