@@ -25,6 +25,12 @@
    		<result property="regDate" column="reg_date"/>
    </resultMap>
    
+    <select id="checkId" resultType="int">
+    	SELECT COUNT(*)
+    	FROM proj_user
+    	WHERE user_id = #{userId}
+    </select>
+   
 	<insert id="join">
 		INSERT INTO proj_user(user_no, user_id, user_pw, nickname, email1, email2)
 		VALUES(user_no_seq.NEXTVAL, #{userId}, #{userPw}, #{nickname}, #{email1}, #{email2})

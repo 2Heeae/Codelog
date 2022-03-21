@@ -150,7 +150,7 @@
             <!-- 로그인하면 보여주기 -->
             <c:if test="${loginSession != null}">
             <!--글 작성-->
-            <button type="button" id="write-btn" class="btn btn-light rounded-circle my-md-3 px-md-1 bc"
+            <button type="button" class="btn btn-light rounded-circle my-md-3 px-md-1 bc" onclick="location='/codelog/write'"
                >새 글 작성</button>
             </c:if>
             <!-- 로그인하면 보여주기 끝 -->
@@ -200,9 +200,9 @@
             });
             
             //새 글 작성 버튼 클릭 시 글쓰기페이지 이동 이벤트 처리
-            $('#write-btn').click(function() {
-            	location.href = "<c:url value='/write' />";				
-			}); //새 글 작성 버튼 클릭 시 글쓰기페이지 이동 이벤트 처리 끝
+            //$('#write-btn').click(function() {
+            	//location.href = "<c:url value='/write' />";				
+			//}); //새 글 작성 버튼 클릭 시 글쓰기페이지 이동 이벤트 처리 끝
             
             //로고버튼 클릭 시 메인페이지 이동 이벤트 처리
             $('#logo-btn').click(function() {

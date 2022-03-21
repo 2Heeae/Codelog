@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -9,9 +10,5 @@
 </resultMap>
 <insert id="image"> INSERT INTO image(img_id,board_id, img_path) 
 VALUES(image_seq.NEXTVAL, '1',#{imgPath} )</insert>
-<select id="test">
- SELECT img_path FROM image
- WHERE(img_id = 6)
-</select>
 
 </mapper>

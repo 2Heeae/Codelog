@@ -58,7 +58,7 @@ public class HomeService implements IHomeService {
 	@Override
 	public List<BoardVO> FPosters(String userId) {
 		// TODO Auto-generated method stub
-		return null;
+		return mapper.FPosters(userId);
 	}
 
 	@Override

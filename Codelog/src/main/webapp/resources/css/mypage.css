@@ -1,68 +1,97 @@
+/* ë‹¤í¬ëª¨ë“œ css ì‹œì‘ */
+body {
+  --text-color: #222;
+  --bkg-color: #fff;
+}
+
+body.dark-theme {
+  --text-color: #eee;
+  --bkg-color: #121212;
+}
+
+body, div {
+  background: var(--bkg-color);
+}
+
+span, i, div, a {
+  color: var(--text-color) !important;
+}
+
+body {
+  background: var(--bkg-color);
+}
+
+h1, p {
+  color: var(--text-color);
+}
+
+/* ë‹¤í¬ëª¨ë“œ css ë */
+
 .main {
-      text-align: center;
-    }
-     /* ¾ÆÀÌµğ */
-    .id {
-      display: inline;
-      font-size: 25px;
-      font-weight: bold;
-    }
-    /* ÆÈ·Î¿ì¹öÆ° */
-    .follow-button{
-      font-size: 12px;
-      border: none;
-      padding: 0 3px;
-      text-align: center;
-      border-radius: 5px;
-      background-color: lightgray;
-    }
-    .follow-button:active{
-      opacity: 0.5;
-    }
-    .posts{
-      margin-bottom: 10px;
-      margin-top: 10px;
-    }
+  text-align: center;
+}
+ /* ì•„ì´ë”” */
+.id {
+  display: inline;
+  font-size: 25px;
+  font-weight: bold;
+}
+/* íŒ”ë¡œìš°ë²„íŠ¼ */
+.follow-button{
+  font-size: 12px;
+  border: none;
+  padding: 0 3px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: lightgray;
+}
+.follow-button:active{
+  opacity: 0.5;
+}
+.posts{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
 
-    .col {
-      width: 30%;
-      margin: center;
-    }
-    /* °Ë»öÃ¢ */
-    .search {
-      width: 200px;
-      display: inline;
-      margin-left: 75%;
-      margin-bottom: 20px;
-    }
-    /* ÇÁ·ÎÇÊ»çÁø */
-    .profile {
-      text-align: left;
-      box-shadow: 0 0 0 0.5px grey;
-      margin-left: -7%;
-      padding: 20px;
-      line-height: 150%;
-    }
+.col {
+  width: 30%;
+  margin: center;
+}
+/* ê²€ìƒ‰ì°½ */
+.search {
+  width: 200px;
+  display: inline;
+  margin-left: 75%;
+  margin-bottom: 20px;
+}
+/* í”„ë¡œí•„ì‚¬ì§„ */
+.profile {
+  text-align: left;
+  box-shadow: 0 0 0 0.5px grey;
+  margin-left: -7%;
+  padding: 20px;
+  line-height: 150%;
+}
 
-    a {
-      text-decoration: none;
-      color: black;
-    }
-    a:hover{
-      color: gray;
-    }
-    /* ÆÈ·ÎÀ×, ÆÈ·Î¿ì ¸ğ´Ş */
-    .modal-dialog{
-      margin-top: 200px;
-      height: 60%;
-    }
-    /* °Ô½Ã±Û »çÁø Å©±â */
-    .card-img-top{
-      height: 12rem;
-      object-fit: cover;
-    }
-    /* ÅÂ±× */
-    .tags{
-      margin-top: 60px;
-      line-height: 28px;
-    }
+a {
+  text-decoration: none;
+  color: black;
+}
+a:hover{
+  color: gray;
+}
+/* íŒ”ë¡œì‰, íŒ”ë¡œìš° ëª¨ë‹¬ */
+.modal-dialog{
+  margin-top: 200px;
+  height: 60%;
+}
+/* ê²Œì‹œê¸€ ì‚¬ì§„ í¬ê¸° */
+.card-img-top{
+  height: 12rem;
+  object-fit: cover;
+}
+/* íƒœê·¸ */
+.tags{
+  margin-top: 60px;
+  line-height: 28px;
+}

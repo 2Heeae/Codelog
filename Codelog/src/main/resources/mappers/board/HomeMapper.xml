@@ -86,14 +86,29 @@
 
 
 
-<select id="FPosters">
- SELECT ROWNUM as rn, a.* FROM proj_board a JOIN (SELECT to_id FROM followers WHERE user_id = 'kim123' )b
-    on a.user_id = b.to_id 
-    <![CDATA[
-		WHERE rn<=100 AND rn>=1
-		]]>
-		ORDER BY a.reg_date
+<select id="FPosters" resultMap="boardMap">
+    SELECT board_id,user_id,title,writer,preview,likes,thumbnail,reg_date FROM(
+     SELECT ROWNUM as rn, t.* FROM(
+    SELECT a.* FROM proj_board a JOIN (SELECT * FROM follow WHERE active_user = 'choi123')b
+    ON a.user_id = b.passive_user ORDER BY  board_id DESC)t)
+   <![CDATA[ 
+ WHERE rn<=18
+     ]]>
 </select>
+
+<select id="FAPosters" resultMap="boardMap">
+      SELECT board_id,user_id,title,writer,preview,likes,thumbnail,reg_date FROM(
+     SELECT ROWNUM as rn, t.* FROM(
+    SELECT a.* FROM proj_board a JOIN (SELECT * FROM follow WHERE active_user = 'choi123')b
+    ON a.user_id = b.passive_user 
+    <![CDATA[WHERE a.board_id<80]]>
+     ORDER BY  board_id DESC)t)
+     <![CDATA[
+ WHERE rn<=6 AND rn>=1]]>
+     
+</select>
+
+
 
 <select id="FPCount"></select>
 

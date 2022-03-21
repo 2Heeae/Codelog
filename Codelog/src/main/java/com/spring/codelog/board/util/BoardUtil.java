@@ -10,9 +10,5 @@ public class BoardUtil {
 		if( hsr.getParameter("image") != null) return true;
 		else return false;
 	}
-	public boolean ContainThumbnail(HttpServletRequest hsr) //jsp 페이지에 썸네일 등록 여부 확인
-	{
-		if(hsr.getParameter("thumbnail") != null) return true;
-		else return false;
-	}
+
 }
