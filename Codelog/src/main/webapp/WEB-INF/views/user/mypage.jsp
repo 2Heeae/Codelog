@@ -37,11 +37,10 @@
 		<div class="col-md-8 profile">
 			<h3 class="id">${userInfo.nickname}&nbsp;&nbsp;</h3>
 			<p class="posts">
-				게시물 &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal"
-					data-bs-target="#followers_modal" style="cursor: pointer;">팔로워
-					0</a> &nbsp;&nbsp;&nbsp; <a class="folloing" data-bs-toggle="modal"
-					data-bs-target="#following_modal" style="cursor: pointer;">팔로우
-					0</a>
+				게시물 &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal" id="follower-btn"
+					data-bs-target="#followers_modal" style="cursor: pointer;">팔로워 0</a> 
+					&nbsp;&nbsp;&nbsp; <a class="folloing" data-bs-toggle="modal" id="following-btn"
+					data-bs-target="#following_modal" style="cursor: pointer;">팔로우 0</a>
 			</p>
 			<p class="intro">${userInfo.userInfo}</p>
 		</div>
@@ -61,10 +60,19 @@
 				</div>
 				<div class="modal-body">
 					<ul class="list-unstyled">
-						<li><a class="dropdown-item " href="#"> 아이디 </a></li>
+					<c:if test="${followingList.size() <= 0}">
+						<p>팔로잉한 회원이 없습니다.
+					</c:if>
+					<c:if test="${followingList.size() > 0 }">
+						<c:forEach var="list" items="${followingList }">
+							<li class="follow-li">
+								<p class="profile-id"><a href="c:url value='/userpage/${list.passiveUserId}'/>">${list.passiveUserId} </a></p>
+							</li>
+							
 						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
-						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
-						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
+						
+						</c:forEach>
+					</c:if>
 					</ul>
 				</div>
 			</div>
@@ -184,7 +192,16 @@
         $("#btnG").click(function () {
           $(location).attr("href", "https://www.google.com/")
         })
+        
+       
+        
+        
+        
+        
+        
       });
+      
+      
     </script>
 </body>
 

@@ -16,10 +16,12 @@ public interface IFollowMapper {
 	int isFollow(FollowVO fvo);
 	
 	//팔로우 리스트 조회
-	List<FollowVO> selectActiveUserList(String userId);
+	List<FollowVO> selectActiveUserList(int activeUser);
 	
 	//팔로워 리스트 조회
-	List<FollowVO> selectPassiveUserList(String toId);
+	List<FollowVO> selectPassiveUserList(int passiveUser);
 	
+	//탈퇴시 팔로우 삭제
+	void deleteUserAllFollow(int activeUser);
 	
 }

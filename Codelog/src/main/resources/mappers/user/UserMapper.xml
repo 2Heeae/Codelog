@@ -6,6 +6,7 @@
 
    <resultMap type="com.spring.codelog.user.model.UserVO" id="UserMap">
       <result property="userId" column="user_id" />
+      <result property="userNo" column="user_no" />
       <result property="nickname" column="nickname" />
       <result property="userPw" column="user_pw" />
       <result property="userInfo" column="user_info" />
@@ -31,8 +32,8 @@
     </select>
    
 	<insert id="join">
-		INSERT INTO proj_user(user_id, user_pw, nickname, email1, email2)
-		VALUES(#{userId}, #{userPw}, #{nickname}, #{email1}, #{email2})
+		INSERT INTO proj_user(user_no, user_id, user_pw, nickname, email1, email2)
+		VALUES(user_no_seq.NEXTVAL, #{userId}, #{userPw}, #{nickname}, #{email1}, #{email2})
 	</insert>
 	
 	<select id="selectOne" resultMap="UserMap">

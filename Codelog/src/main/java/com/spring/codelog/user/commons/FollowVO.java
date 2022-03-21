@@ -13,8 +13,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FollowVO {
 	private int id;
-	private String userId;
-	private String fromId;
+	private int activeUser;
+	private int passiveUser;
 	private Timestamp regDate;
 	
 	private String activeUserId;

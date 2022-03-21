@@ -1,3 +1,4 @@
+
 package com.spring.codelog.board.service;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface IBoardService {
 	void write(BoardVO vo);
 
 	//사진 업로드
-	void imageUpload(HttpServletRequest hsr, ImgVO vo);
+	void image(ImgVO vo);
 	
 	// 게시글 상세보기
     public BoardVO read(int bno) ;
