@@ -51,6 +51,7 @@
     </sql>
     
     <!-- 02. 게시글 작성 -->
+ 
     <insert id="write"> INSERT INTO proj_board(board_id, user_id, title, writer, tags, content, img_path, reg_date,preview, thumbnail, view_all, user_no) 
 VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, 'dd',to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'),#{preview}, #{thumbnail}, #{viewAll}, #{userNo})</insert>
 
