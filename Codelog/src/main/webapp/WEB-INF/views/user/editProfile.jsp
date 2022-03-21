@@ -73,7 +73,7 @@
           <label for="id" class="col-md-12 col-form-label"><b>아이디</b></label>
         </div>
         <div class="col-md-4">
-          <input type="text" readonly class="form-control-plaintext" name="userId" value="${loginSession.userId}">
+          <input type="text" readonly class="form-control-plaintext" name="userId" id="userId" value="${loginSession.userId}">
         </div>
         <div class="col-md-4"></div>
       </div>
