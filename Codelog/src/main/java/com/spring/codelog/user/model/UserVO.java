@@ -23,6 +23,7 @@ public class UserVO {
 	private String email2;
 	private String userInfo;
 	private String userImg;
+	private int userNo;
 	
 	private List<BoardVO> boardList;
 }

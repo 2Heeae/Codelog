@@ -3,6 +3,7 @@ package com.spring.codelog.user;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.codelog.user.commons.FollowVO;
 import com.spring.codelog.user.commons.profileImgVO;
 import com.spring.codelog.user.model.UserVO;
+import com.spring.codelog.user.service.IFollowService;
 import com.spring.codelog.user.service.IUserService;
 
 
@@ -31,7 +35,10 @@ import com.spring.codelog.user.service.IUserService;
 public class UserController {
 
 	@Autowired
-	private IUserService service;
+	private IUserService uservice;
+	
+	@Autowired
+	private IFollowService fservice;
 	
 	//아이디 중복 확인 처리
 	@PostMapping("/checkId")
@@ -39,7 +46,7 @@ public class UserController {
 		System.out.println("/user/checkId: POST");
 		System.out.println("param: " + userId);
 		
-		int checkNum = service.checkId(userId);
+		int checkNum = uservice.checkId(userId);
 		
 		if(checkNum == 1) {
 			System.out.println("아이디가 중복됨!");
@@ -54,7 +61,7 @@ public class UserController {
 	@PostMapping("/")
 	public String join(@RequestBody UserVO vo) {
 		System.out.println("/user/: POST");
-		service.join(vo);
+		uservice.join(vo);
 		return "joinSuccess";
 	}
 	
@@ -64,7 +71,7 @@ public class UserController {
 		System.out.println("/user/login: POST");
 		System.out.println("로그인 param(id, pw): " + vo);
 		
-		UserVO dbData = service.selectOne(vo.getUserId());
+		UserVO dbData = uservice.selectOne(vo.getUserId());
 		
 		if(dbData != null) {
 			if(vo.getUserPw().equals(dbData.getUserPw())) {
@@ -80,13 +87,34 @@ public class UserController {
 	
 	//마이페이지 이동 처리
 	@GetMapping("/mypage")
-	public ModelAndView mypage(HttpSession session) {
+	public ModelAndView mypage(HttpSession session, Model model) {
 		System.out.println("/user/mypage: GET");
 		String id = ((UserVO) session.getAttribute("loginSession")).getUserId();
-		UserVO userInfo = service.getInfo(id);
+		UserVO userInfo = uservice.getInfo(id);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("userInfo", userInfo);
 		mv.setViewName("/user/mypage");
+		
+		//팔로우 리스트 보내기
+		UserVO user = uservice.selectOne(id);
+		UserVO loginUser = (UserVO) session.getAttribute("loginSession");
+		
+		int userNo = user.getUserNo();
+		int loginUserNo = loginUser.getUserNo();
+		
+		FollowVO follow = new FollowVO();
+		int followCheck = fservice.isFollow(follow);
+		
+		//팔로워리스트
+		List<FollowVO> followerList = fservice.selectPassiveUserList(userNo);
+		//팔로잉리스트
+		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
+		
+		model.addAttribute("user", user);
+		model.addAttribute("followCheck", followCheck);
+		model.addAttribute("followerList", followerList);
+		model.addAttribute("followingList", followingList);
+	
 		
 		return mv;
 	}
@@ -95,7 +123,7 @@ public class UserController {
 	@GetMapping("/userpage/{userId}")
 	public ModelAndView userpage(@PathVariable String id ,String nickname) {
 		System.out.println("user/userpage: get");
-		UserVO vo = service.selectUser(nickname);
+		UserVO vo =uservice.selectUser(nickname);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("id", vo.getUserId());
 		mv.setViewName("user/userpage");
@@ -141,11 +169,11 @@ public class UserController {
 			file.transferTo(saveFile);
 			
 			profileImgVO vo = new profileImgVO(userId, fileName);
-			service.updateProfileImg(vo);
+			uservice.updateProfileImg(vo);
 			
 			UserVO user = (UserVO) session.getAttribute("loginSession");
 			String uId = vo.getUserId();
-			UserVO dbData = service.selectOne(uId);
+			UserVO dbData = uservice.selectOne(uId);
 			session.setAttribute("loginSession", dbData);
 			
 			return "success";
@@ -198,11 +226,11 @@ public class UserController {
 			String fileName = "null";
 			
 			profileImgVO vo = new profileImgVO(userId, fileName);
-			service.updateProfileImg(vo);
+			uservice.updateProfileImg(vo);
 			
 			UserVO user = (UserVO) session.getAttribute("loginSession");
 			String uId = vo.getUserId();
-			UserVO dbData = service.selectOne(uId);
+			UserVO dbData = uservice.selectOne(uId);
 			session.setAttribute("loginSession", dbData);
 			
 			return "success";
@@ -219,7 +247,7 @@ public class UserController {
 		System.out.println("/user/nickChange: POST");
 		System.out.println(vo.getNickname());
 		System.out.println(vo.getUserInfo());
-		service.nickChange(vo);
+		uservice.nickChange(vo);
 		return "changed";
 	}
 	
@@ -229,9 +257,11 @@ public class UserController {
 	public ModelAndView updateUser(UserVO vo, HttpSession session) {
 		System.out.println("/user/updateUser: POST");
 		System.out.println("param: " + vo);
+
 		System.out.println("이메일1" + vo.getEmail1());
 		System.out.println("이메일2" + vo.getEmail2());
 		service.updateUser(vo);
+
 		System.out.println("회원정보 수정 성공!");
 		//정보 수정 후 재로그인 전까지는 세션데이터 업데이트가 안되어서 강제로 다시 세션 값 넣어줌
 		UserVO dbData = service.selectOne(vo.getUserId());
@@ -244,7 +274,7 @@ public class UserController {
 	public ModelAndView delete(HttpSession session) {
 		System.out.println("/user/delete: GET");
 		UserVO vo = (UserVO) session.getAttribute("loginSession");
-		service.delete(vo.getUserId());
+		uservice.delete(vo.getUserId());
 		session.invalidate();
 		return new ModelAndView("redirect:/");
 	}

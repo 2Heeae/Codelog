@@ -5,15 +5,59 @@
 <mapper namespace="com.spring.codelog.user.mapper.IFollowMapper">
 
 	<resultMap type="com.spring.codelog.user.commons.FollowVO" id="FollowMap">
-		<result property="userId" column="user_id" />
-		<result property="fromId" column="from_id" />
-		<result property="regDate" column="reg_date" />
-		<result property="likes" column="likes" />
+		<id property="id" column="id"/>
+		<result property="activeUser" column="active_user"/>
+		<result property="passiveUser" column="passive_user"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="activeUserId" column="active_user_id"/>
+		<result property="passiveUserId" column="passive_user_id"/>
 	</resultMap>
 
 	<insert id="follow">
-		INSERT INTO following(id, user_id, from_id)
-		VALUES(following_seq.NEXTVAL, #{userId}, #{fromId})
+		INSERT INTO follow(active_user, passive_user)
+		VALUES(#{activeUser}, #{passiveUser})
 	</insert>
 
+	<delete id="unfollow">
+		DELETE FROM follow WHERE active_user=#{activeUser} and passive_user=#{passiveUser}
+	</delete>
+	
+	<select id="isFollow" resultType="int">
+		SELECT count(*) FROM follow WHERE active_user=#{activeUser} and passive_user=#{passiveUser}
+	</select>
+	
+	<!-- 팔로우 리스트 조회 -->
+	<select id="selectActiveUserList" resultMap="FollowMap">
+		SELECT
+			active_user,
+			passive_user,
+			F.reg_date,
+			U.user_id as passive_user_id
+		FROM follow F
+		LEFT OUTER JOIN proj_user U
+		on (F.passive_user = U.user_no)
+		WHERE active_user =#{activeUser}
+		ORDER BY reg_date DESC
+
+	</select>
+	
+	<!-- 팔로워 리스트 조회 -->
+	<select id="selectPassiveUserList" resultMap="FollowMap">
+		SELECT
+			active_user,
+			passive_user,
+			F.reg_date,
+			U.user_id as active_user_id
+		FROM follow F
+		LEFT OUTER JOIN proj_user U
+		on (F.active_user = U.user_no)
+		WHERE active_user =#{activeUser}
+		ORDER BY reg_date DESC
+
+	</select>
+	
+	<delete id="deleteUserAllFollow">
+		delete from follow where active_user=#{active_user}
+	</delete>
+	
 </mapper>

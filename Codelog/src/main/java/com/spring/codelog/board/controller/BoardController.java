@@ -27,8 +27,10 @@ public class BoardController {
 		return "home";
 	}
 	
+
 	@RequestMapping(value = "/write", method = {RequestMethod.POST})
 	public String write(BoardVO vo, RedirectAttributes ra, HttpServletRequest hsr) {
+
 		
 		System.out.println("글 작성 요청");
 		service.write(vo);
@@ -37,6 +39,7 @@ public class BoardController {
 		return "redirect:/";
 	}
 	
+
 	
 	
 

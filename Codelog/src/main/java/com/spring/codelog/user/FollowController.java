@@ -1,5 +1,7 @@
 package com.spring.codelog.user;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +32,11 @@ public class FollowController {
 	@ResponseBody
 	@PostMapping("/follow/{id}")
 	public String follow(@PathVariable String id, HttpSession session, Model model) {
-		UserVO user = (UserVO) session.getAttribute("loginSession");
-		UserVO followUser = uservice.selectOne(id);
+		UserVO activeUser = (UserVO) session.getAttribute("loginSession");
+		UserVO passiveUser = uservice.selectOne(id);
 		FollowVO following = new FollowVO();
-		following.setUserId(user.getUserId());
-		following.setFromId(id);
+		following.setActiveUser(activeUser.getUserNo());
+		following.setPassiveUser(passiveUser.getUserNo());
 		fservice.follow(following);
 		return "followOK";
 	}
@@ -43,26 +45,37 @@ public class FollowController {
 	@ResponseBody
 	@PostMapping("/unfollow/{id}")
 	public String unfollow(@PathVariable String id, HttpSession session, Model model) {
-		UserVO user = (UserVO) session.getAttribute("loginSession");
-		UserVO followUser = uservice.selectOne(id);
+		UserVO activeUser = (UserVO) session.getAttribute("loginSession");
+		UserVO passiveUser = uservice.selectOne(id);
 		FollowVO following = new FollowVO();
-		following.setUserId(user.getUserId());
-		following.setFromId(id);
+		following.setActiveUser(activeUser.getUserNo());
+		following.setPassiveUser(passiveUser.getUserNo());
 		fservice.unfollow(following);
 		return "unfollowOk";
 	}
 	
-//	//팔로우리스트 보여주기
-//	@GetMapping("/followList/{id}")
-//	public String followList(@PathVariable String id, HttpSession session) {
+	//팔로워리스트 보여주기
+//	@GetMapping("/{id}")
+//	public void followList(@PathVariable String id, HttpSession session, Model model) {
 //		UserVO user = uservice.selectOne(id);
 //		UserVO loginUser = (UserVO) session.getAttribute("loginSession");
 //		
+//		int userNo = user.getUserNo();
+//		int loginUserNo = loginUser.getUserNo();
+//		
 //		FollowVO follow = new FollowVO();
-//
 //		int followCheck = fservice.isFollow(follow);
 //		
-		
+//		//팔로워리스트
+//		List<FollowVO> followerList = fservice.selectPassiveUserList(userNo);
+//		//팔로잉리스트
+//		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
+//		
+//		model.addAttribute("user", user);
+//		model.addAttribute("followCheck", followCheck);
+//		model.addAttribute("followerList", followerList);
+//		model.addAttribute("followingList", followingList);
+//	
 //	}
 	
 	
