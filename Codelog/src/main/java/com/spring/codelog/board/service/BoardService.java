@@ -30,7 +30,7 @@ public class BoardService implements IBoardService {
 		@Override
 	public void image(ImgVO vo) {
 	
-        mapper.image(vo);
+      
          	 
              }
 
