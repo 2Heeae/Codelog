@@ -245,6 +245,7 @@ public class UserController {
 	@PostMapping("/nickChange")
 	public String nickChange(@RequestBody UserVO vo) {
 		System.out.println("/user/nickChange: POST");
+		System.out.println(vo.getUserId());
 		System.out.println(vo.getNickname());
 		System.out.println(vo.getUserInfo());
 		uservice.nickChange(vo);
