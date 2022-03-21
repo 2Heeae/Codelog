@@ -20,49 +20,6 @@ public class ReplyVO {
     private Date regdate;        // 댓글 작성일자
     private Date updatedate;    // 댓글 수정일자
     
-    // Getter/Setter
-    public Integer getRno() {
-        return rno;
-    }
-    public void setRno(Integer rno) {
-        this.rno = rno;
-    }
-    public Integer getboardId() {
-        return boardId;
-    }
-    public void setboardId(Integer boardId) {
-        this.boardId = boardId;
-    }
-    public String getReplytext() {
-        return replytext;
-    }
-    public void setReplytext(String replytext) {
-        this.replytext = replytext;
-    }
-    public String getReplyer() {
-        return replyer;
-    }
-    public void setReplyer(String replyer) {
-        this.replyer = replyer;
-    }
-    public String getUserName() {
-        return userName;
-    }
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-    public Date getRegdate() {
-        return regdate;
-    }
-    public void setRegdate(Date regdate) {
-        this.regdate = regdate;
-    }
-    public Date getUpdatedate() {
-        return updatedate;
-    }
-    public void setUpdatedate(Date updatedate) {
-        this.updatedate = updatedate;
-    }
     
     // toString()
     @Override
