@@ -150,8 +150,8 @@
             <!-- 로그인하면 보여주기 -->
             <c:if test="${loginSession != null}">
             <!--글 작성-->
-            <button type="button" class="btn btn-light rounded-circle my-md-3 px-md-1 bc" onclick="location='/codelog/write'"
-               >새 글 작성</button>
+
+            <button type="button" class="btn btn-light rounded-circle my-md-3 px-md-1 bc" onclick="location='/codelog/boardController/getWrite'">새 글 작성</button>
             </c:if>
             <!-- 로그인하면 보여주기 끝 -->
          </div>
@@ -247,6 +247,7 @@
          }); //end jQuery
          
    </script>
+
 
 </body>
 
