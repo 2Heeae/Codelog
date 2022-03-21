@@ -24,7 +24,7 @@
             SELECT ROWNUM, boardId, title, content, b.reg_date, hit, user_name AS userName, 
                     <!-- ** 댓글숫자표시 -->
                     (SELECT COUNT(*) FROM tbl_reply WHERE boardId=b.boardId) AS recnt
-            FROM tbl_board b, tbl_member m
+            FROM proj_board b, tbl_member m
             <include refid="search"></include>
             ORDER BY boardId DESC, b.reg_date DESC 
     </select>
@@ -51,37 +51,22 @@
     </sql>
     
     <!-- 02. 게시글 작성 -->
-    <insert id="insert">
-        INSERT INTO tbl_board (
-          boardId, 
-          title, 
-          content, 
-          writer
-        ) VALUES (
-        
-        
-          (SELECT NVL(MAX(boardId)+1, 1)FROM tbl_board),
-          #{title},
-          #{content},
-          #{writer}
-        )
-    </insert>
     <insert id="write"> INSERT INTO proj_board(board_id, user_id, title, writer, tags, content, img_path, reg_date,preview, thumbnail, view_all, user_no) 
 VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, 'dd',to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'),#{preview}, #{thumbnail}, #{viewAll}, #{userNo})</insert>
 
     <!--03. 게시글 상세보기 조회 -->
-    <select id="view" resultType="com.spring.codelog.board.model.BoardVO">
-        SELECT * FROM tbl_board 
-        WHERE boardId = #{boardId}
+    <select id="read" resultType="com.spring.codelog.board.model.BoardVO">
+        SELECT * FROM proj_board 
+        WHERE board_id = #{boardId}
     </select>
     <!-- 04. 게시글 조회수 증가처리 -->
     <update id="increaseHit">
-        UPDATE tbl_board SET hit = hit + 1 
-        WHERE boardId = #{boardId}
+        UPDATE proj_board SET hit = hit + 1 
+        WHERE board_id = #{boardId}
     </update>
     <!-- 05. 게시글 수정처리 -->
     <update id="updateArticle">
-        UPDATE tbl_board SET
+        UPDATE proj_board SET
             title = #{title},
             content = #{content},
             writer = #{writer}
@@ -89,7 +74,7 @@ VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, '
     </update>
     <!-- 06. 게시글 삭제처리 -->
     <delete id="deleteArticle">
-        DELETE FROM tbl_board
+        DELETE FROM proj_board
         WHERE boardId = #{boardId}
     </delete>
  
