@@ -260,11 +260,11 @@ public class UserController {
 
 		System.out.println("이메일1" + vo.getEmail1());
 		System.out.println("이메일2" + vo.getEmail2());
-		uservice.updateUser(vo);
+		service.updateUser(vo);
 
 		System.out.println("회원정보 수정 성공!");
 		//정보 수정 후 재로그인 전까지는 세션데이터 업데이트가 안되어서 강제로 다시 세션 값 넣어줌
-		UserVO dbData = uservice.selectOne(vo.getUserId());
+		UserVO dbData = service.selectOne(vo.getUserId());
 		session.setAttribute("loginSession", dbData);
 		return new ModelAndView("redirect:/user/mypage");
 	}
