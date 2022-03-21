@@ -57,7 +57,15 @@
 				<button type="button" class="btn c rounded-circle p-0 position-relative"
 					style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
 					href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
-					<span class="m-0" style="font-size: 1.1rem;">이번 주<i class="fa-solid fa-caret-down mx-md-1"></i></span>
+					<span class="m-0" id="dateT" style="font-size: 1.1rem;">
+					<c:choose>
+						<c:when test="${period=='year'}">올해</c:when>
+						<c:when test="${period=='month'}">이번 달</c:when>
+						<c:when test="${period=='week'}">이번 주</c:when>
+						<c:when test="${period=='day'}">오늘</c:when>
+						<c:otherwise>이번 주</c:otherwise>
+					</c:choose>
+					<i class="fa-solid fa-caret-down mx-md-1"></i></span>
 
 					<div class="collapse" id="collapseExample3"
 						style="position: absolute; width: 10rem; top:2.5rem; left: -3.6rem; z-index: 1000;">
@@ -97,7 +105,7 @@
 			
 			
 			<c:if test="${recent==true }">	
-				<c:if test="sessionScope.loginSession!=null">
+				<c:if test="${sessionScope.loginSession != null}">
 				<button type="button" class="btn c rounded-circle p-0 position-relative"
 					style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
 					href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample4">
@@ -234,12 +242,15 @@
 					date="day";
 				}else if(target.is('#week')){
 					date="week";
+
 				}
 				else if(target.is('#month')){
 					date="month";
+
 				}
 				else if(target.is('#year')){
 					date="year";
+
 				}
 				
 				console.log("date는 "+date);

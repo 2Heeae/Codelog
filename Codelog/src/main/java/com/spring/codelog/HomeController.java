@@ -37,41 +37,68 @@ public class HomeController {
 	@Autowired
 	private	HomeService service;
    @RequestMapping(value = "/", method = RequestMethod.GET)
-   public String home(Locale locale, Model model, String fromT, HttpServletRequest request) {    
+   public String home(Locale locale, Model model, String fromT, HttpServletRequest request, String allChk) {    
 	   
 	   System.out.println("---------------------------GET:/ HOME:RECENT-------------------------");
 	 
 	   
+	   System.out.println("formT?: "+fromT); 
+	      model.addAttribute("recent", true);
+	      model.addAttribute("trending", false);
+	      model.addAttribute("i", 3);
+	      if(fromT!=null) {
+	      if(fromT.equals("true")) {
+	    	  model.addAttribute("fromT", true);
+	    	  model.addAttribute("fromR", false);
+
+	      }
+	      }
+	      else {
+	    	  model.addAttribute("fromT", false);
+	    	  model.addAttribute("fromR", false);
+	      }    
+	      
+	   
 	   HttpSession session = request.getSession();
 	   if(session.getAttribute("loginSession")!=null) {
 		   UserVO login = (UserVO)session.getAttribute("loginSession");
-		 
-		  
+		 		   
+		   System.out.println("로그인 중 id: "+login.getUserId());
 		   
-		   service.FPosters(login.getUserId());
+		   
+		   if(allChk == null) {
+			   model.addAttribute("allChk", "fol");
+			   System.out.println("Posters: "+service.FPosters(login.getUserId()));		  
+			   model.addAttribute("Posters", service.FPosters(login.getUserId()));
+		   }
+		   else
+		   {
+			   if(allChk.equals("fol")) {
+				   model.addAttribute("allChk", "fol");
+				   System.out.println("Posters: "+service.FPosters(login.getUserId()));		  
+				   model.addAttribute("Posters", service.FPosters(login.getUserId()));
+
+			   }else if(allChk.equals("all")) {
+				   model.addAttribute("allChk", "all");
+				   System.out.println("Posters: "+service.RPosters()); 
+				   model.addAttribute("Posters", service.RPosters());
+		    }
+
+				   
+				   }
+			   
+		   System.out.println("------------------------------------------------------");
+
+		   
+		   return "home";
+		   
 		   
 	   }
 	   
-	   System.out.println("Posters: "+service.RPosters());
-	  
+	   System.out.println("Posters: "+service.RPosters()); 
 	   model.addAttribute("Posters", service.RPosters());
 	  
-      System.out.println("formT?: "+fromT); 
-      model.addAttribute("recent", true);
-      model.addAttribute("trending", false);
-      model.addAttribute("i", 3);
-      if(fromT!=null) {
-      if(fromT.equals("true")) {
-    	  model.addAttribute("fromT", true);
-    	  model.addAttribute("fromR", false);
-
-      }
-      }
-      else {
-    	  model.addAttribute("fromT", false);
-    	  model.addAttribute("fromR", false);
-      }    
-      
+     
 	   System.out.println("------------------------------------------------------");
 
       return "home";
@@ -148,22 +175,10 @@ public class HomeController {
 	   String end = simpleDateFormat.format(new Date());
 	   System.out.println("끝 날짜: "+end);
 	   System.out.println("시작 날짜: "+start);
-
-	   
 	   
 	   System.out.println("추가 리스트는 : "+service.TAPosters(info.get("likes"),start, end));
 	   list = service.TAPosters(info.get("likes"),start, end);
-	   
-	   
-	   
-	   
-	   
-	   
-	   
-	 
-	   
-	
-	   
+
 	   System.out.println("-----------------------------------------------------------------------");
 
 	   
@@ -172,9 +187,20 @@ public class HomeController {
    }
    
    @RequestMapping(value = "/", method = RequestMethod.POST)
-   public String home2(Locale locale, Model model, String fromT) {
+   public String home2(Locale locale, Model model, String fromT, HttpServletRequest request) {
 	   
-	  
+	   System.out.println("---------------------------POST:/ HOME:RECENT-------------------------");
+
+	   
+	   HttpSession session = request.getSession();
+	   if(session.getAttribute("loginSession")!=null) {
+		   UserVO login = (UserVO)session.getAttribute("loginSession");
+		 
+		  
+		   System.out.println("로그인 중 id: "+login.getUserId());
+		   service.FPosters(login.getUserId());
+		   
+	   }
 	   System.out.println("Posters: "+service.RPosters());
 	   model.addAttribute("Posters", service.RPosters());
 	 
@@ -191,6 +217,8 @@ public class HomeController {
     	  model.addAttribute("fromT", false);
     	  model.addAttribute("fromR", false);     
       }     
+	   System.out.println("-----------------------------------------------------------------------");
+
       return "home";
    }
    
