@@ -205,6 +205,12 @@
 		    <version>5.0.2.RELEASE</version>
 		</dependency>
 		
+		<!-- Apache Commons Lang 3 (웹소켓 진행 중에 추가함) -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.11</version>
+		</dependency>
 		
 	</dependencies>
 	<build>

@@ -45,6 +45,9 @@
     <beans:bean id="sockHandler" class="com.spring.codelog.util.socket.WebSocketHandler" />
 	<websocket:handlers>
 		<websocket:mapping handler="sockHandler" path="/alarm" />
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
 		<websocket:sockjs websocket-enabled="true"/>
 	</websocket:handlers>	
     
