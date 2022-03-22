@@ -29,7 +29,7 @@ public class BoardController {
 	
 	@GetMapping("/test")
 	public String test() {
-		return "home";
+		return "board/test";
 	}
 
 		@RequestMapping(value = "/getWrite", method = RequestMethod.GET)

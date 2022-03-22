@@ -31,5 +31,7 @@ public interface IUserMapper {
 
 	//마이페이지 정보 
 	UserVO getInfo(String userId);
+	
+	String getUserImg(String userId);
 
 }
