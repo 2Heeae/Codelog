@@ -188,7 +188,7 @@
 							<div style="margin-top: 0.3rem;">
 								<div style="display: inline-block; float: left;">
 									<div style="border-radius: 70%; overflow: hidden; display: inline-block;">
-										<img src="<c:url value='/img/pome3.jpg'/>" class="img-rounded" width="25rem">
+										<img src="<c:url value='/img/${Poster.userId }'/>" class="img-rounded" width="25rem">
 									</div>
 
 								</div>
