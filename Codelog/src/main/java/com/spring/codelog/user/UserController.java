@@ -110,8 +110,10 @@ public class UserController {
 		
 		//팔로워리스트
 		List<FollowVO> followerList = fservice.selectPassiveUserList(userNo);
+		System.out.println(followerList);
 		//팔로잉리스트
 		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
+		System.out.println(followingList);
 		
 		model.addAttribute("user", user);
 		model.addAttribute("followCheck", followCheck);
@@ -126,7 +128,7 @@ public class UserController {
 	@GetMapping("/userpage/{userId}")
 	public ModelAndView userpage(@PathVariable("userId") String id ,String nickname, HttpSession session) {
 		System.out.println("user/userpage: get");
-		UserVO vo =uservice.selectOne(id);
+		UserVO userInfo = uservice.getInfo(id);
 		
 		//팔로우 리스트 보내기
 		UserVO user = uservice.selectOne(id);
@@ -143,16 +145,20 @@ public class UserController {
 		
 		//팔로워리스트
 		List<FollowVO> followerList = fservice.selectPassiveUserList(userNo);
+		System.out.println("userNO:"+userNo);
+		System.out.println("followerList: "+followerList);
 		//팔로잉리스트
 		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
+		System.out.println("followinglist: "+ followingList);
 		
 		
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("userInfo", userInfo);//사용자 정보 보내기 
 		mv.addObject("user", user);
 		mv.addObject("followCheck", followCheck);
 		mv.addObject("followerList", followerList);
 		mv.addObject("followingList", followingList);
-		mv.addObject("id", vo.getUserId());
+		mv.addObject("id", user.getUserId());
 		mv.setViewName("user/userpage");
 		return mv;
 	}

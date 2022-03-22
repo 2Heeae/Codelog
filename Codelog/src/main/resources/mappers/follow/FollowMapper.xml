@@ -15,8 +15,8 @@
 	</resultMap>
 
 	<insert id="follow">
-		INSERT INTO follow(active_user, passive_user)
-		VALUES(#{activeUser}, #{passiveUser})
+		INSERT INTO follow(id, active_user, passive_user, reg_date)
+		VALUES(follow_seq.NEXTVAL, #{activeUser}, #{passiveUser}, to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'))
 	</insert>
 
 	<delete id="unfollow">
@@ -54,7 +54,7 @@
 		FROM follow F
 		LEFT OUTER JOIN proj_user U
 		on (F.active_user = U.user_no)
-		WHERE active_user =#{activeUser}
+		WHERE passive_user =#{passiveUser}
 		ORDER BY reg_date DESC
 
 	</select>

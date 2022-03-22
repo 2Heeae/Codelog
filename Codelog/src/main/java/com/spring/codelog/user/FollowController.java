@@ -30,9 +30,11 @@ public class FollowController {
 	
 	//팔로우기능
 	@ResponseBody
-	@PostMapping("/follow/{id}")
-	public String follow(@PathVariable String id, HttpSession session, Model model) {
-		UserVO activeUser = (UserVO) session.getAttribute("loginSession");
+	@PostMapping("/follow/{userId}")
+	public String follow(@PathVariable("userId") String id, HttpSession session, Model model) {
+		System.out.println("팔로우 요청: "+ id);
+		
+		UserVO activeUser = uservice.selectOne(((UserVO) session.getAttribute("loginSession")).getUserId()); 
 		UserVO passiveUser = uservice.selectOne(id);
 		FollowVO following = new FollowVO();
 		following.setActiveUser(activeUser.getUserNo());
@@ -44,8 +46,8 @@ public class FollowController {
 	//언팔로우 기능
 	@ResponseBody
 	@PostMapping("/unfollow/{id}")
-	public String unfollow(@PathVariable String id, HttpSession session, Model model) {
-		UserVO activeUser = (UserVO) session.getAttribute("loginSession");
+	public String unfollow(@PathVariable("userId") String id, HttpSession session, Model model) {
+		UserVO activeUser = uservice.selectOne(((UserVO) session.getAttribute("loginSession")).getUserId()); 
 		UserVO passiveUser = uservice.selectOne(id);
 		FollowVO following = new FollowVO();
 		following.setActiveUser(activeUser.getUserNo());
