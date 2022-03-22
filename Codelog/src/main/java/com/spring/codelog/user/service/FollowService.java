@@ -43,7 +43,7 @@ public class FollowService implements IFollowService {
 
 	@Override
 	public void deleteUserAllFollow(int activeUser) {
-		// TODO Auto-generated method stub
+		mapper.deleteUserAllFollow(activeUser);
 		
 	}
 

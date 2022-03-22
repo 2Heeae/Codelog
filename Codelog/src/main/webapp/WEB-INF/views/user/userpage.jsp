@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <%@include file="../include/header.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -25,22 +26,26 @@
           <img src="<c:url value='/img/user_icon.png' />" alt="user_icon" width="130">
         </div>
         <div class="col-md-8 profile">
-          <h3 class="id">${vo.nickname }&nbsp;&nbsp;
-          <button class="follow-button">
+          <h3 class="id">${userInfo.nickname }&nbsp;&nbsp;
+          
 			<c:choose>
 	          <c:when test="${followCheck == 1 }">
-	          	<i class="fa-solid fa-check"></i>&nbsp;팔로잉
+	          <button class="follow-button" style="background-color:#C0D8C0">
+	          	<i class="fa-solid fa-check"></i><p class="follow-txt">&nbsp;팔로잉</p>
+	          	</button>
 	          </c:when>
 	          <c:otherwise>
-	          		팔로우
+	          <button class="follow-button">
+	          	<p class="follow-txt">팔로우</p>
+	          	</button>
 	          </c:otherwise>
 	        </c:choose>
-          </button></h3>
+          </h3>
           <p class="posts">게시물 3 &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal"
-              data-bs-target="#followers_modal" style="cursor:pointer;">팔로워 0</a> &nbsp;&nbsp;&nbsp;
+              data-bs-target="#followers_modal" style="cursor:pointer;">팔로워 ${fn:length(followerList)}</a> &nbsp;&nbsp;&nbsp;
             <a class="folloing" data-bs-toggle="modal" data-bs-target="#following_modal" style="cursor:pointer;">팔로우
-              0</a></p>
-          <p class="intro">${vo.userInfo}</p>
+              ${fn:length(followingList)}</a></p>
+          <p class="intro">${userInfo.userInfo}</p>
         </div>
       </div> <!-- end main-->
 
@@ -55,19 +60,18 @@
             </div>
             <div class="modal-body">
               <ul class="list-unstyled">
-               <c:if test="${followerList.size() <= 0}">
+              <c:choose>
+                <c:when test="${fn:length(followerList) <= 0}">
 						<p>팔로우 하는 사람이 없습니다.
-					</c:if>
-					<c:if test="${followerList.size() > 0 }">
-						<c:forEach var="list" items="${followerList }">
-							<li class="follow-li">
-								<p class="profile-id"><a href="c:url value='/userpage/${list.passiveUserId}'/>">${list.passiveUserId} </a></p>
-							</li>
-							
-						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
-						
-						</c:forEach>
-					</c:if>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="list" items="${followerList }">
+						<li class="follow-li">
+							<p class="profile-id"><a href="c:url value='/userpage/${list.activeUserId}'/>">${list.activeUserId} </a></p>
+						</li>
+					</c:forEach>
+				</c:otherwise>
+				</c:choose>
               </ul>
             </div>
           </div>
@@ -95,7 +99,6 @@
 								<p class="profile-id"><a href="c:url value='/userpage/${list.activeUserId}'/>">${list.activeUserId} </a></p>
 							</li>
 							
-						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
 						
 						</c:forEach>
 					</c:if>
@@ -187,21 +190,24 @@
       // 팔로우버튼 누를시 팔로잉, 다시클릭시 팔로우
       $(function () {
         $('.follow-button').click(function () {
-          if ($(this).html() == '팔로우') {
+        	console.log('${userInfo.userId}');
+        	console.log('넘어오니?');
+          if ($('.follow-txt').html() == '팔로우') {
             $(this).css("background-color", "#C0D8C0")
             $.ajax({
             	type: "post",
-            	url: "<c:url value='/follow/${vo.userId}' />",
+            	dataType: 'text',
+            	url: "<c:url value='/follow/${userInfo.userId}' />",
             	contentType: "application/json",
             	success: function(data){
             		console.log('연결 성공:'+ data);
             		if(data === 'followOk'){
 			            $(this).html('<i class="fa-solid fa-check"></i>&nbsp;팔로잉');
-			            location.href="<c:url value='userpage/${vo.userId}'/>";
+			            
             		}
             	}, 
             	error: function(){
-            		alert('실패');
+            		alert('팔로우 실패');
             	}
             }); //end ajax
           } else {
@@ -219,24 +225,14 @@
             		}
             	}, 
             	error: function(){
-            		alert('실패');
+            		alert('팔로잉 실패');
             	}
             });
           }
         });
       });
       
-      //팔로워리스트 처리
-      $('.follow-button').click(function(){
-    	  $.ajax({
-    		 type: 'get',
-    		 url: "<c:url value='followList/${vo.userId}'/>",
-    		 content: "application/json",
-    		 success: function(data){
-    			 
-    		 }
-    	  }); //end ajax
-      });//end jQuery
+
      </script>
     <script>
       $(document).ready(function () {

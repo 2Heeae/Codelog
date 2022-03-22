@@ -36,7 +36,7 @@
 						<a class="likes" onclick='count("plus")'>♥</a>
 						<div id='result' style="margin-left: 28px;">0</div>
 						<a href="mypage">
-							<img class="sharing" src="<c:url value='/img/profile5.png'/>" alt="profile">
+							<img class="sharing" src="<c:url value='/img/profile'/>" alt="profile">
 						</a>
 					</nav>
 					</div>
