@@ -37,7 +37,7 @@
 						<div id='result' style="margin-left: 28px;">0</div>
 						<!-- 글쓴이 프로필 사진 -->
 						<a href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">
-							<img class="sharing" src="<c:url value='/img/profile5.png'/>" alt="profile">
+							<img src="<c:url value='/img/${dto.userId }'/>" class="sharing"  alt="profile" >
 							
 						</a>
 						<!-- 프로필사진 끝 -->
