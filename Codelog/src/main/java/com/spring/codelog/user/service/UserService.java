@@ -58,7 +58,11 @@ public class UserService implements IUserService {
 		return mapper.getInfo(userId);
 	}
 
-
+@Override
+public String getUserImg(String userId) {
+	// TODO Auto-generated method stub
+	return null;
+}
 
 
 
