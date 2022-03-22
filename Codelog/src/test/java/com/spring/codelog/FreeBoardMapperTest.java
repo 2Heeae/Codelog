@@ -44,14 +44,14 @@ public class FreeBoardMapperTest {
 	         vo.setContent("테스트 글쓰기 내용입니다. " + i);
 	         vo.setTags("태그"+i);
 	         vo.setImgPath("이미지경로"+i);
-	         //vo.setHit(i);
-	         //vo.setLikes(i);
+	         vo.setHit(i);
+	         vo.setLikes(i);
 	         vo.setRegDate(timestamp);
 	         vo.setPreview("미리보기"+i);
 	         vo.setThumbnail("썸네일경로"+i);
 	         vo.setViewAll("1");
 	         vo.setRecnt(i);
-	         vo.setboardId(i);
+				/* vo.setboardId(i); */
 	         mapper.write(vo);
 	      }
 	   }
