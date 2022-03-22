@@ -72,17 +72,18 @@ public class BoardController {
     @RequestMapping(value="update.do", method=RequestMethod.POST)
     public String update(@ModelAttribute BoardVO vo) {
         service.update(vo);
-        return "redirect:list.do";
+        return "redirect:/";
     }
     
     //  게시글 삭제
     @RequestMapping("delete.do")
     public String delete(@RequestParam int boardId) {
         service.delete(boardId);
-        return "redirect:list.do";
+        return "redirect:/";
     }
 	
-	
+
+
 	
 
 }
