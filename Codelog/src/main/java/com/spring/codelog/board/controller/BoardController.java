@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.spring.codelog.board.commons.PostLikeVO;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.service.BoardService;
 
@@ -85,10 +87,5 @@ public class BoardController {
 	
     
     // 작성자 프로필 사진
-
- 
-
-
-	
 
 }

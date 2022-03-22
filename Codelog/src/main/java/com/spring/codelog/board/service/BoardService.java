@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.codelog.board.commons.ImgVO;
+import com.spring.codelog.board.commons.PostLikeVO;
 import com.spring.codelog.board.mapper.IBoardMapper;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.util.BoardUtil;
+import com.spring.codelog.user.model.UserVO;
 
 @Service
 public class BoardService implements IBoardService {
