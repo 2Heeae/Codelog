@@ -25,6 +25,6 @@ public interface IBoardMapper {
    // 05. 게시글 전체 목록
     List<BoardVO> listAll() ;
    // 06. 게시글 조회 증가
-    void increaseHit(int boardId, HttpSession session) ;
+    void increaseHit(int boardId) ;
 
 }

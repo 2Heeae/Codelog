@@ -164,7 +164,7 @@
 			<div class="col-md-4 px-md-4 py-md-4">
 				<div class="card poster" style="width: 100%; height: 27rem;" data-bno="${Poster.boardId }" data-lno="${Poster.likes }">
 					<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
-					<a href="aa" class="stretched-link"></a>
+					<a href="${pageContext.request.contextPath}/boardController/board?boardId=${Poster.boardId}" class="stretched-link"></a>
 					<!--썸네일 이미지-->
 					<img src="<c:url value='/img/cat.jpg'/>" class="card-img-top" alt="...">
 					<!--제목 내용-->
@@ -366,8 +366,7 @@
   		var period = $("#period").text;
   		var allChk = $("#allChk").text;
   		
-  		console.log("기간: "+period);
-		console.log("올첵: "+allChk);
+
   		
 		var lastPoster = $("#start");
   		console.log(lastPoster);
@@ -413,7 +412,7 @@
 								   var str ="";
 								   str += "<div class=" + "'col-md-4 px-md-4 py-md-4'"+">"
 									+ "<div class="+"'card poster'"+" style="+"'width: 100%; height: 27rem;'"+ "data-bno='"+this.boardId+"'"+"data-lno='"+this.likes+"'>"
-	                				+ "<a href="+"'aa'"+" class="+"'stretched-link'"+"></a>"
+	                				+ "<a href="+"${pageContext.request.contextPath}/boardController/board?boardId=${Poster.boardId}"+" class="+"'stretched-link'"+"></a>"
                              		+ "<img src="+"'img/cat.jpg'"+ "class="+"'card-img-top'"+" alt="+"'...'"+">"
                 					+ "<div class="+"'card-body'"+ " >"
                 					+ "<strong>타이틀"+this.title+"보드아이디"+this.boardId+"</strong>"
