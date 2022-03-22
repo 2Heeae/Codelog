@@ -20,7 +20,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap"
 	rel="stylesheet">
-	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
 <link
 	href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap"
 	rel="stylesheet">
@@ -41,18 +41,14 @@
 
 <style>
 /* 글 작성 페이지 css */
-@import url("<c:url value='/css/write.css'/>");
+@import url("<c:url value='/css/toastTest.css'/>");
+@import url("<c:url value='/css/test.css'/>");
 </style>
 
 <title>Document</title>
 </head>
-<c:if test="${loginSession == null }">
-   <script>
-    alert("로그인 후 이용이 가능합니다.");
-    history.back();
-   </script>
 
- </c:if>
+
 <body>
 	<form action="<c:url value='/boardController/write' />"
 		class="write-bbs" enctype=multipart/form-data method="post">
@@ -64,60 +60,28 @@
 		<input type="hidden" name="userNo" value="${loginSession.userNo}">
 		<!-- 로그인 세션에 있는 사용자의 id -->
 		<div id="articles">
-			<!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
-			<div class="write-left-side">
-				<!-- 제목, 태그, 본문 내용 form으로 전송 -->
-
-				<!--제목-->
+			<br>
+				<!--태그-->
 				<textarea placeholder="제목을 입력하세요" id="title" name="title"
 					onkeyup="priviewTitle()"></textarea>
-				<br>
-				<!--태그-->
 				<input class="tag" name="tags" placeholder="태그를 입력하세요">
-				<!-- 마크다운 버튼들이 있는 div (온클릭 이벤트?) -->
-				<div class="markdown-btns">
-					<button type="button">
-						H1</i>
-					</button>
-					<button type="button">H2</button>
-					<button type="button">H3</button>
-					<button type="button">H4</button>
-					|
-					<button type="button">
-						<i class="fa-solid fa-b"></i>
-					</button>
-					<button type="button">
-						<i class="fa-solid fa-italic"></i>
-					</button>
-					<button type="button" id="textSlash">
-						<i class="fa-solid fa-text-slash"></i>
-					</button>
+			<!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
+		
+				<div id="editor" style="" ></div>
 
-					|
-					<button type="button">
-						<i class="fa-solid fa-quote-right"></i>
-					</button>
-					<button type="button">
-						<i class="fa-solid fa-paperclip"></i>
-					</button>
-					<button type="button" onclick="document.all.chooseFile.click();">
-						<i class="fa-regular fa-image"></i>
-					</button>
-					<input type="file" id="chooseFile" name="chooseFile">
-					<button type="button">
-						<i class="fa-solid fa-angle-left"></i><i
-							class="fa-solid fa-angle-right"></i>
-					</button>
-					<br>
-				</div>
-				<!--본문 내용-->
-				<textarea placeholder="내용을 입력하세요" id="content" name="content"
-					class="content" onkeyup="priviewContent()"></textarea>
-				<!--돌아가기, 글등록하기 버튼이 있는 div-->
-
-
-				<div class="submit">
-
+			
+ 
+ <script>
+ const Editor = toastui.Editor;
+ 
+ const editor = new Editor({
+ 	  el: document.querySelector('#editor'),
+ 	  width: '100%',
+ 	  height: '61.327rem',
+ 	  initialEditType: 'markdown',
+ 	  previewStyle: 'vertical'
+ 	});
+ </script>
 
 					<button class="ok" id="show" type="button">
 						<i class="fa-solid fa-check"></i>
@@ -148,38 +112,7 @@
 
 
 			</div>
-			<!-- 미리보기 영역(화면 절반 중 오른쪽)-->
-			<div class="write-right-side">
-				<div class="priview">
-					<!--제목 미리보기(onkeyup 이벤트 활용)-->
-					<div id="priview-title">
-						<h1>
-							<script>
-                     function priviewTitle() {
-                        const priview =
-                           document.getElementById('title').value;
-                        document.getElementById('priview-title').innerText = priview;
-
-                     }
-                  </script>
-						</h1>
-					</div>
-					<!--본문 미리보기(onkeyup 이벤트 활용)-->
-					<div id="priview-content">
-						<h1>
-							<script>
-                     function priviewContent() {
-                        const priview =
-                           document.getElementById('content').value;
-                        document.getElementById('priview-content').innerText = priview;
-                     }
-                  </script>
-						</h1>
-					</div>
-
-				</div>
-			</div>
-		</div>
+	
 		<!-- 미리보기 버튼 작동 후 페이지-->
 		<!--contanier 1개에 row 1개 col 2개로 영역 구분
         썸네일 직접 업로드 가능(기본값은 글 작성에 이미지를 넣었으면 그 중 최상단 이미지 없으면 null)
