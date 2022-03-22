@@ -20,17 +20,16 @@ import com.spring.codelog.user.model.UserVO;
 import com.spring.codelog.user.service.IUserService;
 
 @RestController
-@Controller("/img")
 public class ImgController {
 	
 	@Autowired
 	IUserService service;
 
 	//프로필 이미지 파일 보여주기 요청
-	@GetMapping("/{userId}")
+	@GetMapping("img/{userId}")
 	public ResponseEntity<byte[]> getUserImgFile(@PathVariable("userId") String userId) {
-		
-		String fileName = service.getUserImg("userId");
+		System.out.println("프로필이미지 "+userId);
+		String fileName = service.getUserImg(userId);
 		System.out.println("fileName: " + fileName);
 		
 		File file = new File("C:\\test\\upload\\" + fileName);

@@ -61,7 +61,7 @@ public class UserService implements IUserService {
 @Override
 public String getUserImg(String userId) {
 	// TODO Auto-generated method stub
-	return null;
+	return mapper.getUserImg(userId);
 }
 
 
