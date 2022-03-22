@@ -26,5 +26,6 @@ public interface IBoardMapper {
     List<BoardVO> listAll() ;
    // 06. 게시글 조회 증가
     void increaseHit(int boardId) ;
+    
 
 }
