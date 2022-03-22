@@ -20,6 +20,6 @@ public class FollowVO {
 	private String activeUserId;
 	private String passiveUserId;
 	
-	
+	private String userImg;
 	
 }
