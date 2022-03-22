@@ -40,6 +40,7 @@ public class BoardService implements IBoardService {
 	public BoardVO read(int boardId)  {
 		return boardMapper.read(boardId);
 	}
+	
 
 	// 게시글 수정
 	@Override

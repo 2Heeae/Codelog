@@ -46,25 +46,19 @@
 			<!--글 상세보기 내용-->
 			<div class="col-md-7">
 				<div class="container detail-main">
-					<h1>${Poster.title}</h1>
+					<h1>${dto.title}</h1>
 					<div class="info">
-						<a class="writer" href="mypage">작성자</a>
-						<c:out value="${Poster.writer}"/>
+						<a class="writer" href="mypage">${dto.writer}</a>					
 						<div class="slash"> | </div>
-						<div class="date"> day:</div>
-						<c:out value="${Poster.regDate}"/> 
+						<div class="date"> date:<fmt:formatDate value="${dto.regDate}" pattern="yy-MM-dd"/></div>
 						<div class="slash"> | </div>						
-						<span>view: </span>
-						<c:out value="${Poster.hit}"/> 
+						<span>view:${dto.hit} </span>
 					</div>
 					
 					<br>
 					<div id="hashtag">
 						<a href="https://www.google.com/search?q=Typescript">#Typescript</a>
-						<a href="https://www.google.com/search?q=타입스크립트">#타입스크립트</a>
-						<a href="https://www.google.com/search?q=태그1">#태그1</a>
-						<a href="https://www.google.com/search?q=태그2">#태그2</a>
-						<a>${Poster.tags}</a>
+						<a href="https://www.google.com/search?q=${dto.tags}">#${dto.tags}</a>
 					</div>
 
 					<!-- 로그인시 수정,삭제 버튼 활성화 -->
@@ -72,7 +66,7 @@
      					<c:when test="${loginSession != null}">
          					<span class="modify">
 					 		<!-- 게시물번호를 hidden 으로 처리 -->
-							<input type="hidden" name="bno" value="${Poster.boardId}">
+							<input type="hidden" name="bno" value="${dto.boardId}">
 							<button class="left btn btn-default" id="btnUpdate">수정</button>
 							<button class="right btn btn-primary" id="btnDelete">삭제</button>
 							</span>
@@ -86,8 +80,8 @@
 					<section>
 						<div class="target" id="1">
 							<a name="content1"></a>
-							<div id="mini-title">소제목</div><br>
-							<div>${Poster.context}</div>
+							<!-- <div id="mini-title">소제목</div><br> -->
+							<div>${dto.content}</div>
 						</div>
 
 					</section>
@@ -97,7 +91,7 @@
 						<div class="reply-container">
 							<div class="row">
 								<div class="col-md-9 col-xs-12 content-wrap">
-									<h2>${Poster.recnt}개의 댓글</h2>
+									<h2>${dto.recnt}개의 댓글</h2>
 									<!-- 댓글 작성 공간 -->
 									<div class="reply-wrap">
 										<div class="reply-image">
@@ -119,11 +113,11 @@
 										</div>
 										<div class="reply-content">
 											<div class="reply-group clearfix">
-												<strong class="left">${Poster.userName} <fmt:formatDate value="${Poster.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></strong> <br>
+												<strong class="left">${dto.userId} <fmt:formatDate value="${dto.regDate}" pattern="yyyy-MM-dd"/></strong> <br>
 												
 												
 											</div><br>
-											<p>${Poster.replytext}</p>
+											<%-- <p>${dto.replytext}</p> --%>
 										</div>
 
 										<div class="hiddenDiv">
@@ -263,7 +257,7 @@
 	        // ** 댓글 쓰기 버튼 클릭 이벤트 (ajax로 처리)
 	        $("#btnReply").click(function(){
 	            var replytext=$("#replytext").val();
-	            var bno="${Poster.bno}"
+	            var bno="${dto.boardId}"
 	            var param="replytext="+replytext+"&bno="+bno;
 	            $.ajax({                
 	                type: "post",
@@ -294,7 +288,7 @@
 	            $.ajax({
 	                type: "get",
 	                //contentType: "application/json", ==> 생략가능(RestController이기때문에 가능)
-	                url: "${path}/reply/listJson.do?bno=${Poster.bno}",
+	                url: "${path}/reply/listJson.do?bno=${dto.boardId}",
 	                success: function(result){
 	                    console.log(result);
 	                    var output = "<table>";
