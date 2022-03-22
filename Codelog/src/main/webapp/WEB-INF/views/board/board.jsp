@@ -37,6 +37,7 @@
 						<div id='result' style="margin-left: 28px;">0</div>
 						<a href="mypage">
 							<img class="sharing" src="<c:url value='/img/profile5.png'/>" alt="profile">
+							
 						</a>
 					</nav>
 					</div>
@@ -50,7 +51,8 @@
 					<div class="info">
 						<a class="writer" href="mypage">${dto.writer}</a>					
 						<div class="slash"> | </div>
-						<div class="date"> date:<fmt:formatDate value="${dto.regDate}" pattern="yy-MM-dd"/></div>
+						<div class="date"> date:<fmt:formatDate value="${dto.regDate}" pattern="yyyy/MM/dd"/></div>
+						
 						<div class="slash"> | </div>						
 						<span>view:${dto.hit} </span>
 					</div>
