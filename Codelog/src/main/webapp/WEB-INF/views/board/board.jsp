@@ -57,21 +57,20 @@
 					
 					<br>
 					<div id="hashtag">
-						<a href="https://www.google.com/search?q=Typescript">#Typescript</a>
 						<a href="https://www.google.com/search?q=${dto.tags}">#${dto.tags}</a>
 					</div>
 
 					<!-- 로그인시 수정,삭제 버튼 활성화 -->
-					<c:choose>
-     					<c:when test="${loginSession != null}">
+					
+     					<c:if test="${loginSession.nickname == dto.writer}">
          					<span class="modify">
 					 		<!-- 게시물번호를 hidden 으로 처리 -->
 							<input type="hidden" name="bno" value="${dto.boardId}">
 							<button class="left btn btn-default" id="btnUpdate">수정</button>
 							<button class="right btn btn-primary" id="btnDelete">삭제</button>
 							</span>
-    					 </c:when>
-					</c:choose>
+    					 </c:if>
+					
 					
 
 					
