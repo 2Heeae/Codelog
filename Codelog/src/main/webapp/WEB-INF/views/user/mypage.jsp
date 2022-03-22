@@ -92,7 +92,7 @@
 				</div>
 				<div class="modal-body">
 					<ul class="list-unstyled">
-					<c:if test="${followingList.size() <=0}">
+					<c:if test="${followingList.size() <= 0}">
 						<p> 팔로잉 하는 회원이 없습니다.
 					</c:if>
 					<c:if test="${followingList.size() > 0 }">

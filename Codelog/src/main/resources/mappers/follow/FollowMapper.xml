@@ -11,6 +11,7 @@
 		<result property="regDate" column="reg_date"/>
 		<result property="activeUserId" column="active_user_id"/>
 		<result property="passiveUserId" column="passive_user_id"/>
+		<result property="userImg" column="user_img"/>
 	</resultMap>
 
 	<insert id="follow">

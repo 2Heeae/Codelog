@@ -30,7 +30,11 @@
       <div class="row px-md-4">
          <!--로고 부분-->
          <div class="col-md-2 px-md-0 my-md-0 pb-md-4">
-            <button id="logo-btn"><span class="logo">CodeLog</span></button>
+            <button id="logo-btn"><span class="logo">CodeLog 
+            	<c:if test="">
+            		
+            	</c:if>
+            </span></button>
             <!--<span style="font-size: 2rem; color: rgba(241, 31, 129, 0.897);">log</span>
             <i class="fa-solid fa-heart" style="color: red;"></i>
             <span style="font-size: 1.7rem; color: rgb(241, 31, 129);">g</span>-->
