@@ -33,5 +33,12 @@ public class BoardVO {
 	private int userNo;
 	
 	
+	// toString()
+    @Override
+    public String toString() {
+        return "BoardVO [boardId=" + boardId + ", title=" + title + ", content=" + content + ", writer=" + writer + ", regDate="
+                + regDate + ", hit=" + hit + ", userId=" + userId + "]";
+    }
+	
 }
 

@@ -166,7 +166,7 @@
 			<div class="col-md-4 px-md-4 py-md-4">
 				<div class="card poster" style="width: 100%; height: 27rem;" data-bno="${s.boardId}" data-lno="${s.likes}">
 					<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
-					<a href="aa" class="stretched-link"></a>
+					<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}" class="stretched-link"></a>
 					<!--썸네일 이미지-->
 					<img src="<c:url value='/img/cat.jpg'/>" class="card-img-top" alt="...">
 					<!--제목 내용-->
@@ -189,7 +189,7 @@
 							<div style="margin-top: 0.3rem;">
 								<div style="display: inline-block; float: left;">
 									<div style="border-radius: 70%; overflow: hidden; display: inline-block;">
-										<img src="<c:url value='/img/pome3.jpg'/>" class="img-rounded" width="25rem">
+										<img src="<c:url value='/img/${s.userId}'/>" class="img-rounded" width="25rem">
 									</div>
 
 								</div>

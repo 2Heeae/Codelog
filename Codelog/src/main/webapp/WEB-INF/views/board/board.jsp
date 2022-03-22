@@ -35,9 +35,13 @@
 					<nav>
 						<a class="likes" onclick='count("plus")'>♥</a>
 						<div id='result' style="margin-left: 28px;">0</div>
-						<a href="mypage">
-							<img class="sharing" src="<c:url value='/img/profile'/>" alt="profile">
+
+						<!-- 글쓴이 프로필 사진 -->
+						<a href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">
+							<img src="<c:url value='/img/${dto.userId }'/>" class="sharing"  alt="profile" >
+							
 						</a>
+						<!-- 프로필사진 끝 -->
 					</nav>
 					</div>
 				</aside>
@@ -48,34 +52,29 @@
 				<div class="container detail-main">
 					<h1>${dto.title}</h1>
 					<div class="info">
-						<a class="writer" href="mypage">${dto.writer}</a>					
+						<a class="writer" href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">${dto.writer}</a>					
 						<div class="slash"> | </div>
-						<div class="date"> date:<fmt:formatDate value="${dto.regDate}" pattern="yy-MM-dd"/></div>
+						<div class="date"> date: <fmt:formatDate value="${dto.regDate}" pattern="yy/MM/dd"/></div>
 						<div class="slash"> | </div>						
-						<span>view:${dto.hit} </span>
+						<span>view: ${dto.hit} </span>
 					</div>
 					
 					<br>
 					<div id="hashtag">
-						<a href="https://www.google.com/search?q=Typescript">#Typescript</a>
-						<a href="https://www.google.com/search?q=${dto.tags}">#${dto.tags}</a>
+						<a href="${pageContext.request.contextPath}//search?keyword=${dto.tags}">#${dto.tags}</a>
 					</div>
 
 					<!-- 로그인시 수정,삭제 버튼 활성화 -->
-					<c:choose>
-     					<c:when test="${loginSession != null}">
+					
+     					<c:if test="${loginSession.nickname == dto.writer}">
          					<span class="modify">
 					 		<!-- 게시물번호를 hidden 으로 처리 -->
 							<input type="hidden" name="bno" value="${dto.boardId}">
 							<button class="left btn btn-default" id="btnUpdate">수정</button>
 							<button class="right btn btn-primary" id="btnDelete">삭제</button>
 							</span>
-    					 </c:when>
-					</c:choose>
+    					 </c:if>
 					
-
-					
-
 
 					<section>
 						<div class="target" id="1">
@@ -94,9 +93,20 @@
 									<h2>${dto.recnt}개의 댓글</h2>
 									<!-- 댓글 작성 공간 -->
 									<div class="reply-wrap">
+										<!-- 댓쓴이 프로필 이미지 -->
 										<div class="reply-image">
-											<img id=prof src="<c:url value='/img/profile5.png'/>" alt="prof">
+											<c:choose>
+                     							<c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
+                        							<img width="50rem" id="small-profile-img" src="<c:url value='/img/user_icon.png'/>" class="card-img-right rounded-circle mx-md-1"
+                           							alt=".">
+                     							</c:when>
+                     							<c:otherwise>
+                          							 <img width="50rem" id="small-profile-img" src="<c:url value='/user/display'/>" class="card-img-right rounded-circle mx-md-1"
+                           								alt=".">
+                     							</c:otherwise>
+                  							</c:choose>
 										</div>
+										<!-- 프로필 이미지 끝 -->
 										<div class="reply-content">
 											<textarea class="form-control" rows="3"></textarea>
 											<div class="reply-group clearfix">
@@ -233,7 +243,7 @@
 	$(document).ready(function(){
         $("#btnDelete").click(function(){
             if(confirm("삭제하시겠습니까?")){
-                document.form1.action = "${path}/board/delete.do";
+                document.form1.action = "${pageContext.request.contextPath}/boardController/delete?boardId=${dto.boardId}";
                 document.form1.submit();
             }
         });
