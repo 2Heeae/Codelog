@@ -124,9 +124,9 @@ public class UserController {
 	
 	//다른사람 페이지 이동 처리
 	@GetMapping("/userpage/{userId}")
-	public ModelAndView userpage(@PathVariable String id ,String nickname, HttpSession session) {
+	public ModelAndView userpage(@PathVariable("userId") String id ,String nickname, HttpSession session) {
 		System.out.println("user/userpage: get");
-		UserVO vo =uservice.selectUser(nickname);
+		UserVO vo =uservice.selectOne(id);
 		
 		//팔로우 리스트 보내기
 		UserVO user = uservice.selectOne(id);

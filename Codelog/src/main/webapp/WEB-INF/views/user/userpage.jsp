@@ -25,16 +25,22 @@
           <img src="<c:url value='/img/user_icon.png' />" alt="user_icon" width="130">
         </div>
         <div class="col-md-8 profile">
-          <h3 class="id">${vo.nickname }&nbsp;&nbsp;<button class="follow-button">팔로우
-          <c:if test="${followCheck == 1 }">
-          	<i class="fa-solid fa-check"></i>&nbsp;팔로잉
-          </c:if>
+          <h3 class="id">${vo.nickname }&nbsp;&nbsp;
+          <button class="follow-button">
+			<c:choose>
+	          <c:when test="${followCheck == 1 }">
+	          	<i class="fa-solid fa-check"></i>&nbsp;팔로잉
+	          </c:when>
+	          <c:otherwise>
+	          		팔로우
+	          </c:otherwise>
+	        </c:choose>
           </button></h3>
           <p class="posts">게시물 3 &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal"
               data-bs-target="#followers_modal" style="cursor:pointer;">팔로워 0</a> &nbsp;&nbsp;&nbsp;
             <a class="folloing" data-bs-toggle="modal" data-bs-target="#following_modal" style="cursor:pointer;">팔로우
               0</a></p>
-          <p class="intro">${vo.userInfo }</p>
+          <p class="intro">${vo.userInfo}</p>
         </div>
       </div> <!-- end main-->
 
@@ -186,7 +192,7 @@
             $.ajax({
             	type: "post",
             	url: "<c:url value='/follow/${vo.userId}' />",
-            	content-type: "application/json",
+            	contentType: "application/json",
             	success: function(data){
             		console.log('연결 성공:'+ data);
             		if(data === 'followOk'){
@@ -202,7 +208,7 @@
             $.ajax({
             	type: "post",
             	url: "<c:url value='/unfollow/${vo.userId}' />",
-            	content-type: "application/json",
+            	contentType: "application/json",
             	success: function(data){
             		console.log('연결 성공:'+ data);
             		if(data === 'unfollowOk'){
