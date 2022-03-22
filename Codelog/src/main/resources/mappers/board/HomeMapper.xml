@@ -100,7 +100,7 @@
     SELECT a.* FROM proj_board a JOIN (SELECT * FROM follow WHERE active_user = #{userNo})b
 
     ON a.user_no = b.passive_user 
-    <![CDATA[WHERE a.board_id<#{boardId]]>
+    <![CDATA[WHERE a.board_id<#{boardId}]]>
      ORDER BY  board_id DESC)t)
      <![CDATA[
  WHERE rn<=6 AND rn>=1]]>
