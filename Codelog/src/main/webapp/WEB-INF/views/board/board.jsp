@@ -37,16 +37,7 @@
 						<div id='result' style="margin-left: 28px;">0</div>
 						<!-- 글쓴이 프로필 사진 -->
 						<a href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">
-							<c:choose>
-                     <c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
-                        <img width="50rem" id="small-profile-img" src="<c:url value='/img/user_icon.png'/>" class="sharing"
-                           alt=".">
-                     </c:when>
-                     <c:otherwise>
-                           <img width="50rem" id="small-profile-img" src="<c:url value='/user/display'/>" class="sharing"
-                           alt=".">
-                     </c:otherwise>
-                  </c:choose>
+							<img class="sharing" src="<c:url value='/img/profile5.png'/>" alt="profile">
 						</a>
 						<!-- 프로필사진 끝 -->
 					</nav>
