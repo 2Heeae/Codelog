@@ -82,9 +82,7 @@
      WHERE rn<=6 AND rn>=1
      ]]>
     
-</select>
-
-
+</select> 
 
 <select id="FPosters" resultMap="boardMap">
     SELECT board_id,user_id,title,writer,preview,likes,thumbnail, reg_date FROM(
@@ -100,6 +98,7 @@
       SELECT board_id,user_id,title,writer,preview,likes,thumbnail, reg_date FROM(
      SELECT ROWNUM as rn, t.* FROM(
     SELECT a.* FROM proj_board a JOIN (SELECT * FROM follow WHERE active_user = #{userNo})b
+
     ON a.user_no = b.passive_user 
     <![CDATA[WHERE a.board_id<#{boardId]]>
      ORDER BY  board_id DESC)t)
@@ -108,9 +107,7 @@
      
 </select>
 
-
-
-<select id="FPCount"></select>
+ 
 
 <select id="PCount">
 	SELECT COUNT(*) FROM proj_board;
