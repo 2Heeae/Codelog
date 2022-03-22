@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.spring.codelog.board.commons.PostLikeVO;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.service.BoardService;
 
@@ -84,6 +86,24 @@ public class BoardController {
 	
     
     // 작성자 프로필 사진
+    
+    //좋아요 클릭
+//    @GetMapping("/like")
+//    public String like() {
+//    	PostLikeVO likeVo = new PostLikeVO();
+//    	likeVo.setBoardId(boardId);
+//    	likeVo.setUserId(userId);
+//    	
+//    	int like = 0;
+//    	
+//    	int likeCheckNum = likeservice.likeCount(likeVo);
+//    	
+//    	if(likeCheckNum == 0) {
+//    		likeservice.likePlus
+//    	}
+//    	
+//    	
+//    }
 
  
 

@@ -30,10 +30,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		}
 	}
 	
-	//클라이언트가 데이터 전송 시 (좋아요?)
+	//클라이언트가 데이터 전송 시 (좋아요, 댓글, 팔로우 작성해야함)
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String senderId = getUserId(session);
+		
 		//특정 유저에게 보내기
 		String msg = message.getPayload();
 		if(msg != null) {
