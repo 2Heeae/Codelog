@@ -82,6 +82,10 @@ public class BoardController {
         return "redirect:/";
     }
 	
+    
+    // 작성자 프로필 사진
+
+ 
 
 
 	

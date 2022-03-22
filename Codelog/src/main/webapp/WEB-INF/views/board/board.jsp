@@ -35,10 +35,12 @@
 					<nav>
 						<a class="likes" onclick='count("plus")'>♥</a>
 						<div id='result' style="margin-left: 28px;">0</div>
-						<a href="mypage">
+						<!-- 글쓴이 프로필 사진 -->
+						<a href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">
 							<img class="sharing" src="<c:url value='/img/profile5.png'/>" alt="profile">
 							
 						</a>
+						<!-- 프로필사진 끝 -->
 					</nav>
 					</div>
 				</aside>
@@ -49,7 +51,7 @@
 				<div class="container detail-main">
 					<h1>${dto.title}</h1>
 					<div class="info">
-						<a class="writer" href="mypage">${dto.writer}</a>					
+						<a class="writer" href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">${dto.writer}</a>					
 						<div class="slash"> | </div>
 						<div class="date"> date:<fmt:formatDate value="${dto.regDate}" pattern="yyyy/MM/dd"/></div>
 						
@@ -73,10 +75,6 @@
 							</span>
     					 </c:if>
 					
-					
-
-					
-
 
 					<section>
 						<div class="target" id="1">
@@ -95,9 +93,20 @@
 									<h2>${dto.recnt}개의 댓글</h2>
 									<!-- 댓글 작성 공간 -->
 									<div class="reply-wrap">
+										<!-- 댓쓴이 프로필 이미지 -->
 										<div class="reply-image">
-											<img id=prof src="<c:url value='/img/profile5.png'/>" alt="prof">
+											<c:choose>
+                     							<c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
+                        							<img width="50rem" id="small-profile-img" src="<c:url value='/img/user_icon.png'/>" class="card-img-right rounded-circle mx-md-1"
+                           							alt=".">
+                     							</c:when>
+                     							<c:otherwise>
+                          							 <img width="50rem" id="small-profile-img" src="<c:url value='/user/display'/>" class="card-img-right rounded-circle mx-md-1"
+                           								alt=".">
+                     							</c:otherwise>
+                  							</c:choose>
 										</div>
+										<!-- 프로필 이미지 끝 -->
 										<div class="reply-content">
 											<textarea class="form-control" rows="3"></textarea>
 											<div class="reply-group clearfix">

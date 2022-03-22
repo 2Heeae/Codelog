@@ -57,12 +57,12 @@ VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, '
     <!--03. 게시글 상세보기 조회 -->
     <select id="read" resultMap="BoardMap">
         SELECT * FROM proj_board 
-        WHERE board_id = #{board_id}
+        WHERE board_id = #{boardId}
     </select>
     <!-- 04. 게시글 조회수 증가처리 -->
     <update id="increaseHit">
         UPDATE proj_board SET hit = hit + 1 
-        WHERE board_id = #{board_id}
+        WHERE board_id = #{boardId}
     </update>
     <!-- 05. 게시글 수정처리 -->
     <update id="updateArticle">
@@ -70,14 +70,18 @@ VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, '
             title = #{title},
             content = #{content},
             writer = #{writer}
-        WHERE board_id = #{board_id}
+        WHERE board_id = #{boardId}
     </update>
     <!-- 06. 게시글 삭제처리 -->
     <delete id="deleteArticle">
         DELETE FROM proj_board
-        WHERE board_id = #{board_id}
+        WHERE board_id = #{boardId}
     </delete>
     
-
+    <!-- 07. 왼쪽 프로필 사진 가져오기 -->
+	<select id="writerImg">
+		SELECT user_img FROM proj_user
+		WHERE user_id = #{userId}
+	</select>
  
  </mapper>
