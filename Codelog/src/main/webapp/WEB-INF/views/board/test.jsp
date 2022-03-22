@@ -20,7 +20,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap"
 	rel="stylesheet">
-	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
 <link
 	href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap"
 	rel="stylesheet">
@@ -42,6 +42,7 @@
 <style>
 /* 글 작성 페이지 css */
 @import url("<c:url value='/css/toastTest.css'/>");
+@import url("<c:url value='/css/test.css'/>");
 </style>
 
 <title>Document</title>
