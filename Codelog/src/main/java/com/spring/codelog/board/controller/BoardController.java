@@ -86,28 +86,5 @@ public class BoardController {
 	
     
     // 작성자 프로필 사진
-    
-    //좋아요 클릭
-//    @GetMapping("/like")
-//    public String like() {
-//    	PostLikeVO likeVo = new PostLikeVO();
-//    	likeVo.setBoardId(boardId);
-//    	likeVo.setUserId(userId);
-//    	
-//    	int like = 0;
-//    	
-//    	int likeCheckNum = likeservice.likeCount(likeVo);
-//    	
-//    	if(likeCheckNum == 0) {
-//    		likeservice.likePlus
-//    	}
-//    	
-//    	
-//    }
-
- 
-
-
-	
 
 }
