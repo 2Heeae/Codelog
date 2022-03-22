@@ -53,15 +53,14 @@
 					<div class="info">
 						<a class="writer" href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">${dto.writer}</a>					
 						<div class="slash"> | </div>
-						<div class="date"> date:<fmt:formatDate value="${dto.regDate}" pattern="yyyy/MM/dd"/></div>
-						
+						<div class="date"> date: <fmt:formatDate value="${dto.regDate}" pattern="yy/MM/dd"/></div>
 						<div class="slash"> | </div>						
-						<span>view:${dto.hit} </span>
+						<span>view: ${dto.hit} </span>
 					</div>
 					
 					<br>
 					<div id="hashtag">
-						<a href="https://www.google.com/search?q=${dto.tags}">#${dto.tags}</a>
+						<a href="${pageContext.request.contextPath}//search?keyword=${dto.tags}">#${dto.tags}</a>
 					</div>
 
 					<!-- 로그인시 수정,삭제 버튼 활성화 -->
@@ -243,7 +242,7 @@
 	$(document).ready(function(){
         $("#btnDelete").click(function(){
             if(confirm("삭제하시겠습니까?")){
-                document.form1.action = "${path}/board/delete.do";
+                document.form1.action = "${pageContext.request.contextPath}/boardController/delete?boardId=${dto.boardId}";
                 document.form1.submit();
             }
         });
