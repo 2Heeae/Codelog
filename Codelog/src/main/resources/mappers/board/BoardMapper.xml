@@ -65,7 +65,7 @@ VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, '
         WHERE board_id = #{boardId}
     </update>
     <!-- 05. 게시글 수정처리 -->
-    <update id="updateArticle">
+    <update id="update">
         UPDATE proj_board SET
             title = #{title},
             content = #{content},
@@ -73,7 +73,7 @@ VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, '
         WHERE board_id = #{boardId}
     </update>
     <!-- 06. 게시글 삭제처리 -->
-    <delete id="deleteArticle">
+    <delete id="delete">
         DELETE FROM proj_board
         WHERE board_id = #{boardId}
     </delete>

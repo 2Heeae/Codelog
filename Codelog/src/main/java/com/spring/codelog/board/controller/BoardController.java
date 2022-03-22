@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,14 +72,14 @@ public class BoardController {
 	
     //  게시글 수정
     // 폼에서 입력한 내용들은 @ModelAttribute BoardVO vo로 전달됨
-    @RequestMapping(value="update.do", method=RequestMethod.POST)
+    @RequestMapping(value="update", method=RequestMethod.POST)
     public String update(@ModelAttribute BoardVO vo) {
         service.update(vo);
         return "redirect:/";
     }
     
     //  게시글 삭제
-    @RequestMapping("delete.do")
+    @PostMapping("delete")
     public String delete(@RequestParam int boardId) {
         service.delete(boardId);
         return "redirect:/";
