@@ -64,7 +64,7 @@
  SELECT ROWNUM as rn, a.* FROM(
     SELECT * FROM proj_board 
     <![CDATA[
-    WHERE TO_CHAR(reg_date)>#{start} AND TO_CHAR(reg_date)<=#{end}]]>
+    WHERE TO_CHAR(reg_date)>#{start} AND TO_CHAR(reg_date)<=#{end} AND likes IS NOT NULL]]>
      ORDER BY  likes DESC)a) 
     <![CDATA[
     WHERE rn<=18]]>
@@ -75,7 +75,7 @@
         SELECT board_id,user_id,title,writer,preview,likes,thumbnail, reg_date FROM(
  SELECT ROWNUM as rn, a.* FROM(
     SELECT * FROM proj_board WHERE      <![CDATA[
-    likes<#{likes} AND TO_CHAR(reg_date)>#{start} AND TO_CHAR(reg_date)<=#{end}
+    likes<#{likes} AND TO_CHAR(reg_date)>#{start} AND TO_CHAR(reg_date)<=#{end} AND likes IS NOT NULL
          ]]>
     ORDER BY  likes DESC)a) 
      <![CDATA[

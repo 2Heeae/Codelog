@@ -366,8 +366,7 @@
   		var period = $("#period").text;
   		var allChk = $("#allChk").text;
   		
-  		console.log("기간: "+period);
-		console.log("올첵: "+allChk);
+
   		
 		var lastPoster = $("#start");
   		console.log(lastPoster);

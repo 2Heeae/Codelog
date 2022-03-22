@@ -17,6 +17,7 @@ import com.spring.codelog.board.model.BoardVO;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/mvc-config.xml")
 public class FreeBoardMapperTest {
+
 	
 	   @Autowired
 	   private IBoardMapper mapper;
