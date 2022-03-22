@@ -254,9 +254,7 @@ public class HomeController {
 		   
 		   }
 		   
-		   System.out.println("로그인 중 id: "+login.getUserId());
-		   System.out.println("Posters: "+service.FPosters(login.getUserNo()));
-		   model.addAttribute("Posters", service.FPosters(login.getUserNo()));
+		  
 		   System.out.println("-----------------------------------------------------------------------");
 
 		   return "home";

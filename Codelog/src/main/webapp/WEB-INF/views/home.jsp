@@ -179,7 +179,8 @@
 
 						<p class="card-text"
 							style="border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;">
-							${Poster.regDate }</p>
+							<fmt:formatDate value="${Poster.regDate }" pattern="yy/MM/dd"/>
+							</p>
 
 							<!--계정사진 계정명 댓글수 좋아요수-->
 						<div>
