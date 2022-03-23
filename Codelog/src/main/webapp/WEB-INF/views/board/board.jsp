@@ -85,80 +85,7 @@
 
 					</section>
 
-					<!--댓글 영역-->
-					<section class="reply">
-						<div class="reply-container">
-							<div class="row">
-								<div class="col-md-9 col-xs-12 content-wrap">
-									<h2>${dto.recnt}개의 댓글</h2>
-									<!-- 댓글 작성 공간 -->
-									<div class="reply-wrap">
-										<!-- 댓쓴이 프로필 이미지 -->
-										<div class="reply-image">
-											<c:choose>
-                     							<c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
-                        							<img width="50rem" id="small-profile-img" src="<c:url value='/img/user_icon.png'/>" class="card-img-right rounded-circle mx-md-1"
-                           							alt=".">
-                     							</c:when>
-                     							<c:otherwise>
-                          							 <img width="50rem" id="small-profile-img" src="<c:url value='/user/display'/>" class="card-img-right rounded-circle mx-md-1"
-                           								alt=".">
-                     							</c:otherwise>
-                  							</c:choose>
-										</div>
-										<!-- 프로필 이미지 끝 -->
-										<div class="reply-content">
-											<textarea class="form-control" rows="3"></textarea>
-											<div class="reply-group clearfix">
-												<button class="btn btn-info">등록하기</button>
-											</div>
-										</div>
-									</div>
-									<!-- 댓글이 달릴 공간 -->
-									<div id="listReply"></div>
-									<div class="reply-wrap">
-										<div class="reply-image">
-											<img id=prof src="<c:url value='/img/profile4.png'/>" alt="prof">
-											
-										</div>
-										<div class="reply-content">
-											<div class="reply-group clearfix">
-												<strong class="left">${dto.userId} <fmt:formatDate value="${dto.regDate}" pattern="yyyy-MM-dd"/></strong> <br>
-												
-												
-											</div><br>
-											<%-- <p>${dto.replytext}</p> --%>
-										</div>
-
-										<div class="hiddenDiv">
-											<input id="BT" type="button" value="답글 열기" onclick="view()">
-											<div id="hiddenReply" style="display:none">
-												<div class="re-reply-image">
-													<img id=prof src="<c:url value='/img/profile6.png'/> " alt="prof">
-												</div>
-												<div class="re-reply-content">
-													<div class="reply-group clearfix">
-														<strong class="left">helloworld</strong> <br>
-														<small class="left">2022년 03월 04일</small>
-													</div><br>
-													<p>자바스크립트가 발전하는 과정에서 불편한 점을 해결하기 위해 OOscript가 나오고 좋은 기능은 JS로 편입되는
-														변천사를 보았습니다. 적어도 Type에 관한 건 타입스크립트가 해결해주니 머지않아 해당 기능을 JS가 자연스레
-														지원하는 방식으로 나아갈 것이라고 생각이 드네요.
-														그렇다면 과연 TS가 JS와 다른 특장점으로 가져갈 것이 무엇이 남아있나라는 생각과 어디까지 JS로 편입될지도
-														무척이나 궁금합니다.
-														요런 격변기에 프론트엔드 개발자라는게 재밌고 설레네요.
-														이번글도 어김없이 좋은글 감사합니다.</p>
-												</div>
-											</div>
-
-
-
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</section>
+					
 				</div>
 
 
@@ -182,6 +109,73 @@
 			<div class="col-md-1"></div>
 		</div>
 	</div>
+	
+	
+	
+	<!-- 댓글  -->
+<div class="collapse" id="reply_card${tmp.no }">
+    <section class="modal-section">
+        <div class="card card-body">
+            <!-- 댓글 목록 -->
+            <div class="reply-list reply-list${tmp.no }">
+                <!-- 댓글이 목록이 들어가는 곳 -->
+            </div>
+            <!-- 댓글 작성 => 로그인한 상태여야만 댓글작성 칸이 나온다. -->
+            <c:if test="${not empty sessionScope.nick }">
+                <div class="row reply_write">
+                    <div class="col-1">
+                        <a href="other_profile.do?other_nick=${tmp.writer }">
+                            <img id="write_reply_profileImage"
+                                src="./upload/profile/${sessionScope.profile }" />
+                        </a>
+                    </div>
+                    <div class="col-8" class="input_reply_div">
+                        <input class="w-100 form-control" id="input_reply${tmp.no}"
+                            type="text" placeholder="댓글입력...">
+                    </div>
+                    <div class="col-3 ">
+                        <button type="button" idx="${tmp.no }"
+                            class="btn btn-success mb-1 write_reply">댓글&nbsp;달기</button>
+                    </div>
+                </div>
+            </c:if>
+        </div>
+    </section>
+</div>
+
+
+<!-- 댓글  -->
+<div class="collapse" id="reply_card${tmp.no }">
+댓글 시작
+    <section class="modal-section">
+        <div class="card card-body">
+            <!-- 댓글 목록 -->
+            <div class="reply-list reply-list${tmp.no }">
+                <!-- 댓글이 목록이 들어가는 곳 -->
+            </div>
+            <!-- 댓글 작성 => 로그인한 상태여야만 댓글작성 칸이 나온다. -->
+            <c:if test="${not empty sessionScope.userId }">
+                <div class="row reply_write">
+                    <div class="col-1">
+                        <a href="#">
+                            <img id="write_reply_profileImage"
+                                src="/img/pome3.jpg" />
+                        </a>
+                    </div>
+                    <div class="col-8" class="input_reply_div">
+                        <input class="w-100 form-control" id="input_reply${tmp.no}"
+                            type="text" placeholder="댓글입력...">
+                    </div>
+                    <div class="col-3 ">
+                        <button type="button" id="${tmp.no }"
+                            class="btn btn-success mb-1 write_reply">댓글&nbsp;달기</button>
+                    </div>
+                </div>
+            </c:if>
+        </div>
+    </section>
+</div>
+
 
 	<%@include file="../include/footer.jsp"%>
 
@@ -257,76 +251,7 @@
 	  });
 </script>
 
-	<!-- 댓글 -->
-	<script>
-	 $(document).ready(function(){
-	        
-	        //listReply(); // **댓글 목록 불러오기
-	        listReply2(); // ** json 리턴방식
-	        
-	        // ** 댓글 쓰기 버튼 클릭 이벤트 (ajax로 처리)
-	        $("#btnReply").click(function(){
-	            var replytext=$("#replytext").val();
-	            var bno="${dto.boardId}"
-	            var param="replytext="+replytext+"&bno="+bno;
-	            $.ajax({                
-	                type: "post",
-	                url: "${path}/reply/insert.do",
-	                data: param,
-	                success: function(){
-	                    alert("댓글이 등록되었습니다.");
-	                    listReply2();
-	                }
-	            });
-	        });
-	        
-	     // Controller방식
-	        // **댓글 목록1
-	        function listReply(){
-	            $.ajax({
-	                type: "get",
-	                url: "${path}/reply/list.do?bno=${Poster.bno}",
-	                success: function(result){
-	                // responseText가 result에 저장됨.
-	                    $("#listReply").html(result);
-	                }
-	            });
-	        }
-	        // RestController방식 (Json)
-	        // **댓글 목록2 (json)
-	        function listReply2(){
-	            $.ajax({
-	                type: "get",
-	                //contentType: "application/json", ==> 생략가능(RestController이기때문에 가능)
-	                url: "${path}/reply/listJson.do?bno=${dto.boardId}",
-	                success: function(result){
-	                    console.log(result);
-	                    var output = "<table>";
-	                    for(var i in result){
-	                        output += "<tr>";
-	                        output += "<td>"+result[i].userName;
-	                        output += "("+changeDate(result[i].regdate)+")<br>";
-	                        output += result[i].replytext+"</td>";
-	                        output += "<tr>";
-	                    }
-	                    output += "</table>";
-	                    $("#listReply").html(output);
-	                }
-	            });
-	        }
-	        // **날짜 변환 함수 작성
-	        function changeDate(date){
-	            date = new Date(parseInt(date));
-	            year = date.getFullYear();
-	            month = date.getMonth();
-	            day = date.getDate();
-	            hour = date.getHours();
-	            minute = date.getMinutes();
-	            second = date.getSeconds();
-	            strDate = year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
-	            return strDate;
-	        }
-	</script>
+	
 	
 	
 	<!-- 글 상세보기 페이지 끝 -->

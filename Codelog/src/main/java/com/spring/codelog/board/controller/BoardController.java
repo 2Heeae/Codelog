@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.codelog.board.commons.PostLikeVO;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.service.BoardService;
+import com.spring.codelog.board.service.ReplyService;
 
 
 
@@ -29,6 +30,9 @@ public class BoardController {
 
 	@Autowired
 	BoardService service;
+	@Autowired
+	ReplyService service2;
+	
 	
 	@GetMapping("/test")
 	public String test() {
@@ -67,6 +71,7 @@ public class BoardController {
         mav.setViewName("board/board");
         // 뷰에 전달할 데이터
         mav.addObject("dto", service.read(boardId));
+        mav.addObject("tmp", service2.replyList(boardId));
         return mav;
     }
 	

@@ -14,19 +14,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.codelog.user.model.UserVO;
 import com.spring.codelog.user.service.IUserService;
 
+import lombok.Getter;
+
+
 @RestController
+@RequestMapping("/image")
 public class ImgController {
 	
 	@Autowired
 	IUserService service;
 
 	//프로필 이미지 파일 보여주기 요청
-	@GetMapping("img/{userId}")
+	@GetMapping("/{userId}")
 	public ResponseEntity<byte[]> getUserImgFile(@PathVariable("userId") String userId) {
 		System.out.println("프로필이미지 "+userId);
 		String fileName = service.getUserImg(userId);
