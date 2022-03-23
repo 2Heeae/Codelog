@@ -33,14 +33,24 @@
             <span class="logo">CodeLog
             </span>
             </button>
-            <c:if test="${not empty userInfo.nickname}">
-            	<span class="logo" style="font-size: 25px;">/</span> 
-            	<button id="nick-logo-btn">
-            		<span class="logo nick-logo">
-            		 ${userInfo.nickname}
-            		</span>
-            	</button>
-            </c:if>
+            <c:choose>
+	            <c:when test="${not empty userInfo.nickname}">
+	            	<span class="logo" style="font-size: 25px;">/</span> 
+	            	<button id="nick-logo-btn">
+	            		<span class="logo nick-logo">
+	            		 ${userInfo.nickname}
+	            		</span>
+	            	</button>
+	            </c:when>
+	            <c:when test="${not empty dto.writer}">
+	            	<span class="logo" style="font-size: 25px;">/</span> 
+	            	<button id="nick-logo-btn">
+	            		<span class="logo dto-logo">
+	            		 ${dto.writer}
+	            		</span>
+	            	</button>
+	            </c:when>
+            </c:choose>
             <!--<span style="font-size: 2rem; color: rgba(241, 31, 129, 0.897);">log</span>
             <i class="fa-solid fa-heart" style="color: red;"></i>
             <span style="font-size: 1.7rem; color: rgb(241, 31, 129);">g</span>-->
@@ -48,6 +58,7 @@
 
         <div class="col-md-3 offset-2">
             <form action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
+            <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
                <input class="form-control mr-sm-2" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
              </form>
@@ -107,9 +118,7 @@
                </div>
             </button>
 
-            <!--검색 기능, 돋보기 아이콘-->
-            <button type="button" class="btn c rounded-circle mx-md-1 px-md-2 hc" id="so4"><i
-                  class="fa-solid fa-magnifying-glass ic" ></i></button>
+            
 
             <!-- 로그인 안했을 때 보여주기 -->
             <c:if test="${loginSession == null}">
@@ -262,14 +271,14 @@
             }); //로그아웃 이벤트 끝
 			
             //헤더 닉네임 누를 시 페이지 이동 이벤트 처리 
-            $('.nick-logo-btn').click(function() {
+            $('.nick-logo').click(function() {
             	
-   				//if(('.nick-logo') == ${session.loginSession}){
-   					
-   				//}
-            	location.href= "<c:url value='user/userpage/${userInfo.userId}'/>";
+            	location.href= "<c:url value='/user/userpage/${userInfo.userId}'/>";
             });
+			$('.dto-logo').click(function() {
             	
+            	location.href= "<c:url value='/user/userpage/${dto.userId}'/>";
+            });	
             
          }); //end jQuery
          

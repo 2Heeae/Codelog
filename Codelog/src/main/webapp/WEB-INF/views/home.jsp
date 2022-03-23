@@ -193,12 +193,12 @@
 
 								</div>
 								<div style="display: inline-block; float: left; margin-top: 0.13rem;">
-									<span class="mx-md-1" style="color: gray;">by</span><span>${Poster.writer }</span>
+									<span class="mx-md-1" style="color: gray;">by</span><span>${Poster.writer}</span>
 								</div>
 								<div style="display: inline-block; float: right; margin-top: 0.13rem">
 									<i class="fa-solid fa-comment" style=""></i>
 									<span style="margin-right: 0.5rem;" class="">3</span>
-									<i class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes }</span>
+									<i class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes}</span>
 								</div>
 							</div>
 						</div>

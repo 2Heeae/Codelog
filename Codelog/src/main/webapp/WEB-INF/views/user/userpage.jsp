@@ -39,7 +39,7 @@
 		</div>
 		<div class="col-md-8 profile">
 			<h3 class="id">${userInfo.nickname }&nbsp;&nbsp;
-
+				<c:if test="${userInfo.userId ne loginSession.userId}">
 				<c:choose>
 					<c:when test="${followCheck == 1 }">
 						<button class="follow-button" style="background-color: #C0D8C0">
@@ -54,6 +54,8 @@
 						</button>
 					</c:otherwise>
 				</c:choose>
+				</c:if>
+				
 			</h3>
 			<p class="posts">
 				게시물 3 &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal"

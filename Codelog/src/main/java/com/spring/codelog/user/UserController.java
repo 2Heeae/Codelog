@@ -150,7 +150,8 @@ public class UserController {
 		//팔로잉리스트
 		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
 		System.out.println("followinglist: "+ followingList);
-		
+		System.out.println("userInfo: "+userInfo);
+		System.out.println("userInfo의 보드리스트: "+userInfo.getBoardList());
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("userInfo", userInfo);//사용자 정보 보내기 
