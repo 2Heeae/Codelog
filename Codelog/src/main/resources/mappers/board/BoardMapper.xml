@@ -20,7 +20,7 @@
  
  <!-- 01. 게시글 전체 목록 조회 및 검색조회까지-->
     <select id="listAll" resultMap="BoardMap">
-            SELECT ROWNUM, board_id, title, content, b.regDate, hit, user_id, 
+            SELECT ROWNUM, board_id, title, content, writer, b.regDate, hit, user_id, 
                     <!-- ** 댓글숫자표시 -->
                     (SELECT COUNT(*) FROM tbl_reply WHERE board_id=b.board_id) AS recnt
             FROM proj_board b, proj_user u
