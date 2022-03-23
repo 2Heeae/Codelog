@@ -4,4 +4,44 @@
     
 <mapper namespace="com.spring.codelog.board.mapper.IPostLikeMapper">
 
+	<resultMap type="com.spring.codelog.board.commons.PostLikeVO" id="likeMap">
+		<id property="id" column="id" />
+		<result property="boardId" column="board_id" />
+		<result property="userId" column="user_id" />
+		<result property="likeDate" column="like_date" />
+		<result property="postLike" column="post_like" />
+	</resultMap>
+	
+	<select id="likeCount" resultType="int">
+		SELECT COUNT(post_like)
+		FROM post_like
+		WHERE user_id = #{userId} AND board_id = #{boardId}
+	</select>
+	
+	<insert id="likePlus">
+		INSERT INTO post_like
+		VALUES #{user_id}, #{board_id}
+	</insert>
+	
+	<select id="getLikeInfo" resultType="int">
+		SELECT post_like
+		FROM post_like
+		WHERE user_id = #{userId} AND board_id = #{boardId}
+	</select>
+	
+	<update id="likeUpdate">
+		UPDATE post_like
+		SET <include refid="cal"></include>
+		WHERE user_id = #{userId} and board_id = #{boardId}
+	</update>
+	
+	<sql id="cal">
+		<if test="post_like == 1">
+			post_like = 0
+		</if>
+		<if test="post_like == 0">
+			post_like = post_like + 1
+		</if>
+	</sql>
+
 </mapper>

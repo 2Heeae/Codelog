@@ -33,8 +33,9 @@
 				<aside>
 					<div class="sidebutton">
 					<nav>
-						<a class="likes" onclick='count("plus")'>♥</a>
+						<a class="likes" id="like-btn" onclick='count("plus")'>♥</a>
 						<div id='result' style="margin-left: 28px;">0</div>
+						<input type="hidden" id="like-check" value="${like}">
 
 						<!-- 글쓴이 프로필 사진 -->
 						<a href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">
@@ -328,8 +329,72 @@
 	        }
 	</script>
 	
+	<!-- 좋아요 클릭 이벤트 처리 -->
+	<script>
+		$('#like-btn').click(function() {
+			like_update();
+		});
+		
+		function like_update() {
+			const root = getContextPath(),
+			const url = "/likeUpdate",
+			const user_id = $('.writer').text(),
+			const board_id = $('input[name=bno]').val(),
+			const count = $('#like-check').val(),
+			const data = {
+				"userId" : user_id,
+				"boardId" : board_id,
+				"postLike" : count		
+			};
+			
+			$.ajax({
+				url : root + url,
+				type : 'PUT',
+				contentType : 'application/json',
+				data : JSON.stringify(data),
+				success : function(result) {
+					if(postLike == 1) {
+						console.log('좋아요 취소');
+						$('#like-check').val(0);
+					} else if(postLike == 0) {
+						console.log('좋아요');
+						$('#like-check').val(1);
+					}
+				}, error : function(result) {
+					console.log('좋아요 에러: ' result.result);
+				}
+			}); //ajax 끝
+				
+			function getContextPath() {
+				const host_index = location.href.indexOf(location.host) + location.host.length;
+				return location.href.substring(host_index, location.href.indexOf('/', hostIndex + 1));
+			}	
+				
+				
+			}
+		}
+	</script>
+	
 	
 	<!-- 글 상세보기 페이지 끝 -->
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
