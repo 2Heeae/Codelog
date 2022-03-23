@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <%@include file="../include/header.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -38,79 +39,73 @@
 			<h3 class="id">${userInfo.nickname}&nbsp;&nbsp;</h3>
 			<p class="posts">
 				게시물 &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal" id="follower-btn"
-					data-bs-target="#followers_modal" style="cursor: pointer;">팔로워 0</a> 
+					data-bs-target="#followers_modal" style="cursor: pointer;">팔로워 ${fn:length(followerList)}</a> 
 					&nbsp;&nbsp;&nbsp; <a class="folloing" data-bs-toggle="modal" id="following-btn"
-					data-bs-target="#following_modal" style="cursor: pointer;">팔로우 0</a>
+					data-bs-target="#following_modal" style="cursor: pointer;">팔로우 ${fn:length(followingList)}</a>
 			</p>
 			<p class="intro">${userInfo.userInfo}</p>
 		</div>
 	</div>
 	<!-- end main-->
 
-	<!-- 클릭시 팔로워 모달 -->
-	<div class="modal fade" id="followers_modal" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-scrollable modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">팔로워</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<ul class="list-unstyled">
-					<c:if test="${followerList.size() <= 0}">
-						<p>회원님을 팔로우 하는 사람들이 여기에 표시됩니다.
-					</c:if>
-					<c:if test="${followerList.size() > 0 }">
-						<c:forEach var="list" items="${followerList }">
-							<li class="follow-li">
-								<p class="profile-id"><a href="c:url value='/userpage/${list.passiveUserId}'/>">${list.passiveUserId} </a></p>
-							</li>
-							
-						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
-						
-						</c:forEach>
-					</c:if>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+	 <!-- 클릭시 팔로워 모달 -->
+      <div class="modal fade" id="followers_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">팔로워</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <ul class="list-unstyled">
+              <c:choose>
+                <c:when test="${fn:length(followerList) <= 0}">
+						<p>팔로우 하는 사람이 없습니다.
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="list" items="${followerList }">
+						<li class="follow-li">
+							<p class="profile-id"><a href="<c:url value='user/userpage/${list.activeUserId}'/>">${list.activeUserId} </a></p>
+						</li>
+					</c:forEach>
+				</c:otherwise>
+				</c:choose>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
 
-	<!-- 팔로잉 모달-->
-	<div class="modal fade" id="following_modal" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-scrollable modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">팔로우</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<ul class="list-unstyled">
-					<c:if test="${followingList.size() <= 0}">
+      <!-- 팔로잉 모달-->
+      <div class="modal fade" id="following_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">팔로우</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <ul class="list-unstyled">
+               <c:if test="${followingList.size() <= 0}">
 						<p> 팔로잉 하는 회원이 없습니다.
 					</c:if>
 					<c:if test="${followingList.size() > 0 }">
 						<c:forEach var="list" items="${followingList }">
 							
 							<li class="follow-li">
-								<p class="profile-id"><a href="c:url value='/userpage/${list.activeUserId}'/>">${list.activeUserId} </a></p>
+								<p class="profile-id"><a href="<c:url value='/user/userpage/${list.passiveUserId}'/>">${list.passiveUserId} </a></p>
 							</li>
 							
-						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
 						
 						</c:forEach>
 					</c:if>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
 
 	<!-- 태그 및 페이지-->
 	<div class="row">

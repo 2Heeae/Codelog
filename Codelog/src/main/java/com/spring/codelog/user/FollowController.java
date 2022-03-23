@@ -40,12 +40,12 @@ public class FollowController {
 		following.setActiveUser(activeUser.getUserNo());
 		following.setPassiveUser(passiveUser.getUserNo());
 		fservice.follow(following);
-		return "followOK";
+		return "followOk";
 	}
 	
 	//언팔로우 기능
 	@ResponseBody
-	@PostMapping("/unfollow/{id}")
+	@PostMapping("/unfollow/{userId}")
 	public String unfollow(@PathVariable("userId") String id, HttpSession session, Model model) {
 		UserVO activeUser = uservice.selectOne(((UserVO) session.getAttribute("loginSession")).getUserId()); 
 		UserVO passiveUser = uservice.selectOne(id);
@@ -53,6 +53,7 @@ public class FollowController {
 		following.setActiveUser(activeUser.getUserNo());
 		following.setPassiveUser(passiveUser.getUserNo());
 		fservice.unfollow(following);
+		System.out.println();
 		return "unfollowOk";
 	}
 	
