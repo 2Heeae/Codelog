@@ -66,7 +66,17 @@
 				<c:otherwise>
 					<c:forEach var="list" items="${followerList }">
 						<li class="follow-li">
-							<p class="profile-id"><a href="<c:url value='user/userpage/${list.activeUserId}'/>">${list.activeUserId} </a></p>
+						<div class="profile-section">
+											<c:choose>
+												<c:when test="${list.userImg ne 'null' and list.userImg ne null}">
+													<img class="profile-photo" alt="img" src="<c:url value='/image/${list.activeUserId}'/>" width="20" height="20" style="border-radius: 70px; display:inline;">
+												</c:when>
+												<c:otherwise>
+													<img alt="img" src="<c:url value='/img/user_icon.png'/>"width="22" height="22" style="padding-top:2px">
+												</c:otherwise>
+											</c:choose>
+							<p class="profile-id"  style="display:inline;"><a href="<c:url value='/user/userpage/${list.activeUserId}'/>">${list.activeUserId} </a></p>
+						</div>
 						</li>
 					</c:forEach>
 				</c:otherwise>
@@ -95,7 +105,17 @@
 						<c:forEach var="list" items="${followingList }">
 							
 							<li class="follow-li">
-								<p class="profile-id"><a href="<c:url value='/user/userpage/${list.passiveUserId}'/>">${list.passiveUserId} </a></p>
+							<div class="profile-section">
+											<c:choose>
+												<c:when test="${list.userImg ne 'null' and list.userImg ne null}">
+													<img class="profile-photo" alt="img" src="<c:url value='/image/${list.passiveUserId}'/>" width="20" height="20" style="border-radius: 70px; display:inline;">
+												</c:when>
+												<c:otherwise>
+													<img alt="img" src="<c:url value='/img/user_icon.png'/>"width="22" height="22" style="padding-top:2px">
+												</c:otherwise>
+											</c:choose>
+								<p class="profile-id"  style="display:inline;"><a href="<c:url value='/user/userpage/${list.passiveUserId}'/>">${list.passiveUserId} </a></p>
+							</div>
 							</li>
 							
 						

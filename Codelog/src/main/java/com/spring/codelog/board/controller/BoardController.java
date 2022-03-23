@@ -21,8 +21,6 @@ import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.service.BoardService;
 
 
-
-
 @Controller
 @RequestMapping("/boardController")
 public class BoardController {
@@ -32,7 +30,7 @@ public class BoardController {
 	
 	@GetMapping("/test")
 	public String test() {
-		return "board/test";
+		return "board/test2";
 	}
 
 		@RequestMapping(value = "/getWrite", method = RequestMethod.GET)
