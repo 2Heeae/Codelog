@@ -50,9 +50,11 @@
 
 
 <body>
-   <form action="<c:url value='/boardController/modify' />"
+   <form name="updateForm" method="POST" action="${pageContext.request.contextPath}/boardController/update"
       class="write-bbs" enctype=multipart/form-data method="post">
       <!-- 글등록 페이지에 따로 작성자를 기입하지는 않으므로 현재 로그인 세션에서 작성자 명을 뽑아옵니다. -->
+
+	<input type="hidden" name="boardId" value="${dto2.boardId}">
 
       <input type="hidden" name="writer" value="${loginSession.nickname}">
       <!-- 로그인 세션에 있는 사용자의 닉네임 -->
@@ -62,13 +64,12 @@
       <div id="articles">
          <br>
             <!--태그-->
-            <textarea placeholder="제목을 입력하세요" id="title" name="title"
-               onkeyup="priviewTitle()">${dto2.title}</textarea>
+            <textarea placeholder="제목을 입력하세요" id="title" name="title">${dto2.title}</textarea>
             <input class="tag" name="tags" placeholder="태그를 입력하세요" value="${dto2.tags}">
          <!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
       
-            <div id="editor" style="" > ${dto2.content} </div>
-
+            <div id="editor"> ${dto2.content} </div>
+	  <input id="modContent" type="hidden" name="content" value="">
          
  
  <script>
@@ -81,6 +82,15 @@
       initialEditType: 'markdown',
       previewStyle: 'vertical'
     });
+ </script>
+ 
+ <script>
+  function addContent(){
+     let content = editor.getHTML();
+     $('#modContent').val(content);
+     console.log(content);
+    
+  }
  </script>
 
                <button class="ok" id="show" type="button">
@@ -169,8 +179,7 @@
                        
                         <!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
                         <div class="form-floating" style="margin-top: 1rem;">
-                           <textarea placeholder="Leave a comment here" id="floatingTextarea"
-                            name="preview"  style="width: 100%; height: 6rem; resize: none;"></textarea>
+                           <textarea name="preview"  style="width: 100%; height: 6rem; resize: none;">${dto2.preview}</textarea>
                            <span style="float: right">/100</span><span id="textL" style="float: right">0</span>
                         </div>
 
@@ -189,7 +198,7 @@
                      style="font-size: 1.3rem; width: 2rem;  border: 0">취소</button>
                   &nbsp;&nbsp;&nbsp;
                   <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
-                  <button class="btn btn-outline-primary show px-md-0" for="btnradio4"
+                  <button class="btn btn-outline-primary show px-md-0" for="btnradio4" onclick="addContent();"
                      style="font-size: 1.3rem;  width: 2rem; background-color: #0d6efd; color: white;">작성</button>
 
          
