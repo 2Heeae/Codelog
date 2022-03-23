@@ -15,4 +15,6 @@ public interface BoardMapper {
  public BoardVO test(int boardId);
  
  public BoardVO read(int boardId);
+ 
+ public BoardVO modify(int boardId);
 }
