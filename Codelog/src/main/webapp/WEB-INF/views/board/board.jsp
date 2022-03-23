@@ -42,6 +42,8 @@
 						</button>
 						<!-- 해당 게시글의 총 좋아요 개수 -->
 						<div id='result' style="margin-left: 28px;">0</div>
+						<!-- 이 글을 보는 사람이 로그인 했다면 여기에 로그인 세션에서 아이디 꺼내와놓기 -->
+						<input type="hidden" id="view-user" value="${loginSession.userId}">
 						<!-- 이 글을 보는 로그인한 유저가 좋아요 눌렀는지 확인 여부 체크 좋아요=1, 좋아요 안누름=0 -->
 						<input type="hidden" id="like-check" value="${like}">
 
@@ -343,14 +345,22 @@
 		
 		$('#like-btn').click(function() {
 			console.log('좋아요 버튼 눌림!');
+			const view_user_id = $('#view-user').val();
+			console.log(view_user_id);
 			
-			like_update();
+			if($('#view-user').val() == null) { //로그인 안한 사람이 하트 누르면
+				alert('로그인 먼저해라.');
+			} else {
+				like_update();
+			}
+			
 		});
 		
 		function like_update() {
-			const user_id = ${dto.userId};
+			const view_user_id = $('#view-user').val();
+			console.log(view_user_id);
 			const data = {
-				"userId" : user_id,
+				"viewUserId" : view_user_id,
 				"boardId" : ${dto.boardId},
 				"pLike" : ${like}		
 			};
@@ -359,7 +369,8 @@
 			$.ajax({
 				type : 'PUT',
 				url : '<c:url value="/likeUpdate" />',
-				contentType : 'text',
+				contentType : 'application/json',
+				dataType : 'text',
 				data : JSON.stringify(data),
 				success : function(result) {
 					if(result == 1) {

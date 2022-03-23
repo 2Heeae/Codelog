@@ -16,7 +16,7 @@ import lombok.ToString;
 public class PostLikeVO {
 	private int id;
 	private int boardId;
-	private String userId;
+	private String viewUserId;
 	private Timestamp likeDate;
 	private int pLike;
 }

@@ -7,7 +7,7 @@
 	<resultMap type="com.spring.codelog.board.commons.PostLikeVO" id="likeMap">
 		<id property="id" column="id" />
 		<result property="boardId" column="board_id" />
-		<result property="userId" column="user_id" />
+		<result property="viewUserId" column="user_id" />
 		<result property="likeDate" column="like_date" />
 		<result property="pLike" column="p_like" />
 	</resultMap>
@@ -15,31 +15,31 @@
 	<select id="likeCount" resultType="int">
 		SELECT COUNT(p_like)
 		FROM post_like
-		WHERE user_id = #{userId} AND board_id = #{boardId}
+		WHERE user_id = #{viewUserId} AND board_id = #{boardId}
 	</select>
 	
 	<insert id="likePlus">
 		INSERT INTO post_like (id, user_id, board_id, like_date)
-		VALUES (like_seq.NEXTVAL, #{userId}, #{boardId}, to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'))
+		VALUES (like_seq.NEXTVAL, #{viewUserId}, #{boardId}, to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'))
 	</insert>
 	
 	<select id="getLikeInfo" resultType="int">
 		SELECT p_like
 		FROM post_like
-		WHERE user_id = #{userId} AND board_id = #{boardId}
+		WHERE user_id = #{viewUserId} AND board_id = #{boardId}
 	</select>
 	
 	<update id="likeUpdate">
 		UPDATE post_like
 		SET <include refid="cal"></include>
-		WHERE user_id = #{userId} and board_id = #{boardId}
+		WHERE user_id = #{viewUserId} and board_id = #{boardId}
 	</update>
 	
 	<sql id="cal">
-		<if test="p_like == 1">
+		<if test="pLike == 1">
 			p_like = 0
 		</if>
-		<if test="p_like == 0">
+		<if test="pLike == 0">
 			p_like = p_like + 1
 		</if>
 	</sql>
