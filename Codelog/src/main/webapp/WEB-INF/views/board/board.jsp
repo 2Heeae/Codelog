@@ -20,6 +20,7 @@
 </head>
 
 <body>
+	<form name="form1" method="post">
 	<div style="height: 20px;"></div>
 	<!-- 글 상세보기 페이지 시작 -->
 	<!--col1/1(좋아요,프로필)/7(본문)/2(책갈피)/1-->
@@ -34,9 +35,12 @@
 					<nav>
 						<a class="likes" onclick='count("plus")'>♥</a>
 						<div id='result' style="margin-left: 28px;">0</div>
-						<a href="mypage">
-							<img class="sharing" src="<c:url value='/img/profile5.png'/>" alt="profile">
+						<!-- 글쓴이 프로필 사진 -->
+						<a href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">
+							<img src="<c:url value='/img/${dto.userId }'/>" class="sharing"  alt="profile" >
+							
 						</a>
+						<!-- 프로필사진 끝 -->
 					</nav>
 					</div>
 				</aside>
@@ -47,46 +51,35 @@
 				<div class="container detail-main">
 					<h1>${dto.title}</h1>
 					<div class="info">
-						<a class="writer" href="mypage">작성자</a>
-						<c:out value="${dto.writer}"/>
+						<a class="writer" href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">${dto.writer}</a>					
 						<div class="slash"> | </div>
-						<div class="date"> day:</div>
-						<c:out value="${dto.regDate}"/> 
+						<div class="date"> date: <fmt:formatDate value="${dto.regDate}" pattern="yy/MM/dd"/></div>
 						<div class="slash"> | </div>						
-						<span>view: </span>
-						<c:out value="${dto.viewcnt}"/> 
+						<span>view: ${dto.hit} </span>
 					</div>
 					
 					<br>
 					<div id="hashtag">
-						<a href="https://www.google.com/search?q=Typescript">#Typescript</a>
-						<a href="https://www.google.com/search?q=타입스크립트">#타입스크립트</a>
-						<a href="https://www.google.com/search?q=태그1">#태그1</a>
-						<a href="https://www.google.com/search?q=태그2">#태그2</a>
-						<a>${dto.tags}</a>
+						<a href="${pageContext.request.contextPath}//search?keyword=${dto.tags}">#${dto.tags}</a>
 					</div>
 
 					<!-- 로그인시 수정,삭제 버튼 활성화 -->
-					<c:choose>
-     					<c:when test="${loginSession != null}">
+					
+     					<c:if test="${loginSession.nickname == dto.writer}">
          					<span class="modify">
 					 		<!-- 게시물번호를 hidden 으로 처리 -->
-							<input type="hidden" name="bno" value="${dto.bno}">
+							<input type="hidden" name="bno" value="${dto.boardId}">
 							<button class="left btn btn-default" id="btnUpdate">수정</button>
 							<button class="right btn btn-primary" id="btnDelete">삭제</button>
 							</span>
-    					 </c:when>
-					</c:choose>
+    					 </c:if>
 					
-
-					
-
 
 					<section>
 						<div class="target" id="1">
 							<a name="content1"></a>
-							<div id="mini-title">소제목</div><br>
-							<div>${dto.context}</div>
+							<!-- <div id="mini-title">소제목</div><br> -->
+							<div>${dto.content}</div>
 						</div>
 
 					</section>
@@ -99,9 +92,20 @@
 									<h2>${dto.recnt}개의 댓글</h2>
 									<!-- 댓글 작성 공간 -->
 									<div class="reply-wrap">
+										<!-- 댓쓴이 프로필 이미지 -->
 										<div class="reply-image">
-											<img id=prof src="<c:url value='/img/profile5.png'/>" alt="prof">
+											<c:choose>
+                     							<c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
+                        							<img width="50rem" id="small-profile-img" src="<c:url value='/img/user_icon.png'/>" class="card-img-right rounded-circle mx-md-1"
+                           							alt=".">
+                     							</c:when>
+                     							<c:otherwise>
+                          							 <img width="50rem" id="small-profile-img" src="<c:url value='/user/display'/>" class="card-img-right rounded-circle mx-md-1"
+                           								alt=".">
+                     							</c:otherwise>
+                  							</c:choose>
 										</div>
+										<!-- 프로필 이미지 끝 -->
 										<div class="reply-content">
 											<textarea class="form-control" rows="3"></textarea>
 											<div class="reply-group clearfix">
@@ -118,11 +122,11 @@
 										</div>
 										<div class="reply-content">
 											<div class="reply-group clearfix">
-												<strong class="left">${dto.userName} <fmt:formatDate value="${dto.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></strong> <br>
+												<strong class="left">${dto.userId} <fmt:formatDate value="${dto.regDate}" pattern="yyyy-MM-dd"/></strong> <br>
 												
 												
 											</div><br>
-											<p>${dto.replytext}</p>
+											<%-- <p>${dto.replytext}</p> --%>
 										</div>
 
 										<div class="hiddenDiv">
@@ -238,7 +242,7 @@
 	$(document).ready(function(){
         $("#btnDelete").click(function(){
             if(confirm("삭제하시겠습니까?")){
-                document.form1.action = "${path}/board/delete.do";
+                document.form1.action = "${pageContext.request.contextPath}/boardController/delete?boardId=${dto.boardId}";
                 document.form1.submit();
             }
         });
@@ -262,7 +266,7 @@
 	        // ** 댓글 쓰기 버튼 클릭 이벤트 (ajax로 처리)
 	        $("#btnReply").click(function(){
 	            var replytext=$("#replytext").val();
-	            var bno="${dto.bno}"
+	            var bno="${dto.boardId}"
 	            var param="replytext="+replytext+"&bno="+bno;
 	            $.ajax({                
 	                type: "post",
@@ -280,7 +284,7 @@
 	        function listReply(){
 	            $.ajax({
 	                type: "get",
-	                url: "${path}/reply/list.do?bno=${dto.bno}",
+	                url: "${path}/reply/list.do?bno=${Poster.bno}",
 	                success: function(result){
 	                // responseText가 result에 저장됨.
 	                    $("#listReply").html(result);
@@ -293,7 +297,7 @@
 	            $.ajax({
 	                type: "get",
 	                //contentType: "application/json", ==> 생략가능(RestController이기때문에 가능)
-	                url: "${path}/reply/listJson.do?bno=${dto.bno}",
+	                url: "${path}/reply/listJson.do?bno=${dto.boardId}",
 	                success: function(result){
 	                    console.log(result);
 	                    var output = "<table>";

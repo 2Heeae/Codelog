@@ -22,6 +22,10 @@
        
           
        }
+       
+       .card-body:hover {
+       background-color: #eee;
+       }
    
 /* 밑줄 애니매이션 */
     

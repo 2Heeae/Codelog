@@ -1,7 +1,7 @@
 package com.spring.codelog.board.model;
 
 import java.sql.Timestamp;
-
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class BoardVO {
 	private String content;
 	private String imgPath;
 	private int likes;
-	private Timestamp regDate;
+	private Date regDate;
 	private String preview;
 	private String thumbnail;
 	private String  viewAll;
@@ -32,6 +32,13 @@ public class BoardVO {
 	private int recnt;            // **게시글 댓글의 수 추가
 	private int userNo;
 	
+	
+	// toString()
+    @Override
+    public String toString() {
+        return "BoardVO [boardId=" + boardId + ", title=" + title + ", content=" + content + ", writer=" + writer + ", regDate="
+                + regDate + ", hit=" + hit + ", userId=" + userId + "]";
+    }
 	
 }
 

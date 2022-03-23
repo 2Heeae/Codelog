@@ -25,19 +25,36 @@
 </head>
 
 <body style="margin-top: 1rem; font-family: ONE-Mobile-Regular;">
-
    <div class="container">
       <div class="row px-md-4">
          <!--로고 부분-->
          <div class="col-md-2 px-md-0 my-md-0 pb-md-4">
-            <button id="logo-btn"><span class="logo" >codelog</span></button>
+            <button id="logo-btn">
+            <span class="logo">CodeLog
+            </span>
+            </button>
+            <c:if test="${not empty userInfo.nickname}">
+            	<span class="logo" style="font-size: 25px;">/</span> 
+            	<button id="nick-logo-btn">
+            		<span class="logo nick-logo">
+            		 ${userInfo.nickname}
+            		</span>
+            	</button>
+            </c:if>
             <!--<span style="font-size: 2rem; color: rgba(241, 31, 129, 0.897);">log</span>
             <i class="fa-solid fa-heart" style="color: red;"></i>
             <span style="font-size: 1.7rem; color: rgb(241, 31, 129);">g</span>-->
          </div>
 
+        <div class="col-md-3 offset-2">
+            <form action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
+               <input class="form-control mr-sm-2" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
+               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+             </form>
+         </div>
+
             <!--해,알림,검색,글작성,메뉴토글 바-->
-         <div class="col-md-3 offset-7 p-0">
+         <div class="col-md-3 offset-2 p-0">
             <!--해(다크모드)-->
             <button type="button" id="theme-btn" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" ><i
                   class="fa-regular fa-sun ic"></i></button>
@@ -243,7 +260,17 @@
                   
                }
             }); //로그아웃 이벤트 끝
-
+			
+            //헤더 닉네임 누를 시 페이지 이동 이벤트 처리 
+            $('.nick-logo-btn').click(function() {
+            	
+   				//if(('.nick-logo') == ${session.loginSession}){
+   					
+   				//}
+            	location.href= "<c:url value='user/userpage/${userInfo.userId}'/>";
+            });
+            	
+            
          }); //end jQuery
          
    </script>

@@ -103,12 +103,17 @@ public class UserController {
 		int loginUserNo = loginUser.getUserNo();
 		
 		FollowVO follow = new FollowVO();
+		follow.setActiveUser(loginUserNo);
+		follow.setPassiveUser(userNo);
 		int followCheck = fservice.isFollow(follow);
+		System.out.println("팔로우 유무 체크:"+ followCheck);
 		
 		//팔로워리스트
 		List<FollowVO> followerList = fservice.selectPassiveUserList(userNo);
+		System.out.println(followerList);
 		//팔로잉리스트
 		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
+		System.out.println(followingList);
 		
 		model.addAttribute("user", user);
 		model.addAttribute("followCheck", followCheck);
@@ -121,11 +126,39 @@ public class UserController {
 	
 	//다른사람 페이지 이동 처리
 	@GetMapping("/userpage/{userId}")
-	public ModelAndView userpage(@PathVariable String id ,String nickname) {
+	public ModelAndView userpage(@PathVariable("userId") String id ,String nickname, HttpSession session) {
 		System.out.println("user/userpage: get");
-		UserVO vo =uservice.selectUser(nickname);
+		UserVO userInfo = uservice.getInfo(id);
+		
+		//팔로우 리스트 보내기
+		UserVO user = uservice.selectOne(id);
+		UserVO loginUser = (UserVO) session.getAttribute("loginSession");
+		
+		int userNo = user.getUserNo();
+		int loginUserNo = loginUser.getUserNo();
+		
+		FollowVO follow = new FollowVO();
+		follow.setActiveUser(loginUserNo);
+		follow.setPassiveUser(userNo);
+		int followCheck = fservice.isFollow(follow);
+		System.out.println("팔로우 유무 체크:"+ followCheck);
+		
+		//팔로워리스트
+		List<FollowVO> followerList = fservice.selectPassiveUserList(userNo);
+		System.out.println("userNO:"+userNo);
+		System.out.println("followerList: "+followerList);
+		//팔로잉리스트
+		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
+		System.out.println("followinglist: "+ followingList);
+		
+		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("id", vo.getUserId());
+		mv.addObject("userInfo", userInfo);//사용자 정보 보내기 
+		mv.addObject("user", user);
+		mv.addObject("followCheck", followCheck);
+		mv.addObject("followerList", followerList);
+		mv.addObject("followingList", followingList);
+		mv.addObject("id", user.getUserId());
 		mv.setViewName("user/userpage");
 		return mv;
 	}

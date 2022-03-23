@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.codelog.board.commons.ImgVO;
+import com.spring.codelog.board.commons.PostLikeVO;
 import com.spring.codelog.board.mapper.IBoardMapper;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.util.BoardUtil;
+import com.spring.codelog.user.model.UserVO;
 
 @Service
 public class BoardService implements IBoardService {
@@ -40,6 +42,7 @@ public class BoardService implements IBoardService {
 	public BoardVO read(int boardId)  {
 		return boardMapper.read(boardId);
 	}
+	
 
 	// 게시글 수정
 	@Override
@@ -74,7 +77,7 @@ public class BoardService implements IBoardService {
 		// 일정시간이 경과 후 조회수 증가 처리 24*60*60*1000(24시간)
 		// 시스템현재시간 - 열람시간 > 일정시간(조회수 증가가 가능하도록 지정한 시간)
 		if (current_time - update_time > 5 * 1000) {
-			boardMapper.increaseHit(boardId, session);
+			boardMapper.increaseHit(boardId);
 			// 세션에 시간을 저장 : "update_time_"+boardId는 다른변수와 중복되지 않게 명명한 것
 			session.setAttribute("update_time_" + boardId, current_time);
 
