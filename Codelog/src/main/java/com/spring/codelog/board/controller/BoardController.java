@@ -1,24 +1,39 @@
 package com.spring.codelog.board.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.UUID;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.codelog.board.commons.PostLikeVO;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.service.BoardService;
+import com.spring.codelog.user.model.UserVO;
 
 
 
@@ -38,21 +53,51 @@ public class BoardController {
 		@RequestMapping(value = "/getWrite", method = RequestMethod.GET)
 	public String write(HttpServletRequest request ,Model model)
 	{
-
+       
 		return "board/write";
 
 	}
-
+		@ResponseBody
+   @RequestMapping(value ="/thumbnail", method = {RequestMethod.POST})
+   public String thumb(MultipartHttpServletRequest mhsr,MultipartFile file)
+   {
+	   UUID uuid = UUID.randomUUID();
+	   String uuids = uuid.toString().replaceAll("-", "");
+	   try {
+			
+			String uploadPath = "C:\\test\\upload";
+			String fileRealName = file.getOriginalFilename();	
+			String fileExtension = fileRealName.substring(fileRealName.indexOf("."), fileRealName.length());
+			String fileName = uuids + fileExtension;
+			System.out.println("저장할 폴더 경로: " + uploadPath);
+			System.out.println("실제 파일명: " + fileRealName);
+			System.out.println("확장자: " + fileExtension);
+			System.out.println("고유랜덤문자: " + uuids);
+			System.out.println("변경해서 저장할 파일명: " + fileName);
+			//업로드한 파일을 서버 컴퓨터의 저장한 경로 내에 실제로 저장
+			File saveFile = new File(uploadPath + "\\" + fileName);			
+			file.transferTo(saveFile);		
+			System.out.println("통신성공");
+			return fileName;
+		} catch (Exception e) {
+			System.out.println("업로드 중 에러 발생: " + e.getMessage());
+			e.printStackTrace();
+			return "false";
+			
+		}
+	   
+   }
+   
 	@RequestMapping(value = "/write", method = {RequestMethod.POST})
-	public String write(BoardVO vo, RedirectAttributes ra, HttpServletRequest hsr) {
-
-		
+	public String write(BoardVO vo, RedirectAttributes ra, HttpServletRequest hsr, MultipartFile file) {
+	
 		System.out.println("글 작성 요청");
 		service.write(vo);
 		ra.addFlashAttribute("msg", "글 작성 완료");
 
 		return "redirect:/";
 	}
+	
 	
 	// 게시글 상세내용 조회, 게시글 조회수 증가 처리
     // @RequestParam : get/post방식으로 전달된 변수 1개

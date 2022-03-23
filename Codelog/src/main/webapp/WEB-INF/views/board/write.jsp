@@ -69,8 +69,7 @@
 
 		<!-- 로그인 세션에 있는 사용자의 id -->
 		<div id="articles">
-			<textarea placeholder="제목을 입력하세요" id="title" name="title"
-				onkeyup="priviewTitle()"></textarea>
+			<textarea placeholder="제목을 입력하세요" id="title" name="title""></textarea>
 
 			<br>
 			<!--태그-->
@@ -139,17 +138,16 @@
 								style="font-weight: bold; font-size: 1.7rem; text-align: center">포스터
 								미리보기</p>
 							<div class="thumbnailBox" id="thumbnailBox"
-								onclick="document.all.thumbnailUpload.click();"
 								style="height: 40rem; position: relative; background-color: rgba(128, 128, 128, 0.185); text-align: center;">
-								<img src="<c:url value='/img/cat.jpg'/>" class="btn"
-									type="button" id="img-preview"
+								<img src="C:\test\upload\37655c69f5434d18906695b4a594bbc5.jpg" class="btn"
+									id="img-preview"
 									onclick="document.all.thumbnailUpload.click();"
 									style="width: 100%; height: 100%; position: relative"> <span
 									style="color: rgb(77, 238, 98);">이미지를 클릭하여 썸네일을 변경하세요</span> <input
-									type="file" id="thumbnailUpload" name="thumbnailUpload"
-									accept="image/*" onchange="readURL(this)"> <input
-									type="hidden" id="thumbnail" name="thumbnail">
-								<script>
+									type="file" id="thumbnailUpload" name="thumbnail2"
+									accept="image/*"> <input type="hidden" id="thumbnail"
+									name="thumbnail">
+								<!-- 			<script>
                            $('#thumbnailUpload').change(function () {
                               readURL(this);
                            });
@@ -170,7 +168,86 @@
                            $('#img-del-btn').click(function (e) {
                               $('#img-preview').attr('src', './images/user_icon.png');
                            });
-                        </script>
+                        </script> -->
+								<script>
+    // start jQuery
+    $(document).ready(function () {
+       
+      //프로필 이미지 업로드 버튼 클릭 이벤트
+      $('#thumbnailUpload').change(function() {
+    	 
+    	  upload();
+         
+     });
+       
+      //이미지 업로드를 담당하는 함수
+      function upload() {
+         //자바스크립트의 파일 확장자 체크 검색
+         let file = $('#thumbnailUpload').val();
+         
+         console.log(file);
+         
+         file = file.slice(file.indexOf('.') + 1).toLowerCase();
+         console.log(file);
+         if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp') {
+            alert('이미지 파일(jpg, png, jpeg, bmp)만 등록이 가능합니다.');
+            $('#thumbnailUpload').val('');
+           return;            
+         }
+         
+         //ajax 폼 전송의 핵심 FormData 객체
+         const formData = new FormData();
+         const data = $('#thumbnailUpload');
+         
+         console.log('폼 데이터: ' + formData);
+         console.log('data: ' + data);
+         
+         //FormData 객체에 사용자가 업로드한 파일의 정보들이 들어있는 객체에 전달
+        formData.append('file', data[0].files[0]);
+         
+         //비동기 방식으로 파일 업로드 및 게시글 등록을 진행
+         //ajax 시작
+        $.ajax({
+            url : '<c:url value="/boardController/thumbnail" />',
+            type : 'POST',
+            data : formData,
+            contentType : false,
+            processData : false,
+            
+            success : function(result) {
+               
+                  $('#thumbnail').val(result);
+                  console.log(result);
+                  
+           
+            
+           },
+           error : function(request, status, error) {
+              console.log('code: ' + request + '\n' + 'message: ' + request.responseText + '\n' + 'error: ' + error);
+            
+           }
+         }); //ajax 끝
+         
+     } //프로필 이미지 업로드 버튼 클릭 이벤트 끝
+     //프로필 이미지 업로드 시 미리보기
+         $('#thumbnailUpload').change(function() {
+    	 
+    	  readURL(this);
+    	  
+     });
+
+     function readURL(input) {
+         if (input.files && input.files[0]) {
+             var reader = new FileReader();
+             reader.onload = function (e) {
+                 $('#img-preview').attr('src', e.target.result);
+             }
+             reader.readAsDataURL(input.files[0]);
+             
+          }
+     } ////프로필 이미지 업로드 시 미리보기 끝
+    });
+     </script>
 							</div>
 
 							<!--제목은 글작성 페이지에서 가져오기-->
