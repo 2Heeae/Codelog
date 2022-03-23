@@ -11,9 +11,9 @@ public interface IBoardMapper {
 	// 01. 게시글 작성  
 	void write(BoardVO vo);
 
-	  void image(ImgVO vo);
+	void image(ImgVO vo);
 	 
-	  BoardVO test(int boardId);
+	BoardVO test(int boardId);
 	
 
    // 02. 게시글 상세보기

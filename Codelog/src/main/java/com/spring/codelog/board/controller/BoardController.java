@@ -21,8 +21,6 @@ import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.service.BoardService;
 
 
-
-
 @Controller
 @RequestMapping("/boardController")
 public class BoardController {

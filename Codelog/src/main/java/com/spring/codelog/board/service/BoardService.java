@@ -32,9 +32,7 @@ public class BoardService implements IBoardService {
 
 		@Override
 	public void image(ImgVO vo) {
-	
-        
-         	 
+
              }
 
 	// 게시글 상세보기
