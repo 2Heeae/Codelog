@@ -313,7 +313,7 @@
 				//비동기 통신 시작!
 				$.ajax({
 					type : 'POST',
-					url : 'user/',
+					url : '<c:url value="/user/" />',
 					contentType : 'application/json',
 					dataType : 'text',
 					data : JSON.stringify(user),
@@ -387,7 +387,7 @@
 				//비동기 통신 시작!
 				$.ajax({
 					type : 'POST',
-					url : 'user/login',
+					url : '<c:url value="/user/login" />',
 					contentType : 'application/json',
 					dataType : 'text',
 					data : JSON.stringify(loginInfo),
