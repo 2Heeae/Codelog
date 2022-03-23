@@ -11,15 +11,17 @@ public interface IBoardMapper {
 	// 01. 게시글 작성  
 	void write(BoardVO vo);
 
-	  void image(ImgVO vo);
+	void image(ImgVO vo);
 	 
-	  BoardVO test(int boardId);
+	BoardVO test(int boardId);
 	
 
    // 02. 게시글 상세보기
     BoardVO read(int boardId) ;
    // 03. 게시글 수정
     void update(BoardVO vo) ;
+   // 03-1. 수정 글 불러오기
+    BoardVO modify(int boardId);
    // 04. 게시글 삭제
     void delete(int boardId) ;
    // 05. 게시글 전체 목록

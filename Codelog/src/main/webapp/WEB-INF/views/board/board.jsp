@@ -46,7 +46,7 @@
 						<input type="hidden" id="like-check" value="0">
 
 						<a href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">
-							<img src="<c:url value='/img/${dto.userId }'/>" class="sharing"  alt="profile" >
+							<img width="55rem" src="<c:url value='/img/${dto.userId }'/>" class="card-img-right rounded-circle mx-md-1"  alt="profile" >
 							
 						</a>
 						<!-- 프로필사진 끝 -->
@@ -62,7 +62,7 @@
 					<div class="info">
 						<a class="writer" href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">${dto.writer}</a>					
 						<div class="slash"> | </div>
-						<div class="date"> date: <fmt:formatDate value="${dto.regDate}" pattern="yy/MM/dd"/></div>
+						<div class="date"> <fmt:formatDate value="${dto.regDate}" pattern="yy/MM/dd"/></div>
 						<div class="slash"> | </div>						
 						<span>view: ${dto.hit} </span>
 					</div>
@@ -78,8 +78,8 @@
          					<span class="modify">
 					 		<!-- 게시물번호를 hidden 으로 처리 -->
 							<input type="hidden" name="bno" value="${dto.boardId}">
-							<button class="left btn btn-default" id="btnUpdate">수정</button>
-							<button class="right btn btn-primary" id="btnDelete">삭제</button>
+							<button type="button" class="left btn btn-default" id="btnUpdate">수정</button>
+							<button type="button" class="right btn btn-primary" id="btnDelete">삭제</button>
 							</span>
     					 </c:if>
 					
@@ -257,13 +257,11 @@
                 document.form1.submit();
             }
         });
-        $(document).ready(function(){
             $("#btnUpdate").click(function(){
-                if(confirm("수정하시겠습니까?")){
-                	$(location).attr("href", "write")
-                }
+            	console.log('hi');
+                 location.href="${pageContext.request.contextPath}/boardController/modify?boardId=${dto.boardId}";
+                
             });
-        });
 	  });
 </script>
 

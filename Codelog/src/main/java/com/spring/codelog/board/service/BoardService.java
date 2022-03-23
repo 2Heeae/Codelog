@@ -32,9 +32,7 @@ public class BoardService implements IBoardService {
 
 		@Override
 	public void image(ImgVO vo) {
-	
-        
-         	 
+
              }
 
 	// 게시글 상세보기
@@ -43,6 +41,11 @@ public class BoardService implements IBoardService {
 		return boardMapper.read(boardId);
 	}
 	
+	// 게시글 수정 불러오기
+	@Override
+	public BoardVO modify(int boardId) {
+		return boardMapper.modify(boardId);
+	}
 
 	// 게시글 수정
 	@Override
