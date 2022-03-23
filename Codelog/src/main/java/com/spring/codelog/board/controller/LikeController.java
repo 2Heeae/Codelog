@@ -20,18 +20,18 @@ public class LikeController {
 		System.out.println("/likeUpdate: PUT");
 		System.out.println("좋아요 컨트롤러 값: " + vo);
 		
-		Map<String, String> likeMap = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<String, String>();
 		
 		try {
 			service.likeUpdate(vo);
-			likeMap.put("result", "success");
+			map.put("result", "success");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			likeMap.put("result", "fail");
+			map.put("result", "fail");
 		}
 		
-		return likeMap;
+		return map;
 		
 	}
 

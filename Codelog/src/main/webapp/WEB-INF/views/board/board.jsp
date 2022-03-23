@@ -343,13 +343,14 @@
 		
 		$('#like-btn').click(function() {
 			console.log('좋아요 버튼 눌림!');
+			
 			like_update();
 		});
 		
 		function like_update() {
 			const count = $('#like-check').val();
 			const data = {
-				"userId" : ${dto.userId},
+				"userId" : '${dto.userId}',
 				"boardId" : ${dto.boardId},
 				"pLike" : count		
 			};
@@ -369,7 +370,7 @@
 						$('#like-check').val(1);
 					}
 				}, error : function(result) {
-					console.log('좋아요 에러: ' + result.result);
+					console.log('좋아요 에러: ' + result);
 				}
 			}); //ajax 끝
 			
