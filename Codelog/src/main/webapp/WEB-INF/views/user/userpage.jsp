@@ -23,7 +23,14 @@
       <!--프로필 -->
       <div class="row p-4 p-md-5 mb-2 main">
         <div class="col-md-4">
-          <img src="<c:url value='/img/user_icon.png' />" alt="user_icon" width="130">
+        	<c:choose>
+				<c:when test="${userInfo.userImg eq null || userInfo.userImg eq 'null'}">
+					<img src="<c:url value='/img/user_icon.png' />" alt="user_icon" width="130" height="130" style="border-radius:70px;">
+				</c:when>
+				<c:otherwise>
+					<img src="<c:url value='/img/${userInfo.userId}' />" alt="user_icon" width="130" height="130" style="border-radius:70px;">
+				</c:otherwise>
+			</c:choose>
         </div>
         <div class="col-md-8 profile">
           <h3 class="id">${userInfo.nickname }&nbsp;&nbsp;
@@ -31,7 +38,7 @@
 			<c:choose>
 	          <c:when test="${followCheck == 1 }">
 	          <button class="follow-button" style="background-color:#C0D8C0">
-	          	<i class="fa-solid fa-check"></i><p class="follow-txt">&nbsp;팔로잉</p>
+	          	<p class="follow-txt">&nbsp;<i class="fa-solid fa-check">팔로잉</i></p>
 	          	</button>
 	          </c:when>
 	          <c:otherwise>
@@ -67,7 +74,15 @@
 				<c:otherwise>
 					<c:forEach var="list" items="${followerList }">
 						<li class="follow-li">
-							<p class="profile-id"><a href="c:url value='/userpage/${list.activeUserId}'/>">${list.activeUserId} </a></p>
+				        	<c:choose>
+				<c:when test="${followerList.userImg eq null || followerList.userImg eq 'null'}">
+					<img src="<c:url value='/img/user_icon.png'/>" width="30" height="30" style="border-radius:70px;">
+				</c:when>
+				<c:otherwise>
+					<img src="<c:url value='/img/${followerList.activeUserId}'/>" width="30" height="30" style="border-radius:70px;">
+				</c:otherwise>
+			</c:choose>
+							<p class="profile-id"><a href="<c:url value='/user/userpage/${list.activeUserId}'/>">${list.activeUserId} </a></p>
 						</li>
 					</c:forEach>
 				</c:otherwise>
@@ -96,7 +111,7 @@
 						<c:forEach var="list" items="${followingList }">
 							
 							<li class="follow-li">
-								<p class="profile-id"><a href="c:url value='/userpage/${list.activeUserId}'/>">${list.activeUserId} </a></p>
+								<p class="profile-id"><a href="<c:url value='/user/userpage/${list.passiveUserId}'/>">${list.passiveUserId} </a></p>
 							</li>
 							
 						
@@ -202,8 +217,8 @@
             	success: function(data){
             		console.log('연결 성공:'+ data);
             		if(data === 'followOk'){
-			            $(this).html('<i class="fa-solid fa-check"></i>&nbsp;팔로잉');
-			            
+			            $('.follow-txt').html('<i class="fa-solid fa-check">&nbsp;팔로잉</i>');
+			            location.reload();
             		}
             	}, 
             	error: function(){
@@ -213,19 +228,19 @@
           } else {
             $.ajax({
             	type: "post",
-            	url: "<c:url value='/unfollow/${vo.userId}' />",
+            	dataType: 'text',
+            	url: "<c:url value='/unfollow/${userInfo.userId}' />",
             	contentType: "application/json",
             	success: function(data){
             		console.log('연결 성공:'+ data);
             		if(data === 'unfollowOk'){
-            			console
-			            $(this).html('팔로우');
-			            $(this).css("background-color", "gray");
-			            location.href="<c:url value='userpage/${vo.userId}'/>";
+			            $('.follow-txt').html('팔로우');
+			            $('.follow-button').css("background-color", "gray");
+			            location.reload();
             		}
             	}, 
             	error: function(){
-            		alert('팔로잉 실패');
+            		alert('팔로잉 취소 실패');
             	}
             });
           }

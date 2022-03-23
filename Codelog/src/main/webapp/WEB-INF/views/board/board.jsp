@@ -35,7 +35,6 @@
 					<nav>
 						<a class="likes" onclick='count("plus")'>♥</a>
 						<div id='result' style="margin-left: 28px;">0</div>
-
 						<!-- 글쓴이 프로필 사진 -->
 						<a href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">
 							<img src="<c:url value='/img/${dto.userId }'/>" class="sharing"  alt="profile" >
