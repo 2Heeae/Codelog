@@ -64,6 +64,13 @@ VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, '
         UPDATE proj_board SET hit = hit + 1 
         WHERE board_id = #{boardId}
     </update>
+    
+    <!-- 게시글 수정 불러오기 -->
+    <select id="modify" resultMap="BoardMap">
+    	SELECT * FROM proj_board 
+        WHERE board_id = #{boardId}
+    </select>
+    
     <!-- 05. 게시글 수정처리 -->
     <update id="update">
         UPDATE proj_board SET
@@ -72,6 +79,7 @@ VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, '
             writer = #{writer}
         WHERE board_id = #{boardId}
     </update>
+    
     <!-- 06. 게시글 삭제처리 -->
     <delete id="delete">
         DELETE FROM proj_board

@@ -17,11 +17,13 @@ public interface IBoardService {
 	void image(ImgVO vo);
 	
 	// 게시글 상세보기
-    public BoardVO read(int boardID) ;
+    public BoardVO read(int boardId) ;
+    // 게시글 수정 불러오기
+    public BoardVO modify(int boardId);
     //  게시글 수정
     public void update(BoardVO vo) ;
     //  게시글 삭제
-    public void delete(int boardID) ;
+    public void delete(int boardId) ;
     //  게시글 전체 목록
     public List<BoardVO> listAll() ;
     //  게시글 조회

@@ -43,6 +43,11 @@ public class BoardService implements IBoardService {
 		return boardMapper.read(boardId);
 	}
 	
+	// 게시글 수정 불러오기
+	@Override
+	public BoardVO modify(int boardId) {
+		return boardMapper.modify(boardId);
+	}
 
 	// 게시글 수정
 	@Override
