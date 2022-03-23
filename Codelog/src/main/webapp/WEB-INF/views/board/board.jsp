@@ -33,9 +33,17 @@
 				<aside>
 					<div class="sidebutton">
 					<nav>
-						<a class="likes" id="like-btn" onclick='count("plus")'>♥</a>
+						<!--  a태그로 좋아요 이벤트 처리가 잘 안되어서 주석처리해놨습니다.
+						<a class="likes" onclick='count("plus")'>♥</a>
+						-->
+						<!-- new 좋아요 버튼 -->
+						<button type="button" id="like-btn">
+							<img src="<c:url value='/img/heart.svg' />" alt="like">
+						</button>
+						<!-- 해당 게시글의 총 좋아요 개수 -->
 						<div id='result' style="margin-left: 28px;">0</div>
-						<input type="hidden" id="like-check" value="${like}">
+						<!-- 이 글을 보는 로그인한 유저가 좋아요 눌렀는지 확인 여부 체크 좋아요=1, 좋아요 안누름=0 -->
+						<input type="hidden" id="like-check" value="0">
 
 						<a href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">
 							<img src="<c:url value='/img/${dto.userId }'/>" class="sharing"  alt="profile" >
@@ -217,26 +225,28 @@
 		});
 	</script>
 
-	<!--좋아요 기능-->
+	<!--  
+	<!--좋아요 기능
 	<script>
 	function count(type)  {
-		//<!--결과를 표시할 element-->
+		//<!--결과를 표시할 element
 		const resultElement = document.getElementById('result');
 		
-		//<!--현재 화면에 표시된 값-->
+		//<!--현재 화면에 표시된 값
 		let number = resultElement.innerText;
 		
-		//<!--더하기/빼기-->
+		//<!--더하기/빼기
 		if(type === 'plus') {
 		  number = parseInt(number) + 1;
 		}else if(type === 'minus')  {
 		  number = parseInt(number) - 1;
 		}
 
-		//<!--결과 출력-->
+		//<!--결과 출력
 		resultElement.innerText = number;
 	  }
 	</script>
+	-->
 	
 	<!-- 수정/삭제 버튼 -->
 	<script>
@@ -326,53 +336,53 @@
 	            strDate = year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
 	            return strDate;
 	        }
+	 });
 	</script>
 	
 	<!-- 좋아요 클릭 이벤트 처리 -->
 	<script>
+	$(document).ready(function() { //start jQuery
+		
 		$('#like-btn').click(function() {
+			console.log('좋아요 버튼 눌림!');
 			like_update();
 		});
 		
 		function like_update() {
-			const root = getContextPath(),
-			const url = "/likeUpdate",
-			const user_id = $('.writer').text(),
-			const board_id = $('input[name=bno]').val(),
-			const count = $('#like-check').val(),
+			const count = $('#like-check').val();
 			const data = {
-				"userId" : user_id,
-				"boardId" : board_id,
+				"userId" : ${dto.userId},
+				"boardId" : ${dto.boardId},
 				"pLike" : count		
 			};
 			
+			
 			$.ajax({
-				url : root + url,
 				type : 'PUT',
-				contentType : 'application/json',
+				url : '<c:url value="/likeUpdate" />',
+				contentType : 'text',
 				data : JSON.stringify(data),
 				success : function(result) {
-					if(postLike == 1) {
+					if(result == 1) {
 						console.log('좋아요 취소');
 						$('#like-check').val(0);
-					} else if(postLike == 0) {
+					} else if(result == 0) {
 						console.log('좋아요');
 						$('#like-check').val(1);
 					}
 				}, error : function(result) {
-					console.log('좋아요 에러: ' result.result);
+					console.log('좋아요 에러: ' + result.result);
 				}
 			}); //ajax 끝
+			
 				
-			function getContextPath() {
-				const host_index = location.href.indexOf(location.host) + location.host.length;
-				return location.href.substring(host_index, location.href.indexOf('/', hostIndex + 1));
-			}	
-				
-				
-			}
+			
 		}
+	
+	}); //end jQuery
+		
 	</script>
+	<!-- 좋아요 클릭 이벤트 처리 끝 -->
 	
 	
 	<!-- 글 상세보기 페이지 끝 -->

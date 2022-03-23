@@ -13,18 +13,18 @@
 	</resultMap>
 	
 	<select id="likeCount" resultType="int">
-		SELECT COUNT(post_like)
+		SELECT COUNT(p_like)
 		FROM post_like
 		WHERE user_id = #{userId} AND board_id = #{boardId}
 	</select>
 	
 	<insert id="likePlus">
-		INSERT INTO post_like
-		VALUES #{user_id}, #{board_id}
+		INSERT INTO post_like (id, user_id, board_id, like_date)
+		VALUES (like_seq.NEXTVAL, #{userId}, #{boardId}, to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'))
 	</insert>
 	
 	<select id="getLikeInfo" resultType="int">
-		SELECT post_like
+		SELECT p_like
 		FROM post_like
 		WHERE user_id = #{userId} AND board_id = #{boardId}
 	</select>

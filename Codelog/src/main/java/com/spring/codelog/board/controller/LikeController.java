@@ -18,6 +18,7 @@ public class LikeController {
 	@PutMapping("/likeUpdate")
 	public Map<String, String> likeUpdate(@RequestBody PostLikeVO vo) {
 		System.out.println("/likeUpdate: PUT");
+		System.out.println("좋아요 컨트롤러 값: " + vo);
 		
 		Map<String, String> likeMap = new HashMap<String, String>();
 		
