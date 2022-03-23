@@ -1,5 +1,7 @@
 package com.spring.codelog.board.controller;
 
+import java.util.List;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -57,6 +59,18 @@ public class BoardController {
 		return "redirect:/";
 	}
 	
+    // 01. 게시글 목록
+    @RequestMapping("list")
+    public ModelAndView list() throws Exception{
+        List<BoardVO> list = service.listAll();
+        // ModelAndView - 모델과 뷰
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("user/mypage"); // 뷰를 mypage.jsp로 설정
+        mav.addObject("list", list); // 데이터를 저장
+        return mav; // mypage.jsp로 List가 전달된다.
+    }
+	
+	
 	// 게시글 상세내용 조회, 게시글 조회수 증가 처리
     // @RequestParam : get/post방식으로 전달된 변수 1개
     // HttpSession 세션객체
@@ -111,9 +125,11 @@ public class BoardController {
     // 게시글 수정
     // 폼에서 입력한 내용들은 @ModelAttribute BoardVO vo로 전달됨
     @RequestMapping(value="update", method=RequestMethod.POST)
-    public String update(@ModelAttribute BoardVO vo) {
+    public String update(BoardVO vo) {
+    	System.out.println("글 수정 요청");
+    	System.out.println(vo);
         service.update(vo);
-        return "redirect:/board";
+        return "redirect:/";
     }
     
     //  게시글 삭제
