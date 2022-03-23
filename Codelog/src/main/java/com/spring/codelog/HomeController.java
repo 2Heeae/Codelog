@@ -394,4 +394,10 @@ public class HomeController {
       return "home";
    }
    
+   @RequestMapping(value = "/a", method = RequestMethod.GET)
+   public String a( Model model) {
+   return "ajax_page";
+   }
+   
+   
 }
