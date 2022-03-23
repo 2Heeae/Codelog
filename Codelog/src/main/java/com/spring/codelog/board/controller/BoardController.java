@@ -70,12 +70,25 @@ public class BoardController {
         return mav;
     }
 	
-    //  게시글 수정
+    //  게시글 수정 불러오기
+    @RequestMapping(value="/modify", method=RequestMethod.GET)
+    public ModelAndView home2(@RequestParam int boardId, HttpSession session) {
+        // 모델(데이터)+뷰(화면)를 함께 전달하는 객체
+        ModelAndView mav2 = new ModelAndView();
+        // 뷰의 이름
+        mav2.setViewName("board/modify");
+        // 뷰에 전달할 데이터
+        mav2.addObject("dto2", service.modify(boardId));
+        return mav2;
+    }
+    
+    
+    // 게시글 수정
     // 폼에서 입력한 내용들은 @ModelAttribute BoardVO vo로 전달됨
     @RequestMapping(value="update", method=RequestMethod.POST)
     public String update(@ModelAttribute BoardVO vo) {
         service.update(vo);
-        return "redirect:/";
+        return "redirect:/board";
     }
     
     //  게시글 삭제
@@ -85,7 +98,5 @@ public class BoardController {
         return "redirect:/";
     }
 	
-    
-    // 작성자 프로필 사진
 
 }
