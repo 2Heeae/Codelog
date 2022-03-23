@@ -23,6 +23,5 @@ public class ReplyVO {
 	private String writer;
 	private String content;
 	private Date wdate;
-	private Date wgap; 
 	 
 }

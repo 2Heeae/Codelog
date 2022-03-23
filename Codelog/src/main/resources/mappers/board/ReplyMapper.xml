@@ -37,7 +37,7 @@
 
 <!-- 댓글 리스트 가져오기 -->
 <select id="replyList" parameterType="com.spring.codelog.board.model.ReplyVO" resultType="com.spring.codelog.board.model.ReplyVO">
-     select r.no, r.bno, r.grp, r.grpl, r.writer, r.content, date_format(wdate,'%Y-%m-%d') wdate, datediff(now(), wdate) wgap , u.user_img
+     select r.no, r.bno, r.grp, r.grpl, r.writer, r.content, r.wdate, u.user_img
     from p_reply r join proj_user u
     on r.user_no = u.user_no
     where r.bno = #{boardId}
