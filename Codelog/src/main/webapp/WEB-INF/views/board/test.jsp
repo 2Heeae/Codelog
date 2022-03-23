@@ -50,38 +50,25 @@
 
 
 <body>
-	<form action="<c:url value='/boardController/write' />"
-		class="write-bbs" enctype=multipart/form-data method="post">
-		<!-- 글등록 페이지에 따로 작성자를 기입하지는 않으므로 현재 로그인 세션에서 작성자 명을 뽑아옵니다. -->
+	
 
-		<input type="hidden" name="writer" value="${loginSession.nickname}">
-		<!-- 로그인 세션에 있는 사용자의 닉네임 -->
-		<input type="hidden" name="userId" value="${loginSession.userId}">
-		<input type="hidden" name="userNo" value="${loginSession.userNo}">
-		<!-- 로그인 세션에 있는 사용자의 id -->
-		<div id="articles">
-			<br>
-				<!--태그-->
-				<textarea placeholder="제목을 입력하세요" id="title" name="title"
-					onkeyup="priviewTitle()"></textarea>
-				<input class="tag" name="tags" placeholder="태그를 입력하세요">
-			<!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
-		
-				<div id="editor" style="" ></div>
 
 			
- 
+
+
  <script>
  const Editor = toastui.Editor;
  
  const editor = new Editor({
  	  el: document.querySelector('#editor'),
  	  width: '100%',
- 	  height: '61.327rem',
+ 	  height: '41.327rem',
  	  initialEditType: 'markdown',
  	  previewStyle: 'vertical'
  	});
+
  </script>
+
 
 					<button class="ok" id="show" type="button">
 						<i class="fa-solid fa-check"></i>
@@ -117,8 +104,12 @@
 		<!--contanier 1개에 row 1개 col 2개로 영역 구분
         썸네일 직접 업로드 가능(기본값은 글 작성에 이미지를 넣었으면 그 중 최상단 이미지 없으면 null)
     -->
+    <form action="<c:url value='/boardController/write' />"
+		class="write-bbs" enctype=multipart/form-data method="post">
+		
 <div id="check">
-      <div class="container-down">
+
+
        
             <div class="row py-md-3" style="margin: 5% 15% 0% 15%">
 
@@ -228,6 +219,10 @@
 
          });
          $("#show").click(function () {
+        	
+            let content = editor.getHTML();
+        	$('#floatingTextarea').val(content);
+            $('#test2').val(content);
             $("#check").show();
             $("#articles").hide();
             $("#check").toggleClass('fadeIn');
