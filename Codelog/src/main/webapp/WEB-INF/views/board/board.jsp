@@ -158,12 +158,12 @@
 	
 	// [댓글]
 	// 게시물의 댓글 목록을 불러오는 함수입니다.
-	const ReplyList = function(no) {
+	const ReplyList = function(bno) {
 	    $.ajax({
-	        url : '/replyList',
+	        url : '/reply/replyList',
 	        type : 'get',
 	        data : {
-	            no : no
+	        	bno : bno
 	        },
 	        success : function(data) {
 
