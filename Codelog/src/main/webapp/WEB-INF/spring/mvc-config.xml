@@ -28,7 +28,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="ds" />
 		<property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml" />
-		<property name="configLocation" value="/WEB-INF/spring/mybatis-config.xml" />
+		<property name="configLocation" value="WEB-INF/spring/mybatis-config.xml" />
 	</bean>
 	
 	<!-- 마이바티스 xml파일을 빈으로 등록하기 위한 스캔 설정 (인터페이스 어디있는지 경로 써 주세요) -->

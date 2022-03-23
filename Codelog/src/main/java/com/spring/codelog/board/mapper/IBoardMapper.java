@@ -20,6 +20,8 @@ public interface IBoardMapper {
     BoardVO read(int boardId) ;
    // 03. 게시글 수정
     void update(BoardVO vo) ;
+   // 03-1. 수정 글 불러오기
+    BoardVO modify(int boardId);
    // 04. 게시글 삭제
     void delete(int boardId) ;
    // 05. 게시글 전체 목록

@@ -24,6 +24,8 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap"
 	rel="stylesheet">
+	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script src="https://kit.fontawesome.com/fec7fe9db7.js"
 	crossorigin="anonymous"></script>
 <script
@@ -128,6 +130,19 @@
 
 				</div>
 				<script>
+				   const Editor = toastui.Editor;
+
+                   const editor = new Editor({
+                   	  el: document.querySelector('#content'),
+                   	  height: '100%',
+                   	  initialEditType: 'markdown',
+                   	  previewStyle: 'vertical'
+                   	});
+                 
+				
+				
+				</script>
+				<script>
                            $('#chooseFile').change(function () {
                               readURL(this);
                            });
@@ -142,8 +157,7 @@
                                  reader.readAsDataURL(input.files[0]);
                               }
                            }
-
-                         
+                        
                         </script>
 
 
