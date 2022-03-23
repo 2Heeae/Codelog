@@ -45,7 +45,7 @@
 @import url("<c:url value='/css/test.css'/>");
 </style>
 
-<title>Modify</title>
+<title>Modify</title>  
 </head>
 
 
