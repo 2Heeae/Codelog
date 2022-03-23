@@ -1,207 +1,250 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@include file="../include/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>mypage</title>
-  
-  <!-- reset.css 마이페이지에만 적용되는 css 지우지 마세요. -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mypage</title>
 
-  <style>
-    @import url("<c:url value='/css/mypage.css' />");    
-  </style>
+<!-- reset.css 마이페이지에만 적용되는 css 지우지 마세요. -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+
+<style>
+@import url("<c:url value='/css/mypage.css' />");
+</style>
 </head>
-	
-    <div class="container">
-      <!--프로필 -->
-      <div class="row p-4 p-md-5 mb-2 main">
-        <div class="col-md-4">
-        	<c:choose>
-				<c:when test="${userInfo.userImg eq null || userInfo.userImg eq 'null'}">
-					<img src="<c:url value='/img/user_icon.png' />" alt="user_icon" width="130" height="130" style="border-radius:70px;">
-				</c:when>
-				<c:otherwise>
-					<img src="<c:url value='/img/${userInfo.userId}' />" alt="user_icon" width="130" height="130" style="border-radius:70px;">
-				</c:otherwise>
-			</c:choose>
-        </div>
-        <div class="col-md-8 profile">
-          <h3 class="id">${userInfo.nickname }&nbsp;&nbsp;
-          
+
+<div class="container">
+	<!--프로필 -->
+	<div class="row p-4 p-md-5 mb-2 main">
+		<div class="col-md-4">
 			<c:choose>
-	          <c:when test="${followCheck == 1 }">
-	          <button class="follow-button" style="background-color:#C0D8C0">
-	          	<p class="follow-txt">&nbsp;<i class="fa-solid fa-check">팔로잉</i></p>
-	          	</button>
-	          </c:when>
-	          <c:otherwise>
-	          <button class="follow-button">
-	          	<p class="follow-txt">팔로우</p>
-	          	</button>
-	          </c:otherwise>
-	        </c:choose>
-          </h3>
-          <p class="posts">게시물 3 &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal"
-              data-bs-target="#followers_modal" style="cursor:pointer;">팔로워 ${fn:length(followerList)}</a> &nbsp;&nbsp;&nbsp;
-            <a class="folloing" data-bs-toggle="modal" data-bs-target="#following_modal" style="cursor:pointer;">팔로우
-              ${fn:length(followingList)}</a></p>
-          <p class="intro">${userInfo.userInfo}</p>
-        </div>
-      </div> <!-- end main-->
-
-      <!-- 클릭시 팔로워 모달 -->
-      <div class="modal fade" id="followers_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-sm">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">팔로워</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <ul class="list-unstyled">
-              <c:choose>
-                <c:when test="${fn:length(followerList) <= 0}">
-						<p>팔로우 하는 사람이 없습니다.
+				<c:when
+					test="${userInfo.userImg eq null || userInfo.userImg eq 'null'}">
+					<img src="<c:url value='/img/user_icon.png' />" alt="user_icon"
+						width="130" height="130" style="border-radius: 70px;">
 				</c:when>
 				<c:otherwise>
-					<c:forEach var="list" items="${followerList }">
-						<li class="follow-li">
-				        	<c:choose>
-				<c:when test="${followerList.userImg eq null || followerList.userImg eq 'null'}">
-					<img src="<c:url value='/img/user_icon.png'/>" width="30" height="30" style="border-radius:70px;">
-				</c:when>
-				<c:otherwise>
-					<img src="<c:url value='/img/${followerList.activeUserId}'/>" width="30" height="30" style="border-radius:70px;">
+					<img src="<c:url value='/image/${userInfo.userId}' />"
+						alt="user_icon" width="130" height="130"
+						style="border-radius: 70px;">
 				</c:otherwise>
 			</c:choose>
-							<p class="profile-id"><a href="<c:url value='/user/userpage/${list.activeUserId}'/>">${list.activeUserId} </a></p>
-						</li>
-					</c:forEach>
-				</c:otherwise>
+		</div>
+		<div class="col-md-8 profile">
+			<h3 class="id">${userInfo.nickname }&nbsp;&nbsp;
+				<c:if test="${userInfo.userId ne loginSession.userId}">
+				<c:choose>
+					<c:when test="${followCheck == 1 }">
+						<button class="follow-button" style="background-color: #C0D8C0">
+							<p class="follow-txt">
+								&nbsp;<i class="fa-solid fa-check">팔로잉</i>
+							</p>
+						</button>
+					</c:when>
+					<c:otherwise>
+						<button class="follow-button">
+							<p class="follow-txt">팔로우</p>
+						</button>
+					</c:otherwise>
 				</c:choose>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+				</c:if>
+				
+			</h3>
+			<p class="posts">
+				게시물 3 &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal"
+					data-bs-target="#followers_modal" style="cursor: pointer;">팔로워
+					${fn:length(followerList)}</a> &nbsp;&nbsp;&nbsp; <a class="folloing"
+					data-bs-toggle="modal" data-bs-target="#following_modal"
+					style="cursor: pointer;">팔로우 ${fn:length(followingList)}</a>
+			</p>
+			<p class="intro">${userInfo.userInfo}</p>
+		</div>
+	</div>
+	<!-- end main-->
 
-      <!-- 팔로잉 모달-->
-      <div class="modal fade" id="following_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-sm">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">팔로우</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <ul class="list-unstyled">
-               <c:if test="${followingList.size() <= 0}">
-						<p> 팔로잉 하는 회원이 없습니다.
-					</c:if>
-					<c:if test="${followingList.size() > 0 }">
-						<c:forEach var="list" items="${followingList }">
-							
-							<li class="follow-li">
-								<p class="profile-id"><a href="<c:url value='/user/userpage/${list.passiveUserId}'/>">${list.passiveUserId} </a></p>
-							</li>
-							
-						
-						</c:forEach>
-					</c:if>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+	<!-- 클릭시 팔로워 모달 -->
+	<div class="modal fade" id="followers_modal" data-bs-backdrop="static"
+		data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">팔로워</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<ul class="list-unstyled">
+						<c:choose>
+							<c:when test="${fn:length(followerList) <= 0}">
+								<p>팔로우 하는 사람이 없습니다.
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="list" items="${followerList}">
+									<li class="follow-li">
+									<div class="profile-section">
+											<c:choose>
+												<c:when test="${list.userImg != 'null' && list.userImg != null}">
+													<img class="profile-photo" alt="img" src="<c:url value='/image/${list.activeUserId}'/>" width="20" height="20" style="border-radius: 70px; display:inline;">
+												</c:when>
+												<c:otherwise>
+													<img alt="img" src="<c:url value='/img/user_icon.png'/>"width="20" height="20" style="padding-top:2px">
+												</c:otherwise>
+											</c:choose>
+										<p class="profile-id" style="display:inline;">
+											<a href="<c:url value='/user/userpage/${list.activeUserId}'/>">${list.activeUserId} </a>
+										</p>
+									</div>
+									</li>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 
-      <!-- 태그 및 페이지-->
-      <div class="row">
-        <!--태그-->
-        <div class="col-md-2 tags">
-          태그목록
-          <hr>
-          <a href="#"> tag(1)<br></a>
-          <a href="#"> tags(2)<br></a>
-        </div>
-        <!--게시글들 -->
-        <div class="col-md-10">
-          <!--검색 -->
-          <form action="d-flex">
-            <section>
-              <input class="form-control search" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-primary" type="submit">검색</button>
-            </section>
-          </form>
-          <!-- 사진 썸네일, 글제목, 보이는 곳  -->
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
-            <div class="col-md-4">
-              <div class="card " style="width: 100%">
-                <a href="#">
-                  <img src="<c:url value='/img/bootstrap.png' />" class="card-img-top" alt="...">
-                </a>
-                <div class="card-body">
-                  <a href="#">
-                    <h5 class="card-title">Card title</h5>
-                  </a>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p><br>
-                  <p class="card-text text-muted">1분전</small></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card " style="width: 100%">
-                <a href="#">
-                  <img src="<c:url value='/img/java.jfif'/>" class="card-img-top img-fluid" alt="...">
-                </a>
-                <div class="card-body">
-                  <a href="#">
-                    <h5 class="card-title">Card title</h5>
-                  </a>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                  <br>
-                  <p class="card-text text-muted">2022년 3월 4일</small></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card 0" style="width: auto">
-                <a href="#">
-                  <img src="<c:url value='/img/spring.png'/>" class="card-img-top img-fluid" alt="...">
-                </a>
-                <div class="card-body">
-                  <a href="#">
-                    <h5 class="card-title">제목</h5>
-                  </a>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                  <br>
-                  <p class="card-text text-muted">3일전</small></p>
-                </div>
-              </div>
-            </div>
+	<!-- 팔로잉 모달-->
+	<div class="modal fade" id="following_modal" data-bs-backdrop="static"
+		data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">팔로우</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<ul class="list-unstyled">
+						<c:if test="${followingList.size() <= 0}">
+							<p>팔로잉 하는 회원이 없습니다.
+						</c:if>
+						<c:if test="${followingList.size() > 0 }">
+							<c:forEach var="list" items="${followingList }">
 
-          </div>
+								<li class="follow-li">
+								<div class="profile-section">
+											<c:choose>
+												<c:when test="${list.userImg ne 'null' and list.userImg ne null}">
+													<img class="profile-photo" alt="img" src="<c:url value='/image/${list.passiveUserId}'/>" width="22" height="22" style="border-radius: 70px; display:inline;">
+												</c:when>
+												<c:otherwise>
+													<img alt="img" src="<c:url value='/img/user_icon.png'/>"width="22" height="22" style="padding-top:2px">
+												</c:otherwise>
+											</c:choose>
+									<p class="profile-id"  style="display:inline;">
+										<a href="<c:url value='/user/userpage/${list.passiveUserId}'/>">${list.passiveUserId} </a>
+									</p>
+								</div>
+								</li>
 
-        </div>
-      </div>
-    </div> <!-- end container-->
+
+							</c:forEach>
+						</c:if>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 태그 및 페이지-->
+	<div class="row">
+		<!--태그-->
+		<div class="col-md-2 tags">
+			태그목록
+			<hr>
+			<a href="#"> tag(1)<br></a> <a href="#"> tags(2)<br></a>
+		</div>
+		<!--게시글들 -->
+		<div class="col-md-10">
+			<!--검색 -->
+			<form action="d-flex">
+				<section>
+					<input class="form-control search" type="search"
+						placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-primary" type="submit">검색</button>
+				</section>
+			</form>
+			<!-- 사진 썸네일, 글제목, 보이는 곳  -->
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
+				<div class="col-md-4">
+					<div class="card " style="width: 100%">
+						<a href="#"> <img src="<c:url value='/img/bootstrap.png' />"
+							class="card-img-top" alt="...">
+						</a>
+						<div class="card-body">
+							<a href="#">
+								<h5 class="card-title">Card title</h5>
+							</a>
+							<p class="card-text">Some quick example text to build on the
+								card title and make up the bulk of the card's content.</p>
+							<br>
+							<p class="card-text text-muted">
+								1분전</small>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card " style="width: 100%">
+						<a href="#"> <img src="<c:url value='/img/java.jfif'/>"
+							class="card-img-top img-fluid" alt="...">
+						</a>
+						<div class="card-body">
+							<a href="#">
+								<h5 class="card-title">Card title</h5>
+							</a>
+							<p class="card-text">Some quick example text to build on the
+								card title and make up the bulk of the card's content.</p>
+							<br>
+							<p class="card-text text-muted">
+								2022년 3월 4일</small>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card 0" style="width: auto">
+						<a href="#"> <img src="<c:url value='/img/spring.png'/>"
+							class="card-img-top img-fluid" alt="...">
+						</a>
+						<div class="card-body">
+							<a href="#">
+								<h5 class="card-title">제목</h5>
+							</a>
+							<p class="card-text">Some quick example text to build on the
+								card title and make up the bulk of the card's content.</p>
+							<br>
+							<p class="card-text text-muted">
+								3일전</small>
+							</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- end container-->
 <%@include file="../include/footer.jsp"%>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+	integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+	crossorigin="anonymous">
     </script>
-    
-    <script>
+
+<script>
       // 팔로우버튼 누를시 팔로잉, 다시클릭시 팔로우
       $(function () {
         $('.follow-button').click(function () {
@@ -249,7 +292,7 @@
       
 
      </script>
-    <script>
+<script>
       $(document).ready(function () {
         $("#so").click(function () {
           $(location).attr("href", "https://www.naver.com/")
