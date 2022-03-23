@@ -169,7 +169,7 @@
 					<img src="<c:url value='/img/cat.jpg'/>" class="card-img-top" alt="...">
 					<!--제목 내용-->
 					<div class="card-body ">
-						<strong>${Poster.title },보드아이디: ${Poster.boardId }</strong>
+						<strong>${Poster.title }</strong>
 						<p class="card-text" style="padding-top: 0.3rem;">${Poster.preview }
 
 						</p>
@@ -186,16 +186,19 @@
 						<div>
 
 							<div style="margin-top: 0.3rem;">
+							
 								<div style="display: inline-block; float: left;">
 									<div style="border-radius: 70%; overflow: hidden; display: inline-block;">
-										<img src="<c:url value='/img/pome3.jpg'/>" class="img-rounded" width="25rem">
+										<a href="${pageContext.request.contextPath}/user/userpage/${Poster.userId}" class="stretched-link" style="position: relative; text-decoration: none;"><img src="<c:url value='/img/pome3.jpg'/>" class="img-rounded" width="25rem"></a>
 									</div>
 
 								</div>
-								<div style="display: inline-block; float: left; margin-top: 0.13rem;">
-									<span class="mx-md-1" style="color: gray;">by</span><span>${Poster.writer }</span>
+								<div  style="display: inline-block; float: left; margin-top: 0.13rem;">
+									<a href="${pageContext.request.contextPath}/user/userpage/${Poster.userId}" class="stretched-link" style="position: relative; text-decoration: none;"><span class="mx-md-1" style="color: gray;">by</span><span>${Poster.writer }</span></a>
 								</div>
-								<div style="display: inline-block; float: right; margin-top: 0.13rem">
+								
+								
+								<div  style="display: inline-block; float: right; margin-top: 0.13rem">
 									<i class="fa-solid fa-comment" style=""></i>
 									<span style="margin-right: 0.5rem;" class="">3</span>
 									<i class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes }</span>
@@ -346,9 +349,12 @@
 
 
          });
+         
+        
+         
          });
 
-   
+   		
       
       
 /*화면 클릭시 열려있는 토글창 닫기*/
