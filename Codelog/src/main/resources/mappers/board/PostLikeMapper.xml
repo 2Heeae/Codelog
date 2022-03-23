@@ -9,7 +9,7 @@
 		<result property="boardId" column="board_id" />
 		<result property="userId" column="user_id" />
 		<result property="likeDate" column="like_date" />
-		<result property="postLike" column="post_like" />
+		<result property="pLike" column="p_like" />
 	</resultMap>
 	
 	<select id="likeCount" resultType="int">
@@ -36,11 +36,11 @@
 	</update>
 	
 	<sql id="cal">
-		<if test="post_like == 1">
-			post_like = 0
+		<if test="p_like == 1">
+			p_like = 0
 		</if>
-		<if test="post_like == 0">
-			post_like = post_like + 1
+		<if test="p_like == 0">
+			p_like = p_like + 1
 		</if>
 	</sql>
 

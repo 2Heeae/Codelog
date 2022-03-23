@@ -35,12 +35,8 @@
 					<nav>
 						<a class="likes" id="like-btn" onclick='count("plus")'>♥</a>
 						<div id='result' style="margin-left: 28px;">0</div>
-<<<<<<< HEAD
 						<input type="hidden" id="like-check" value="${like}">
 
-=======
->>>>>>> be8e9eb1da0897db21a38d335dd10a2185971ab8
-						<!-- 글쓴이 프로필 사진 -->
 						<a href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">
 							<img src="<c:url value='/img/${dto.userId }'/>" class="sharing"  alt="profile" >
 							
@@ -347,7 +343,7 @@
 			const data = {
 				"userId" : user_id,
 				"boardId" : board_id,
-				"postLike" : count		
+				"pLike" : count		
 			};
 			
 			$.ajax({
