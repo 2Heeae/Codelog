@@ -19,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.codelog.board.commons.PostLikeVO;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.service.BoardService;
+import com.spring.codelog.board.service.PostLikeService;
+import com.spring.codelog.user.model.UserVO;
 
 
 @Controller
@@ -27,6 +29,9 @@ public class BoardController {
 
 	@Autowired
 	BoardService service;
+	
+	@Autowired
+	PostLikeService likeService;
 	
 	@GetMapping("/test")
 	public String test() {
@@ -59,12 +64,34 @@ public class BoardController {
     public ModelAndView home(@RequestParam int boardId, HttpSession session) {
         // 조회수 증가 처리
         service.increaseHit(boardId, session);
+        
+        // 좋아요 처리
+        int postLike = 0;
+        
+        if(session.getAttribute("loginSession") != null) {
+        	PostLikeVO vo = new PostLikeVO();
+        	UserVO user = (UserVO) session.getAttribute("loginSession");
+        	vo.setUserId(user.getUserId());
+        	vo.setBoardId(boardId);
+        	
+        	
+        	int checkLike = likeService.likeCount(vo);
+        	
+        	if(checkLike == 0) {
+        		likeService.likePlus(vo);
+        	} else if(checkLike == 1) {
+        		postLike = likeService.getLikeInfo(vo);
+        	}
+        	
+        }
+        
         // 모델(데이터)+뷰(화면)를 함께 전달하는 객체
         ModelAndView mav = new ModelAndView();
         // 뷰의 이름
         mav.setViewName("board/board");
         // 뷰에 전달할 데이터
         mav.addObject("dto", service.read(boardId));
+        mav.addObject("like", postLike);
         return mav;
     }
 	
