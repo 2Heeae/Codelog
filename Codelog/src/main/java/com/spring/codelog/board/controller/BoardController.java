@@ -1,6 +1,8 @@
 package com.spring.codelog.board.controller;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
