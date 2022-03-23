@@ -1,6 +1,7 @@
 @charset "UTF-8";
    /*포스터 카드 호버 시 크기 확대+위로 올리가기*/
 
+
       .poster:hover {
          transform: scale(1.02) translateY(-0.5em);
          transition-duration: 0.5s;
