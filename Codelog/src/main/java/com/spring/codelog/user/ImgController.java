@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.codelog.user.model.UserVO;
 import com.spring.codelog.user.service.IUserService;
 
-@RequestMapping("/img")
+@RequestMapping("/image")
 @RestController
 public class ImgController {
 	
