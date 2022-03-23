@@ -18,7 +18,7 @@ public class PictureController {
 	ReplyDAO dao = new ReplyDAO();
 	// 모댓글 작성
 	@ResponseBody
-	@RequestMapping(value = "/picture_write_reply.do")
+	@RequestMapping(value = "/write_reply.do")
 	public PictureTO write_reply(@RequestParam String no, @RequestParam String content, HttpSession session) {
 
 	    ReplyTO to = new ReplyTO();
@@ -41,7 +41,7 @@ public class PictureController {
 
 	// 답글 작성
 	@ResponseBody
-	@RequestMapping(value = "/picture_write_rereply.do")
+	@RequestMapping(value = "/write_rereply.do")
 	public PictureTO write_rereply(@RequestParam String no, @RequestParam String bno, @RequestParam String content,
 	        HttpSession session) {
 
@@ -71,7 +71,7 @@ public class PictureController {
 
 	// 댓글 리스트
 	@ResponseBody
-	@RequestMapping(value = "/picture_replyList.do")
+	@RequestMapping(value = "/replyList.do")
 	public ArrayList<ReplyTO> reply_list(@RequestParam String no, HttpSession session) {
 
 	    ReplyTO to = new ReplyTO();
@@ -88,8 +88,8 @@ public class PictureController {
 
 	// 모댓글 삭제
 	@ResponseBody
-	@RequestMapping(value = "/picture_delete_reply.do")
-	public PictureTO picture_delete_reply(@RequestParam String no, @RequestParam String bno ) {
+	@RequestMapping(value = "/delete_reply.do")
+	public PictureTO delete_reply(@RequestParam String no, @RequestParam String bno ) {
 
 	    ReplyTO to = new ReplyTO();
 
@@ -107,7 +107,7 @@ public class PictureController {
 
 	// 답글 삭제
 	@ResponseBody
-	@RequestMapping(value = "/picture_delete_rereply.do")
+	@RequestMapping(value = "/delete_rereply.do")
 	public PictureTO delete_rereply(@RequestParam String no, @RequestParam String bno, @RequestParam int grp) {
 
 	    ReplyTO to = new ReplyTO();
