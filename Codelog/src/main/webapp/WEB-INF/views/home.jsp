@@ -193,7 +193,9 @@
 
 								</div>
 								<div style="display: inline-block; float: left; margin-top: 0.13rem;">
-									<span class="mx-md-1" style="color: gray;">by</span><span>${Poster.writer }</span>
+								<a href="${pageContext.request.contextPath}/boardController/board?boardId=100">
+								
+									<span class="mx-md-1" style="color: gray;">by</span><span>${Poster.writer }</span></a>
 								</div>
 								<div style="display: inline-block; float: right; margin-top: 0.13rem">
 									<i class="fa-solid fa-comment" style=""></i>

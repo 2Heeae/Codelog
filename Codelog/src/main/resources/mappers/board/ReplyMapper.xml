@@ -5,16 +5,15 @@
  <resultMap type="com.spring.codelog.board.model.ReplyVO" id="ReplyMap">
  <id property="no" column="no" />
    <result property="bno" column="bno" />
-   <result property="writer" column="writer" />
    <result property="grp" column="grp" />
    <result property="grps" column="grps" />
    <result property="grpl" column="grpl" />
    <result property="userNo" column="user_no" />
-   <result property="viewAll" column="view_all" />
-   <result property="imgPath" column="img_path" />
-   <result property="regDate" column="reg_date" />
-   <result property="hit" column="hit" />
-   <result property="userNo" column="user_no" />
+   <result property="userImg" column="user_img" />
+   <result property="writer" column="writer" />
+   <result property="content" column="content" />
+   <result property="wdate" column="wdate" />
+   <result property="wgap" column="wgap" />
  </resultMap>
 
 <!-- 댓글 쓰기 -->
