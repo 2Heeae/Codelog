@@ -48,7 +48,7 @@
 						<input type="hidden" id="like-check" value="${like}">
 
 						<a href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">
-							<img width="55rem" src="<c:url value='/img/${dto.userId }'/>" class="card-img-right rounded-circle mx-md-1"  alt="profile" >
+							<img width="55rem" src="<c:url value='/image/${dto.userId }'/>" class="card-img-right rounded-circle mx-md-1"  alt="profile" >
 							
 						</a>
 						<!-- 프로필사진 끝 -->

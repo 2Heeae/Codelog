@@ -131,7 +131,7 @@ public class BoardController {
     }
     
     //  게시글 삭제
-    @PostMapping("delete")
+    @PostMapping("/delete")
     public String delete(@RequestParam int boardId) {
         service.delete(boardId);
         return "redirect:/";

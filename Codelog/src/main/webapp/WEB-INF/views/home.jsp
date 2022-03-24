@@ -189,7 +189,10 @@
 							
 								<div style="display: inline-block; float: left;">
 									<div style="border-radius: 70%; overflow: hidden; display: inline-block;">
-										<a href="${pageContext.request.contextPath}/user/userpage/${Poster.userId}" class="stretched-link" style="position: relative; text-decoration: none;"><img src="<c:url value='/img/pome3.jpg'/>" class="img-rounded" width="25rem"></a>
+										<a href="${pageContext.request.contextPath}/user/userpage/${Poster.userId}" class="stretched-link" style="position: relative; text-decoration: none;">
+											<img src="<c:url value='/image/${Poster.userId }'/>" class="img-rounded" width="25rem">
+										</a>
+										
 									</div>
 
 								</div>
