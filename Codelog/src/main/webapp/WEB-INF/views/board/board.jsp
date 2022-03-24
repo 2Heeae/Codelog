@@ -79,7 +79,7 @@
 			<!--글 상세보기 내용-->
 			<div class="col-md-7">
 				<div class="container detail-main">
-					<h1>${dto.title}</h1>
+					<div class="title">${dto.title}</div>
 					<div class="info">
 						<a class="writer" href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">${dto.writer}</a>					
 						<div class="slash"> | </div>
@@ -89,7 +89,7 @@
 					</div>
 					
 					<br>
-					<div id="hashtag">
+					<div class="hashtag">
 						<a style="color:rgb(120, 147, 149);" href="${pageContext.request.contextPath}//search?keyword=${dto.tags}">#${dto.tags}</a>
 					</div>
 
