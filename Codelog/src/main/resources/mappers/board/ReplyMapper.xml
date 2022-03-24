@@ -18,13 +18,13 @@
 <!-- 댓글 쓰기 -->
 <insert id="replyWrite" parameterType="com.spring.codelog.board.model.ReplyVO">
     insert into p_reply
-    values(0, #{bno}, #{grp}, 0, 0, #{writer}, #{content}, now())
+    values(reply_seq.NEXTVAL, #{bno}, #{grp}, 0, 0, #{writer}, #{content}, now())
 </insert>
 
 <!-- 답글 쓰기 -->
 <insert id="rereplyWrite" parameterType="com.spring.codelog.board.model.ReplyVO">
     insert into p_reply
-    values(0, #{bno}, #{grp}, 0, #{grpl}, #{writer}, #{content}, now())
+    values(reply_seq.NEXTVAL, #{bno}, #{grp}, 0, #{grpl}, #{writer}, #{content}, now())
 </insert>
 
 <!-- p_board에 댓글수 증가 -->
@@ -40,7 +40,7 @@
     from p_reply r join proj_user u
     on r.user_no = u.user_no
     where r.bno = #{bno}
-    order by grp ASC, grps DESC
+    order by grp ASC, grpl ASC, grps DESC
 </select>
 
 

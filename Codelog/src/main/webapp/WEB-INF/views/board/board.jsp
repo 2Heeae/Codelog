@@ -91,13 +91,49 @@
 					
 			  
                 
-          <button onclick='ReplyList("${dto.boardId}")' type='button' style="background-color: red" class='btn btn-success mb-1' >댓글&nbsp;보기</button>
+          
                 
                 
                 
-                
-                
-                
+             <button onclick='ReplyList("${dto.boardId}")' type="button" class="btn btn-success c rounded-circle p-0 position-relative"
+					style="background-color:transparent; border-color: transparent;" >
+					<span class="m-0" style="font-size: 1.1rem;">댓글&nbsp;보기</span></button>
+					
+
+
+
+<div class="" id="replyBox" style="display: none;">
+    <section class="modal-section">
+    
+        <div class="card card-body">
+            <!-- 댓글 목록 -->
+            <div class="reply-list reply-list${dto.boardId}">
+                <!-- 댓글이 목록이 들어가는 곳 -->
+                댓글목록
+            </div>
+            <!-- 댓글 작성 => 로그인한 상태여야만 댓글작성 칸이 나온다. -->
+            <c:if test="${not empty loginSession.nickname}">
+                <div class="row reply_write">
+                    <div class="col-1">
+                        <a href="#">
+                            <img id="write_reply_profileImage"
+                                src="#" />
+                        </a>
+                    </div>
+                    <div class="col-8" class="input_reply_div">
+                        <input class="w-100 form-control" id="input_reply${dto.boardId}"
+                            type="text" placeholder="댓글입력...">
+                    </div>
+                    <div class="col-3 ">
+                        <button type="button" idx="${dto.boardId}"
+                            class="btn btn-success mb-1 write_reply">댓글&nbsp;달기</button>
+                    </div>
+                </div>
+            </c:if>
+        </div>
+    </section>
+</div>
+               
                 
                 
                 
@@ -108,44 +144,6 @@
 
 
 
-<button type="button" class="btn c rounded-circle p-0 position-relative"
-					style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
-					href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample4">
-					<span id="allChk" class="m-0" style="font-size: 1.1rem;">
-					
-					
-					<i class="fa-solid fa-caret-down mx-md-1"></i></span>
-
-					<div class="collapse" id="reply_card${tmp.no }">
-    <section class="modal-section">
-        <div class="card card-body">
-            <!-- 댓글 목록 -->
-            <div class="reply-list reply-list${tmp.no }">
-                <!-- 댓글이 목록이 들어가는 곳 -->
-            </div>
-            <!-- 댓글 작성 => 로그인한 상태여야만 댓글작성 칸이 나온다. -->
-            <c:if test="${not empty sessionScope.nick }">
-                <div class="row reply_write">
-                    <div class="col-1">
-                        <a href="other_profile.do?other_nick=${tmp.writer }">
-                            <img id="write_reply_profileImage"
-                                src="./upload/profile/${sessionScope.profile }" />
-                        </a>
-                    </div>
-                    <div class="col-8" class="input_reply_div">
-                        <input class="w-100 form-control" id="input_reply${tmp.no}"
-                            type="text" placeholder="댓글입력...">
-                    </div>
-                    <div class="col-3 ">
-                        <button type="button" idx="${tmp.no }"
-                            class="btn btn-success mb-1 write_reply">댓글&nbsp;달기</button>
-                    </div>
-                </div>
-            </c:if>
-        </div>
-    </section>
-</div>
-				</button>
 
 
 
@@ -193,7 +191,6 @@
 	// [댓글]
 	// 게시물의 댓글 목록을 불러오는 함수입니다.
 	const ReplyList = function(bno) {
-		console.log(bno);
 	    $.ajax({
 	        url : '/codelog/reply/replyList',
 	        type : 'get',
@@ -215,17 +212,14 @@
 	                 let writer = data[i].writer;
 	                 let content = data[i].content;
 	                 let wdate = data[i].wdate;
-	                 let wgap = data[i].wgap;
-	                 let profile = data[i].profile;
-	                 console.log(wdate);
 	                 
+	                
 	                 
 	                 listHtml += "<div class='row replyrow reply" + no + "'>";
-
 	                 if(grpl == 0){	// 모댓글일때
 	                        listHtml += "	<div class='col-1'>";
-	                        listHtml += "		<a href='other_profile.do?other_nick="+writer+"'> ";
-	                        listHtml += "			<img class='reply_list_profileImage' src='./upload/profile/"+ profile +"'/>";
+	                        listHtml += "		<a href='#'> ";
+	                        listHtml += "			<img class='reply_list_profileImage' src='../img/kmj2.jpg'/>";
 	                        listHtml += "		</a> ";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='rereply-content col-8'>";
@@ -238,7 +232,7 @@
 	                        listHtml += "			</span>";
 	                        listHtml += "		</div>";
 	                        // 현재 로그인 상태일때 답글작성 버튼이 나온다.
-	                        if("${nick}" != ""){
+	                        if("${loginSession.nickname}" != ""){
 	                            listHtml += "		<div>";
 	                            // 함수에 게시글번호(bno), 모댓글번호(no), 모댓글 작성자(writer)를 인자로 담아서 넘긴다.
 	                            // 이때 모댓글 작성자 writer는 string인데 string을 인자에 넣기 위해선''나""로 감싸줘야한다.
@@ -252,7 +246,7 @@
 	                        listHtml += "	<div class='col-1'>"
 	                        listHtml += "	</div>"
 	                        listHtml += "	<div class='col-1'>";
-	                        listHtml += "		<img class='reply_list_profileImage' src='./upload/profile/"+ profile +"'/>";
+	                        listHtml += "		<img class='reply_list_profileImage' src='#'/>";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='rereply-content"+ no +" col-7'>";
 	                        listHtml += "		<div>";
@@ -299,7 +293,7 @@
 	                    listHtml += "		<div class='col-1'>"
 	                    listHtml += "		</div>"
 	                    listHtml += "		<div class='col-1'>"
-	                    listHtml += "			<a href='other_profile.do?other_nick="+writer+"'> ";
+	                    listHtml += "			<a href='#'> ";
 	                    listHtml += "				<img id='write_reply_profileImage' src='#'/>"
 	                    listHtml += "			</a> ";
 	                    listHtml += "		</div>"
@@ -323,14 +317,18 @@
 	             listHtml += "</div>";
 	        
 	                    
-	                 
+	    		 $('#replyBox').css('display','block');
+    
 	                 
 	             }; ///////////// 동적으로 넣어준 html에 대한 이벤트 처리는 같은 함수내에서 다 해줘야한다.
 	             ///////////// $(document).ready(function(){}); 안에 써주면 안된다.
 
 	             // 댓글 리스트 부분에 받아온 댓글 리스트를 넣기
-	             $(".reply-list"+no).html(listHtml);
+	             
+	             $(".reply-list"+bno).html(listHtml);
 
+	             
+	             
 	             // 답글에서 답글달기를 누르면 input란에 "@답글작성자"가 들어간다.
 	             //$('.write_re_reply_start').on('click', function(){
 	             //	$('#input_rereply'+ $(this).attr('no')).val("@"+$(this).attr('writer')+" ");
@@ -358,7 +356,7 @@
 
 	             })
 
-
+	            
 	         },
 	        error : function() {
 	            alert('서버 에러');
@@ -411,7 +409,7 @@
 
 	        // reply+1 하고 그 값을 가져옴
 	        $.ajax({
-	            url : 'picture_write_rereply.do',
+	            url : '/codelog/reply/replyList',
 	            type : 'get',
 	            data : {
 	                no : no,
@@ -442,7 +440,7 @@
 	const DeleteReply = function(no, bno){
 	    // grp이 no인 댓글이 있는 경우 content에 null을 넣고 없으면 삭제한다.
 	    $.ajax({
-	        url : 'picture_delete_reply.do',
+	        url : '/codelog/reply/deleteReply',
 	        type : 'get',
 	        data : {
 	            no : no,
@@ -474,7 +472,7 @@
 
 	    // 답글을 삭제한다.
 	    $.ajax({
-	        url : 'picture_delete_rereply.do',
+	        url : '/codelog/reply/deleteReReply',
 	        type : 'get',
 	        data : {
 	            no : no,
