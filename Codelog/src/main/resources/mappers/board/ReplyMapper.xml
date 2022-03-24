@@ -18,7 +18,7 @@
 <!-- 댓글 쓰기 -->
 <insert id="replyWrite" parameterType="com.spring.codelog.board.model.ReplyVO">
     insert into p_reply
-    values(reply_seq.NEXTVAL, #{bno}, #{grp}, 0, 0, #{writer}, #{content}, now())
+    values(reply_seq.NEXTVAL, #{bno}, reply_seq.CURRVAL, 0, 0, #{writer}, #{content}, now())
 </insert>
 
 <!-- 답글 쓰기 -->

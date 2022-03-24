@@ -186,7 +186,6 @@
 
 	<%@include file="../include/footer.jsp"%>
 
-
 	<script>
 	// [댓글]
 	// 게시물의 댓글 목록을 불러오는 함수입니다.
@@ -408,10 +407,10 @@
 	    console.log("댓글내용"+$("#input_reply" + bno).val());
 
 	    // 댓글 입력란의 내용을 가져온다. 
-	    // ||"" 를 붙인 이유  => 앞뒤 공백을 제거한다.(띄어쓰기만 입력했을때 댓글작성안되게 처리하기위함)
 	    let content = $("#input_reply" + bno).val();
-	   // content = content.trim();
 
+	    let writer = ${loginSession.nickname};
+	    
 
 	    if(content == ""){	// 입력된게 없을때
 	        alert("댓글을 입력하세요!");
@@ -419,9 +418,10 @@
 	        // 입력란 비우기
 	        $("#input_reply" + bno).val("");
 
-	        const vo = {
+	        const info = {
                 "bno" : bno,
-                "content": content        
+                "content": content,
+                "writer" : writer
             };
 	        // reply+1 하고 그 값을 가져옴
 	        $.ajax({
@@ -429,7 +429,7 @@
 	            type : 'post',
 	            contentType : 'application/json',
 				dataType : 'text',
-	            data : JSON.stringify(vo),
+	            data : JSON.stringify(info),
 	            success : function(pto) {
 
 	              
@@ -575,7 +575,6 @@
 	</script>
 
 	<!--책갈피-->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script>
 		$('#TableOfContents .content-menu a').on('click', function (event) {
 			$(this).parent().find('a').removeClass('active');

@@ -37,7 +37,7 @@ public class ReplyController {
 	// 답글 작성
 	
 	@RequestMapping(value = "/rereplyWrite")
-	public void rereplyWrite(ReplyVO vo, HttpSession session) {
+	public void rereplyWrite(@RequestBody ReplyVO vo, HttpSession session) {
 		service.rereplyWrite(vo);   
 	}
 

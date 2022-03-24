@@ -22,7 +22,7 @@ public class ReplyService {
 	// 댓글 작성
 	public void replyWrite(ReplyVO vo) {
 		// p_reply 테이블에 값 추가
-		mapper.replyWrite(vo.getNo(), vo.getGrp(), vo.getWriter(), vo.getContent());
+		mapper.replyWrite(vo.getBno(), vo.getGrp(), vo.getWriter(), vo.getContent());
 		
 		// proj_board 테이블에 해당 게시물의 reply수를 +1 하기위한 to세팅			
 		mapper.replyUp(vo.getNo());
