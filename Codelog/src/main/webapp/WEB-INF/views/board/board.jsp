@@ -15,8 +15,11 @@
 		@import url("<c:url value='/css/board.css'/>");
 		/* 글 상세보기 페이지 font */
 		@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;800&display=swap');
+		/* 토스트 UI CSS */
+		@import url("<c:url value='/css/toastTest.css'/>");
 	</style>
-
+<script
+	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 </head>
 
 <body>
@@ -87,13 +90,29 @@
 					
 
 					<section>
-						<div class="target" id="1">
-							<a name="content1"></a>
-							<!-- <div id="mini-title">소제목</div><br> -->
-							<div>${dto.content}</div>
+						<div id="viewer">
+							<input id="view" type="hidden" value="${dto.content}"></input>
 						</div>
 
-					</section>
+<script>
+var view = $('#view').val()
+
+	const viewer = toastui.Editor.factory({
+		  el: document.querySelector('#viewer'),
+      viewer: true,
+      height: '500px',
+      initialValue: view
+	});
+	
+	console.log(view)
+
+	
+	
+	 function ToView()
+ {
+     viewer.getMarkdown(viewer.setHTML());
+ };	</script>
+		</section>
 
 					<!--댓글 영역-->
 					<section class="reply">

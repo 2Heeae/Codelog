@@ -147,33 +147,11 @@
 									type="file" id="thumbnailUpload" name="thumbnail2"
 									accept="image/*"> <input type="hidden" id="thumbnail"
 									name="thumbnail">
-								<!-- 			<script>
-                           $('#thumbnailUpload').change(function () {
-                              readURL(this);
-                           });
-
-                           function readURL(input) {
-                              if (input.files && input.files[0]) {
-                                 var reader = new FileReader();
-                                 reader.onload = function (e) {
-                                    $('#img-preview').attr('src', e.target.result);
-									$('#thumbnail').val(e.target.result);
-
-                                 }
-                                 reader.readAsDataURL(input.files[0]);
-                              }
-                           }
-
-                           //미리보기 이미지 삭제
-                           $('#img-del-btn').click(function (e) {
-                              $('#img-preview').attr('src', './images/user_icon.png');
-                           });
-                        </script> -->
 								<script>
     // start jQuery
     $(document).ready(function () {
        
-      //프로필 이미지 업로드 버튼 클릭 이벤트
+      //썸네일 이미지 업로드 버튼 클릭 이벤트
       $('#thumbnailUpload').change(function() {
     	 
     	  upload();
@@ -205,7 +183,7 @@
          //FormData 객체에 사용자가 업로드한 파일의 정보들이 들어있는 객체에 전달
         formData.append('file', data[0].files[0]);
          
-         //비동기 방식으로 파일 업로드 및 게시글 등록을 진행
+         //비동기 방식으로 썸네일 등록을 진행
          //ajax 시작
         $.ajax({
             url : '<c:url value="/boardController/thumbnail" />',
@@ -214,9 +192,9 @@
             contentType : false,
             processData : false,
             
-            success : function(result) {
+            success : function(result) { //컨트롤러와 통신 성공 시 파일명을 반환
                
-                  $('#thumbnail').val(result);
+                  $('#thumbnail').val(result); //파일명을 BoardVO에 보낼 파라미터 값에 저장
                   console.log(result);
                   
            
@@ -293,8 +271,7 @@
 							</div>
 						</div>
 					</div>
-					<!--내 글 공개 여부 설정 default값은 전체 공개-->
-					<!--내 글 공개 여부 설정 default값은 전체 공개-->
+			
 
 				</div>
 
@@ -326,7 +303,6 @@
          $("#show").click(function () {
         	 let content = editor.getHTML();
        	    $('#test2').val(content);
-       	    $('#floatingTextarea').val(content);
             $("#check").show();
             $("#articles").hide();
             $("#check").toggleClass('fadeIn');
