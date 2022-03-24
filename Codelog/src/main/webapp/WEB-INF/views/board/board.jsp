@@ -9,7 +9,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>board</title>
-
+ <link
+      rel="stylesheet"
+      href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css"
+    />
 	<style>
 		/* 글 상세보기 페이지 css */
 		@import url("<c:url value='/css/board.css'/>");
@@ -90,27 +93,27 @@
 					
 
 					<section>
-						<div id="viewer">
+						<div id="viewer" style="width:700px; height:700px">
 							<input id="view" type="hidden" value="${dto.content}"></input>
 						</div>
 
 <script>
-var view = $('#view').val()
+var view1 = $('#view').val()
 
 	const viewer = toastui.Editor.factory({
 		  el: document.querySelector('#viewer'),
       viewer: true,
       height: '500px',
-      initialValue: view
+      initialValue: view1
 	});
 	
-	console.log(view)
+	console.log(view1)
 
 	
 	
 	 function ToView()
  {
-     viewer.getMarkdown(viewer.setHTML());
+     viewer.getHTML(viewer.setHTML());
  };	</script>
 		</section>
 
