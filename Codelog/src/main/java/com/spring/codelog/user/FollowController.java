@@ -57,30 +57,7 @@ public class FollowController {
 		return "unfollowOk";
 	}
 	
-	//팔로워리스트 보여주기
-//	@GetMapping("/{id}")
-//	public void followList(@PathVariable String id, HttpSession session, Model model) {
-//		UserVO user = uservice.selectOne(id);
-//		UserVO loginUser = (UserVO) session.getAttribute("loginSession");
-//		
-//		int userNo = user.getUserNo();
-//		int loginUserNo = loginUser.getUserNo();
-//		
-//		FollowVO follow = new FollowVO();
-//		int followCheck = fservice.isFollow(follow);
-//		
-//		//팔로워리스트
-//		List<FollowVO> followerList = fservice.selectPassiveUserList(userNo);
-//		//팔로잉리스트
-//		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
-//		
-//		model.addAttribute("user", user);
-//		model.addAttribute("followCheck", followCheck);
-//		model.addAttribute("followerList", followerList);
-//		model.addAttribute("followingList", followingList);
-//	
-//	}
-	
+
 	
 }
 

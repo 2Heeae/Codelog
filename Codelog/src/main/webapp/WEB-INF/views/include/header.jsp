@@ -56,11 +56,10 @@
             <span style="font-size: 1.7rem; color: rgb(241, 31, 129);">g</span>-->
          </div>
 
-        <div class="col-md-3 offset-2">
+        <div class="col-md-3 offset-2" style="padding-top:15px;">
             <form action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
-            <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
                <input class="form-control mr-sm-2" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
-               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
              </form>
          </div>
 
