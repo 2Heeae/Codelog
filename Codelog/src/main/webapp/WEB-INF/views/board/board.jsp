@@ -90,7 +90,7 @@
 					
 					<br>
 					<div id="hashtag">
-						<a href="${pageContext.request.contextPath}//search?keyword=${dto.tags}">#${dto.tags}</a>
+						<a style="color:rgb(120, 147, 149);" href="${pageContext.request.contextPath}//search?keyword=${dto.tags}">#${dto.tags}</a>
 					</div>
 
 					<!-- 로그인시 수정,삭제 버튼 활성화 -->
@@ -226,9 +226,10 @@ var view1 = $('#view').val()
 
 			<div class="col-md-1"></div>
 		</div>
+			<%@include file="../include/footer.jsp"%>
 	</div>
 
-	<%@include file="../include/footer.jsp"%>
+
 
 
 	<script>

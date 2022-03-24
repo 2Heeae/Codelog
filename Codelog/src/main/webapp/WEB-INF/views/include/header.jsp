@@ -59,7 +59,7 @@
         <div class="col-md-3 offset-2" style="padding-top:15px;">
             <form action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
                <input class="form-control mr-sm-2" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
-               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159);"><i class="bi bi-search" style="color:white;"></i></button>
              </form>
          </div>
 
@@ -124,7 +124,7 @@
             <!-- 로그인 안했을 때 보여주기 -->
             <c:if test="${loginSession == null}">
             <!-- 로그인 버튼 누르면 모달창 열림-->
-                <button type="button" class="btn btn-primary mx-md-4 px-md-2 hc" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
+                <button style="background-color: rgb(148, 180, 159); border-color: rgb(148, 180, 159);"type="button" class="btn btn-primary mx-md-4 px-md-2 hclogin" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
             </c:if>
             <!-- 로그인 안했을 때 보여주기 끝 -->
             <!-- 로그인하면 보여주기 -->

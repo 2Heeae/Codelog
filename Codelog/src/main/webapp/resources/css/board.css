@@ -12,8 +12,12 @@ a {
 }
 
 a:hover {
-    color: dodgerblue;
+    color:rgb(148, 180, 159);
     font-weight: bold;
+}
+
+#container{
+	padding-bottom:151px;
 }
 
 /* ========== ���� �����޴� ========== */
@@ -83,7 +87,7 @@ aside {
 }
 
 .content-menu a:hover, .content-menu a.active {
-    color: dodgerblue;
+    color:rgb(148, 180, 159);
     font-weight: bold;
 }
 
