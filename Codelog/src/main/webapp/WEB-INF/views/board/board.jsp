@@ -116,8 +116,8 @@
                 <div class="row reply_write">
                     <div class="col-1">
                         <a href="#">
-                            <img id="write_reply_profileImage"
-                                src="#" />
+                            <img id="write_reply_profileImage" style=" border-radius: 70%;
+    overflow: hidden;" width="40rem" src="<c:url value='../img/pome3.jpg'/>"/>
                         </a>
                     </div>
                     <div class="col-8" class="input_reply_div">
@@ -125,7 +125,7 @@
                             type="text" placeholder="댓글입력...">
                     </div>
                     <div class="col-3 ">
-                        <button type="button" idx="${dto.boardId}"
+                        <button type="button" bno="243" style="background-color: #B4CFB0; " idx="${dto.boardId}"
                             class="btn btn-success mb-1 write_reply">댓글&nbsp;달기</button>
                     </div>
                 </div>
@@ -219,7 +219,7 @@
 	                 if(grpl == 0){	// 모댓글일때
 	                        listHtml += "	<div class='col-1'>";
 	                        listHtml += "		<a href='#'> ";
-	                        listHtml += "			<img class='reply_list_profileImage' src='../img/kmj2.jpg'/>";
+	                        listHtml += "			<img class='reply_list_profileImage' style='border-radius: 70%; overflow: hidden;' width='40rem' src='../img/kmj2.jpg'/>";
 	                        listHtml += "		</a> ";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='rereply-content col-8'>";
@@ -336,6 +336,7 @@
 
 	             //답글을 작성한 후 답글달기 버튼을 눌렀을 때 그 click event를 아래처럼 jquery로 처리한다.
 	             $('button.btn.btn-success.mb-1.write_rereply').on( 'click', function() {
+	            	 console.log("대댓글 작성 클릭")
 	                 console.log( 'no', $(this).attr('no') );
 	                 console.log( 'bno', $(this).attr('bno') );
 
@@ -366,6 +367,7 @@
 	
 	
 	$('button.btn.btn-success.mb-1.write_rereply').on( 'click', function() {
+		console.log("대댓글 작성 클릭")
 	    console.log( 'no', $(this).attr('no') );
 	    console.log( 'bno', $(this).attr('bno') );
 
@@ -386,6 +388,63 @@
 
 	});
 	
+	$('.write_reply').on( 'click', function() {
+		console.log("댓글 작성 클릭")
+	    console.log( 'no', $(this).attr('no') );
+	    console.log( 'bno', $(this).attr('bno') );
+
+	    // 답글을 DB에 저장하는 함수를 호출한다. bno와 no를 같이 넘겨주어야한다.
+	    WriteReply($(this).attr('bno'));
+	});
+	
+	
+	
+	
+	
+	const WriteReply = function(bno) {
+		console.log("댓글작성 함수 시작")
+	    console.log(bno);
+
+	    console.log("댓글내용"+$("#input_reply" + bno).val());
+
+	    // 댓글 입력란의 내용을 가져온다. 
+	    // ||"" 를 붙인 이유  => 앞뒤 공백을 제거한다.(띄어쓰기만 입력했을때 댓글작성안되게 처리하기위함)
+	    let content = $("#input_reply" + bno).val();
+	   // content = content.trim();
+
+
+	    if(content == ""){	// 입력된게 없을때
+	        alert("댓글을 입력하세요!");
+	    }else{	
+	        // 입력란 비우기
+	        $("#input_reply" + bno).val("");
+
+	        const vo = {
+                "bno" : bno,
+                "content": content        
+            };
+	        // reply+1 하고 그 값을 가져옴
+	        $.ajax({
+	            url : '/codelog/reply/replyWrite',
+	            type : 'post',
+	            contentType : 'application/json',
+				dataType : 'text',
+	            data : JSON.stringify(vo),
+	            success : function(pto) {
+
+	              
+	                console.log("댓글 작성 성공");
+
+	                // 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
+	                ReplyList(bno);
+	            },
+	            error : function() {
+	                alert('서버 에러');
+	            }
+	        });
+
+	    };
+	};
 	
 	
 	const WriteReReply = function(bno,no) {
@@ -398,7 +457,7 @@
 	    // 댓글 입력란의 내용을 가져온다. 
 	    // ||"" 를 붙인 이유  => 앞뒤 공백을 제거한다.(띄어쓰기만 입력했을때 댓글작성안되게 처리하기위함)
 	    let content = $("#input_rereply" + no).val();
-	    content = content.trim();
+	   // content = content.trim();
 
 
 	    if(content == ""){	// 입력된게 없을때

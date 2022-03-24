@@ -24,7 +24,7 @@
 <!-- 답글 쓰기 -->
 <insert id="rereplyWrite" parameterType="com.spring.codelog.board.model.ReplyVO">
     insert into p_reply
-    values(reply_seq.NEXTVAL, #{bno}, #{grp}, 0, #{grpl}, #{writer}, #{content}, now())
+    values(reply_seq.NEXTVAL, #{bno}, #{grp}, #{grps}, 1, #{writer}, #{content}, now())
 </insert>
 
 <!-- p_board에 댓글수 증가 -->
