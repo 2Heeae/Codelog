@@ -189,19 +189,24 @@
 							
 								<div style="display: inline-block; float: left;">
 									<div style="border-radius: 70%; overflow: hidden; display: inline-block;">
-										<a href="${pageContext.request.contextPath}/user/userpage/${Poster.userId}" class="stretched-link" style="position: relative; text-decoration: none;"><img src="<c:url value='/img/pome3.jpg'/>" class="img-rounded" width="25rem"></a>
+										<a href="${pageContext.request.contextPath}/user/userpage/${Poster.userId}" class="stretched-link" style="position: relative; text-decoration: none;">
+											<img src="<c:url value='/image/${Poster.userId }'/>" class="img-rounded" width="25rem">
+										</a>
+										
 									</div>
 
 								</div>
+
 								<div  style="display: inline-block; float: left; margin-top: 0.13rem;">
 									<a href="${pageContext.request.contextPath}/user/userpage/${Poster.userId}" class="stretched-link" style="position: relative; text-decoration: none;"><span class="mx-md-1" style="color: gray;">by</span><span>${Poster.writer }</span></a>
+
 								</div>
 								
 								
 								<div  style="display: inline-block; float: right; margin-top: 0.13rem">
 									<i class="fa-solid fa-comment" style=""></i>
 									<span style="margin-right: 0.5rem;" class="">3</span>
-									<i class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes }</span>
+									<i class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes}</span>
 								</div>
 							</div>
 						</div>

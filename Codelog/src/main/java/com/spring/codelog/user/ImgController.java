@@ -34,8 +34,16 @@ public class ImgController {
 		String fileName = service.getUserImg(userId);
 		System.out.println("fileName: " + fileName);
 		
-		File file = new File("C:\\test\\upload\\" + fileName);
-		System.out.println(file);
+		File file;
+		
+		if(fileName == null || fileName.equals("null")) {
+			file = new File("C:\\test\\upload\\user_icon.png");
+			
+		} else {
+			file = new File("C:\\test\\upload\\" + fileName);
+			System.out.println(file);
+			
+		}
 		
 		ResponseEntity<byte[]> result = null;
 		
