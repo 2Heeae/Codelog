@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.codelog.board.commons.PostLikeVO;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.service.BoardService;
 import com.spring.codelog.board.service.PostLikeService;
@@ -81,21 +82,26 @@ public class BoardController {
         // 모델(데이터)+뷰(화면)를 함께 전달하는 객체
         ModelAndView mav = new ModelAndView();
         
+        int like = 0;
+        
         // 좋아요 처리
         if(session.getAttribute("loginSession") != null) {
+        	PostLikeVO vo = new PostLikeVO();
         	UserVO user = (UserVO) session.getAttribute("loginSession");
         	
         	String viewUserId = user.getUserId();
         	System.out.println("이 글 보고 있는 사용자 아이디: " + viewUserId);
         	
-        	int checkLike = likeService.likeCount(viewUserId, boardId);
+        	vo.setBoardId(boardId);
+        	vo.setViewUserId(viewUserId);
         	
-        	if(checkLike == 0) {
-        		likeService.likePlus(viewUserId, boardId);
-        		mav.addObject("like", checkLike);
-        	} else if(checkLike == 1) {
-        		checkLike = likeService.getLikeInfo(viewUserId, boardId);
-        		mav.addObject("like", checkLike);
+        	
+        	int checkNum = likeService.likeCount(vo);
+        	
+        	if(checkNum == 0) {
+        		likeService.likeInsert(vo);
+        	} else if(checkNum == 1){
+        		like = likeService.getLikeInfo(vo);
         	}
         	
         } else {}
@@ -104,6 +110,7 @@ public class BoardController {
         mav.setViewName("board/board");
         // 뷰에 전달할 데이터
         mav.addObject("dto", service.read(boardId));
+        mav.addObject("like", like);
         return mav;
     }
 	

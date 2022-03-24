@@ -13,18 +13,18 @@ public class PostLikeService implements IPostLikeService {
 	private IPostLikeMapper mapper;
 
 	@Override
-	public int likeCount(String viewUserId, int boardId) {
-		return mapper.likeCount(viewUserId, boardId);
+	public int likeCount(PostLikeVO vo) {
+		return mapper.likeCount(vo);
+	}
+	
+	@Override
+	public void likeInsert(PostLikeVO vo) {
+		mapper.likeInsert(vo);
 	}
 
 	@Override
-	public int getLikeInfo(String viewUserId, int boardId) {
-		return mapper.getLikeInfo(viewUserId, boardId);
-	}
-
-	@Override
-	public void likePlus(String viewUserId, int boardId) {
-		mapper.likePlus(viewUserId, boardId);
+	public int getLikeInfo(PostLikeVO vo) {
+		return mapper.getLikeInfo(vo);
 	}
 
 	@Override

@@ -18,24 +18,19 @@ public class LikeController {
 	private IPostLikeService service;
 	
 	@PutMapping("/likeUpdate")
-	public Map<String, Integer> likeUpdate(@RequestBody PostLikeVO vo) {
+	public Map<String, String> likeUpdate(@RequestBody PostLikeVO vo) {
 		System.out.println("/likeUpdate: PUT");
-		System.out.println("좋아요 컨트롤러 값: " + vo);
 		
-		int checkLike = 0;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		
-		String viewUserId = vo.getViewUserId();
-		int boardId = vo.getBoardId();
+		Map<String, String> map = new HashMap<String, String>();
+		System.out.println("라이크컨트롤러...vo.getPlike: " + vo.getPLike());
 		
 		try {
 			service.likeUpdate(vo);
-			checkLike = service.getLikeInfo(viewUserId, boardId);
-			map.put("result", checkLike);
+			map.put("result", "success");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			//map.put("result", checkLike);
+			map.put("result", "fail");
 		}
 		
 		return map;
