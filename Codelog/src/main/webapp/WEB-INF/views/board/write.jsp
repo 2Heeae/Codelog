@@ -69,39 +69,46 @@
 
 		<!-- 로그인 세션에 있는 사용자의 id -->
 		<div id="articles">
-			<textarea placeholder="제목을 입력하세요" id="title" name="title"
-				onkeyup="priviewTitle()"></textarea>
+			<textarea placeholder="제목을 입력하세요" id="title" name="title""></textarea>
 
 			<br>
 			<!--태그-->
-			<input class="tag" name="tags" placeholder="태그를 입력하세요">
+			<div class="hashtag">
+				<div class="form-group">
+					<input type="hidden" value="" name="tag" id="rdTag" />
+				</div>
+				
+				<ul id="tag-list"></ul>
+				<div class="form-group">
+					<input type="text" id="tag" size="7" class="tag" name="tags" placeholder="엔터로 태그를 입력하세요" style="width: 500px;">
+				</div>
+			</div>
 			<!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
-
 			<div id="editor" style=""></div>
-
+				
 
 
 			<script>
- const Editor = toastui.Editor;
- 
- const editor = new Editor({
- 	  el: document.querySelector('#editor'),
- 	  width: '100%',
- 	  height: '41.327rem',
- 	  initialEditType: 'markdown',
- 	  previewStyle: 'vertical'
- 	});
-
- </script>
-			<script>
-  function submit(){
-	  let content = editor.getHTML();
-	  $('#test2').val(content);
-	  console.log(content);
-	 
-	  $('#test3').val(content);
-  }
- </script>
+			 const Editor = toastui.Editor;
+			 
+			 const editor = new Editor({
+			 	  el: document.querySelector('#editor'),
+			 	  width: '100%',
+			 	  height: '41.327rem',
+			 	  initialEditType: 'markdown',
+			 	  previewStyle: 'vertical'
+			 	});
+			
+			 </script>
+						<script>
+			  function submit(){
+				  let content = editor.getHTML();
+				  $('#test2').val(content);
+				  console.log(content);
+				 
+				  $('#test3').val(content);
+			  }
+			 </script>
 
 			<button class="ok" id="show" type="button">
 				<i class="fa-solid fa-check"></i>
@@ -129,95 +136,138 @@
 
 				<div class="row py-md-3" style="margin: 5% 15% 0% 15%">
 
-					<div class="col-md-6 px-md-4" style="margin: 0 auto;">
-						<div class="card"
-							style="width: 100%; height: 40rem; border: 0; background-color: transparent;">
+					<div class="col-md-6 px-md-4" style="margin: 0 auto; width:70%;">
+						<div class="card" style="width: 90%; height: 60rem; border: 0; background-color: transparent;">
 
 							<!--썸네일 부분-->
 
-							<p class="my-md-1"
-								style="font-weight: bold; font-size: 1.7rem; text-align: center">포스터
-								미리보기</p>
-							<div class="thumbnailBox" id="thumbnailBox"
-								onclick="document.all.thumbnailUpload.click();"
-								style="height: 40rem; position: relative; background-color: rgba(128, 128, 128, 0.185); text-align: center;">
-								<img src="<c:url value='/img/cat.jpg'/>" class="btn"
-									type="button" id="img-preview"
-									onclick="document.all.thumbnailUpload.click();"
-									style="width: 100%; height: 100%; position: relative"> <span
-									style="color: rgb(77, 238, 98);">이미지를 클릭하여 썸네일을 변경하세요</span> <input
-									type="file" id="thumbnailUpload" name="thumbnailUpload"
-									accept="image/*" onchange="readURL(this)"> <input
-									type="hidden" id="thumbnail" name="thumbnail">
-								<script>
-                           $('#thumbnailUpload').change(function () {
-                              readURL(this);
-                           });
+							<p class="my-md-1" style="font-weight: bold; font-size: 1.7rem; text-align: center">포스터 미리보기</p>
+							<div class="thumbnailBox" id="thumbnailBox" style="height: 19rem; width:100%; position: relative; background-color: rgba(128, 128, 128, 0.185); text-align: center;">
+								<img src="<c:url value='/img/cat.jpg'/>" class="btn" type="button" id="img-preview" onclick="document.all.thumbnailUpload.click();"
+									style="width: 100%; height: 100%; position: relative"> 
+									<span style="color: rgb(77, 238, 98);">이미지를 클릭하여 썸네일을 변경하세요</span>
+									<input type="file" id="thumbnailUpload" name="thumbnailUpload" accept="image/*" onchange="readURL(this)"> 
+									<input type="hidden" id="thumbnail" name="thumbnail">
+							</div>
+				
+				
+<script>
+    // start jQuery
+    $(document).ready(function () {
+       
+      //썸네일 이미지 업로드 버튼 클릭 이벤트
+      $('#thumbnailUpload').change(function() {
+    	 
+    	  upload();
+         
+     });
+       
+      //이미지 업로드를 담당하는 함수
+      function upload() {
+         //자바스크립트의 파일 확장자 체크 검색
+         let file = $('#thumbnailUpload').val();
+         
+         console.log(file);
+         
+         file = file.slice(file.indexOf('.') + 1).toLowerCase();
+         console.log(file);
+         if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp') {
+            alert('이미지 파일(jpg, png, jpeg, bmp)만 등록이 가능합니다.');
+            $('#thumbnailUpload').val('');
+           return;            
+         }
+         
+         //ajax 폼 전송의 핵심 FormData 객체
+         const formData = new FormData();
+         const data = $('#thumbnailUpload');
+         
+         console.log('폼 데이터: ' + formData);
+         console.log('data: ' + data);
+         
+         //FormData 객체에 사용자가 업로드한 파일의 정보들이 들어있는 객체에 전달
+        formData.append('file', data[0].files[0]);
+         
+         //비동기 방식으로 썸네일 등록을 진행
+         //ajax 시작
+        $.ajax({
+            url : '<c:url value="/boardController/thumbnail" />',
+            type : 'POST',
+            data : formData,
+            contentType : false,
+            processData : false,
+            
+            success : function(result) { //컨트롤러와 통신 성공 시 파일명을 반환
+               
+                  $('#thumbnail').val(result); //파일명을 BoardVO에 보낼 파라미터 값에 저장
+                  console.log(result);
+                  
+           
+            
+           },
+           error : function(request, status, error) {
+              console.log('code: ' + request + '\n' + 'message: ' + request.responseText + '\n' + 'error: ' + error);
+            
+           }
+         }); //ajax 끝
+         
+     } //프로필 이미지 업로드 버튼 클릭 이벤트 끝
+     //프로필 이미지 업로드 시 미리보기
+         $('#thumbnailUpload').change(function() {
+    	 
+    	  readURL(this);
+    	  
+     });
 
-                           function readURL(input) {
-                              if (input.files && input.files[0]) {
-                                 var reader = new FileReader();
-                                 reader.onload = function (e) {
-                                    $('#img-preview').attr('src', e.target.result);
-									$('#thumbnail').val(e.target.result);
-
-                                 }
-                                 reader.readAsDataURL(input.files[0]);
-                              }
-                           }
-
-                           //미리보기 이미지 삭제
-                           $('#img-del-btn').click(function (e) {
-                              $('#img-preview').attr('src', './images/user_icon.png');
-                           });
-                        </script>
+     function readURL(input) {
+         if (input.files && input.files[0]) {
+             var reader = new FileReader();
+             reader.onload = function (e) {
+                 $('#img-preview').attr('src', e.target.result);
+             }
+             reader.readAsDataURL(input.files[0]);
+             
+          }
+     } ////프로필 이미지 업로드 시 미리보기 끝
+    });
+     </script>
 							</div>
 
 							<!--제목은 글작성 페이지에서 가져오기-->
 
 							<div class="card-body my-md-2 p-0 "
-								style="margin-top: 2.7rem; margin-bottom: 1rem">
+								style=" margin-bottom: 1rem">
 
 								<!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
-								<div class="form-floating" style="margin-top: 1rem;">
-									<textarea placeholder="Leave a comment here"
-										id="floatingTextarea" name="preview"
-										style="width: 100%; height: 6rem; resize: none;"></textarea>
-									<span style="float: right">/100</span><span id="textL"
-										style="float: right">0</span>
+								<div class="form-floating" style="margin-top: 1rem; text-align:center;" >
+									<textarea placeholder="Leave a comment here" id="floatingTextarea" name="preview" style="width: 100%; height: 10rem; resize: none;"></textarea>
+									<span style="float: right">/100</span>
+									<span id="textL" style="float: right">0</span>
 								</div>
 
-							</div>
 							<div class="row" style="margin-top: 1rem">
-								<div class="form-check form-switch"
-									style="margin: 1.5% 0% 0% 61.5%; margin-top: 0.5rem">
-									<input class="form-check-input" type="checkbox"
-										id="flexSwitchCheckDefault" checked> <label
-										class="form-check-label" for="flexSwitchCheckDefault">전체
-										공개</label> <input type="hidden" id="viewAll" name="viewAll" value="1">
+								<div class="form-check form-switch" style="margin: 0% 0% 0% 75%; margin-top: 0.5rem; margin-bottom:1rem;" >
+									<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked> 
+									<label class="form-check-label" for="flexSwitchCheckDefault">전체 공개</label> 
+									<input type="hidden" id="viewAll" name="viewAll" value="1">
+									<br>
 								</div>
-								<div class="btn-group my-md-0" role="group"
-									aria-label="Basic radio toggle button group"
-									style="height: 2.7rem;">
-
-									<input type="radio" class="btn-check" name="btnradio2"
-										id="btnradio3" autocomplete="off">
-									<button type="button" class="btn btn-outline-primary hide"
-										for="btnradio3"
-										style="font-size: 1.3rem; width: 2rem; border: 0">취소</button>
-									&nbsp;&nbsp;&nbsp; <input type="radio" class="btn-check"
-										name="btnradio2" id="btnradio4" autocomplete="off">
-									<button class="btn btn-outline-primary show px-md-0"
-										for="btnradio4"
-										style="font-size: 1.3rem; width: 2rem; background-color: #0d6efd; color: white;">작성</button>
-
-
+								<div class="btn-group my-md-0" role="group" aria-label="Basic radio toggle button group" style="height: 2.7rem;">
+									<input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off">
+									<button type="button" class="btn btn-outline-primary hide" for="btnradio3" style="font-size: 1.3rem; width: 2rem; border: 0">
+										취소
+									</button>
+									&nbsp;&nbsp;&nbsp; 
+									<input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
+									<button class="btn btn-outline-primary show px-md-0" for="btnradio4" style="font-size: 1.3rem; width: 2rem; background-color: #0d6efd; color: white;">
+										작성
+									</button>
 								</div>
 							</div>
+							</div>
+							
 						</div>
 					</div>
-					<!--내 글 공개 여부 설정 default값은 전체 공개-->
-					<!--내 글 공개 여부 설정 default값은 전체 공개-->
+			
 
 				</div>
 
@@ -234,9 +284,38 @@
     up은 작성검토 페이지 화면으로 올리기 down은 내리기
     toggleclass사용
 */
-
+		
+		
 
       $(document).ready(function () {
+    	  //태그 기능 이벤트
+    	  var tag ={};
+    	  var counter = 0;
+    	  
+    	  //입력한 값을 태그로 생성
+			function addTag(value){
+    		  tag[counter] = value;
+    		  counter++; 
+    	  }    	  
+    	  //태그 값을 array로 만들기
+    	  function marginTag() {
+    		  
+    	  }
+    	  
+    	  $('#tag').keypress(function(e){
+    		 
+    		  //엔터나 스페이스 누를때 실행
+    		  if(e.key === "Enter" || e.keyCode ==32){
+    			  
+    			  var tagValue = $(this).val();
+    			  
+    			  if(tagValue !== ""){
+    				  
+    			  }
+    		  }
+    	  });
+    	  
+    	  
          $(".hide").click(function () {
             $("#articles").show();
             $("#check").hide();
@@ -249,7 +328,6 @@
          $("#show").click(function () {
         	 let content = editor.getHTML();
        	    $('#test2').val(content);
-       	    $('#floatingTextarea').val(content);
             $("#check").show();
             $("#articles").hide();
             $("#check").toggleClass('fadeIn');

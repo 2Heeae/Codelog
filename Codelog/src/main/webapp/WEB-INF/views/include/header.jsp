@@ -68,7 +68,8 @@
             <!--해(다크모드)-->
             <button type="button" id="theme-btn" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" ><i
                   class="fa-regular fa-sun ic"></i></button>
-            <!--알림,알림 목록 토글-->      
+            <!--알림,알림 목록 토글-->  
+            <c:if test="${loginSession != null}">    
             <button type="button" class="btn rounded-circle position-relative c mx-md-1 my-md-3 px-md-3 hc" style=""
                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
                aria-controls="collapseExample">
@@ -116,6 +117,7 @@
                   </div>
                </div>
             </button>
+            </c:if>
 
             
 
