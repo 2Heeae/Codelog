@@ -93,5 +93,15 @@ VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, '
 		SELECT user_img FROM proj_user
 		WHERE user_id = #{userId}
 	</select>
+	
+	<!-- 08. 좋아요 합계 ++ (게시글 기준) -->
+	<update id="totalLikeUp">
+		UPDATE proj_board SET likes = likes + 1 WHERE board_id = #{boardId}
+	</update>
+	
+	<!-- 09. 좋아요  합계 - (게시글 기준) -->
+	<update id="totalLikeDown">
+		UPDATE proj_board SET likes = likes - 1 WHERE board_id = #{boardId}
+	</update>
  
  </mapper>

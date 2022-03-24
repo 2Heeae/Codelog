@@ -9,7 +9,7 @@
 		<result property="boardId" column="board_id" />
 		<result property="viewUserId" column="user_id" />
 		<result property="likeDate" column="like_date" />
-		<result property="pLike" column="p_like" />
+		<result property="postLike" column="p_like" />
 	</resultMap>
 	
 	<select id="likeCount" resultType="int" parameterType="com.spring.codelog.board.commons.PostLikeVO">
@@ -36,10 +36,10 @@
 	</update>
 	
 	<sql id="cal">
-		<if test="pLike == 1">
+		<if test="postLike == 1">
 			p_like = 0
 		</if>
-		<if test="pLike == 0">
+		<if test="postLike == 0">
 			p_like = p_like + 1
 		</if>
 	</sql>

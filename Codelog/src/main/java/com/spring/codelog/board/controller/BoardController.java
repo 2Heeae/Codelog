@@ -84,7 +84,7 @@ public class BoardController {
         
         int like = 0;
         
-        // 좋아요 처리
+        //좋아요 처리
         if(session.getAttribute("loginSession") != null) {
         	PostLikeVO vo = new PostLikeVO();
         	UserVO user = (UserVO) session.getAttribute("loginSession");
@@ -100,17 +100,17 @@ public class BoardController {
         	
         	if(checkNum == 0) {
         		likeService.likeInsert(vo);
-        	} else if(checkNum == 1){
+        	} else {
         		like = likeService.getLikeInfo(vo);
         	}
         	
-        } else {}
+        }
         
         // 뷰의 이름
         mav.setViewName("board/board");
         // 뷰에 전달할 데이터
         mav.addObject("dto", service.read(boardId));
-        mav.addObject("like", like);
+        mav.addObject("postLike", like);
         return mav;
     }
 	

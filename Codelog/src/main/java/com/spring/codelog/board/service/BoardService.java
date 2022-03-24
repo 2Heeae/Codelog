@@ -87,5 +87,18 @@ public class BoardService implements IBoardService {
 		}
 	}
 
+	
+	//게시글 좋아요 증가(유저 기준 아님 상세보기 해당 게시글 기준임)
+	@Override
+	public void totalLikeUp(int boardId) {
+		boardMapper.totalLikeUp(boardId);
+	}
+
+	//게시글 좋아요 감소(유저 기준 아님 상세보기 해당 게시글 기준임)
+	@Override
+	public void totalLikeDown(int boardId) {
+		boardMapper.totalLikeDown(boardId);
+	}
+
 }
 
