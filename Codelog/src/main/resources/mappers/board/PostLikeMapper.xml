@@ -12,26 +12,26 @@
 		<result property="pLike" column="p_like" />
 	</resultMap>
 	
-	<select id="likeCount" resultType="int">
+	<select id="likeCount" resultType="int" parameterType="com.spring.codelog.board.commons.PostLikeVO">
 		SELECT COUNT(p_like)
 		FROM post_like
 		WHERE user_id = #{viewUserId} AND board_id = #{boardId}
 	</select>
 	
-	<insert id="likePlus">
+	<insert id="likeInsert" parameterType="com.spring.codelog.board.commons.PostLikeVO">
 		INSERT INTO post_like (id, user_id, board_id, like_date)
 		VALUES (like_seq.NEXTVAL, #{viewUserId}, #{boardId}, to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'))
 	</insert>
 	
-	<select id="getLikeInfo" resultType="int">
+	<select id="getLikeInfo" resultType="int" parameterType="com.spring.codelog.board.commons.PostLikeVO">
 		SELECT p_like
 		FROM post_like
 		WHERE user_id = #{viewUserId} AND board_id = #{boardId}
 	</select>
 	
-	<update id="likeUpdate">
+	<update id="likeUpdate" parameterType="com.spring.codelog.board.commons.PostLikeVO">
 		UPDATE post_like
-		SET <include refid="cal"></include>
+		SET <include refid="cal" />
 		WHERE user_id = #{viewUserId} and board_id = #{boardId}
 	</update>
 	
