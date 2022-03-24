@@ -60,7 +60,7 @@
 	</select>
 	
 	<delete id="deleteUserAllFollow">
-		delete from follow where active_user=#{active_user}
+		delete from follow where active_user=#{active_user} or passive_user=#{active_user}
 	</delete>
 	
 </mapper>

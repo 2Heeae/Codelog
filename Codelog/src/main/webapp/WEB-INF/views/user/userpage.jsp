@@ -39,7 +39,7 @@
 		</div>
 		<div class="col-md-8 profile">
 			<h3 class="id">${userInfo.nickname }&nbsp;&nbsp;
-				<c:if test="${userInfo.userId ne loginSession.userId}">
+				<c:if test="${not empty loginSession and userInfo.userId ne loginSession.userId}">
 				<c:choose>
 					<c:when test="${followCheck == 1 }">
 						<button class="follow-button" style="background-color: #C0D8C0">
@@ -176,61 +176,55 @@
 			</form>
 			<!-- 사진 썸네일, 글제목, 보이는 곳  -->
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
-				<div class="col-md-4">
-					<div class="card " style="width: 100%">
-						<a href="#"> <img src="<c:url value='/img/bootstrap.png' />"
-							class="card-img-top" alt="...">
-						</a>
-						<div class="card-body">
-							<a href="#">
-								<h5 class="card-title">Card title</h5>
-							</a>
-							<p class="card-text">Some quick example text to build on the
-								card title and make up the bulk of the card's content.</p>
-							<br>
-							<p class="card-text text-muted">
-								1분전</small>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card " style="width: 100%">
-						<a href="#"> <img src="<c:url value='/img/java.jfif'/>"
-							class="card-img-top img-fluid" alt="...">
-						</a>
-						<div class="card-body">
-							<a href="#">
-								<h5 class="card-title">Card title</h5>
-							</a>
-							<p class="card-text">Some quick example text to build on the
-								card title and make up the bulk of the card's content.</p>
-							<br>
-							<p class="card-text text-muted">
-								2022년 3월 4일</small>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card 0" style="width: auto">
-						<a href="#"> <img src="<c:url value='/img/spring.png'/>"
-							class="card-img-top img-fluid" alt="...">
-						</a>
-						<div class="card-body">
-							<a href="#">
-								<h5 class="card-title">제목</h5>
-							</a>
-							<p class="card-text">Some quick example text to build on the
-								card title and make up the bulk of the card's content.</p>
-							<br>
-							<p class="card-text text-muted">
-								3일전</small>
-							</p>
-						</div>
-					</div>
-				</div>
+			<c:forEach var="Poster" items="${userInfo.boardList }">
+					<div class="col-md-4 px-md-4 py-md-4">
+						<div class="card poster" style="width: 100%; height: 24rem;"
+							data-bno="${Poster.boardId }" data-lno="${Poster.likes }">
+							<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
+							<a
+								href="${pageContext.request.contextPath}/boardController/board?boardId=${Poster.boardId}"
+								class="stretched-link"></a>
+							<!--썸네일 이미지-->
+							<img src="<c:url value='/img/cat.jpg'/>" class="card-img-top"
+								alt="...">
+							<!--제목 내용-->
+							<div class="card-body ">
+								<strong>${Poster.title }</strong>
+								<p class="card-text" style="padding-top: 0.3rem;">${Poster.preview }
 
+								</p>
+							</div>
+							<div class="card-footer my-md-0 py-md-0"
+								style="font-size: 0.8rem; border-top: 0; background-color: white;">
+
+								<p class="card-text"
+									style="border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;">
+									
+								</p>
+
+								<!--계정사진 계정명 댓글수 좋아요수-->
+								<div>
+
+									<div style="margin-top: 0.3rem;">
+										<div style="display: inline-block; float: left;">
+											
+											<fmt:formatDate value="${Poster.regDate }" pattern="yy/MM/dd" />
+										</div>
+										<div
+											style="display: inline-block; float: left; margin-top: 0.13rem;">
+										</div>
+										<div
+											style="display: inline-block; float: right; margin-top: 0.13rem">
+											<i class="fa-solid fa-comment" style=""></i> <span
+												style="margin-right: 0.5rem;" class="">3</span> <i
+												class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
 
 		</div>

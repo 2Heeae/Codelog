@@ -9,33 +9,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.codelog.board.commons.PostLikeVO;
+import com.spring.codelog.board.service.IBoardService;
 import com.spring.codelog.board.service.IPostLikeService;
 
 @RestController
 public class LikeController {
 	
 	@Autowired
-	private IPostLikeService service;
+	private IPostLikeService likeService;
+	@Autowired
+	private IBoardService boardService;
 	
 	@PutMapping("/likeUpdate")
-	public Map<String, Integer> likeUpdate(@RequestBody PostLikeVO vo) {
+	public Map<String, String> likeUpdate(@RequestBody PostLikeVO vo) {
 		System.out.println("/likeUpdate: PUT");
-		System.out.println("좋아요 컨트롤러 값: " + vo);
-		
-		int checkLike = 0;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		
-		String viewUserId = vo.getViewUserId();
+		System.out.println("좋아요컨트롤러:" + vo);
 		int boardId = vo.getBoardId();
 		
+		Map<String, String> map = new HashMap<String, String>();
+		
 		try {
-			service.likeUpdate(vo);
-			checkLike = service.getLikeInfo(viewUserId, boardId);
-			map.put("result", checkLike);
+			likeService.likeUpdate(vo);
+			
+			if(vo.getPostLike() == 0) {
+				boardService.totalLikeUp(boardId);
+			} else {
+				boardService.totalLikeDown(boardId);
+			}
+			
+			map.put("result", "success");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			//map.put("result", checkLike);
+			map.put("result", "fail");
 		}
 		
 		return map;

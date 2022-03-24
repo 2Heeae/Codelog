@@ -31,5 +31,12 @@ public interface IBoardService {
     //  게시글 조회
     public void increaseHit(int boardId, HttpSession session) ;
     
+	//게시글 좋아요 증가(유저 기준 아님 상세보기 해당 게시글 기준임)
+	public void totalLikeUp(int boardId);
+		
+	//게시글 좋아요 감소(유저 기준 아님 상세보기 해당 게시글 기준임)
+	public void totalLikeDown(int boardId);
+	
+    
 }
 
