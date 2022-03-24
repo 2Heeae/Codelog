@@ -13,7 +13,6 @@
    <result property="writer" column="writer" />
    <result property="content" column="content" />
    <result property="wdate" column="wdate" />
-   <result property="wgap" column="wgap" />
  </resultMap>
 
 <!-- 댓글 쓰기 -->
@@ -31,16 +30,16 @@
 <!-- p_board에 댓글수 증가 -->
 <update id="replyUp" parameterType="com.spring.codelog.board.model.ReplyVO">
     update proj_board set recnt=recnt+1 
-    where board_id=#{boardId}
+    where board_id=#{bno}
     <!-- 보드 조인 추가 -->
 </update>
 
 <!-- 댓글 리스트 가져오기 -->
-<select id="replyList" parameterType="com.spring.codelog.board.model.ReplyVO" resultType="com.spring.codelog.board.model.ReplyVO">
+<select id="replyList" resultMap="ReplyMap">
      select r.no, r.bno, r.grp, r.grpl, r.writer, r.content, r.wdate, u.user_img
     from p_reply r join proj_user u
     on r.user_no = u.user_no
-    where r.bno = #{boardId}
+    where r.bno = #{bno}
     order by grp ASC, grps DESC
 </select>
 
@@ -54,7 +53,7 @@
 <!-- p_board에 댓글수 감소 -->
 <update id="replyDown" parameterType="com.spring.codelog.board.model.ReplyVO">
     update proj_board set recnt=recnt-1
-    where board_id=#{board_id}
+    where board_id=#{bno}
 </update>
 
 </mapper>

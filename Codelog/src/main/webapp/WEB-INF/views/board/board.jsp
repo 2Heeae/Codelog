@@ -85,8 +85,38 @@
 
 					</section>
 					
-			        <!-- 댓글  -->
-<div class="collapse" id="reply_card${tmp.no }">
+					
+					
+					
+					
+			  
+                
+          <button onclick='ReplyList("${dto.boardId}")' type='button' style="background-color: red" class='btn btn-success mb-1' >댓글&nbsp;보기</button>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+      
+                
+                
+<!-- 댓글  -->
+
+
+
+<button type="button" class="btn c rounded-circle p-0 position-relative"
+					style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
+					href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample4">
+					<span id="allChk" class="m-0" style="font-size: 1.1rem;">
+					
+					
+					<i class="fa-solid fa-caret-down mx-md-1"></i></span>
+
+					<div class="collapse" id="reply_card${tmp.no }">
     <section class="modal-section">
         <div class="card card-body">
             <!-- 댓글 목록 -->
@@ -114,11 +144,16 @@
             </c:if>
         </div>
     </section>
-</div>    
+</div>
+				</button>
+
+
+
 
 
 					
 				</div>
+				
 
 
 			</div>
@@ -155,44 +190,39 @@
 
 
 	<script>
-	
 	// [댓글]
 	// 게시물의 댓글 목록을 불러오는 함수입니다.
 	const ReplyList = function(bno) {
+		console.log(bno);
 	    $.ajax({
-	        url : '/reply/replyList',
+	        url : '/codelog/reply/replyList',
 	        type : 'get',
+	        contentType : 'application/json',
+			dataType : 'json',
 	        data : {
-	        	bno : bno
+	        	"boardId" : bno
 	        },
 	        success : function(data) {
+	        	 alert('성공');
+	        	 // 댓글 목록을 html로 담기
+	             let listHtml = "";
+	             for(const i in data){
+	                 let no = data[i].no;
+	                 let bno = data[i].bno;
+	                 let grp = data[i].grp;
+	                 let grps = data[i].grps;
+	                 let grpl = data[i].grpl;
+	                 let writer = data[i].writer;
+	                 let content = data[i].content;
+	                 let wdate = data[i].wdate;
+	                 let wgap = data[i].wgap;
+	                 let profile = data[i].profile;
+	                 console.log(wdate);
+	                 
+	                 
+	                 listHtml += "<div class='row replyrow reply" + no + "'>";
 
-	            console.log("댓글 리스트 가져오기 성공");
-
-	            // 댓글 목록을 html로 담기
-	            let listHtml = "";
-	            for(const i in data){
-	                let no = data[i].no;
-	                let bno = data[i].bno;
-	                let grp = data[i].grp;
-	                let grps = data[i].grps;
-	                let grpl = data[i].grpl;
-	                let writer = data[i].writer;
-	                let content = data[i].content;
-	                let wdate = data[i].wdate;
-	                let userImg = data[i].userImg;
-	                let userNo = data[i].userNo;
-
-	                console.log(grpl);	// 모댓글일땐 0, 답글일땐 1
-
-	                listHtml += "<div class='row replyrow reply" + no + "'>";
-
-	                if(content == ""){		// 삭제된 댓글일때
-	                    listHtml += "	<div>";
-	                    listHtml += "		(삭제된 댓글입니다)";
-	                    listHtml += "	</div>";
-	                }else{
-	                    if(grpl == 0){	// 모댓글일때
+	                 if(grpl == 0){	// 모댓글일때
 	                        listHtml += "	<div class='col-1'>";
 	                        listHtml += "		<a href='other_profile.do?other_nick="+writer+"'> ";
 	                        listHtml += "			<img class='reply_list_profileImage' src='./upload/profile/"+ profile +"'/>";
@@ -236,17 +266,17 @@
 
 	                        listHtml += "	</div>";
 	                    }
-
-	                    listHtml += "	<div class='col-3 reply-right'>";
+	                 
+	                 	listHtml += "	<div class='col-3 reply-right'>";
 	                    listHtml += "		<div>";
 	                    listHtml += 			wdate;
 	                    listHtml += "		</div>";
 	                    // 책갈피
 	                    // 현재 로그인 상태이고..
-	                    if("${nick}" != ""){
+	                    if("${loginSession.nickname}" != ""){
 
 	                        //현재 사용자가 이 댓글의 작성자일때 삭제 버튼이 나온다.
-	                        if("${nick}" == writer){
+	                        if("${loginSession.nickname}" == writer){
 	                            listHtml += "		<div>";
 	                            // 수정할 댓글의 no를 grpl과 함께 넘긴다. 
 	                            // 모댓글 수정칸과 답글 수정칸을 화면에 다르게 나타내야하기 때문에 모댓글과 답글을 구분하는 grpl을 함께 넘겨주어야한다.
@@ -256,8 +286,12 @@
 	                            listHtml += "			<a href='javascript:' no='"+ no +"' grpl='"+ grpl + "' bno='"+ bno +"' grp='"+ grp +"' class='reply_delete'>삭제</a>";
 	                            listHtml += "		</div>";
 	                        }
+	                        
+    
 	                    }
-
+	                    
+	                    
+	                    
 	                    listHtml += "	</div>";
 	                    // 댓글에 답글달기를 누르면 답글입력란이 나온다.
 	                    // ---- 답글입력란
@@ -266,7 +300,7 @@
 	                    listHtml += "		</div>"
 	                    listHtml += "		<div class='col-1'>"
 	                    listHtml += "			<a href='other_profile.do?other_nick="+writer+"'> ";
-	                    listHtml += "				<img id='write_reply_profileImage' src='./upload/profile/${profile}'/>"
+	                    listHtml += "				<img id='write_reply_profileImage' src='#'/>"
 	                    listHtml += "			</a> ";
 	                    listHtml += "		</div>"
 	                    listHtml += "		<div class='col-7'>"
@@ -285,48 +319,47 @@
 	                    listHtml += "		</div>";
 	                    listHtml += "	</div>";
 	                    // ---- 답글입력란 끝
-	                }
+	             
+	             listHtml += "</div>";
+	        
+	                    
+	                 
+	                 
+	             }; ///////////// 동적으로 넣어준 html에 대한 이벤트 처리는 같은 함수내에서 다 해줘야한다.
+	             ///////////// $(document).ready(function(){}); 안에 써주면 안된다.
 
-	                listHtml += "</div>";
+	             // 댓글 리스트 부분에 받아온 댓글 리스트를 넣기
+	             $(".reply-list"+no).html(listHtml);
+
+	             // 답글에서 답글달기를 누르면 input란에 "@답글작성자"가 들어간다.
+	             //$('.write_re_reply_start').on('click', function(){
+	             //	$('#input_rereply'+ $(this).attr('no')).val("@"+$(this).attr('writer')+" ");
+	             //});
+
+	             //답글을 작성한 후 답글달기 버튼을 눌렀을 때 그 click event를 아래처럼 jquery로 처리한다.
+	             $('button.btn.btn-success.mb-1.write_rereply').on( 'click', function() {
+	                 console.log( 'no', $(this).attr('no') );
+	                 console.log( 'bno', $(this).attr('bno') );
+
+	                 // 답글을 DB에 저장하는 함수를 호출한다. bno와 no를 같이 넘겨주어야한다.
+	                 WriteReReply($(this).attr('bno'), $(this).attr('no') );
+	             });
+
+	             // 삭제버튼을 클릭했을 때
+	             $('.reply_delete').on('click', function(){
+	                 // 모댓글 삭제일때
+	                 if($(this).attr('grpl') == 0){	
+	                     DeleteReply($(this).attr('no'), $(this).attr('bno'));
+
+	                 // 답글 삭제일때
+	                 }else{
+	                     DeleteReReply($(this).attr('no'), $(this).attr('bno'), $(this).attr('grp'));
+	                 }
+
+	             })
 
 
-	            };
-
-	            ///////////// 동적으로 넣어준 html에 대한 이벤트 처리는 같은 함수내에서 다 해줘야한다.
-	            ///////////// $(document).ready(function(){}); 안에 써주면 안된다.
-
-	            // 댓글 리스트 부분에 받아온 댓글 리스트를 넣기
-	            $(".reply-list"+no).html(listHtml);
-
-	            // 답글에서 답글달기를 누르면 input란에 "@답글작성자"가 들어간다.
-	            //$('.write_re_reply_start').on('click', function(){
-	            //	$('#input_rereply'+ $(this).attr('no')).val("@"+$(this).attr('writer')+" ");
-	            //});
-
-	            //답글을 작성한 후 답글달기 버튼을 눌렀을 때 그 click event를 아래처럼 jquery로 처리한다.
-	            $('button.btn.btn-success.mb-1.write_rereply').on( 'click', function() {
-	                console.log( 'no', $(this).attr('no') );
-	                console.log( 'bno', $(this).attr('bno') );
-
-	                // 답글을 DB에 저장하는 함수를 호출한다. bno와 no를 같이 넘겨주어야한다.
-	                WriteReReply($(this).attr('bno'), $(this).attr('no') );
-	            });
-
-	            // 삭제버튼을 클릭했을 때
-	            $('.reply_delete').on('click', function(){
-	                // 모댓글 삭제일때
-	                if($(this).attr('grpl') == 0){	
-	                    DeleteReply($(this).attr('no'), $(this).attr('bno'));
-
-	                // 답글 삭제일때
-	                }else{
-	                    DeleteReReply($(this).attr('no'), $(this).attr('bno'), $(this).attr('grp'));
-	                }
-
-	            })
-
-
-	        },
+	         },
 	        error : function() {
 	            alert('서버 에러');
 	        }

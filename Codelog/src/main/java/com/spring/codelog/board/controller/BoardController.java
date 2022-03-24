@@ -71,7 +71,8 @@ public class BoardController {
         mav.setViewName("board/board");
         // 뷰에 전달할 데이터
         mav.addObject("dto", service.read(boardId));
-        mav.addObject("tmp", service2.replyList(boardId));
+        mav.addObject("reply", service2.replyList(boardId));
+        System.out.println(service2.replyList(boardId));
         return mav;
     }
 	

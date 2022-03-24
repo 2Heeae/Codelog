@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -37,8 +38,10 @@ public class ReplyController {
 
 	// 댓글 리스트
 	@ResponseBody
-	@RequestMapping(value = "/replyList")
+	@RequestMapping(value = "/replyList", method = RequestMethod.GET)
 	public List<ReplyVO> replyList(int boardId, HttpSession session) {
+		System.out.println("/reply/replyList");
+		System.out.println("댓글 리스트"+ service.replyList(boardId));
 	    return service.replyList(boardId);
 	}
 
