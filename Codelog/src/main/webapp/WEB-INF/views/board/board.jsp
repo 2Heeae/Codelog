@@ -125,7 +125,7 @@
                             type="text" placeholder="댓글입력...">
                     </div>
                     <div class="col-3 ">
-                        <button type="button" bno="243" style="background-color: #B4CFB0; " idx="${dto.boardId}"
+                        <button type="button" writer="${loginSession.nickname}" bno="243" style="background-color: #B4CFB0; " idx="${dto.boardId}"
                             class="btn btn-success mb-1 write_reply">댓글&nbsp;달기</button>
                     </div>
                 </div>
@@ -409,9 +409,9 @@
 	    // 댓글 입력란의 내용을 가져온다. 
 	    let content = $("#input_reply" + bno).val();
 
-	    let writer = ${loginSession.nickname};
+	    let writer = $(this).attr('writer')
 	    
-
+	    console.log("글작성자"+writer);
 	    if(content == ""){	// 입력된게 없을때
 	        alert("댓글을 입력하세요!");
 	    }else{	
