@@ -12,21 +12,28 @@ public interface IBoardMapper {
 	void write(BoardVO vo);
 
 	void image(ImgVO vo);
-	 
-	BoardVO test(int boardId);
-	
 
-   // 02. 게시글 상세보기
-    BoardVO read(int boardId) ;
-   // 03. 게시글 수정
-    void update(BoardVO vo) ;
-   // 03-1. 수정 글 불러오기
-    BoardVO modify(int boardId);
-   // 04. 게시글 삭제
-    void delete(int boardId) ;
-   // 05. 게시글 전체 목록
-    List<BoardVO> listAll() ;
-   // 06. 게시글 조회 증가
-    void increaseHit(int boardId) ;
+	BoardVO test(int boardId);
+
+
+	// 02. 게시글 상세보기
+	BoardVO read(int boardId) ;
+	// 03. 게시글 수정
+	void update(BoardVO vo) ;
+	// 03-1. 수정 글 불러오기
+	BoardVO modify(int boardId);
+	// 04. 게시글 삭제
+	void delete(int boardId) ;
+	// 05. 게시글 전체 목록
+	List<BoardVO> listAll() ;
+	// 06. 게시글 조회 증가
+	void increaseHit(int boardId) ;
+
+	
+	// 07. 게시글 좋아요 증가(유저 기준 아님 상세보기 해당 게시글 기준임)
+	void totalLikeUp(int boardId);
+	
+	// 08. 게시글 좋아요 감소(유저 기준 아님 상세보기 해당 게시글 기준임)
+	void totalLikeDown(int boardId);
 
 }

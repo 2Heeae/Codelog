@@ -15,8 +15,11 @@
 		@import url("<c:url value='/css/board.css'/>");
 		/* 글 상세보기 페이지 font */
 		@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;800&display=swap');
+		/* 토스트 UI CSS */
+		@import url("<c:url value='/css/toastTest.css'/>");
 	</style>
-
+<script
+	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 </head>
 
 <body>
@@ -37,14 +40,14 @@
 					<c:choose>
 						<c:when test="${loginSession != null}">
 							<c:choose>
-								<c:when test="${like == 0}">
+								<c:when test="${postLike == 0}">
 									<a class="likes" id="like-btn">♥</a>
 									<!-- 이 글을 보는 로그인한 유저가 좋아요 눌렀는지 확인 여부 체크 좋아요=1, 좋아요 안누름=0 -->
-									<input type="hidden" id="like-check" value="${like}">
+									<input type="hidden" id="like-check" value="${postLike}">
 								</c:when>
 								<c:otherwise>
 									<a class="likes" id="like-btn" style="color: red;">♥</a>
-									<input type="hidden" id="like-check" value="${like}">
+									<input type="hidden" id="like-check" value="${postLike}">
 								</c:otherwise>
 							</c:choose>
 						</c:when>
@@ -56,7 +59,7 @@
 					<!-- 좋아요 버튼 끝 -->
 					
 						<!-- 해당 게시글의 총 좋아요 개수 -->
-						<div id='result' style="margin-left: 28px;">0</div>
+						<div id='result' style="margin-left: 28px;">${dto.likes}</div>
 						<!-- 이 글을 보는 사람이 로그인 했다면 여기에 로그인 세션에서 아이디 꺼내와놓기 -->
 						<input type="hidden" id="view-user" value="${loginSession.userId}">
 
@@ -100,13 +103,29 @@
 					
 
 					<section>
-						<div class="target" id="1">
-							<a name="content1"></a>
-							<!-- <div id="mini-title">소제목</div><br> -->
-							<div>${dto.content}</div>
+						<div id="viewer">
+							<input id="view" type="hidden" value="${dto.content}"></input>
 						</div>
 
-					</section>
+<script>
+var view = $('#view').val()
+
+	const viewer = toastui.Editor.factory({
+		  el: document.querySelector('#viewer'),
+      viewer: true,
+      height: '500px',
+      initialValue: view
+	});
+	
+	console.log(view)
+
+	
+	
+	 function ToView()
+ {
+     viewer.getMarkdown(viewer.setHTML());
+ };	</script>
+		</section>
 
 					<!--댓글 영역-->
 					<section class="reply">
@@ -360,8 +379,8 @@
 			console.log('좋아요 버튼 눌림!');
 			const view_user_id = $('#view-user').val();
 			
-			if($('#view-user').val() == null) { //로그인 안한 사람이 하트 누르면
-				alert('로그인 먼저해라.');
+			if($('#view-user').val() == '') { //로그인 안한 사람이 하트 누르면
+				alert('로그인을 먼저 진행해주세요 :)');
 			} else {
 				like_update();
 			}
@@ -370,13 +389,13 @@
 		
 		function like_update() {
 			const view_user_id = $('#view-user').val();
-			const p_like = ${like};
+			const postLike = ${postLike};
 			console.log(view_user_id);
-			console.log(p_like);
+			console.log(postLike);
 			const data = {
 				"viewUserId" : view_user_id,
 				"boardId" : ${dto.boardId},
-				"pLike" : p_like,	//너는 왜 값 전달이 안되는거니 ㅠ	
+				"postLike" : postLike,	//너는 왜 값 전달이 안되는거니 ㅠ	
 			};
 			
 			$.ajax({
@@ -386,15 +405,15 @@
 				data : JSON.stringify(data),
 				success : function(result) {
 					console.log('좋아요 수정' + result);
-					if(p_like == 1) {
+					if(postLike == 1) {
 						console.log('좋아요 취소');
 						$('#like-check').val(0);
-						//location.reload();
+						location.reload();
 						
-					} else if(p_like == 0) {
+					} else if(postLike == 0) {
 						console.log('좋아요');
 						$('#like-check').val(1);
-						//location.reload();
+						location.reload();
 					}
 				}, error : function(result) {
 					console.log('좋아요 에러: ' + result);

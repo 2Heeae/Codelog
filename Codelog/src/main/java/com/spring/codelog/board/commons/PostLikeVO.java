@@ -18,5 +18,5 @@ public class PostLikeVO {
 	private int boardId;
 	private String viewUserId;
 	private Timestamp likeDate;
-	private int pLike;
+	private int postLike;
 }

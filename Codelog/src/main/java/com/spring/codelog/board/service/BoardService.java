@@ -1,7 +1,9 @@
 
 package com.spring.codelog.board.service;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,12 +11,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.codelog.board.commons.ImgVO;
 import com.spring.codelog.board.commons.PostLikeVO;
 import com.spring.codelog.board.mapper.IBoardMapper;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.util.BoardUtil;
+import com.spring.codelog.user.commons.profileImgVO;
 import com.spring.codelog.user.model.UserVO;
 
 @Service
@@ -26,6 +30,10 @@ public class BoardService implements IBoardService {
 
 	@Override
 	public void write(BoardVO vo) {
+		
+		
+		
+		 
 		boardMapper.write(vo);
 
 	}
@@ -85,6 +93,19 @@ public class BoardService implements IBoardService {
 			session.setAttribute("update_time_" + boardId, current_time);
 
 		}
+	}
+
+	
+	//게시글 좋아요 증가(유저 기준 아님 상세보기 해당 게시글 기준임)
+	@Override
+	public void totalLikeUp(int boardId) {
+		boardMapper.totalLikeUp(boardId);
+	}
+
+	//게시글 좋아요 감소(유저 기준 아님 상세보기 해당 게시글 기준임)
+	@Override
+	public void totalLikeDown(int boardId) {
+		boardMapper.totalLikeDown(boardId);
 	}
 
 }
