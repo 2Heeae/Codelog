@@ -63,6 +63,15 @@ aside {
 }
 
 /* ========== ���� �����޴� ========== */
+.title{
+	font-weight:800;
+	font-size:3rem;
+    line-height: 1.5;
+    letter-spacing: -0.004em;	
+    margin-bottom: 1rem;
+    word-break: keep-all;
+    transition: color 0.125s ease-in 0s;
+}
 .content-menu{
     padding-left: 10px;
 }
@@ -122,7 +131,7 @@ aside {
 }
 
 .hashtag {
-    margin: 1em;
+    margin: 1rem;
     display: inline-block;
 }
 
