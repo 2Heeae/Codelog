@@ -6,8 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.footer{
-position:fixed; 
+.footer{ 
   left:0px; 
   bottom:0px; 
   width:100%; 

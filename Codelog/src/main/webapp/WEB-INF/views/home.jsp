@@ -178,7 +178,7 @@
 						style="font-size: 0.8rem; border-top: 0; background-color: white;">
 
 						<p class="card-text"
-							style="border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;">
+							style="border-bottom: 1px solid rgb(148, 180, 159); margin-bottom: 0.4rem; padding-bottom: 0.3rem; color:gray;">
 							<fmt:formatDate value="${Poster.regDate }" pattern="yy/MM/dd"/>
 							</p>
 
