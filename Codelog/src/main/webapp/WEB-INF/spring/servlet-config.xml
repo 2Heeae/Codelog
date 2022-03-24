@@ -41,7 +41,7 @@
 		<beans:property name="defaultEncoding" value="utf-8" />
 	</beans:bean>
 	
-	<beans:bean id="notificationHandler" class="com.spring.codelog.util.notification.NotificationHandler" />
+	<beans:bean id="notifyHandler" class="com.spring.codelog.util.notification.NotificationHandler" />
 	<websocket:handlers allowed-origins="*">
    		<websocket:mapping handler="alarmHanotificationHandlerndler" path="/nofity" />
    		<websocket:handshake-interceptors>
