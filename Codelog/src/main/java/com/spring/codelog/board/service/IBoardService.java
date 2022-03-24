@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.spring.codelog.board.commons.ImgVO;
 import com.spring.codelog.board.model.BoardVO;
 
