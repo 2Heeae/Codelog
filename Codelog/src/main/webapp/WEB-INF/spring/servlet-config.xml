@@ -41,17 +41,18 @@
 		<beans:property name="defaultEncoding" value="utf-8" />
 	</beans:bean>
 	
-	<!-- websocket -->
-    <beans:bean id="sockHandler" class="com.spring.codelog.util.socket.WebSocketHandler" />
-	<websocket:handlers>
-		<websocket:mapping handler="sockHandler" path="/alarm" />
-		<websocket:handshake-interceptors>
-			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
-		</websocket:handshake-interceptors>
-		<websocket:sockjs websocket-enabled="true"/>
-	</websocket:handlers>	
-    
-	
-	
+	<beans:bean id="notificationHandler" class="com.spring.codelog.util.notification.NotificationHandler" />
+	<websocket:handlers allowed-origins="*">
+   		<websocket:mapping handler="alarmHanotificationHandlerndler" path="/nofity" />
+   		<websocket:handshake-interceptors>
+        		<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+   		</websocket:handshake-interceptors>
+  		<websocket:sockjs client-library-url="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js" />
+	</websocket:handlers>
 	
 </beans:beans>
+
+
+
+
+
