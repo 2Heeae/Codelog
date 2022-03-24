@@ -1481,6 +1481,7 @@ li.ProseMirror-selectednode:after {
 	.toastui-editor-md-link, .toastui-editor-md-table,
 	.toastui-editor-md-thematic-break {
 	color: #ccc
+	
 }
 
 .toastui-editor-md-code.toastui-editor-md-delimiter {
@@ -1489,6 +1490,7 @@ li.ProseMirror-selectednode:after {
 
 .toastui-editor-md-html, .toastui-editor-md-link.toastui-editor-md-link-url.toastui-editor-md-marked-text,
 	.toastui-editor-md-meta {
+	font-size:0 !important;
 	color: #999
 }
 

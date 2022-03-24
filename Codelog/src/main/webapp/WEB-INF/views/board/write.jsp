@@ -45,6 +45,12 @@
 @import url("<c:url value='/css/toastTest.css'/>");
 
 @import url("<c:url value='/css/test.css'/>");
+.toastui-editor-md-html, .toastui-editor-md-link.toastui-editor-md-link-url.toastui-editor-md-marked-text,
+	.toastui-editor-md-meta {
+	font-size:0 !important;
+	color: #999
+}
+
 </style>
 
 <title>Document</title>
@@ -84,12 +90,14 @@
 				</div>
 			</div>
 			<!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
-			<div id="editor" style=""></div>
-				
+			<div id="editor">
+				</div>
 
 
 			<script>
+			
 			 const Editor = toastui.Editor;
+			 const content = ('#editor').val
 			 
 			 const editor = new Editor({
 			 	  el: document.querySelector('#editor'),
@@ -102,14 +110,14 @@
 			 </script>
 						<script>
 			  function submit(){
-				  let content = editor.getHTML();
+				  let content = editor.getMarkdown();
 				  $('#test2').val(content);
 				  console.log(content);
 				 
 				  $('#test3').val(content);
 			  }
+			
 			 </script>
-
 			<button class="ok" id="show" type="button">
 				<i class="fa-solid fa-check"></i>
 			</button>
@@ -117,7 +125,7 @@
 				<i class="fa-solid fa-right-from-bracket"></i>
 			</button>
 
-		</div>
+		
 
 
 
@@ -152,9 +160,11 @@
 				
 				
 <script>
+
     // start jQuery
     $(document).ready(function () {
        
+    	
       //썸네일 이미지 업로드 버튼 클릭 이벤트
       $('#thumbnailUpload').change(function() {
     	 
@@ -164,6 +174,7 @@
        
       //이미지 업로드를 담당하는 함수
       function upload() {
+    	  console.log("d");
          //자바스크립트의 파일 확장자 체크 검색
          let file = $('#thumbnailUpload').val();
          

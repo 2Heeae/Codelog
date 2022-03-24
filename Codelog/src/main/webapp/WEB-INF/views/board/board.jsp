@@ -20,6 +20,10 @@
 		@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;800&display=swap');
 		/* 토스트 UI CSS */
 		@import url("<c:url value='/css/toastTest.css'/>");
+		.toastui-editor-contents {
+		
+		}
+		
 	</style>
 <script
 	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
@@ -104,31 +108,33 @@
 							</span>
     					 </c:if>
 					
-
-					<section>
-						<div id="viewer" style="width:700px; height:700px">
-							<input id="view" type="hidden" value="${dto.content}"></input>
+      
+					<input id="view" type="hidden" value="${dto.content}"></input>
+						<div id="viewer">
 						</div>
-
-<script>
-var view1 = $('#view').val()
+						<script>
+						const view = $('#view').val();
 
 	const viewer = toastui.Editor.factory({
 		  el: document.querySelector('#viewer'),
       viewer: true,
       height: '500px',
-      initialValue: view1
+      width: '700px',
+      initialValue: view
 	});
 	
-	console.log(view1)
+	console.log(view);
 
 	
 	
 	 function ToView()
  {
-     viewer.getHTML(viewer.setHTML());
- };	</script>
-		</section>
+     viewer.getMarkdown(viewer.setHTML());
+ };	
+ </script>
+
+
+		
 
 					<!--댓글 영역-->
 					<section class="reply">
