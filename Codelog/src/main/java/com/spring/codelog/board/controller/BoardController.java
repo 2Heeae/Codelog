@@ -4,26 +4,18 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,8 +57,8 @@ public class BoardController {
 	   UUID uuid = UUID.randomUUID();
 	   String uuids = uuid.toString().replaceAll("-", "");
 	   try {
-			
-			String uploadPath = "C:\\test\\upload";
+			System.out.println("--------------------------보드컨트롤러썸네일-----------------");
+			String uploadPath = "C:\\test\\thumbnail";
 			String fileRealName = file.getOriginalFilename();	
 			String fileExtension = fileRealName.substring(fileRealName.indexOf("."), fileRealName.length());
 			String fileName = uuids + fileExtension;
@@ -155,6 +147,7 @@ public class BoardController {
         return mav;
     }
 	
+    
     //  게시글 수정 불러오기
     @RequestMapping(value="/modify", method=RequestMethod.GET)
     public ModelAndView home2(@RequestParam int boardId, HttpSession session) {
