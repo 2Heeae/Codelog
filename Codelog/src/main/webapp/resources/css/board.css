@@ -115,21 +115,8 @@ aside {
 }
 
 /* ========== ���� ========== */
-.thumb{
-    display: inline-block;
-    background-color: transparent;
-}
-
-.thumb-date{
-	display: inline-block;
-    background-color: transparent;
-	position: relative;
-    top: 45px;
-    left: -30px;
-}
-
 .detail-main {
-    width: 50vw;
+    width: auto;
     height: auto;
 }
 

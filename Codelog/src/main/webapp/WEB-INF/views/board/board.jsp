@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <%@include file="../include/header.jsp"%>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,18 +25,12 @@
 	color: #fff;
 	font-wieght: 300;
 	padding-top: 6px;
-	
 }
 
 #viewer  table td, #viewer>table th {
 	border: 1px solid rgba(0, 0, 0, .1);
 	height: 32px;
 	padding: 5px 14px 5px 12px;
-}
-#viewer table th > p {
-
-color : white;
-
 }
 
 #viewer  pre {
@@ -49,12 +42,12 @@ color : white;
 #viewer  code {
 	background-color: #f9f2f4;
 	border-radius: 2px;
-	color: #c1798b;     
+	color: #c1798b;
 	letter-spacing: -.3px;
 	padding: 2px 3px
 }
 
-#viewer ol>li:before {
+#viewr ol>li:before {
 	color: #aaa;
 	content: "." counter(li);
 	direction: rtl;
@@ -62,11 +55,24 @@ color : white;
 	text-align: right;
 	width: 24px;
 }
-#viewer {
- overflow-x : hidden;
+
+::marker {
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+   
+    border-radius: 2px;
+    content: "";
+    cursor: pointer;
+    height: 18px;
+    left: 0;
+    margin-left: 0;
+    margin-top: 0;
+    position: absolute;
+    top: 1px;
+    width: 18px;
+ 
 }
-
-
 </style>
 <script
 	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
@@ -164,8 +170,7 @@ color : white;
 	const viewer = toastui.Editor.factory({
 		  el: document.querySelector('#viewer'),
       viewer: true,
-      height: '32rem',
-      width: '25rem'
+      height: '500px',
      
 	});
 	
@@ -267,10 +272,11 @@ color : white;
 
 
 
-</div>
+
+				</div>
 							<!--우측 고정메뉴-->
 			<div class="col-md-3">
-				<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted rounded" style="background-color: rgb(251, 248, 241); height: 500px;">
+				<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted rounded" style="background-color: rgb(239 255 239); height: 500px;">
 					<a href="" class="d-block h6 my-2 pb-2 border-bottom">
 						#어쩔저쩔 관련 게시글&nbsp&nbsp></a>
 					<nav id="TableOfContents">
