@@ -162,6 +162,7 @@
 
 
 
+
 						<div id="viewer">${dto.content}</div>
 						<script>
 						
@@ -268,6 +269,8 @@
 							</div>
 						</section>
 					</div>
+
+
 
 
 				</div>
@@ -458,16 +461,14 @@
 		});
 		
 		function like_update() {
-			const view_user_id = $('#view-user').val(); //글 보는 사람 아이디
-			const post_like = ${postLike}; //좋아요 여부 확인 1, 0
-			const writer = '${dto.userId}'; //글 쓴 사람
+			const view_user_id = $('#view-user').val();
+			const postLike = ${postLike};
 			console.log(view_user_id);
-			console.log(post_like);
-			console.log(writer);
+			console.log(postLike);
 			const data = {
-				"viewUserId" : view_user_id, //글 보는사람 아이디값
-				"boardId" : ${dto.boardId}, //글번호
-				"postLike" : post_like	//1 = 좋아요, 0 = 좋아요 취소	
+				"viewUserId" : view_user_id,
+				"boardId" : ${dto.boardId},
+				"postLike" : postLike,	//너는 왜 값 전달이 안되는거니 ㅠ	
 			};
 			
 			$.ajax({
@@ -477,28 +478,14 @@
 				data : JSON.stringify(data),
 				success : function(result) {
 					console.log('좋아요 수정' + result);
-					if(post_like == 1) {
+					if(postLike == 1) {
 						console.log('좋아요 취소');
 						$('#like-check').val(0);
-						//소켓메세지
-						if(socket) {
-							var msg = view_user_id + "," + writer + "," + post_like;
-							console.log(msg);
-							socket.send();
-						}
-						//소켓메세지
 						location.reload();
 						
-					} else if(post_like == 0) {
+					} else if(postLike == 0) {
 						console.log('좋아요');
 						$('#like-check').val(1);
-						//소켓메세지
-						if(socket) {
-							var msg = view_user_id + "," + writer + "," + post_like;
-							console.log(msg);
-							socket.send();
-						}
-						//소켓메세지
 						location.reload();
 					}
 				}, error : function(result) {
