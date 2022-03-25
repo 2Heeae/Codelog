@@ -183,8 +183,16 @@
 								href="${pageContext.request.contextPath}/boardController/board?boardId=${Poster.boardId}"
 								class="stretched-link"></a>
 							<!--썸네일 이미지-->
+							<c:choose>
+							<c:when test="${Poster.thumbnail != null}">
 							<img src="<c:url value='/image/display/${Poster.thumbnail }'/>" class="card-img-top"
 								alt="...">
+								</c:when>
+								
+						
+						<c:when test="${Poster.thumbnail == null}"><img src="<c:url value='/img/codelog.png'/>" class="card-img-top" alt="..."></c:when>
+						
+					</c:choose>
 							<!--제목 내용-->
 							<div class="card-body ">
 								<strong>${Poster.title }</strong>
