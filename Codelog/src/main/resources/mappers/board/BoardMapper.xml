@@ -104,5 +104,10 @@ VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, '
 	<update id="totalLikeDown">
 		UPDATE proj_board SET likes = likes - 1 WHERE board_id = #{boardId}
 	</update>
+	
+	<!-- board_seq 시퀀스의 현재 값을 얻어오는 sql (write와 연계) -->
+	<select id="currentBoardId" resultType="int">
+		SELECT board_seq.CURRVAL FROM dual
+	</select>
  
  </mapper>

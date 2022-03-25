@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -8,36 +8,25 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 글 작성 페이지에만 적용되는 CDN들. 지우지 마세요 -->
-<link rel="stylesheet" type="text/css"
-	href="path/to/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-	crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="path/to/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap"
+
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap"
 	rel="stylesheet">
 
-<link
-	href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap"
-	rel="stylesheet">
-<script src="https://kit.fontawesome.com/fec7fe9db7.js"
-	crossorigin="anonymous"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/fec7fe9db7.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <!-- 글 작성 페이지에만 적용되는 CDN들. 지우지 마세요 -->
 
 <style>
@@ -53,6 +42,7 @@
 	overflow: hidden;
 	margin: -1px;
    clip-path: polygon(0 0, 0 0, 0 0);
+
 }
 </style>
 
@@ -64,14 +54,16 @@
 		history.back();
 	</script>
 
+
 </c:if>
 
 <body>
-	<form action="<c:url value='/boardController/write' />"
-		class="write-bbs" enctype=multipart/form-data method="post">
+
+	<form action="<c:url value='/boardController/write' />" class="write-bbs" enctype=multipart/form-data method="post">
+
 		<!-- 글등록 페이지에 따로 작성자를 기입하지는 않으므로 현재 로그인 세션에서 작성자 명을 뽑아옵니다. -->
-		<input type="hidden" id="test2" name="content"> <input
-			type="hidden" name="writer" value="${loginSession.nickname}">
+		<input type="hidden" id="test2" name="content"> 
+		<input type="hidden" name="writer" value="${loginSession.nickname}">
 		<!-- 로그인 세션에 있는 사용자의 닉네임 -->
 		<input type="hidden" name="userId" value="${loginSession.userId}">
 		<input type="hidden" name="userNo" value="${loginSession.userNo}">
@@ -117,6 +109,7 @@
 					$('#test3').val(content);
 				}
 			</script>
+
 			<button class="ok" id="show" type="button">
 				<i class="fa-solid fa-check"></i>
 			</button>
@@ -128,20 +121,17 @@
 
 
 
-		</div>
-
 		<!-- 미리보기 버튼 작동 후 페이지-->
 		<!--contanier 1개에 row 1개 col 2개로 영역 구분
         썸네일 직접 업로드 가능(기본값은 글 작성에 이미지를 넣었으면 그 중 최상단 이미지 없으면 null)
     -->
 
 
+
 		<div id="check">
-
-
 			<div class="container-down">
-
 				<div class="row py-md-3" style="margin: 5% 15% 0% 15%">
+
 
 					<div class="col-md-6 px-md-4" style="margin: 0 auto; width: 70%;">
 						<div class="card"
@@ -300,6 +290,7 @@
 									style="float: right">0</span>
 							</div>
 
+
 							<div class="row" style="margin-top: 1rem">
 								<div class="form-check form-switch"
 									style="margin: 0% 0% 0% 75%; margin-top: 0.5rem; margin-bottom: 1rem;">
@@ -340,10 +331,10 @@
 		</div>
 		</div>
 
-		</div>
 	</form>
 
 	<script>
+
 		/*작성과 작성검토 부분을 버튼으로 연결함(버튼은 임시)
 		up은 작성검토 페이지 화면으로 올리기 down은 내리기
 		toggleclass사용
@@ -448,11 +439,12 @@
 		
 	</script>
 
-	<!-- 글 작성 페이지에만 적용되는 bootstrap js. 여기는 헤더가 없어요. 지우지 마세요. -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous">
+
+   <!-- 글 작성 페이지에만 적용되는 bootstrap js. 여기는 헤더가 없어요. 지우지 마세요. -->
+   <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous">
    </script>
 
 </body>
