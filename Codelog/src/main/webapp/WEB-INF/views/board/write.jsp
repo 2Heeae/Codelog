@@ -58,6 +58,71 @@
 </c:if>
 
 <body>
+   <form action="<c:url value='/boardController/write' />"
+      class="write-bbs" enctype=multipart/form-data method="post">
+      <!-- 글등록 페이지에 따로 작성자를 기입하지는 않으므로 현재 로그인 세션에서 작성자 명을 뽑아옵니다. -->
+      <input type="hidden" id="test2" name="content"> <input
+         type="hidden" name="writer" value="${loginSession.nickname}">
+      <!-- 로그인 세션에 있는 사용자의 닉네임 -->
+      <input type="hidden" name="userId" value="${loginSession.userId}">
+      <input type="hidden" name="userNo" value="${loginSession.userNo}">
+
+      <!-- 로그인 세션에 있는 사용자의 id -->
+      <div id="articles">
+         <textarea placeholder="제목을 입력하세요" id="title" name="title"></textarea>
+
+         <br>
+         <!--태그-->
+         <div class="hashtag">
+            <div class="form-group">
+               <input type="hidden" value="" name="tag" id="rdTag" />
+            </div>
+            <ul id="tag-list"></ul>
+            <div class="form-group">
+               <input type="text" id="tag" size="7" class="tag" name="tags" placeholder="엔터로 태그를 입력하세요" style="width: 500px;">
+            </div>
+         </div>
+         <!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
+         <div id="editor">
+            </div>
+
+
+         <script>
+         
+          const Editor = toastui.Editor;
+          const content = ('#editor').val
+          
+          const editor = new Editor({
+               el: document.querySelector('#editor'),
+               width: '100%',
+               height: '41.327rem',
+               initialEditType: 'markdown',
+               previewStyle: 'vertical'
+             });
+         
+          </script>
+                  <script>
+           function submit(){
+              let content = editor.getMarkdown();
+              $('#test2').val(content);
+              console.log(content);
+             
+              $('#test3').val(content);
+           }
+         
+          </script>
+         <button class="ok" id="show" type="button">
+            <i class="fa-solid fa-check"></i>
+         </button>
+         <button type="button" class="exit" onclick="history.back()">
+            <i class="fa-solid fa-right-from-bracket"></i>
+         </button>
+
+      
+
+
+
+      </div>
 
 	<form action="<c:url value='/boardController/write' />" class="write-bbs" enctype=multipart/form-data method="post">
 
@@ -335,6 +400,107 @@
 
 	<script>
 
+      /*작성과 작성검토 부분을 버튼으로 연결함(버튼은 임시)
+    up은 작성검토 페이지 화면으로 올리기 down은 내리기
+    toggleclass사용
+*/
+      
+      
+
+      $(document).ready(function () {
+         //태그 기능 이벤트
+         var tag ={};
+         var counter = 0;
+         
+         
+         //글자수 많을시 처리 
+         $('#tag').keyup(function () {
+              var contentL = $(this).val().length;
+              console.log(contentL);
+              $('#textL').text(contentL);
+              if (contentL > 30) {
+                 $(this).val($(this).val().substring(0, 30));
+                 alert("태그가 너무 많아요!");
+
+              }
+           });
+         $(".hide").click(function () {
+            $("#articles").show();
+            $("#check").hide();
+            $("#articles").toggleClass('fadeIn');
+            $("#check").toggleClass();
+
+
+
+         });
+         $("#show").click(function () {
+            let content = editor.getHTML();
+              $('#test2').val(content);
+            $("#check").show();
+            $("#articles").hide();
+            $("#check").toggleClass('fadeIn');
+            $("#articles").toggleClass();
+			const tags = $('#tag').val();
+			console.log(tags);
+            	$.ajax({
+            		url: "<c:url value='/tag/regist'/>",
+            		type: "post",
+            		data: JSON.stringify(tags),
+            		dataType: 'text',
+            		contentType : 'application/json',
+            		success: function(result){
+            			console.log('태그 전달 성공'+ result);
+            		},
+            		error: function(){
+            			console.log('태그 전달 실패');
+            		}
+            	});
+            
+
+
+         });
+
+         var checked = $('.form-check-input').is(':checked');
+         console.log('check여부' + checked);
+
+         $(".form-switch").click(function () {
+
+
+
+            var checked = $('.form-check-input').is(':checked');
+            var checkVal;
+            console.log('check여부' + checked);
+            if (!checked) {
+               $(".form-check-label").html('&nbsp;비공개');
+               checkVal = 0;
+               $("#viewAll").val(checkVal);   
+               // $('.form-switch').attr('checked',true);
+            } else {
+               $(".form-check-label").text('전체 공개');
+               checkVal = 1;
+               $("#viewAll").val('1');   
+
+            }
+         });
+         
+         
+
+         $('#floatingTextarea').keyup(function () {
+            var contentL = $(this).val().length;
+            console.log(contentL);
+            $('#textL').text(contentL);
+            if (contentL > 100) {
+               $(this).val($(this).val().substring(0, 100));
+               alert("최대 100글자까지 가능합니다.");
+
+            }
+         });
+         
+     
+      })
+   </script>
+=======
+
 		/*작성과 작성검토 부분을 버튼으로 연결함(버튼은 임시)
 		up은 작성검토 페이지 화면으로 올리기 down은 내리기
 		toggleclass사용
@@ -438,6 +604,7 @@
 		})
 		
 	</script>
+
 
 
    <!-- 글 작성 페이지에만 적용되는 bootstrap js. 여기는 헤더가 없어요. 지우지 마세요. -->

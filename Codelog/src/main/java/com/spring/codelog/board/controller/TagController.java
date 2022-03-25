@@ -27,7 +27,6 @@ public class TagController {
 	 * @Autowired ITagService service;
 	 */
 
-
 	
 	@ResponseBody
 	@PostMapping("/regist")
