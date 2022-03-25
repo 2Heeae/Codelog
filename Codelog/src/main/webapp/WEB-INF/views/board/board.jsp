@@ -41,9 +41,9 @@
 					<nav>
 					<!-- 좋아요 버튼 -->
 					<c:choose>
-						<c:when test="${loginSession != null}">
+						<c:when test="${loginSession != null}"> <!-- 로그인 한 사람이 글 보는거면 -->
 							<c:choose>
-								<c:when test="${postLike == 0}">
+								<c:when test="${postLike == 0}"> <!-- 이 글을 좋아요 누르지 않은 상태 -->
 									<a class="likes" id="like-btn">♥</a>
 									<!-- 이 글을 보는 로그인한 유저가 좋아요 눌렀는지 확인 여부 체크 좋아요=1, 좋아요 안누름=0 -->
 									<input type="hidden" id="like-check" value="${postLike}">
@@ -54,7 +54,7 @@
 								</c:otherwise>
 							</c:choose>
 						</c:when>
-						<c:otherwise>
+						<c:otherwise> <!-- 로그인 안한 사람 -->
 							<a class="likes" id="like-btn">♥</a>
 							<input type="hidden" id="like-check">
 						</c:otherwise>
@@ -398,6 +398,7 @@ var view1 = $('#view').val()
 			console.log(view_user_id);
 			console.log(post_like);
 			console.log(writer);
+			const msg = view_user_id + "," + writer + "," + post_like; //소켓메세지 보낼 값
 			const data = {
 				"viewUserId" : view_user_id, //글 보는사람 아이디값
 				"boardId" : ${dto.boardId}, //글번호
@@ -415,32 +416,24 @@ var view1 = $('#view').val()
 						console.log('좋아요 취소');
 						$('#like-check').val(0);
 						//소켓메세지
-						if(socket) {
-							var msg = view_user_id + "," + writer + "," + post_like;
-							console.log(msg);
-							socket.send();
-						}
+						console.log(msg);
+						socket.send(msg);
 						//소켓메세지
-						location.reload();
 						
 					} else if(post_like == 0) {
 						console.log('좋아요');
 						$('#like-check').val(1);
 						//소켓메세지
-						if(socket) {
-							var msg = view_user_id + "," + writer + "," + post_like;
-							console.log(msg);
-							socket.send();
-						}
+						console.log(msg);
+						socket.send(msg);
 						//소켓메세지
-						location.reload();
+						//location.reload();
 					}
 				}, error : function(result) {
 					console.log('좋아요 에러: ' + result);
 				}
 			}); //ajax 끝
 			
-				
 			
 		}
 	
