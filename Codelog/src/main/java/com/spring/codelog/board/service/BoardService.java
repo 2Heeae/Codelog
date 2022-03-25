@@ -29,12 +29,14 @@ public class BoardService implements IBoardService {
 	private BoardUtil util;
 
 	@Override
-	public void write(BoardVO vo) {
+	public int write(BoardVO vo) {
 		
 		
 		
 		 
 		boardMapper.write(vo);
+		
+		return boardMapper.currentBoardId();
 
 	}
 

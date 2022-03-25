@@ -58,6 +58,7 @@
 </c:if>
 
 <body>
+
 	<form action="<c:url value='/boardController/write' />"
 		class="write-bbs" enctype=multipart/form-data method="post">
 		<!-- 글등록 페이지에 따로 작성자를 기입하지는 않으므로 현재 로그인 세션에서 작성자 명을 뽑아옵니다. -->
@@ -119,8 +120,6 @@
 		</div>
 
 
-
-		</div>
 
 		<!-- 미리보기 버튼 작동 후 페이지-->
 		<!--contanier 1개에 row 1개 col 2개로 영역 구분
@@ -273,18 +272,16 @@
 
 			</div>
 
-		</div>
-		</div>
 
-		</div>
 	</form>
+
 	<script>
       /*작성과 작성검토 부분을 버튼으로 연결함(버튼은 임시)
     up은 작성검토 페이지 화면으로 올리기 down은 내리기
     toggleclass사용
 */
 		
-		
+
 
       $(document).ready(function () {
     	  //태그 기능 이벤트
@@ -376,6 +373,8 @@
          
      
       })
+      
+      
    </script>
 
 	<!-- 글 작성 페이지에만 적용되는 bootstrap js. 여기는 헤더가 없어요. 지우지 마세요. -->
@@ -384,6 +383,7 @@
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous">
    </script>
+
 
 </body>
 

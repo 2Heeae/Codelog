@@ -107,7 +107,7 @@
 
 					<section>
 						<div id="viewer" style="width:700px; height:700px">
-							<input id="view" type="hidden" value="${dto.content}"></input>
+							${dto.content}
 						</div>
 
 <script>
@@ -213,12 +213,8 @@ var view1 = $('#view').val()
 				<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted">
 					<strong class="d-block h6 my-2 pb-2 border-bottom">On this Page</strong>
 					<nav id="TableOfContents" style="border-left: 1px solid rgb(182, 182, 182);">
-						<div class="content-menu">
-							<a href="#1" class="active">프롤로그</a><br>
-							<a href="#2">MS: 내가 원래 개발언어와 IDE 개발의 원조지!</a><br>
-							<a href="#3">Typescript의 고질적인 문제1: 속도!</a><br>
-							<a href="#4">Typescript의 고질적인 문제2: 잘 동작하던건데 전부 에러가 뜨데요?</a><br>
-							<a href="#5">🔥 그러니 그냥 하세요. 안해야 할 이유가 없습니다.</a><br>
+						<div  class="content-menu">
+													
 						</div>
 					</nav>
 				</div>
@@ -392,16 +388,14 @@ var view1 = $('#view').val()
 		});
 		
 		function like_update() {
-			const view_user_id = $('#view-user').val(); //글 보는 사람 아이디
-			const post_like = ${postLike}; //좋아요 여부 확인 1, 0
-			const writer = '${dto.userId}'; //글 쓴 사람
+			const view_user_id = $('#view-user').val();
+			const postLike = ${postLike};
 			console.log(view_user_id);
-			console.log(post_like);
-			console.log(writer);
+			console.log(postLike);
 			const data = {
-				"viewUserId" : view_user_id, //글 보는사람 아이디값
-				"boardId" : ${dto.boardId}, //글번호
-				"postLike" : post_like	//1 = 좋아요, 0 = 좋아요 취소	
+				"viewUserId" : view_user_id,
+				"boardId" : ${dto.boardId},
+				"postLike" : postLike,	//너는 왜 값 전달이 안되는거니 ㅠ	
 			};
 			
 			$.ajax({
@@ -411,28 +405,14 @@ var view1 = $('#view').val()
 				data : JSON.stringify(data),
 				success : function(result) {
 					console.log('좋아요 수정' + result);
-					if(post_like == 1) {
+					if(postLike == 1) {
 						console.log('좋아요 취소');
 						$('#like-check').val(0);
-						//소켓메세지
-						if(socket) {
-							var msg = view_user_id + "," + writer + "," + post_like;
-							console.log(msg);
-							socket.send();
-						}
-						//소켓메세지
 						location.reload();
 						
-					} else if(post_like == 0) {
+					} else if(postLike == 0) {
 						console.log('좋아요');
 						$('#like-check').val(1);
-						//소켓메세지
-						if(socket) {
-							var msg = view_user_id + "," + writer + "," + post_like;
-							console.log(msg);
-							socket.send();
-						}
-						//소켓메세지
 						location.reload();
 					}
 				}, error : function(result) {

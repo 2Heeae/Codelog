@@ -13,7 +13,7 @@ import com.spring.codelog.board.model.BoardVO;
 
 public interface IBoardService {
 	//글 등록
-	void write(BoardVO vo);
+	int write(BoardVO vo);
 
 	//사진 업로드
 	void image(ImgVO vo);
@@ -36,6 +36,8 @@ public interface IBoardService {
 		
 	//게시글 좋아요 감소(유저 기준 아님 상세보기 해당 게시글 기준임)
 	public void totalLikeDown(int boardId);
+
+
 	
     
 }
