@@ -112,7 +112,7 @@ public class BoardController {
 	
 
 	
-	// 게시글 상세내용 조회, 게시글 조회수 증가 처리
+ // 게시글 상세내용 조회, 게시글 조회수 증가 처리
     // @RequestParam : get/post방식으로 전달된 변수 1개
     // HttpSession 세션객체
     @RequestMapping(value="/board", method=RequestMethod.GET)

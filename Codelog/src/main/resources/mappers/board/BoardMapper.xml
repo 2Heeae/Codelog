@@ -12,6 +12,7 @@
    <result property="thumbnail" column="thumbnail" />
    <result property="viewAll" column="view_all" />
    <result property="imgPath" column="img_path" />
+   <result property="likes" column="likes" />
    <result property="regDate" column="reg_date" />
    <result property="hit" column="hit" />
    <result property="userNo" column="user_no" />
