@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <%@include file="../include/header.jsp"%>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,18 +25,12 @@
 	color: #fff;
 	font-wieght: 300;
 	padding-top: 6px;
-	
 }
 
 #viewer  table td, #viewer>table th {
 	border: 1px solid rgba(0, 0, 0, .1);
 	height: 32px;
 	padding: 5px 14px 5px 12px;
-}
-#viewer table th > p {
-
-color : white;
-
 }
 
 #viewer  pre {
@@ -49,12 +42,12 @@ color : white;
 #viewer  code {
 	background-color: #f9f2f4;
 	border-radius: 2px;
-	color: #c1798b;     
+	color: #c1798b;
 	letter-spacing: -.3px;
 	padding: 2px 3px
 }
 
-#viewer ol>li:before {
+#viewr ol>li:before {
 	color: #aaa;
 	content: "." counter(li);
 	direction: rtl;
@@ -62,11 +55,24 @@ color : white;
 	text-align: right;
 	width: 24px;
 }
-#viewer {
- overflow-x : hidden;
+
+::marker {
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+   
+    border-radius: 2px;
+    content: "";
+    cursor: pointer;
+    height: 18px;
+    left: 0;
+    margin-left: 0;
+    margin-top: 0;
+    position: absolute;
+    top: 1px;
+    width: 18px;
+ 
 }
-
-
 </style>
 <script
 	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
@@ -165,8 +171,7 @@ color : white;
 	const viewer = toastui.Editor.factory({
 		  el: document.querySelector('#viewer'),
       viewer: true,
-      height: '32rem',
-      width: '25rem'
+      height: '500px',
      
 	});
 	
@@ -270,7 +275,46 @@ color : white;
 
 
 				</div>
+							<!--우측 고정메뉴-->
+			<div class="col-md-3">
+				<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted rounded" style="background-color: rgb(239 255 239); height: 500px;">
+					<a href="" class="d-block h6 my-2 pb-2 border-bottom">
+						#어쩔저쩔 관련 게시글&nbsp&nbsp></a>
+					<nav id="TableOfContents">
+					<div style="width: 248.63px; height: 90px; background-color: transparent;">
+						<div class="thumb" style="width: 160px; height: 90px; padding: 5px;display: inline-block;"> 
+							<span class="thumb">${dto.title}</span>
+							<div class="thumb-date" style="margin-top: 10px;"><fmt:formatDate value="${dto.regDate}" pattern="yy/MM/dd"/></div>
+						</div>
+						<div class="thumb" style="position:relative; left: 20px; width:75px; vertical-align: bottom; display: inline-block !important;" ><img src="<c:url value='/image/display/${dto.thumbnail}'/>" class="rounded" width="75px" height="75px" ></div>		
+					<hr align="center" size="3px" width="100%" style="margin: 10px;">
+					<div style="width: 248.63px; height: 90px; background-color: transparent;">
+						<div class="thumb" style="width: 160px; height: 90px; padding: 5px;"> 
+							<span>Typescript는 어떻게 공부해야 하나요?</span>
+							<div class="thumb" style="margin-top: 10px;">2022.03.25</div>
+						</div>
+						<div class="thumb" style="position:relative; left: 20px; vertical-align: bottom;" ><img src="<c:url value='/image/display/${dto.thumbnail}'/>" class="rounded" width="75px" height="75px" ></div>		
+					<hr align="center" size="3px" width="100%" style="margin: 10px;">
+					<div style="width: 248.63px; height: 90px; background-color: transparent;">
+						<div class="thumb" style="width: 160px; height: 90px; padding: 5px;"> 
+							<span>Typescript는 어떻게 공부해야 하나요?</span>
+							<div class="thumb" style="margin-top: 10px;">2022.03.25</div>
+						</div>
+						<div class="thumb" style="position:relative; left: 20px; vertical-align: bottom;" ><img src="<c:url value='/image/display/${dto.thumbnail}'/>" class="rounded" width="75px" height="75px" ></div>		
+					<hr align="center" size="3px" width="100%" style="margin: 10px;">
+					<div style="width: 248.63px; height: 90px; background-color: transparent;">
+						<div class="thumb" style="width: 160px; height: 90px; padding: 5px;"> 
+							<span>Typescript는 어떻게 공부해야 하나요?</span>
+							<div class="thumb" style="margin-top: 10px;">2022.03.25</div>
+						</div>
+						<div class="thumb" style="position:relative; left: 20px; vertical-align: bottom;" ><img src="<c:url value='/image/display/${dto.thumbnail}'/>" class="rounded" width="75px" height="75px" ></div>		
+					<hr align="center" size="3px" width="100%" style="margin: 10px;">
+					
+					</nav>
+					</div>
+				</div>
 
+				<div class="col-md-1"></div>
 			</div>
 		</div>
 
