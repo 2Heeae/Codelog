@@ -25,12 +25,18 @@
 	color: #fff;
 	font-wieght: 300;
 	padding-top: 6px;
+	
 }
 
 #viewer  table td, #viewer>table th {
 	border: 1px solid rgba(0, 0, 0, .1);
 	height: 32px;
 	padding: 5px 14px 5px 12px;
+}
+#viewer table th > p {
+
+color : white;
+
 }
 
 #viewer  pre {

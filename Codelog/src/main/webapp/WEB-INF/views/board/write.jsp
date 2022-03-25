@@ -48,8 +48,11 @@
 
 .toastui-editor-md-html, .toastui-editor-md-link.toastui-editor-md-link-url.toastui-editor-md-marked-text,
 	.toastui-editor-md-meta {
-	font-size: 0 !important;
-	color: #999
+	position: absolute;
+	font-size: 1px !important;
+	overflow: hidden;
+	margin: -1px;
+   clip-path: polygon(0 0, 0 0, 0 0);
 }
 </style>
 
@@ -393,6 +396,13 @@
 
 			});
 			$("#show").click(function() {
+				var checkTitle = $('#title').val();
+				var checkTag = $('#tag').val();
+				var checkContent = $('#editor').val;
+			    if(checkTitle == '') {alert("제목을 입력해주세요!"); return false;}
+			    if(checkTag == '') {alert("태그를 입력해주세요!"); return false; }
+			    if(checkContent == '') {alert("내용을 입력해주세요!"); return false;}
+			  
 				let content = editor.getHTML();
 				$('#test2').val(content);
 				$("#check").show();
@@ -435,6 +445,7 @@
 			});
 
 		})
+		
 	</script>
 
 	<!-- 글 작성 페이지에만 적용되는 bootstrap js. 여기는 헤더가 없어요. 지우지 마세요. -->

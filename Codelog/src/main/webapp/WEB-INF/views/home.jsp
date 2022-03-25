@@ -14,7 +14,10 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
    <style>
-
+       .card-thumb{
+          overflow-y : hidden;
+          
+        }
        @import url("<c:url value='/css/home.css'/>");
    
    </style>
@@ -166,7 +169,14 @@
 					<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
 					<a href="${pageContext.request.contextPath}/boardController/board?boardId=${Poster.boardId}" class="stretched-link"></a>
 					<!--썸네일 이미지-->
-					<img src="<c:url value='/image/display/${Poster.thumbnail }'/>" class="card-img-top" alt="...">
+					<div class="card-thumb">
+					<c:choose>
+						<c:when test="${Poster.thumbnail != null}"><img src="<c:url value='/image/display/${Poster.thumbnail }'/>" class="card-img-top" alt="..."></c:when>
+						<c:when test="${Poster.thumbnail == null}"><img src="<c:url value='/img/codelog.png'/>" class="card-img-top" alt="..."></c:when>
+						<c:otherwise>팔로워</c:otherwise>
+					</c:choose>
+					
+					</div>
 					<!--제목 내용-->
 					<div class="card-body ">
 						<strong>${Poster.title }</strong>

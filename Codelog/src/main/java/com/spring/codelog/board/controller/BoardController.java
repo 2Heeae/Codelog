@@ -110,6 +110,7 @@ public class BoardController {
     @RequestMapping(value="/board", method=RequestMethod.GET)
     public ModelAndView home(@RequestParam int boardId, HttpSession session) {
         // 조회수 증가 처리
+    	if(session.getAttribute("loginSession") != null)
         service.increaseHit(boardId, session);
         
         // 모델(데이터)+뷰(화면)를 함께 전달하는 객체
