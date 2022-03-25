@@ -24,7 +24,7 @@
 <!-- 답글 쓰기 -->
 <insert id="rereplyWrite">
     insert into p_reply
-    values(reply_seq.NEXTVAL, #{bno}, #{grp}, #{grps}, 1, #{writer}, #{content}, now())
+    values(reply_seq.NEXTVAL, #{bno}, #{grp}, #{grps}, 1, #{writer}, #{content}, sysdate,#{userNo})
 </insert>
 
 <!-- p_board에 댓글수 증가 -->

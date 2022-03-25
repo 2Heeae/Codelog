@@ -33,11 +33,12 @@ public class ReplyService {
 	public void rereplyWrite(ReplyVO vo) {
 		// p_reply 테이블에 값 추가
 		int grps = mapper.getGrps(vo.getGrp());
+		System.out.println("grps의 값은? "+grps);
 		
-		mapper.rereplyWrite(vo.getNo(), vo.getGrp(), grps, vo.getGrpl(), vo.getWriter(), vo.getContent());
+		mapper.rereplyWrite(vo.getBno(), vo.getGrp(), grps, vo.getWriter(), vo.getContent(),vo.getUserNo());
 		
 		// proj_board 테이블에 해당 게시물의 reply수를 +1 하기위한 to세팅			
-		mapper.replyUp(vo.getNo());
+		mapper.replyUp(vo.getBno());
 	}
 	
 	// 댓글 리스트

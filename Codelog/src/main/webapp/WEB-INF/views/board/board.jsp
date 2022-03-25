@@ -178,8 +178,8 @@
 	
 	
 	
-<input id="nickname" value="${loginSession.nickname}"/>	
-	<input id="userNo" value="${loginSession.userNo}"/>
+<span id="nickname">${loginSession.nickname}</span>	
+	<span id="userNo">${loginSession.userNo}</span>	
 	
 
 <!-- 댓글  -->
@@ -194,10 +194,12 @@
 	
 	
 	
-	const loginWriter = $('#nickname').val
-	const loginUserNo = $('#userNo').val;
-	
-	consold.log(loginWriter);
+	var loginWriter = "${loginSession.nickname}";
+	var loginUserNo = "${loginSession.userNo}";
+
+	//var loginUserNo = $('#userNo').text();
+	console.log(loginWriter);
+	console.log(loginUserNo);
 	
 	// [댓글]
 	// 게시물의 댓글 목록을 불러오는 함수입니다.
@@ -212,6 +214,7 @@
 	        },
 	        success : function(data) {
 	        	 alert('성공');
+	        	 
 	        	 // 댓글 목록을 html로 담기
 	             let listHtml = "";
 	             for(const i in data){
@@ -468,8 +471,8 @@
 
 	   // let content = $("#input_rereply" + grp).val();
 	    	    
-	    let writer = $(loginWriter);
-	    let userNo = $(loginUserNo);
+	    let writer = loginWriter;
+	    let userNo = loginUserNo;
 	    let content = $("#input_rereply" + grp).val();
 
 
