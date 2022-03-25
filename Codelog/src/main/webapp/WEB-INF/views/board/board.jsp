@@ -42,18 +42,21 @@
 #viewer  code {
 	background-color: #f9f2f4;
 	border-radius: 2px;
-	color: #c1798b;
+	color: #c1798b;     
 	letter-spacing: -.3px;
 	padding: 2px 3px
 }
 
-#viewr ol>li:before {
+#viewer ol>li:before {
 	color: #aaa;
 	content: "." counter(li);
 	direction: rtl;
 	margin-left: -28px;
 	text-align: right;
 	width: 24px;
+}
+#viewer {
+ overflow-x : hidden;
 }
 
 
@@ -153,7 +156,8 @@
 	const viewer = toastui.Editor.factory({
 		  el: document.querySelector('#viewer'),
       viewer: true,
-      height: '500px',
+      height: '32rem',
+      width: '25rem'
      
 	});
 	
@@ -255,25 +259,8 @@
 
 
 				</div>
-				<!--우측 고정메뉴-->
-				<div class="col-md-2">
-					<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted">
-						<strong class="d-block h6 my-2 pb-2 border-bottom">On
-							this Page</strong>
-						<nav id="TableOfContents"
-							style="border-left: 1px solid rgb(182, 182, 182);">
-							<div class="content-menu">
-								<a href="#1" class="active">프롤로그</a><br> <a href="#2">MS:
-									내가 원래 개발언어와 IDE 개발의 원조지!</a><br> <a href="#3">Typescript의
-									고질적인 문제1: 속도!</a><br> <a href="#4">Typescript의 고질적인 문제2: 잘
-									동작하던건데 전부 에러가 뜨데요?</a><br> <a href="#5">🔥 그러니 그냥 하세요. 안해야
-									할 이유가 없습니다.</a><br>
-							</div>
-						</nav>
-					</div>
-				</div>
-
-				<div class="col-md-1"></div>
+				
+				
 			</div>
 		</div>
 
