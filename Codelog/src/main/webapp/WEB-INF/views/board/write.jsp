@@ -8,36 +8,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 글 작성 페이지에만 적용되는 CDN들. 지우지 마세요 -->
-<link rel="stylesheet" type="text/css"
-	href="path/to/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="path/to/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap"
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap"
 	rel="stylesheet">
 
-<link
-	href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap"
-	rel="stylesheet">
-<script src="https://kit.fontawesome.com/fec7fe9db7.js"
-	crossorigin="anonymous"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/fec7fe9db7.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <!-- 글 작성 페이지에만 적용되는 CDN들. 지우지 마세요 -->
 
 <style>
@@ -64,12 +50,11 @@
 </c:if>
 
 <body>
+	<form action="<c:url value='/boardController/write' />" class="write-bbs" enctype=multipart/form-data method="post">
 
-	<form action="<c:url value='/boardController/write' />"
-		class="write-bbs" enctype=multipart/form-data method="post">
 		<!-- 글등록 페이지에 따로 작성자를 기입하지는 않으므로 현재 로그인 세션에서 작성자 명을 뽑아옵니다. -->
-		<input type="hidden" id="test2" name="content"> <input
-			type="hidden" name="writer" value="${loginSession.nickname}">
+		<input type="hidden" id="test2" name="content"> 
+		<input type="hidden" name="writer" value="${loginSession.nickname}">
 		<!-- 로그인 세션에 있는 사용자의 닉네임 -->
 		<input type="hidden" name="userId" value="${loginSession.userId}">
 		<input type="hidden" name="userNo" value="${loginSession.userNo}">
@@ -110,7 +95,8 @@
 			 	});
 			
 			 </script>
-						<script>
+			 
+			<script>
 			  function submit(){
 				  let content = editor.getMarkdown();
 				  $('#test2').val(content);
@@ -138,17 +124,11 @@
 
 
 		<div id="check">
-
-
 			<div class="container-down">
-
 				<div class="row py-md-3" style="margin: 5% 15% 0% 15%">
-
 					<div class="col-md-6 px-md-4" style="margin: 0 auto; width:70%;">
 						<div class="card" style="width: 90%; border:0; background-color: transparent;">
-
 							<!--썸네일 부분-->
-
 							<p class="my-md-1" style="font-weight: bold; font-size: 1.7rem; text-align: center">포스터 미리보기</p>
 							<div class="thumbnailBox" id="thumbnailBox" style="height: 19rem; width:100%; position: relative; background-color: rgba(128, 128, 128, 0.185); text-align: center;">
 								<img src="<c:url value='/img/cat.jpg'/>" class="btn" type="button" id="img-preview" onclick="document.all.thumbnailUpload.click();"
@@ -245,8 +225,7 @@
 
 							<!--제목은 글작성 페이지에서 가져오기-->
 
-							<div class="card-body my-md-2 p-0 "
-								style=" margin-bottom: 1rem">
+							<div class="card-body my-md-2 p-0 " style=" margin-bottom: 1rem">
 
 								<!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
 								<div class="form-floating" style="margin-top: 1rem; text-align:center;" >
@@ -313,18 +292,7 @@
 
               }
            });
-    	  $('#tag').keypress(function(e){
-    		 
-    		  //엔터나 스페이스 누를때 실행
-    		  if(e.key === "Enter" || e.keyCode ==32){
-    			  
-    			  var tagValue = $(this).val();
-    			  
-    			  if(tagValue !== ""){
-    				  
-    			  }
-    		  }
-    	  });
+    	 
     	  
     	  
          $(".hide").click(function () {
@@ -343,7 +311,22 @@
             $("#articles").hide();
             $("#check").toggleClass('fadeIn');
             $("#articles").toggleClass();
-
+			const tags = $('#tag').val();
+			console.log(tags);
+            	$.ajax({
+            		url: "<c:url value='/tag/regist'/>",
+            		type: "post",
+            		data: JSON.stringify(tags),
+            		dataType: 'text',
+            		contentType : 'application/json',
+            		success: function(result){
+            			console.log('태그 전달 성공'+ result);
+            		},
+            		error: function(){
+            			console.log('태그 전달 실패');
+            		}
+            	});
+            
 
 
          });
