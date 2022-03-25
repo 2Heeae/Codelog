@@ -26,7 +26,6 @@
 	color: #fff;
 	font-wieght: 300;
 	padding-top: 6px;
-	
 }
 
 #viewer  table td, #viewer>table th {
@@ -34,10 +33,9 @@
 	height: 32px;
 	padding: 5px 14px 5px 12px;
 }
-#viewer table th > p {
 
-color : white;
-
+#viewer table th>p {
+	color: white;
 }
 
 #viewer  pre {
@@ -49,7 +47,7 @@ color : white;
 #viewer  code {
 	background-color: #f9f2f4;
 	border-radius: 2px;
-	color: #c1798b;     
+	color: #c1798b;
 	letter-spacing: -.3px;
 	padding: 2px 3px
 }
@@ -62,11 +60,30 @@ color : white;
 	text-align: right;
 	width: 24px;
 }
+
 #viewer {
- overflow-x : hidden;
+	overflow-x: hidden;
 }
 
+/* #viewer ul>li {
+	background-color: #ccc;
+	border-radius: 50%;
+	content: "";
+	height: 5px;
+	margin-left: -17px;
+	margin-top: 6px;
+	width: 5px;
+}
 
+#viewer ol>li {
+	color: #aaa;
+	content: "." counter(li);
+	direction: rtl;
+	margin-left: -28px;
+	text-align: right;
+	width: 24px;
+}
+*/
 </style>
 <script
 	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
@@ -125,22 +142,26 @@ color : white;
 				</div>
 
 
-			<!--글 상세보기 내용-->
-			<div class="col-md-7">
-				<div class="container detail-main">
-					<div class="title">${dto.title}</div>
-					<div class="info">
-						<a class="writer" href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">${dto.writer}</a>					
-						<div class="slash"> | </div>
-						<div class="date"> <fmt:formatDate value="${dto.regDate}" pattern="yy/MM/dd"/></div>
-						<div class="slash"> | </div>						
-						<span>view: ${dto.hit} </span>
-					</div>
-					
-					<br>
-					<div class="hashtag">
-						<a style="color:rgb(120, 147, 149);" href="${pageContext.request.contextPath}//search?keyword=${dto.tags}">#${dto.tags}</a>
-					</div>
+				<!--글 상세보기 내용-->
+				<div class="col-md-7">
+					<div class="container detail-main">
+						<div class="title">${dto.title}</div>
+						<div class="info">
+							<a class="writer"
+								href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">${dto.writer}</a>
+							<div class="slash">|</div>
+							<div class="date">
+								<fmt:formatDate value="${dto.regDate}" pattern="yy/MM/dd" />
+							</div>
+							<div class="slash">|</div>
+							<span>view: ${dto.hit} </span>
+						</div>
+
+						<br>
+						<div class="hashtag">
+							<a style="color: rgb(120, 147, 149);"
+								href="${pageContext.request.contextPath}//search?keyword=${dto.tags}">#${dto.tags}</a>
+						</div>
 
 						<!-- 로그인시 수정,삭제 버튼 활성화 -->
 
