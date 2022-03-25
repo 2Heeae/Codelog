@@ -197,14 +197,17 @@
    
    <script>
 	// 전역변수 설정
-	var socket  = null;
+	var socket = null;
 	$(document).ready(function(){
-	    // 웹소켓 연결
-	    sock = new SockJS('<c:url value="/websocket"/>');
-	    socket = sock;
-		console.log('소켓연결!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-	    // 데이터를 전달 받았을때 
-	    sock.onmessage = onMessage; // toast 생성
+	    	// 웹소켓 연결
+		    sock = new SockJS('<c:url value="/websocket"/>');
+		   	socket = sock;
+			console.log('소켓연결!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+			console.log(socket.valueOf());
+			sessionStorage.setItem('socket', JSON.stringify(sock));
+		    // 데이터를 전달 받았을때 
+	    
+		    socket.onmessage = onMessage; // toast 생성
 	    
 	});
 
