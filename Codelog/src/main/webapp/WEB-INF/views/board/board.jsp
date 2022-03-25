@@ -534,6 +534,69 @@
 	};
 	
 	
+	
+	const ModifyReply = function(no) {
+		 console.log('ModifyReply함수 진입');
+	    console.log(no);
+
+	   // console.log($("#input_rereply" + no).val());
+
+	   // let content = $("#input_rereply" + grp).val();
+	    	    
+	    let writer = loginWriter;
+	    let userNo = loginUserNo;
+	    let content = $("#input_rereply" + grp).val();
+
+
+	    
+	    let grps = $(".write_rereply").attr('grps');
+	    
+	    
+		console.log(content);
+		console.log(userNo);
+		console.log(writer);
+
+	   // content = content.trim();
+
+	        const info = {
+               "bno" : bno,
+               "grp" :grp,
+               "content": content,
+               "writer" : writer,
+               "userNo" :userNo
+           };
+		console.log("대댓글 여기까지 실행")
+	    if(content == ""){	// 입력된게 없을때
+	        alert("글을 입력하세요!");
+	    }else{	
+	        // 입력란 비우기
+	        $("#input_rereply" + grp).val("");
+
+	        // reply+1 하고 그 값을 가져옴
+	        $.ajax({
+	        	url : '/codelog/reply/rereplyWrite',
+	            type : 'post',
+	            contentType : 'application/json',
+				dataType : 'text',
+	            data : JSON.stringify(info),
+	            success : function(pto) {
+
+	              
+	                console.log("대댓글 작성 성공");
+	             	console.log(pto);
+	               	$('#recnt').text(pto+"개의 댓글");
+	                // 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
+	                ReplyList(bno);
+	            },
+	            error : function() {
+	                alert('서버 에러');
+	            }
+	        });
+
+	    };
+	};
+	
+	
 	// 모댓글 삭제일때
 	const DeleteReply = function(no, bno){
 	    // grp이 no인 댓글이 있는 경우 content에 null을 넣고 없으면 삭제한다.
