@@ -252,9 +252,9 @@
 	                        listHtml += "			<span>";
 	                        listHtml += "				<b>"+ writer +"</b>";
 	                        listHtml += "			</span>";
-	                        listHtml += "			<span>";
+	                        listHtml += "			<textarea class='reply_content"+ no +"' readonly>";
 	                        listHtml += 				content;
-	                        listHtml += "			</span>";
+	                        listHtml += "			</textarea>";
 	                        listHtml += "		</div>";
 	                        // 현재 로그인 상태일때 답글작성 버튼이 나온다.
 	                        if("${loginSession.nickname}" != ""){
@@ -278,9 +278,9 @@
 	                        listHtml += "			<span>";
 	                        listHtml += "				<b>"+ writer +"</b>";
 	                        listHtml += "			</span>";
-	                        listHtml += "			<span>";
+	                        listHtml += "			<textarea class='reply_content"+ no +"' readonly>";
 	                        listHtml += 				content;
-	                        listHtml += "			</span>";
+	                        listHtml += "			</textarea>";
 	                        listHtml += "		</div>";
 
 	                        listHtml += "	</div>";
@@ -303,6 +303,7 @@
 	                            //listHtml += "			&nbsp;|&nbsp;";
 	                            // 삭제는 no만 넘겨주면 된다.
 	                            listHtml += "			<a href='javascript:' no='"+ no +"' grpl='"+ grpl + "' bno='"+ bno +"' grp='"+ grp +"' class='reply_modify'>수정</a>";
+
 
 	                            listHtml += "			<a href='javascript:' no='"+ no +"' grpl='"+ grpl + "' bno='"+ bno +"' grp='"+ grp +"' class='reply_delete'>삭제</a>";
 	                            listHtml += "		</div>";
@@ -340,6 +341,10 @@
 	                    listHtml += "		</div>";
 	                    listHtml += "	</div>";
 	                    // ---- 답글입력란 끝
+	                    
+	                    
+	                       
+	                    
 	             
 	             listHtml += "</div>";
 	        
@@ -379,7 +384,19 @@
 	                     DeleteReReply($(this).attr('no'), $(this).attr('bno'));
 	                 
 
-	             })
+	             });
+	             
+	             $('.reply_modify').on( 'click', function() {
+	         		console.log("수정 클릭")
+	         	    console.log( 'no', $(this).attr('no') );
+	         		
+	         		
+	         		ModifyReply($(this).attr('no') );
+		
+	         	    // 답글을 DB에 저장하는 함수를 호출한다. bno와 no를 같이 넘겨주어야한다.
+	         	    
+	         	});
+	         	
 
 	            
 	         },
@@ -414,6 +431,8 @@
 	    // 답글을 DB에 저장하는 함수를 호출한다. bno와 no를 같이 넘겨주어야한다.
 	    WriteReply($(this).attr('bno'));
 	});
+	
+	
 	
 	
 	
@@ -536,13 +555,23 @@
 	
 	
 	const ModifyReply = function(no) {
-		 console.log('ModifyReply함수 진입');
+		 console.log('ModifyReply 함수 진입');
 	    console.log(no);
 
-	   // console.log($("#input_rereply" + no).val());
+	   $(".reply_content" + no).attr("readonly",false);
+	   $(".reply_content" + no).focus();
+	   
+	   console.log("사라졌니?");
+	   
+	
+
+
+       
+       
+       
 
 	   // let content = $("#input_rereply" + grp).val();
-	    	    
+	    	/*    
 	    let writer = loginWriter;
 	    let userNo = loginUserNo;
 	    let content = $("#input_rereply" + grp).val();
@@ -594,6 +623,7 @@
 	        });
 
 	    };
+	    */
 	};
 	
 	
