@@ -247,7 +247,7 @@
 	                        listHtml += "			<img class='reply_list_profileImage' style='border-radius: 70%; overflow: hidden;' width='40rem' src='../img/kmj2.jpg'/>";
 	                        listHtml += "		</a> ";
 	                        listHtml += "	</div>";
-	                        listHtml += "	<div class='rereply-content col-8'>";
+	                        listHtml += "	<div class='reply-content"+ no +" col-8'>";
 	                        listHtml += "		<div>";
 	                        listHtml += "			<span>";
 	                        listHtml += "				<b>"+ writer +"</b>";
