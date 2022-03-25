@@ -56,23 +56,7 @@
 	width: 24px;
 }
 
-::marker {
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: 18px 18px;
-   
-    border-radius: 2px;
-    content: "";
-    cursor: pointer;
-    height: 18px;
-    left: 0;
-    margin-left: 0;
-    margin-top: 0;
-    position: absolute;
-    top: 1px;
-    width: 18px;
- 
-}
+
 </style>
 <script
 	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
