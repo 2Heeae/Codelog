@@ -2,6 +2,7 @@ package com.spring.codelog.board.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,44 +28,46 @@ public class ReplyController {
 	// 모댓글 작성
 	
 	@RequestMapping(value = "/replyWrite", method = RequestMethod.POST)
-	public void replyWrite(@RequestBody ReplyVO vo, HttpSession session) {
+	public int replyWrite(@RequestBody ReplyVO vo, HttpSession session) {
 		System.out.println("댓글 진입은했다!");
 		System.out.println("들어온 댓글 내용은? "+vo);
 		
-		service.replyWrite(vo);
+		
+		return service.replyWrite(vo);
 	}
 
 	// 답글 작성
 	
 	@RequestMapping(value = "/rereplyWrite")
-	public void rereplyWrite(@RequestBody ReplyVO vo, HttpSession session) {
+	public int rereplyWrite(@RequestBody ReplyVO vo, HttpSession session) {
 		System.out.println("대댓글 진입은했다!");
 		System.out.println("들어온 댓글 내용은? "+vo);
 		
-		service.rereplyWrite(vo);   
+		return service.rereplyWrite(vo);   
 	}
 
 	// 댓글 리스트
 	
 	@RequestMapping(value = "/replyList", method = RequestMethod.GET)
-	public List<ReplyVO> replyList(int boardId, HttpSession session) {
+	public List<ReplyVO> replyList(int bno, HttpSession session) {
 		System.out.println("/reply/replyList");
-		System.out.println("댓글 리스트"+ service.replyList(boardId));
-	    return service.replyList(boardId);
+		System.out.println("댓글 리스트"+ service.replyList(bno));
+	    return service.replyList(bno);
 	}
 
 	// 모댓글 삭제
 	
-	@RequestMapping(value = "/deleteReply")
-	public void deleteReply(int no) {
-	    service.DeleteReply(no);
+	@RequestMapping(value = "/deleteReply", method = RequestMethod.POST)
+	public int deleteReply(@RequestBody int no, @RequestBody int bno) {
+		System.out.println("deleteReply 진입");
+	    return service.DeleteReply(no, bno);
 	}
 
 	// 답글 삭제
 	
-	@RequestMapping(value = "/deleteReReply")
-	public void deleteReReply(int no) {
-		   service.DeleteReReply(no);
+	@RequestMapping(value = "/deleteReReply", method = RequestMethod.POST)
+	public int deleteReReply(@RequestBody Map<String, Integer> info) {
+		 return  service.DeleteReReply(info.get("no"), info.get("bno"));
 	}
 
 }

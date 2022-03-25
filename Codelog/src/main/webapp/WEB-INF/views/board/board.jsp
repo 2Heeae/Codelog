@@ -96,12 +96,40 @@
                 
                 
                 
-             <button onclick='ReplyList("${dto.boardId}")' type="button" class="btn btn-success c rounded-circle p-0 position-relative"
-					style="background-color:transparent; border-color: transparent;" >
-					<span class="m-0" style="font-size: 1.1rem;">댓글&nbsp;보기</span></button>
+            
 					
 
 
+
+<h3 id=recnt>${dto.recnt }개의 댓글</h3>
+
+  <c:if test="${not empty loginSession.nickname}">
+                <div class="row reply_write">
+                    <div class="col-2">
+                        <a href="#">
+                            <img id="write_reply_profileImage" style=" border-radius: 70%;
+    overflow: hidden;" width="40rem" src="<c:url value='../img/pome3.jpg'/>"/>
+                        </a>
+                    </div>
+                    <div class="col-10" class="input_reply_div">
+                        <input class="w-100 form-control" id="input_reply${dto.boardId}"
+                            type="text" placeholder="댓글입력...">
+                    </div>
+                    </div>
+                    <div class="row reply_write">
+                    
+                    <div class="offset-9 col-3 ">
+                        <button type="button" userNo="${loginSession.userNo}" writer="${loginSession.nickname}" bno="${dto.boardId}" style="background-color: #B4CFB0; " idx="${dto.boardId}"
+                            class="btn btn-success mb-1 write_reply">댓글&nbsp;달기</button>
+                    </div>
+                    </div>
+               
+            </c:if> 
+            
+            
+             <button onclick='ReplyList("${dto.boardId}")' type="button" class="btn btn-success c p-0 position-relative"
+					style="margin-top:3rem; background-color:#B4CFB0; border-color: #B4CFB0;" >
+					<span class="m-0" style="font-size: 1.1rem;">댓글&nbsp;보기</span></button>
 
 <div class="" id="replyBox" style="display: none;">
     <section class="modal-section">
@@ -113,29 +141,12 @@
                 댓글목록
             </div>
             <!-- 댓글 작성 => 로그인한 상태여야만 댓글작성 칸이 나온다. -->
-            <c:if test="${not empty loginSession.nickname}">
-                <div class="row reply_write">
-                    <div class="col-1">
-                        <a href="#">
-                            <img id="write_reply_profileImage" style=" border-radius: 70%;
-    overflow: hidden;" width="40rem" src="<c:url value='../img/pome3.jpg'/>"/>
-                        </a>
-                    </div>
-                    <div class="col-8" class="input_reply_div">
-                        <input class="w-100 form-control" id="input_reply${dto.boardId}"
-                            type="text" placeholder="댓글입력...">
-                    </div>
-                    <div class="col-3 ">
-                        <button type="button" userNo="${loginSession.userNo}" writer="${loginSession.nickname}" bno="243" style="background-color: #B4CFB0; " idx="${dto.boardId}"
-                            class="btn btn-success mb-1 write_reply">댓글&nbsp;달기</button>
-                    </div>
-                </div>
-            </c:if>
+            
         </div>
     </section>
 </div>
                
-                
+             
                 
                 
       
@@ -210,7 +221,7 @@
 	        contentType : 'application/json',
 			dataType : 'json',
 	        data : {
-	        	"boardId" : bno
+	        	"bno" : bno
 	        },
 	        success : function(data) {
 	        	 alert('성공');
@@ -361,13 +372,10 @@
 	             // 삭제버튼을 클릭했을 때
 	             $('.reply_delete').on('click', function(){
 	                 // 모댓글 삭제일때
-	                 if($(this).attr('grpl') == 0){	
-	                     DeleteReply($(this).attr('no'), $(this).attr('bno'));
+	                 		    	console.log($(this).attr('no'), $(this).attr('bno'));
 
-	                 // 답글 삭제일때
-	                 }else{
-	                     DeleteReReply($(this).attr('no'), $(this).attr('bno'), $(this).attr('grp'));
-	                 }
+	                     DeleteReReply($(this).attr('no'), $(this).attr('bno'));
+	                 
 
 	             })
 
@@ -391,13 +399,9 @@
 	// 삭제버튼을 클릭했을 때
 	$('.reply_delete').on('click', function(){
 	    // 모댓글 삭제일때
-	    if($(this).attr('grpl') == 0){	
-	        DeleteReply($(this).attr('no'), $(this).attr('bno'));
-
-	    // 답글 삭제일때
-	    }else{
-	        DeleteReReply($(this).attr('no'), $(this).attr('bno'), $(this).attr('grp'));
-	    }
+	    	console.log($(this).attr('no'), $(this).attr('bno'));
+	        DeleteReReply($(this).attr('no'), $(this).attr('bno'));
+	    
 
 	});
 	
@@ -449,6 +453,9 @@
 
 	              
 	                console.log("댓글 작성 성공");
+	               	console.log(pto);
+	               	$('#recnt').text(pto+"개의 댓글");
+
 
 	                // 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
 	                ReplyList(bno);
@@ -509,9 +516,10 @@
 	            data : JSON.stringify(info),
 	            success : function(pto) {
 
-	               
+	              
 	                console.log("대댓글 작성 성공");
-
+	             	console.log(pto);
+	               	$('#recnt').text(pto+"개의 댓글");
 	                // 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
 	                ReplyList(bno);
 	            },
@@ -522,26 +530,29 @@
 
 	    };
 	};
-
+	
+	
 	// 모댓글 삭제일때
 	const DeleteReply = function(no, bno){
 	    // grp이 no인 댓글이 있는 경우 content에 null을 넣고 없으면 삭제한다.
+	    console.log("no는 "+no+"bno는 "+bno);
+	     const info = {
+                "bno" : bno,
+                "no": no
+            };
+	    
 	    $.ajax({
 	        url : '/codelog/reply/deleteReply',
-	        type : 'get',
-	        data : {
-	            no : no,
-	            bno : bno
-	        },
+	        type : 'post',
+            contentType : 'application/json',
+			dataType : 'text',
+            data : JSON.stringify(info),
 	        success : function(pto) {
 
-	            let reply = pto.reply;
-
-	            // 페이지, 모달창에 댓글수 갱신
-	            $('#m_reply'+bno).text(reply);
-	            $('#reply'+bno).text(reply);
-
+	          
 	            console.log("모댓글 삭제 성공");
+	            console.log(pto);
+               	$('#recnt').text(pto+"개의 댓글");
 
 	            // 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
 	            ReplyList(bno);
@@ -553,28 +564,29 @@
 	};
 
 	// 답글 삭제일때
-	const DeleteReReply = function(no, bno, grp){
+	const DeleteReReply = function(no, bno){
+	    console.log("no는 "+no+"bno는 "+bno);
 
 	    //console.log("grp : " + grp);
 
+	     const info = {
+                "bno" : bno,
+                "no": no
+            };
+	     
 	    // 답글을 삭제한다.
 	    $.ajax({
 	        url : '/codelog/reply/deleteReReply',
-	        type : 'get',
-	        data : {
-	            no : no,
-	            bno : bno,
-	            grp : grp
-	        },
+	        type : 'post',
+            contentType : 'application/json',
+			dataType : 'text',
+            data : JSON.stringify(info),
 	        success : function(pto) {
 
-	            let reply = pto.reply;
-
-	            // 페이지, 모달창에 댓글수 갱신
-	            $('#m_reply'+bno).text(reply);
-	            $('#reply'+bno).text(reply);
-
-	            console.log("답글 삭제 성공");
+	           
+	            console.log("대댓글 삭제 성공");
+	            console.log(pto);
+               	$('#recnt').text(pto+"개의 댓글");
 
 	            // 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
 	            ReplyList(bno);
@@ -658,6 +670,8 @@
             });
         });
 	  });
+	
+
 </script>
 
 	

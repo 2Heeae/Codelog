@@ -16,6 +16,7 @@ public interface IReplyMapper {
 	public void replyNotDelete(@Param("no") int no);
 	public void replyDown(@Param("bno") int bno);
 	public int getGrps(@Param("grp") int grp);
-	
+	public int getRecnt(@Param("bno") int bno);
+
    
 }

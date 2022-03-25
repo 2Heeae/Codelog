@@ -40,7 +40,7 @@
     from p_reply r join proj_user u
     on r.user_no = u.user_no
     where r.bno = #{bno}
-    order by grp ASC, grpl ASC, grps DESC
+    order by grp ASC, grpl ASC, grps ASC
 </select>
 
 
@@ -50,11 +50,17 @@
 
 </select>
 
+<!-- recnt 가져오기 -->
+<select id="getRecnt" resultType="int">
+        SELECT recnt FROM proj_board WHERE board_id = #{bno}
+
+</select>
+
 
 
 <!-- 모댓글 삭제 - 답글 있음 -->
 <update id="replyNotDelete">
-    update p_reply set content="삭제된 댓글입니다."
+    update p_reply set content='삭제된 댓글입니다.'
     where no=#{no}
 </update>
 
