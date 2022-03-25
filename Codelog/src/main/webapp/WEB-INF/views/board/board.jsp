@@ -86,8 +86,6 @@
 					</section>
 					
 				
-	<input id="nickname" value="${loginSession.nickname}"/>	
-	<input id="userNo" value="${loginSession.userNo}"/>
 	
 					
 					
@@ -180,7 +178,9 @@
 	
 	
 	
-
+<input id="nickname" value="${loginSession.nickname}"/>	
+	<input id="userNo" value="${loginSession.userNo}"/>
+	
 
 <!-- 댓글  -->
 
@@ -192,8 +192,12 @@
 	<script>
 	
 	
-	const loginWriter = $('#nickname').val();
-	const loginUserNo = $('#userNo').val();
+	
+	
+	const loginWriter = $('#nickname').val
+	const loginUserNo = $('#userNo').val;
+	
+	consold.log(loginWriter);
 	
 	// [댓글]
 	// 게시물의 댓글 목록을 불러오는 함수입니다.
@@ -469,6 +473,7 @@
 	    let content = $("#input_rereply" + grp).val();
 
 
+	    
 	    let grps = $(".write_rereply").attr('grps');
 	    
 	    
