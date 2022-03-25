@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -89,7 +90,6 @@ public class UserController {
 	@GetMapping("/mypage")
 	public ModelAndView mypage(HttpSession session, Model model) {
 		System.out.println("/user/mypage: GET");
-
 
 		String id = ((UserVO) session.getAttribute("loginSession")).getUserId();
 		UserVO userInfo = uservice.getInfo(id);
