@@ -84,8 +84,9 @@
 				</div>
 			</div>
 			<!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
-			<div id="editor" style=""></div>
-				
+			<div id="editor" >
+			<input type="hidden" id="content" name="textContent">
+			</div>	
 
 
 			<script>
@@ -339,8 +340,10 @@
          console.log('check여부' + checked);
 
          $(".form-switch").click(function () {
-
-
+        	 
+        	 var content =editor.getHTML();
+        	 $('#content').val(content);
+        	 console.log(content);
 
             var checked = $('.form-check-input').is(':checked');
             var checkVal;

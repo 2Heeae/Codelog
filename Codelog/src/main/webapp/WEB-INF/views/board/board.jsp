@@ -212,9 +212,15 @@ var view1 = $('#view').val()
 			<div class="col-md-2">
 				<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted">
 					<strong class="d-block h6 my-2 pb-2 border-bottom">On this Page</strong>
+<<<<<<< Updated upstream
 					<nav id="TableOfContents" style="border-left: 1px solid rgb(182, 182, 182);">
 						<div  class="content-menu">
 													
+=======
+					<nav id="viewer" style="border-left: 1px solid rgb(182, 182, 182);">
+						<div  class="content-menu">
+							${dto.content}						
+>>>>>>> Stashed changes
 						</div>
 					</nav>
 				</div>
