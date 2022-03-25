@@ -1,6 +1,7 @@
 package com.spring.codelog.board.controller;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.UUID;
 
@@ -83,7 +84,12 @@ public class BoardController {
    
 	@RequestMapping(value = "/write", method = {RequestMethod.POST})
 	public String write(BoardVO vo, RedirectAttributes ra, HttpServletRequest hsr, MultipartFile file) {
-	
+       try {
+		hsr.setCharacterEncoding("UTF-8");
+	} catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 		System.out.println("글 작성 요청");
 		service.write(vo);
 		ra.addFlashAttribute("msg", "글 작성 완료");
