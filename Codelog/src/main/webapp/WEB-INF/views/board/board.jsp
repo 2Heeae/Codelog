@@ -302,6 +302,8 @@
 	                            //listHtml += "			<a href='javascript:' no='"+ no +"' grpl='"+ grpl +"' class='reply_modify'>수정</a>";
 	                            //listHtml += "			&nbsp;|&nbsp;";
 	                            // 삭제는 no만 넘겨주면 된다.
+	                            listHtml += "			<a href='javascript:' no='"+ no +"' grpl='"+ grpl + "' bno='"+ bno +"' grp='"+ grp +"' class='reply_modify'>수정</a>";
+
 	                            listHtml += "			<a href='javascript:' no='"+ no +"' grpl='"+ grpl + "' bno='"+ bno +"' grp='"+ grp +"' class='reply_delete'>삭제</a>";
 	                            listHtml += "		</div>";
 	                        }
