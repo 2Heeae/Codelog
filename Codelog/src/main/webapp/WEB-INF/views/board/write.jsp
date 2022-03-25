@@ -69,7 +69,7 @@
 
 		<!-- 로그인 세션에 있는 사용자의 id -->
 		<div id="articles">
-			<textarea placeholder="제목을 입력하세요" id="title" name="title""></textarea>
+			<textarea placeholder="제목을 입력하세요" id="title" name="title"></textarea>
 
 			<br>
 			<!--태그-->
@@ -77,7 +77,6 @@
 				<div class="form-group">
 					<input type="hidden" value="" name="tag" id="rdTag" />
 				</div>
-				
 				<ul id="tag-list"></ul>
 				<div class="form-group">
 					<input type="text" id="tag" size="7" class="tag" name="tags" placeholder="엔터로 태그를 입력하세요" style="width: 500px;">
@@ -137,7 +136,7 @@
 				<div class="row py-md-3" style="margin: 5% 15% 0% 15%">
 
 					<div class="col-md-6 px-md-4" style="margin: 0 auto; width:70%;">
-						<div class="card" style="width: 90%; height: 60rem; border: 0; background-color: transparent;">
+						<div class="card" style="width: 90%; border:0; background-color: transparent;">
 
 							<!--썸네일 부분-->
 
@@ -145,10 +144,11 @@
 							<div class="thumbnailBox" id="thumbnailBox" style="height: 19rem; width:100%; position: relative; background-color: rgba(128, 128, 128, 0.185); text-align: center;">
 								<img src="<c:url value='/img/cat.jpg'/>" class="btn" type="button" id="img-preview" onclick="document.all.thumbnailUpload.click();"
 									style="width: 100%; height: 100%; position: relative"> 
-									<span style="color: rgb(77, 238, 98);">이미지를 클릭하여 썸네일을 변경하세요</span>
+									<span style="color: black; margin: 5px;">이미지를 클릭하여 썸네일을 변경하세요</span>
 									<input type="file" id="thumbnailUpload" name="thumbnailUpload" accept="image/*" onchange="readURL(this)"> 
 									<input type="hidden" id="thumbnail" name="thumbnail">
 							</div>
+						</div>
 				
 				
 <script>
@@ -230,7 +230,6 @@
      } ////프로필 이미지 업로드 시 미리보기 끝
     });
      </script>
-							</div>
 
 							<!--제목은 글작성 페이지에서 가져오기-->
 
@@ -239,7 +238,7 @@
 
 								<!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
 								<div class="form-floating" style="margin-top: 1rem; text-align:center;" >
-									<textarea placeholder="Leave a comment here" id="floatingTextarea" name="preview" style="width: 100%; height: 10rem; resize: none;"></textarea>
+									<textarea placeholder="Leave a comment here" id="floatingTextarea" name="preview" style="width: 80%; height: 10rem; resize: none;"></textarea>
 									<span style="float: right">/100</span>
 									<span id="textL" style="float: right">0</span>
 								</div>
@@ -292,16 +291,18 @@
     	  var tag ={};
     	  var counter = 0;
     	  
-    	  //입력한 값을 태그로 생성
-			function addTag(value){
-    		  tag[counter] = value;
-    		  counter++; 
-    	  }    	  
-    	  //태그 값을 array로 만들기
-    	  function marginTag() {
-    		  
-    	  }
     	  
+    	  //글자수 많을시 처리 
+    	  $('#tag').keyup(function () {
+              var contentL = $(this).val().length;
+              console.log(contentL);
+              $('#textL').text(contentL);
+              if (contentL > 30) {
+                 $(this).val($(this).val().substring(0, 30));
+                 alert("태그가 너무 많아요!");
+
+              }
+           });
     	  $('#tag').keypress(function(e){
     		 
     		  //엔터나 스페이스 누를때 실행
@@ -371,10 +372,6 @@
                alert("최대 100글자까지 가능합니다.");
 
             }
-            $('#textSlash').click(function () {
-               var content = $('.content').val();
-               $('.content').val(content + "~텍스트~");
-            })
          });
          
      

@@ -8,8 +8,8 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <!-- jQuery -->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
+   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+   
 <!-- bootstrap css -->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -108,7 +108,7 @@
                                  alt=".">
                            </div>
                            <div class="col-md-9" style=" text-align: left;">
-                              <span class="card-text"><strong>김철수1234</strong>님이 팔로우하였습니다.</span>
+                              <span id="msgStack" class="card-text"></span>
 
                               <p class="pt-1" style="font-size: 0.8rem; margin: auto 0;">19시간 전.</p>
                            </div>
@@ -192,8 +192,33 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
    </script>
+   <!-- sockJS -->
+   <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
    
    <script>
+	// 전역변수 설정
+	var socket  = null;
+	$(document).ready(function(){
+	    // 웹소켓 연결
+	    sock = new SockJS('<c:url value="/websocket"/>');
+	    socket = sock;
+	
+	    // 데이터를 전달 받았을때 
+	    sock.onmessage = onMessage; // toast 생성
+	    //...
+	});
+
+	// toast생성 및 추가
+	function onMessage(evt){
+	    var data = evt.data;
+	    // toast
+	    let toast = data;
+	    $("#msgStack").append(toast);   // msgStack toast 추가
+	    $(".toast").toast({"animation": true, "autohide": false});
+	    $('.toast').toast('show');
+	};	
+   
+   
       //자바스크립트 시작
       //다크모드 토글 이벤트 처리
       const theme_btn = document.querySelector('#theme-btn');
@@ -213,9 +238,7 @@
          localStorage.setItem('theme', theme);
       }); //다크모드 토글 이벤트 처리 끝
       //자바스크립트 끝
-   </script>
-
-   <script>
+      
       //start jQuery
          /*메뉴바들 링크 기능(임시)*/
          $(document).ready(function() {
@@ -281,7 +304,8 @@
             	location.href= "<c:url value='/user/userpage/${dto.userId}'/>";
             });	
             
-         }); //end jQuery
+     }); //end jQuery     
+         
          
    </script>
 
