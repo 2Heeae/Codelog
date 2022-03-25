@@ -1,6 +1,5 @@
 package com.spring.codelog.board.model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;

@@ -7,6 +7,13 @@
 <title>Insert title here</title>
 <style type="text/css">
 
+.footer{ 
+  left:0px; 
+  bottom:0px; 
+  width:100%; 
+  }
+	
+
 </style>
 </head>
 <body>
