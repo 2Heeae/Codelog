@@ -184,6 +184,7 @@ public class UserController {
 			String userId = ((UserVO)session.getAttribute("loginSession")).getUserId();
 
 			//저장할 폴더 경로
+			System.out.println("=============유저컨트롤러 프로필이미지=======================");
 			String uploadPath = "C:\\test\\upload";
 
 			String fileRealName = file.getOriginalFilename();
