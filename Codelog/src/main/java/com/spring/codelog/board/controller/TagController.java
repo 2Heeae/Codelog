@@ -20,8 +20,13 @@ import oracle.jdbc.proxy.annotation.Post;
 @RequestMapping("/tag")
 public class TagController {
 	
-	@Autowired
-	ITagService service;
+
+
+	/*
+	 * @Autowired ITagService service;
+	 */
+
+
 	
 	@ResponseBody
 	@PostMapping("/regist")

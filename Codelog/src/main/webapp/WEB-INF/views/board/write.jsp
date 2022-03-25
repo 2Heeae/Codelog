@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -8,11 +8,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 글 작성 페이지에만 적용되는 CDN들. 지우지 마세요 -->
+
 <link rel="stylesheet" type="text/css" href="path/to/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap"
 	rel="stylesheet">
 
@@ -32,9 +35,9 @@
 
 @import url("<c:url value='/css/test.css'/>");
 .toastui-editor-md-html, .toastui-editor-md-link.toastui-editor-md-link-url.toastui-editor-md-marked-text,
-	.toastui-editor-md-meta {
-	font-size:0 !important;
-	color: #999
+   .toastui-editor-md-meta {
+   font-size:0 !important;
+   color: #999
 }
 
 </style>
@@ -42,7 +45,7 @@
 <title>Document</title>
 </head>
 <c:if test="${loginSession == null }">
-	<script>
+   <script>
     alert("로그인 후 이용이 가능합니다.");
     history.back();
    </script>
@@ -50,6 +53,7 @@
 </c:if>
 
 <body>
+
 	<form action="<c:url value='/boardController/write' />" class="write-bbs" enctype=multipart/form-data method="post">
 
 		<!-- 글등록 페이지에 따로 작성자를 기입하지는 않으므로 현재 로그인 세션에서 작성자 명을 뽑아옵니다. -->
@@ -123,6 +127,7 @@
     -->
 
 
+
 		<div id="check">
 			<div class="container-down">
 				<div class="row py-md-3" style="margin: 5% 15% 0% 15%">
@@ -145,17 +150,17 @@
     // start jQuery
     $(document).ready(function () {
        
-    	
+       
       //썸네일 이미지 업로드 버튼 클릭 이벤트
       $('#thumbnailUpload').change(function() {
-    	 
-    	  upload();
+        
+         upload();
          
      });
        
       //이미지 업로드를 담당하는 함수
       function upload() {
-    	  console.log("d");
+         console.log("d");
          //자바스크립트의 파일 확장자 체크 검색
          let file = $('#thumbnailUpload').val();
          
@@ -205,9 +210,9 @@
      } //프로필 이미지 업로드 버튼 클릭 이벤트 끝
      //프로필 이미지 업로드 시 미리보기
          $('#thumbnailUpload').change(function() {
-    	 
-    	  readURL(this);
-    	  
+        
+         readURL(this);
+         
      });
 
      function readURL(input) {
@@ -222,6 +227,7 @@
      } ////프로필 이미지 업로드 시 미리보기 끝
     });
      </script>
+
 
 							<!--제목은 글작성 페이지에서 가져오기-->
 
@@ -272,17 +278,17 @@
     up은 작성검토 페이지 화면으로 올리기 down은 내리기
     toggleclass사용
 */
-		
-
+      
+      
 
       $(document).ready(function () {
-    	  //태그 기능 이벤트
-    	  var tag ={};
-    	  var counter = 0;
-    	  
-    	  
-    	  //글자수 많을시 처리 
-    	  $('#tag').keyup(function () {
+         //태그 기능 이벤트
+         var tag ={};
+         var counter = 0;
+         
+         
+         //글자수 많을시 처리 
+         $('#tag').keyup(function () {
               var contentL = $(this).val().length;
               console.log(contentL);
               $('#textL').text(contentL);
@@ -292,9 +298,7 @@
 
               }
            });
-    	 
-    	  
-    	  
+
          $(".hide").click(function () {
             $("#articles").show();
             $("#check").hide();
@@ -305,8 +309,8 @@
 
          });
          $("#show").click(function () {
-        	 let content = editor.getHTML();
-       	    $('#test2').val(content);
+            let content = editor.getHTML();
+              $('#test2').val(content);
             $("#check").show();
             $("#articles").hide();
             $("#check").toggleClass('fadeIn');
@@ -335,10 +339,8 @@
          console.log('check여부' + checked);
 
          $(".form-switch").click(function () {
-        	 
-        	 var content =editor.getHTML();
-        	 $('#content').val(content);
-        	 console.log(content);
+
+
 
             var checked = $('.form-check-input').is(':checked');
             var checkVal;
@@ -346,12 +348,12 @@
             if (!checked) {
                $(".form-check-label").html('&nbsp;비공개');
                checkVal = 0;
-               $("#viewAll").val(checkVal);	
+               $("#viewAll").val(checkVal);   
                // $('.form-switch').attr('checked',true);
             } else {
                $(".form-check-label").text('전체 공개');
                checkVal = 1;
-               $("#viewAll").val('1');	
+               $("#viewAll").val('1');   
 
             }
          });
@@ -371,17 +373,14 @@
          
      
       })
-      
-      
    </script>
 
-	<!-- 글 작성 페이지에만 적용되는 bootstrap js. 여기는 헤더가 없어요. 지우지 마세요. -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous">
+   <!-- 글 작성 페이지에만 적용되는 bootstrap js. 여기는 헤더가 없어요. 지우지 마세요. -->
+   <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous">
    </script>
-
 
 </body>
 

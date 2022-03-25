@@ -123,14 +123,14 @@
 						<div class="card" style="width: 8rem;">
 
 							<div class="card-body cc" id="all">
-								<div style="text-align: right;">
-									<span class="card-text"><strong>모든 사람</strong></span>
+								<div style="text-align: right;" id="all">
+									<span class="card-text" id="all"><strong id="all">모든 사람</strong></span>
 								</div>
 							</div>
 
 							<div class="card-body cc" id="fol">
-								<div style="text-align: right;">
-									<span class="card-text"><strong>팔로워</strong></span>
+								<div style="text-align: right;" id="fol">
+									<span class="card-text" id="fol"><strong id="fol">팔로워</strong></span>
 								</div>
 							</div>
 
