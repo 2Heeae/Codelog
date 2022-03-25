@@ -43,6 +43,14 @@
 /* 글 작성 페이지 css */
 @import url("<c:url value='/css/toastTest.css'/>");
 @import url("<c:url value='/css/test.css'/>");
+.toastui-editor-md-html, .toastui-editor-md-link.toastui-editor-md-link-url.toastui-editor-md-marked-text,
+	.toastui-editor-md-meta {
+		position: absolute;
+	font-size: 1px !important;
+	overflow: hidden;
+	margin: -1px;
+   clip-path: polygon(0 0, 0 0, 0 0);
+}
 </style>
 
 <title>Modify</title>  
@@ -237,6 +245,12 @@
 
          });
          $("#show").click(function () {
+        	 var checkTitle = $('#title').val();
+				var checkTag = $('#tag').val();
+				var checkContent = $('#editor').val;
+			    if(checkTitle == '') {alert("제목을 입력해주세요!"); return false;}
+			    if(checkTag == '') {alert("태그를 입력해주세요!"); return false; }
+			    if(checkContent == '') {alert("내용을 입력해주세요!"); return false;}
             $("#check").show();
             $("#articles").hide();
             $("#check").toggleClass('fadeIn');
