@@ -168,7 +168,7 @@
 					<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
 					<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}" class="stretched-link"></a>
 					<!--썸네일 이미지-->
-					<img src="<c:url value='/img/cat.jpg'/>" class="card-img-top" alt="...">
+					<img src="<c:url value='/image/display/${s.thumbnail }'/>" class="card-img-top" alt="...">
 					<!--제목 내용-->
 					<div class="card-body ">
 						<strong>${s.title}</strong>
@@ -189,7 +189,7 @@
 							<div style="margin-top: 0.3rem;">
 								<div style="display: inline-block; float: left;">
 									<div style="border-radius: 70%; overflow: hidden; display: inline-block;">
-										<img src="<c:url value='/img/${s.userId}'/>" class="img-rounded" width="25rem">
+										<img src="<c:url value='/image/${s.userId}'/>" class="img-rounded" width="25rem">
 									</div>
 
 								</div>

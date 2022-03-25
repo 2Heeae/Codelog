@@ -44,14 +44,14 @@ public class BoardController {
 		return "board/test";
 	}
 
-		@RequestMapping(value = "/getWrite", method = RequestMethod.GET)
+	@RequestMapping(value = "/getWrite", method = RequestMethod.GET)
 	public String write(HttpServletRequest request ,Model model)
 	{
        
 		return "board/write";
 
 	}
-		@ResponseBody
+	@ResponseBody
    @RequestMapping(value ="/thumbnail", method = {RequestMethod.POST})
    public String thumb(MultipartHttpServletRequest mhsr,MultipartFile file)
    {
@@ -91,15 +91,15 @@ public class BoardController {
 		e.printStackTrace();
 	}
 		System.out.println("글 작성 요청");
-		service.write(vo);
+		int boardId = service.write(vo);
 		ra.addFlashAttribute("msg", "글 작성 완료");
 
-		return "redirect:/";
+		return "redirect:/boardController/board?boardId=" + boardId;
 	}
 	
     // 01. 게시글 목록
     @RequestMapping("list")
-    public ModelAndView list() throws Exception{
+    public ModelAndView list() throws Exception{ 
         List<BoardVO> list = service.listAll();
         // ModelAndView - 모델과 뷰
         ModelAndView mav = new ModelAndView();
@@ -110,7 +110,7 @@ public class BoardController {
 	
 
 	
- // 게시글 상세내용 조회, 게시글 조회수 증가 처리
+    // 게시글 상세내용 조회, 게시글 조회수 증가 처리
     // @RequestParam : get/post방식으로 전달된 변수 1개
     // HttpSession 세션객체
     @RequestMapping(value="/board", method=RequestMethod.GET)
@@ -175,7 +175,7 @@ public class BoardController {
     	System.out.println("글 수정 요청");
     	System.out.println(vo);
         service.update(vo);
-        return "redirect:/";
+        return "redirect:/boardController/board?boardId=" + vo.getBoardId();
     }
     
     //  게시글 삭제
