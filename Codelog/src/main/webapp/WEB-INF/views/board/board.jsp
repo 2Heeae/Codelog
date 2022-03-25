@@ -9,10 +9,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>board</title>
- <link
-      rel="stylesheet"
-      href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css"
-    />
+ <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
 	<style>
 		/* 글 상세보기 페이지 css */
 		@import url("<c:url value='/css/board.css'/>");

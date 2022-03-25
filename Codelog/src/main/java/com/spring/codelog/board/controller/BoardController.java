@@ -43,14 +43,14 @@ public class BoardController {
 		return "board/test";
 	}
 
-		@RequestMapping(value = "/getWrite", method = RequestMethod.GET)
+	@RequestMapping(value = "/getWrite", method = RequestMethod.GET)
 	public String write(HttpServletRequest request ,Model model)
 	{
        
 		return "board/write";
 
 	}
-		@ResponseBody
+	@ResponseBody
    @RequestMapping(value ="/thumbnail", method = {RequestMethod.POST})
    public String thumb(MultipartHttpServletRequest mhsr,MultipartFile file)
    {
@@ -104,7 +104,7 @@ public class BoardController {
 	
 
 	
- // 게시글 상세내용 조회, 게시글 조회수 증가 처리
+    // 게시글 상세내용 조회, 게시글 조회수 증가 처리
     // @RequestParam : get/post방식으로 전달된 변수 1개
     // HttpSession 세션객체
     @RequestMapping(value="/board", method=RequestMethod.GET)
