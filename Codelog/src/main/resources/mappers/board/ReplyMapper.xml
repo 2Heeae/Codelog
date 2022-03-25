@@ -16,19 +16,19 @@
  </resultMap>
 
 <!-- 댓글 쓰기 -->
-<insert id="replyWrite" parameterType="com.spring.codelog.board.model.ReplyVO">
+<insert id="replyWrite">
     insert into p_reply
-    values(reply_seq.NEXTVAL, #{bno}, reply_seq.CURRVAL, 0, 0, #{writer}, #{content}, now())
+    values(reply_seq.NEXTVAL, #{bno}, reply_seq.CURRVAL, 0, 0, #{writer}, #{content}, sysdate, #{userNo})
 </insert>
 
 <!-- 답글 쓰기 -->
-<insert id="rereplyWrite" parameterType="com.spring.codelog.board.model.ReplyVO">
+<insert id="rereplyWrite">
     insert into p_reply
     values(reply_seq.NEXTVAL, #{bno}, #{grp}, #{grps}, 1, #{writer}, #{content}, now())
 </insert>
 
 <!-- p_board에 댓글수 증가 -->
-<update id="replyUp" parameterType="com.spring.codelog.board.model.ReplyVO">
+<update id="replyUp">
     update proj_board set recnt=recnt+1 
     where board_id=#{bno}
     <!-- 보드 조인 추가 -->
@@ -44,14 +44,22 @@
 </select>
 
 
+<!-- grps 가져오기 -->
+<select id="getGrps" resultType="int">
+        SELECT count(*) FROM p_reply WHERE grp = #{grp}
+
+</select>
+
+
+
 <!-- 모댓글 삭제 - 답글 있음 -->
-<update id="replyNotDelete" parameterType="com.spring.codelog.board.model.ReplyVO">
+<update id="replyNotDelete">
     update p_reply set content="삭제된 댓글입니다."
     where no=#{no}
 </update>
 
 <!-- p_board에 댓글수 감소 -->
-<update id="replyDown" parameterType="com.spring.codelog.board.model.ReplyVO">
+<update id="replyDown">
     update proj_board set recnt=recnt-1
     where board_id=#{bno}
 </update>

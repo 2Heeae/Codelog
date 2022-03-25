@@ -28,16 +28,19 @@ public class ReplyController {
 	
 	@RequestMapping(value = "/replyWrite", method = RequestMethod.POST)
 	public void replyWrite(@RequestBody ReplyVO vo, HttpSession session) {
-		System.out.println("진입은했다!");
+		System.out.println("댓글 진입은했다!");
 		System.out.println("들어온 댓글 내용은? "+vo);
 		
-		//service.replyWrite(vo);
+		service.replyWrite(vo);
 	}
 
 	// 답글 작성
 	
 	@RequestMapping(value = "/rereplyWrite")
 	public void rereplyWrite(@RequestBody ReplyVO vo, HttpSession session) {
+		System.out.println("대댓글 진입은했다!");
+		System.out.println("들어온 댓글 내용은? "+vo);
+		
 		service.rereplyWrite(vo);   
 	}
 

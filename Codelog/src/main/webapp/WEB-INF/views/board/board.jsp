@@ -85,7 +85,10 @@
 
 					</section>
 					
-					
+				
+	<input id="nickname" value="${loginSession.nickname}"/>	
+	<input id="userNo" value="${loginSession.userNo}"/>
+	
 					
 					
 					
@@ -125,7 +128,7 @@
                             type="text" placeholder="댓글입력...">
                     </div>
                     <div class="col-3 ">
-                        <button type="button" writer="${loginSession.nickname}" bno="243" style="background-color: #B4CFB0; " idx="${dto.boardId}"
+                        <button type="button" userNo="${loginSession.userNo}" writer="${loginSession.nickname}" bno="243" style="background-color: #B4CFB0; " idx="${dto.boardId}"
                             class="btn btn-success mb-1 write_reply">댓글&nbsp;달기</button>
                     </div>
                 </div>
@@ -187,6 +190,11 @@
 	<%@include file="../include/footer.jsp"%>
 
 	<script>
+	
+	
+	const loginWriter = $('#nickname').val();
+	const loginUserNo = $('#userNo').val();
+	
 	// [댓글]
 	// 게시물의 댓글 목록을 불러오는 함수입니다.
 	const ReplyList = function(bno) {
@@ -236,7 +244,7 @@
 	                            // 함수에 게시글번호(bno), 모댓글번호(no), 모댓글 작성자(writer)를 인자로 담아서 넘긴다.
 	                            // 이때 모댓글 작성자 writer는 string인데 string을 인자에 넣기 위해선''나""로 감싸줘야한다.
 	                            // 여기선 ''와 ""가 이미 둘다 쓰이고 있는데  href를 감싸고 있는 ''와 겹치지 않는 ""를 \" 처리해서 넣어줬다.
-	                            listHtml += "			<a href='#' class='write_reply_start' data-bs-toggle='collapse' data-bs-target='#re_reply"+ no +"' aria-expanded='false' aria-controls='collapseExample'>답글&nbsp;달기</a>";
+	                            listHtml += "			<a href='#' class='write_reply_start' data-bs-toggle='collapse' data-bs-target='#re_reply"+ grp +"' aria-expanded='false' aria-controls='collapseExample'>답글&nbsp;달기</a>";
 	                            listHtml += "		</div>";
 	                        }
 	                        listHtml += "	</div>";
@@ -297,7 +305,7 @@
 	                    listHtml += "			</a> ";
 	                    listHtml += "		</div>"
 	                    listHtml += "		<div class='col-7'>"
-	                    listHtml +=  "  		<input class='w-100 input_rereply_div form-control' id='input_rereply"+ no +"' type='text' placeholder='댓글입력...'>"
+	                    listHtml +=  "  		<input class='w-100 input_rereply_div form-control' id='input_rereply"+ grp +"' type='text' placeholder='댓글입력...'>"
 	                    listHtml += "		</div>"
 	                    listHtml += "		<div class='col-3'>"
 	                    // 답글달기 버튼이 눌리면 모댓글 번호(no)와 게시물번호(bno)를 함수에 전달한다.
@@ -308,7 +316,7 @@
 	                    // listHtml += "			<button onclick='javascript:WriteReReply("+ no +","+ bno +")' type='button' class='btn btn-success mb-1 write_rereply' >답글&nbsp;달기</button>"
 	                    // 위 코드는 클릭되어도 값이 넘겨지지 않는다. 값이 undefined가 된다.
 	                    // 아래코드처럼 짜야한다. click이벤트를 처리하지 않고 데이터(no, bno)만 속성으로 넘겨주도록 작성한다.
-	                    listHtml += "			<button type='button' class='btn btn-success mb-1 write_rereply' no='" + no + "' bno='" + bno + "'>답글&nbsp;달기</button>"
+	                    listHtml += "			<button type='button' class='btn btn-success mb-1 write_rereply' grp='" + grp + "' bno='" + bno + "'>답글&nbsp;달기</button>"
 	                    listHtml += "		</div>";
 	                    listHtml += "	</div>";
 	                    // ---- 답글입력란 끝
@@ -336,11 +344,11 @@
 	             //답글을 작성한 후 답글달기 버튼을 눌렀을 때 그 click event를 아래처럼 jquery로 처리한다.
 	             $('button.btn.btn-success.mb-1.write_rereply').on( 'click', function() {
 	            	 console.log("대댓글 작성 클릭")
-	                 console.log( 'no', $(this).attr('no') );
 	                 console.log( 'bno', $(this).attr('bno') );
+	            	 console.log( 'grp', $(this).attr('grp') );
 
 	                 // 답글을 DB에 저장하는 함수를 호출한다. bno와 no를 같이 넘겨주어야한다.
-	                 WriteReReply($(this).attr('bno'), $(this).attr('no') );
+	                 WriteReReply($(this).attr('bno'), $(this).attr('grp'));
 	             });
 
 	             // 삭제버튼을 클릭했을 때
@@ -365,13 +373,12 @@
 	};
 	
 	
-	$('button.btn.btn-success.mb-1.write_rereply').on( 'click', function() {
-		console.log("대댓글 작성 클릭")
-	    console.log( 'no', $(this).attr('no') );
+	$('.write_rereply').on( 'click', function() {
+		console.log("대댓글2 작성 클릭")
 	    console.log( 'bno', $(this).attr('bno') );
-
+		console.log( 'grp', $(this).attr('grp') );
 	    // 답글을 DB에 저장하는 함수를 호출한다. bno와 no를 같이 넘겨주어야한다.
-	    WriteReReply($(this).attr('bno'), $(this).attr('no') );
+	    WriteReReply($(this).attr('bno'), $(this).attr('grp'));
 	});
 
 	// 삭제버튼을 클릭했을 때
@@ -389,7 +396,6 @@
 	
 	$('.write_reply').on( 'click', function() {
 		console.log("댓글 작성 클릭")
-	    console.log( 'no', $(this).attr('no') );
 	    console.log( 'bno', $(this).attr('bno') );
 
 	    // 답글을 DB에 저장하는 함수를 호출한다. bno와 no를 같이 넘겨주어야한다.
@@ -409,7 +415,8 @@
 	    // 댓글 입력란의 내용을 가져온다. 
 	    let content = $("#input_reply" + bno).val();
 
-	    let writer = $(this).attr('writer')
+	    let writer = $(".write_reply").attr('writer');
+	    let userNo = $(".write_reply").attr('userNo');
 	    
 	    console.log("글작성자"+writer);
 	    if(content == ""){	// 입력된게 없을때
@@ -421,7 +428,8 @@
 	        const info = {
                 "bno" : bno,
                 "content": content,
-                "writer" : writer
+                "writer" : writer,
+                "userNo" :userNo
             };
 	        // reply+1 하고 그 값을 가져옴
 	        $.ajax({
@@ -447,42 +455,54 @@
 	};
 	
 	
-	const WriteReReply = function(bno,no) {
-
+	const WriteReReply = function(bno,grp) {
+		 console.log('WriteReReply함수 진입');
 	    console.log(bno);
-	    console.log(no);
+	    console.log(grp);
 
-	    console.log($("#input_rereply" + no).val());
+	   // console.log($("#input_rereply" + no).val());
 
-	    // 댓글 입력란의 내용을 가져온다. 
-	    // ||"" 를 붙인 이유  => 앞뒤 공백을 제거한다.(띄어쓰기만 입력했을때 댓글작성안되게 처리하기위함)
-	    let content = $("#input_rereply" + no).val();
+	   // let content = $("#input_rereply" + grp).val();
+	    	    
+	    let writer = $(loginWriter);
+	    let userNo = $(loginUserNo);
+	    let content = $("#input_rereply" + grp).val();
+
+
+	    let grps = $(".write_rereply").attr('grps');
+	    
+	    
+		console.log(content);
+		console.log(userNo);
+		console.log(writer);
+
 	   // content = content.trim();
 
-
+	        const info = {
+                "bno" : bno,
+                "grp" :grp,
+                "content": content,
+                "writer" : writer,
+                "userNo" :userNo
+            };
+		console.log("대댓글 여기까지 실행")
 	    if(content == ""){	// 입력된게 없을때
 	        alert("글을 입력하세요!");
 	    }else{	
 	        // 입력란 비우기
-	        $("#input_rereply" + no).val("");
+	        $("#input_rereply" + grp).val("");
 
 	        // reply+1 하고 그 값을 가져옴
 	        $.ajax({
-	            url : '/codelog/reply/replyList',
-	            type : 'get',
-	            data : {
-	                no : no,
-	                bno : bno,
-	                content: content
-	            },
+	        	url : '/codelog/reply/rereplyWrite',
+	            type : 'post',
+	            contentType : 'application/json',
+				dataType : 'text',
+	            data : JSON.stringify(info),
 	            success : function(pto) {
 
-	                let reply = pto.reply;
-	                // 페이지, 모달창에 댓글수 갱신
-	                $('#m_reply'+bno).text(reply);//
-	                $('#reply'+bno).text(reply);
-
-	                console.log("답글 작성 성공");
+	               
+	                console.log("대댓글 작성 성공");
 
 	                // 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
 	                ReplyList(bno);

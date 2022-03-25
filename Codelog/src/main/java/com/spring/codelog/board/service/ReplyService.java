@@ -22,19 +22,22 @@ public class ReplyService {
 	// 댓글 작성
 	public void replyWrite(ReplyVO vo) {
 		// p_reply 테이블에 값 추가
-		mapper.replyWrite(vo.getBno(), vo.getGrp(), vo.getWriter(), vo.getContent());
+		System.out.println("서비스로 넘어온 값은 "+vo);
+		mapper.replyWrite(vo.getBno(), vo.getWriter(), vo.getContent(), vo.getUserNo());
 		
 		// proj_board 테이블에 해당 게시물의 reply수를 +1 하기위한 to세팅			
-		mapper.replyUp(vo.getNo());
+		mapper.replyUp(vo.getBno());
 	}
 	
 	// 대댓글 작성
 	public void rereplyWrite(ReplyVO vo) {
 		// p_reply 테이블에 값 추가
-		mapper.rereplyWrite(vo.getNo(), vo.getGrp(),vo.getGrpl(), vo.getWriter(), vo.getContent());
+		int grps = mapper.getGrps(vo.getGrp());
+		
+		mapper.rereplyWrite(vo.getNo(), vo.getGrp(), grps, vo.getGrpl(), vo.getWriter(), vo.getContent());
 		
 		// proj_board 테이블에 해당 게시물의 reply수를 +1 하기위한 to세팅			
-				mapper.replyUp(vo.getNo());
+		mapper.replyUp(vo.getNo());
 	}
 	
 	// 댓글 리스트
