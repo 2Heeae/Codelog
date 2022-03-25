@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.spring.codelog.board.mapper.ITagMapper">
+
+	<resultMap type="com.spring.codelog.board.commons.TagVO" id="tagMap">
+		<id property="tagNo" column="tag_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="boardId" column="board_id"/>
+		<result property="tagName" column="tag_name"/>
+	</resultMap>
+	
+	<select id="registTags">
+		INSERT INTO tags VALUES(tag_no, )
+	</select>
+
+</mapper>

@@ -8,8 +8,8 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <!-- jQuery -->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
+   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+   
 <!-- bootstrap css -->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -59,7 +59,7 @@
         <div class="col-md-3 offset-2" style="padding-top:15px;">
             <form action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
                <input class="form-control mr-sm-2" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
-               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159);"><i class="bi bi-search" style="color:white;"></i></button>
              </form>
          </div>
 
@@ -108,7 +108,7 @@
                                  alt=".">
                            </div>
                            <div class="col-md-9" style=" text-align: left;">
-                              <span class="card-text"><strong>김철수1234</strong>님이 팔로우하였습니다.</span>
+                              <span id="msgStack" class="card-text"></span>
 
                               <p class="pt-1" style="font-size: 0.8rem; margin: auto 0;">19시간 전.</p>
                            </div>
@@ -124,7 +124,7 @@
             <!-- 로그인 안했을 때 보여주기 -->
             <c:if test="${loginSession == null}">
             <!-- 로그인 버튼 누르면 모달창 열림-->
-                <button type="button" class="btn btn-primary mx-md-4 px-md-2 hc" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
+                <button style="background-color: rgb(148, 180, 159); border-color: rgb(148, 180, 159);"type="button" class="btn btn-primary mx-md-4 px-md-2 hclogin" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
             </c:if>
             <!-- 로그인 안했을 때 보여주기 끝 -->
             <!-- 로그인하면 보여주기 -->
@@ -192,8 +192,33 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
    </script>
+   <!-- sockJS -->
+   <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
    
    <script>
+	// 전역변수 설정
+	var socket  = null;
+	$(document).ready(function(){
+	    // 웹소켓 연결
+	    sock = new SockJS('<c:url value="/websocket"/>');
+	    socket = sock;
+	
+	    // 데이터를 전달 받았을때 
+	    sock.onmessage = onMessage; // toast 생성
+	    //...
+	});
+
+	// toast생성 및 추가
+	function onMessage(evt){
+	    var data = evt.data;
+	    // toast
+	    let toast = data;
+	    $("#msgStack").append(toast);   // msgStack toast 추가
+	    $(".toast").toast({"animation": true, "autohide": false});
+	    $('.toast').toast('show');
+	};	
+   
+   
       //자바스크립트 시작
       //다크모드 토글 이벤트 처리
       const theme_btn = document.querySelector('#theme-btn');
@@ -213,9 +238,7 @@
          localStorage.setItem('theme', theme);
       }); //다크모드 토글 이벤트 처리 끝
       //자바스크립트 끝
-   </script>
-
-   <script>
+      
       //start jQuery
          /*메뉴바들 링크 기능(임시)*/
          $(document).ready(function() {
@@ -281,7 +304,8 @@
             	location.href= "<c:url value='/user/userpage/${dto.userId}'/>";
             });	
             
-         }); //end jQuery
+     }); //end jQuery     
+         
          
    </script>
 

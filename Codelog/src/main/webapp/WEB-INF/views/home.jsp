@@ -166,7 +166,7 @@
 					<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
 					<a href="${pageContext.request.contextPath}/boardController/board?boardId=${Poster.boardId}" class="stretched-link"></a>
 					<!--썸네일 이미지-->
-					<img src="<c:url value='/img/cat.jpg'/>" class="card-img-top" alt="...">
+					<img src="<c:url value='/image/display/${Poster.thumbnail }'/>" class="card-img-top" alt="...">
 					<!--제목 내용-->
 					<div class="card-body ">
 						<strong>${Poster.title }</strong>
@@ -178,7 +178,7 @@
 						style="font-size: 0.8rem; border-top: 0; background-color: white;">
 
 						<p class="card-text"
-							style="border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;">
+							style="border-bottom: 1px solid rgb(148, 180, 159); margin-bottom: 0.4rem; padding-bottom: 0.3rem; color:gray;">
 							<fmt:formatDate value="${Poster.regDate }" pattern="yy/MM/dd"/>
 							</p>
 

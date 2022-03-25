@@ -114,26 +114,23 @@
 					</aside>
 				</div>
 
-				<!--글 상세보기 내용-->
-				<div class="col-md-7">
-					<div class="container detail-main">
-						<h1>${dto.title}</h1>
-						<div class="info">
-							<a class="writer"
-								href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">${dto.writer}</a>
-							<div class="slash">|</div>
-							<div class="date">
-								<fmt:formatDate value="${dto.regDate}" pattern="yy/MM/dd" />
-							</div>
-							<div class="slash">|</div>
-							<span>view: ${dto.hit} </span>
-						</div>
 
-						<br>
-						<div id="hashtag">
-							<a
-								href="${pageContext.request.contextPath}//search?keyword=${dto.tags}">#${dto.tags}</a>
-						</div>
+			<!--글 상세보기 내용-->
+			<div class="col-md-7">
+				<div class="container detail-main">
+					<div class="title">${dto.title}</div>
+					<div class="info">
+						<a class="writer" href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">${dto.writer}</a>					
+						<div class="slash"> | </div>
+						<div class="date"> <fmt:formatDate value="${dto.regDate}" pattern="yy/MM/dd"/></div>
+						<div class="slash"> | </div>						
+						<span>view: ${dto.hit} </span>
+					</div>
+					
+					<br>
+					<div class="hashtag">
+						<a style="color:rgb(120, 147, 149);" href="${pageContext.request.contextPath}//search?keyword=${dto.tags}">#${dto.tags}</a>
+					</div>
 
 						<!-- 로그인시 수정,삭제 버튼 활성화 -->
 
@@ -281,6 +278,7 @@
 		</div>
 
 		<%@include file="../include/footer.jsp"%>
+
 
 
 		<script>
@@ -444,14 +442,16 @@
 		});
 		
 		function like_update() {
-			const view_user_id = $('#view-user').val();
-			const postLike = ${postLike};
+			const view_user_id = $('#view-user').val(); //글 보는 사람 아이디
+			const post_like = ${postLike}; //좋아요 여부 확인 1, 0
+			const writer = '${dto.userId}'; //글 쓴 사람
 			console.log(view_user_id);
-			console.log(postLike);
+			console.log(post_like);
+			console.log(writer);
 			const data = {
-				"viewUserId" : view_user_id,
-				"boardId" : ${dto.boardId},
-				"postLike" : postLike,	//너는 왜 값 전달이 안되는거니 ㅠ	
+				"viewUserId" : view_user_id, //글 보는사람 아이디값
+				"boardId" : ${dto.boardId}, //글번호
+				"postLike" : post_like	//1 = 좋아요, 0 = 좋아요 취소	
 			};
 			
 			$.ajax({
@@ -461,14 +461,28 @@
 				data : JSON.stringify(data),
 				success : function(result) {
 					console.log('좋아요 수정' + result);
-					if(postLike == 1) {
+					if(post_like == 1) {
 						console.log('좋아요 취소');
 						$('#like-check').val(0);
+						//소켓메세지
+						if(socket) {
+							var msg = view_user_id + "," + writer + "," + post_like;
+							console.log(msg);
+							socket.send();
+						}
+						//소켓메세지
 						location.reload();
 						
-					} else if(postLike == 0) {
+					} else if(post_like == 0) {
 						console.log('좋아요');
 						$('#like-check').val(1);
+						//소켓메세지
+						if(socket) {
+							var msg = view_user_id + "," + writer + "," + post_like;
+							console.log(msg);
+							socket.send();
+						}
+						//소켓메세지
 						location.reload();
 					}
 				}, error : function(result) {
