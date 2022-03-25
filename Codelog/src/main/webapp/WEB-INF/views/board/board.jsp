@@ -74,6 +74,7 @@ color : white;
 
 <body>
 	<form name="form1" method="post">
+
 		<div style="height: 20px;"></div>
 		<!-- 글 상세보기 페이지 시작 -->
 		<!--col1/1(좋아요,프로필)/7(본문)/2(책갈피)/1-->
@@ -441,7 +442,11 @@ color : white;
 			const view_user_id = $('#view-user').val();
 			const postLike = ${postLike};
 			console.log(view_user_id);
-			console.log(postLike);
+
+			console.log(post_like);
+			console.log(writer);
+			const msg = view_user_id + "," + writer + "," + post_like; //소켓메세지 보낼 값
+
 			const data = {
 				"viewUserId" : view_user_id,
 				"boardId" : ${dto.boardId},
@@ -458,19 +463,33 @@ color : white;
 					if(postLike == 1) {
 						console.log('좋아요 취소');
 						$('#like-check').val(0);
-						location.reload();
+
+						//소켓메세지
+						console.log(msg);
+						socket.send(msg);
+						//소켓메세지
+
+						//location.reload();
+
 						
 					} else if(postLike == 0) {
 						console.log('좋아요');
 						$('#like-check').val(1);
-						location.reload();
+
+						//소켓메세지
+						console.log(msg);
+						socket.send(msg);
+						//소켓메세지
+						//location.reload();
+
+						
+
 					}
 				}, error : function(result) {
 					console.log('좋아요 에러: ' + result);
 				}
 			}); //ajax 끝
 			
-				
 			
 		}
 	

@@ -320,7 +320,7 @@
 					success : function(result) {
 						console.log('통신 성공!: ' + result);
 						alert('회원 가입을 환영합니다.');
-						document.location.reload();
+						location.reload();
 					},
 					error : function() {
 						alert('회원 가입 실패!');

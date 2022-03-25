@@ -202,10 +202,10 @@
 	    // 웹소켓 연결
 	    sock = new SockJS('<c:url value="/websocket"/>');
 	    socket = sock;
-	
+		console.log('소켓연결!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 	    // 데이터를 전달 받았을때 
 	    sock.onmessage = onMessage; // toast 생성
-	    //...
+	    
 	});
 
 	// toast생성 및 추가
