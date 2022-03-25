@@ -85,15 +85,15 @@ public class BoardController {
 	public String write(BoardVO vo, RedirectAttributes ra, HttpServletRequest hsr, MultipartFile file) {
 	
 		System.out.println("글 작성 요청");
-		service.write(vo);
+		int boardId = service.write(vo);
 		ra.addFlashAttribute("msg", "글 작성 완료");
 
-		return "redirect:/";
+		return "redirect:/boardController/board?boardId=" + boardId;
 	}
 	
     // 01. 게시글 목록
     @RequestMapping("list")
-    public ModelAndView list() throws Exception{
+    public ModelAndView list() throws Exception{ 
         List<BoardVO> list = service.listAll();
         // ModelAndView - 모델과 뷰
         ModelAndView mav = new ModelAndView();
@@ -168,7 +168,7 @@ public class BoardController {
     	System.out.println("글 수정 요청");
     	System.out.println(vo);
         service.update(vo);
-        return "redirect:/";
+        return "redirect:/boardController/board?boardId=" + vo.getBoardId();
     }
     
     //  게시글 삭제

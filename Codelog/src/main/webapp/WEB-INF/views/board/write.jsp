@@ -31,6 +31,12 @@
 @import url("<c:url value='/css/toastTest.css'/>");
 
 @import url("<c:url value='/css/test.css'/>");
+.toastui-editor-md-html, .toastui-editor-md-link.toastui-editor-md-link-url.toastui-editor-md-marked-text,
+	.toastui-editor-md-meta {
+	font-size:0 !important;
+	color: #999
+}
+
 </style>
 
 <title>Document</title>
@@ -45,6 +51,7 @@
 
 <body>
 	<form action="<c:url value='/boardController/write' />" class="write-bbs" enctype=multipart/form-data method="post">
+
 		<!-- 글등록 페이지에 따로 작성자를 기입하지는 않으므로 현재 로그인 세션에서 작성자 명을 뽑아옵니다. -->
 		<input type="hidden" id="test2" name="content"> 
 		<input type="hidden" name="writer" value="${loginSession.nickname}">
@@ -68,12 +75,16 @@
 				</div>
 			</div>
 			<!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
-			<div id="editor" style=""></div>
-				
+			<div id="editor" >
+			<input type="hidden" id="content" name="textContent">
+			</div>	
+
 
 
 			<script>
+			
 			 const Editor = toastui.Editor;
+			 const content = ('#editor').val
 			 
 			 const editor = new Editor({
 			 	  el: document.querySelector('#editor'),
@@ -87,14 +98,14 @@
 			 
 			<script>
 			  function submit(){
-				  let content = editor.getHTML();
+				  let content = editor.getMarkdown();
 				  $('#test2').val(content);
 				  console.log(content);
 				 
 				  $('#test3').val(content);
 			  }
+			
 			 </script>
-
 			<button class="ok" id="show" type="button">
 				<i class="fa-solid fa-check"></i>
 			</button>
@@ -102,7 +113,7 @@
 				<i class="fa-solid fa-right-from-bracket"></i>
 			</button>
 
-		</div>
+		
 
 
 
@@ -130,9 +141,11 @@
 				
 				
 <script>
+
     // start jQuery
     $(document).ready(function () {
        
+    	
       //썸네일 이미지 업로드 버튼 클릭 이벤트
       $('#thumbnailUpload').change(function() {
     	 
@@ -142,6 +155,7 @@
        
       //이미지 업로드를 담당하는 함수
       function upload() {
+    	  console.log("d");
          //자바스크립트의 파일 확장자 체크 검색
          let file = $('#thumbnailUpload').val();
          
@@ -250,14 +264,16 @@
 
 			</div>
 
+
 	</form>
+
 	<script>
       /*작성과 작성검토 부분을 버튼으로 연결함(버튼은 임시)
     up은 작성검토 페이지 화면으로 올리기 down은 내리기
     toggleclass사용
 */
 		
-		
+
 
       $(document).ready(function () {
     	  //태그 기능 이벤트
@@ -319,8 +335,10 @@
          console.log('check여부' + checked);
 
          $(".form-switch").click(function () {
-
-
+        	 
+        	 var content =editor.getHTML();
+        	 $('#content').val(content);
+        	 console.log(content);
 
             var checked = $('.form-check-input').is(':checked');
             var checkVal;
@@ -353,6 +371,8 @@
          
      
       })
+      
+      
    </script>
 
 	<!-- 글 작성 페이지에만 적용되는 bootstrap js. 여기는 헤더가 없어요. 지우지 마세요. -->
@@ -361,6 +381,7 @@
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous">
    </script>
+
 
 </body>
 
