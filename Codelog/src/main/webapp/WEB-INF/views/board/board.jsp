@@ -274,21 +274,42 @@
 
 
 				</div>
-				<!--우측 고정메뉴-->
-				<div class="col-md-2">
-					<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted">
-						<strong class="d-block h6 my-2 pb-2 border-bottom">On
-							this Page</strong>
-						<nav id="TableOfContents"
-							style="border-left: 1px solid rgb(182, 182, 182);">
-							<div class="content-menu">
-								<a href="#1" class="active">프롤로그</a><br> <a href="#2">MS:
-									내가 원래 개발언어와 IDE 개발의 원조지!</a><br> <a href="#3">Typescript의
-									고질적인 문제1: 속도!</a><br> <a href="#4">Typescript의 고질적인 문제2: 잘
-									동작하던건데 전부 에러가 뜨데요?</a><br> <a href="#5">🔥 그러니 그냥 하세요. 안해야
-									할 이유가 없습니다.</a><br>
-							</div>
-						</nav>
+							<!--우측 고정메뉴-->
+			<div class="col-md-3">
+				<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted rounded" style="background-color: rgb(237 243 237); height: 500px;">
+					<a href="" class="d-block h6 my-2 pb-2 border-bottom">
+						#어쩔저쩔 관련 게시글&nbsp&nbsp></a>
+					<nav id="TableOfContents">
+					<div style="width: 248.63px; height: 90px; background-color: transparent;">
+						<div class="thumb" style="width: 160px; height: 90px; padding: 5px;display: inline-block;"> 
+							<span class="thumb">${dto.title}</span>
+							<div class="thumb-date" style="margin-top: 10px;"><fmt:formatDate value="${dto.regDate}" pattern="yy/MM/dd"/></div>
+						</div>
+						<div class="thumb" style="position:relative; left: 20px; width:75px; vertical-align: bottom; display: inline-block !important;" ><img src="<c:url value='/image/display/${dto.thumbnail}'/>" class="rounded" width="75px" height="75px" ></div>		
+					<hr align="center" size="3px" width="100%" style="margin: 10px;">
+					<div style="width: 248.63px; height: 90px; background-color: transparent;">
+						<div class="thumb" style="width: 160px; height: 90px; padding: 5px;"> 
+							<span>Typescript는 어떻게 공부해야 하나요?</span>
+							<div class="thumb" style="margin-top: 10px;">2022.03.25</div>
+						</div>
+						<div class="thumb" style="position:relative; left: 20px; vertical-align: bottom;" ><img src="<c:url value='/image/display/${dto.thumbnail}'/>" class="rounded" width="75px" height="75px" ></div>		
+					<hr align="center" size="3px" width="100%" style="margin: 10px;">
+					<div style="width: 248.63px; height: 90px; background-color: transparent;">
+						<div class="thumb" style="width: 160px; height: 90px; padding: 5px;"> 
+							<span>Typescript는 어떻게 공부해야 하나요?</span>
+							<div class="thumb" style="margin-top: 10px;">2022.03.25</div>
+						</div>
+						<div class="thumb" style="position:relative; left: 20px; vertical-align: bottom;" ><img src="<c:url value='/image/display/${dto.thumbnail}'/>" class="rounded" width="75px" height="75px" ></div>		
+					<hr align="center" size="3px" width="100%" style="margin: 10px;">
+					<div style="width: 248.63px; height: 90px; background-color: transparent;">
+						<div class="thumb" style="width: 160px; height: 90px; padding: 5px;"> 
+							<span>Typescript는 어떻게 공부해야 하나요?</span>
+							<div class="thumb" style="margin-top: 10px;">2022.03.25</div>
+						</div>
+						<div class="thumb" style="position:relative; left: 20px; vertical-align: bottom;" ><img src="<c:url value='/image/display/${dto.thumbnail}'/>" class="rounded" width="75px" height="75px" ></div>		
+					<hr align="center" size="3px" width="100%" style="margin: 10px;">
+					
+					</nav>
 					</div>
 				</div>
 

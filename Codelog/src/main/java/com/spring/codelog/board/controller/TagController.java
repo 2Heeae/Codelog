@@ -10,8 +10,12 @@ import com.spring.codelog.board.service.IBoardService;
 @RequestMapping("/tag")
 public class TagController {
 	
-	@Autowired
-	IBoardService service;
+
+
+	/*
+	 * @Autowired ITagService service;
+	 */
+
 	
 	
 	
