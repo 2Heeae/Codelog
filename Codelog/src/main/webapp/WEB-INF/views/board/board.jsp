@@ -393,7 +393,7 @@ var view1 = $('#view').val()
 		
 		function like_update() {
 			const view_user_id = $('#view-user').val(); //글 보는 사람 아이디
-			const post_like = ${postLike}; //좋아요 여부 확인 1, 0
+			let post_like = ${postLike}; //좋아요 여부 확인 1, 0
 			const writer = '${dto.userId}'; //글 쓴 사람
 			console.log(view_user_id);
 			console.log(post_like);
@@ -415,25 +415,26 @@ var view1 = $('#view').val()
 					if(post_like == 1) {
 						console.log('좋아요 취소');
 						$('#like-check').val(0);
-						//소켓메세지
-						console.log(msg);
-						socket.send(msg);
-						//소켓메세지
+						$('#like-btn').css("color", "black");
+						let total = $('#result').html();
+						$('#result').html(${dto.likes} - 1);
 						
 					} else if(post_like == 0) {
 						console.log('좋아요');
 						$('#like-check').val(1);
-						//소켓메세지
-						console.log(msg);
-						socket.send(msg);
-						//소켓메세지
-						//location.reload();
+						$('#like-btn').css("color", "red");
+						let total = $('#result').html();
+						$('#result').html(${dto.likes} + 1);
+						
+					} else {
+						
 					}
+					socket.send(msg);
+					
 				}, error : function(result) {
 					console.log('좋아요 에러: ' + result);
 				}
 			}); //ajax 끝
-			
 			
 		}
 	
