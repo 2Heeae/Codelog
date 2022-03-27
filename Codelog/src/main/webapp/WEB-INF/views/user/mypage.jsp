@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@include file="../include/header.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -26,27 +25,22 @@
 		<div class="col-md-4">
 			<!-- 프로필 이미지 -->
 			<c:choose>
-				<c:when
-					test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
-					<img src="<c:url value='/img/user_icon.png' />" alt="user_icon"
-						width="130" height="130" style="border-radius: 70px;">
+				<c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
+					<img src="<c:url value='/img/user_icon.png' />" alt="user_icon" width="130" height="130" style="border-radius:70px;">
 				</c:when>
 				<c:otherwise>
-					<img src="<c:url value='/user/display' />" alt="user_icon"
-						width="130" height="130" style="border-radius: 70px;">
+					<img src="<c:url value='/user/display' />" alt="user_icon" width="130" height="130" style="border-radius:70px;">
 				</c:otherwise>
 			</c:choose>
-
+			
 		</div>
 		<div class="col-md-8 profile">
 			<h3 class="id">${userInfo.nickname}&nbsp;&nbsp;</h3>
 			<p class="posts">
-				게시물 &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal"
-					id="follower-btn" data-bs-target="#followers_modal"
-					style="cursor: pointer;">팔로워 ${fn:length(followerList)}</a>
-				&nbsp;&nbsp;&nbsp; <a class="folloing" data-bs-toggle="modal"
-					id="following-btn" data-bs-target="#following_modal"
-					style="cursor: pointer;">팔로우 ${fn:length(followingList)}</a>
+				게시물 &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal" id="follower-btn"
+					data-bs-target="#followers_modal" style="cursor: pointer;">팔로워 0</a> 
+					&nbsp;&nbsp;&nbsp; <a class="folloing" data-bs-toggle="modal" id="following-btn"
+					data-bs-target="#following_modal" style="cursor: pointer;">팔로우 0</a>
 			</p>
 			<p class="intro">${userInfo.userInfo}</p>
 		</div>
@@ -66,37 +60,19 @@
 				</div>
 				<div class="modal-body">
 					<ul class="list-unstyled">
-						<c:choose>
-							<c:when test="${fn:length(followerList) <= 0}">
-								<p>팔로우 하는 사람이 없습니다.
-							</c:when>
-							<c:otherwise>
-								<c:forEach var="list" items="${followerList }">
-									<li class="follow-li">
-										<div class="profile-section">
-											<c:choose>
-												<c:when
-													test="${list.userImg ne 'null' and list.userImg ne null}">
-													<img class="profile-photo" alt="img"
-														src="<c:url value='/image/${list.activeUserId}'/>"
-														width="20" height="20"
-														style="border-radius: 70px; display: inline;">
-												</c:when>
-												<c:otherwise>
-													<img alt="img" src="<c:url value='/img/user_icon.png'/>"
-														width="22" height="22" style="padding-top: 2px">
-												</c:otherwise>
-											</c:choose>
-											<p class="profile-id" style="display: inline;">
-												<a
-													href="<c:url value='/user/userpage/${list.activeUserId}'/>">${list.activeUserId}
-												</a>
-											</p>
-										</div>
-									</li>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
+					<c:if test="${followerList.size() <= 0}">
+						<p>회원님을 팔로우 하는 사람들이 여기에 표시됩니다.
+					</c:if>
+					<c:if test="${followerList.size() > 0 }">
+						<c:forEach var="list" items="${followerList }">
+							<li class="follow-li">
+								<p class="profile-id"><a href="c:url value='/userpage/${list.passiveUserId}'/>">${list.passiveUserId} </a></p>
+							</li>
+							
+						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
+						
+						</c:forEach>
+					</c:if>
 					</ul>
 				</div>
 			</div>
@@ -116,38 +92,20 @@
 				</div>
 				<div class="modal-body">
 					<ul class="list-unstyled">
-						<c:if test="${followingList.size() <= 0}">
-							<p>팔로잉 하는 회원이 없습니다.
-						</c:if>
-						<c:if test="${followingList.size() > 0 }">
-							<c:forEach var="list" items="${followingList }">
-
-								<li class="follow-li">
-									<div class="profile-section">
-										<c:choose>
-											<c:when
-												test="${list.userImg ne 'null' and list.userImg ne null}">
-												<img class="profile-photo" alt="img"
-													src="<c:url value='/image/${list.passiveUserId}'/>"
-													width="20" height="20"
-													style="border-radius: 70px; display: inline;">
-											</c:when>
-											<c:otherwise>
-												<img alt="img" src="<c:url value='/img/user_icon.png'/>"
-													width="22" height="22" style="padding-top: 2px">
-											</c:otherwise>
-										</c:choose>
-										<p class="profile-id" style="display: inline;">
-											<a
-												href="<c:url value='/user/userpage/${list.passiveUserId}'/>">${list.passiveUserId}
-											</a>
-										</p>
-									</div>
-								</li>
-
-
-							</c:forEach>
-						</c:if>
+					<c:if test="${followingList.size() <= 0}">
+						<p> 팔로잉 하는 회원이 없습니다.
+					</c:if>
+					<c:if test="${followingList.size() > 0 }">
+						<c:forEach var="list" items="${followingList }">
+							
+							<li class="follow-li">
+								<p class="profile-id"><a href="c:url value='/userpage/${list.activeUserId}'/>">${list.activeUserId} </a></p>
+							</li>
+							
+						<li><a class="dropdown-item" href="#"> 아이디 </a></li>
+						
+						</c:forEach>
+					</c:if>
 					</ul>
 				</div>
 			</div>
@@ -173,70 +131,55 @@
 				</section>
 			</form>
 			<!-- 사진 썸네일, 글제목, 보이는 곳  -->
-			<div class="row py-md-3" id="start">
-				<c:forEach var="Poster" items="${userInfo.boardList }">
-					<div class="col-md-4 px-md-4 py-md-4">
-						<div class="card poster" style="width: 100%; height: 24rem;"
-							data-bno="${Poster.boardId }" data-lno="${Poster.likes }">
-							<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
-							<a
-								href="${pageContext.request.contextPath}/boardController/board?boardId=${Poster.boardId}"
-								class="stretched-link"></a>
-							<!--썸네일 이미지-->
-							<c:choose>
-							<c:when test="${Poster.thumbnail != null}">
-							<img src="<c:url value='/image/display/${Poster.thumbnail }'/>" class="card-img-top"
-								alt="...">
-								</c:when>
-								
-						
-						<c:when test="${Poster.thumbnail == null}"><img src="<c:url value='/img/codelog.png'/>" class="card-img-top" alt="..."></c:when>
-						
-					</c:choose>
-							<!--제목 내용-->
-							<div class="card-body ">
-								<strong>${Poster.title }</strong>
-								<p class="card-text" style="padding-top: 0.3rem;">${Poster.preview }
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
+				<div class="col-md-4">
+					<div class="card " style="width: 100%">
+						<a href="#"> <img src="<c:url value='/img/bootstrap.png' />"
+							class="card-img-top" alt="...">
+						</a>
+						<div class="card-body">
+							<a href="#">
+								<h5 class="card-title">Card title</h5>
+							</a>
+							<p class="card-text">Some quick example text to build on the
+								card title and make up the bulk of the card's content.</p>
+							<br>
+							<p class="card-text text-muted">
+								1분전</small>
+							</p>
+						</div>
+					</div>
+				</div>
 
+				<c:forEach var="vo" items="${userInfo.boardList}">
+					<div class="col-md-4">
+						<div class="card " style="width: 100%">
+							<a href="#"> <img src="<c:url value='/img/bootstrap.png' />"
+								class="card-img-top" alt="...">
+							</a>
+							<div class="card-body">
+								<a href="#">
+									<h5 class="card-title">${vo.title}</h5>
+								</a>
+								<p class="card-text">${vo.preview}</p>
+								<br>
+								<p class="card-text text-muted">${vo.regDate}</small>
 								</p>
-							</div>
-							<div class="card-footer my-md-0 py-md-0"
-								style="font-size: 0.8rem; border-top: 0; background-color: white;">
-
-								<p class="card-text"
-									style="border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;">
-									
-								</p>
-
-								<!--계정사진 계정명 댓글수 좋아요수-->
-								<div>
-
-									<div style="margin-top: 0.3rem;">
-										<div style="display: inline-block; float: left;">
-											
-											<fmt:formatDate value="${Poster.regDate }" pattern="yy/MM/dd" />
-										</div>
-										<div
-											style="display: inline-block; float: left; margin-top: 0.13rem;">
-										</div>
-										<div
-											style="display: inline-block; float: right; margin-top: 0.13rem">
-											<i class="fa-solid fa-comment" style=""></i> <span
-												style="margin-right: 0.5rem;" class="">3</span> <i
-												class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes}</span>
-										</div>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>
+
 				</c:forEach>
+
+
+
+
 			</div>
 
 
 		</div>
 	</div>
-
+	
 </div>
 <!-- end container-->
 <%@include file="../include/footer.jsp"%>
@@ -244,24 +187,31 @@
 	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
 	integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
 	crossorigin="anonymous">
-	
-</script>
+    </script>
 
 
 <script>
-	$(document).ready(function() {
-		$("#so").click(function() {
-			$(location).attr("href", "https://www.naver.com/")
-		});
-		$("#btnD").click(function() {
-			$(location).attr("href", "https://www.daum.net/")
-		});
-		$("#btnG").click(function() {
-			$(location).attr("href", "https://www.google.com/")
-		})
-
-	});
-</script>
+      $(document).ready(function () {
+        $("#so").click(function () {
+          $(location).attr("href", "https://www.naver.com/")
+        });
+        $("#btnD").click(function () {
+          $(location).attr("href", "https://www.daum.net/")
+        });
+        $("#btnG").click(function () {
+          $(location).attr("href", "https://www.google.com/")
+        })
+        
+       
+        
+        
+        
+        
+        
+      });
+      
+      
+    </script>
 </body>
 
 </html>

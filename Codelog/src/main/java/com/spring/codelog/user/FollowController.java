@@ -40,12 +40,12 @@ public class FollowController {
 		following.setActiveUser(activeUser.getUserNo());
 		following.setPassiveUser(passiveUser.getUserNo());
 		fservice.follow(following);
-		return "followOk";
+		return "followOK";
 	}
 	
 	//언팔로우 기능
 	@ResponseBody
-	@PostMapping("/unfollow/{userId}")
+	@PostMapping("/unfollow/{id}")
 	public String unfollow(@PathVariable("userId") String id, HttpSession session, Model model) {
 		UserVO activeUser = uservice.selectOne(((UserVO) session.getAttribute("loginSession")).getUserId()); 
 		UserVO passiveUser = uservice.selectOne(id);
@@ -53,11 +53,33 @@ public class FollowController {
 		following.setActiveUser(activeUser.getUserNo());
 		following.setPassiveUser(passiveUser.getUserNo());
 		fservice.unfollow(following);
-		System.out.println();
 		return "unfollowOk";
 	}
 	
-
+	//팔로워리스트 보여주기
+//	@GetMapping("/{id}")
+//	public void followList(@PathVariable String id, HttpSession session, Model model) {
+//		UserVO user = uservice.selectOne(id);
+//		UserVO loginUser = (UserVO) session.getAttribute("loginSession");
+//		
+//		int userNo = user.getUserNo();
+//		int loginUserNo = loginUser.getUserNo();
+//		
+//		FollowVO follow = new FollowVO();
+//		int followCheck = fservice.isFollow(follow);
+//		
+//		//팔로워리스트
+//		List<FollowVO> followerList = fservice.selectPassiveUserList(userNo);
+//		//팔로잉리스트
+//		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
+//		
+//		model.addAttribute("user", user);
+//		model.addAttribute("followCheck", followCheck);
+//		model.addAttribute("followerList", followerList);
+//		model.addAttribute("followingList", followingList);
+//	
+//	}
+	
 	
 }
 

@@ -371,8 +371,6 @@
          const result = confirm('정말 탈퇴하시겠습니까?');
          
          if(result) {
-        	
-        	location.href = "<c:url value='/remove'/>"
             location.href = "<c:url value='/user/delete' />";         
          } else {
             

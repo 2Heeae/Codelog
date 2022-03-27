@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -37,18 +36,18 @@ public class UserController {
 
 	@Autowired
 	private IUserService uservice;
-
+	
 	@Autowired
 	private IFollowService fservice;
-
+	
 	//아이디 중복 확인 처리
 	@PostMapping("/checkId")
 	public String checkId(@RequestBody String userId) {
 		System.out.println("/user/checkId: POST");
 		System.out.println("param: " + userId);
-
+		
 		int checkNum = uservice.checkId(userId);
-
+		
 		if(checkNum == 1) {
 			System.out.println("아이디가 중복됨!");
 			return "duplicated";
@@ -57,7 +56,7 @@ public class UserController {
 			return "available";
 		}
 	}
-
+	
 	//회원가입 요청 처리
 	@PostMapping("/")
 	public String join(@RequestBody UserVO vo) {
@@ -65,15 +64,15 @@ public class UserController {
 		uservice.join(vo);
 		return "joinSuccess";
 	}
-
+	
 	//로그인 요청 처리
 	@PostMapping("/login")
 	public String login(@RequestBody UserVO vo, HttpSession session) {
 		System.out.println("/user/login: POST");
 		System.out.println("로그인 param(id, pw): " + vo);
-
+		
 		UserVO dbData = uservice.selectOne(vo.getUserId());
-
+		
 		if(dbData != null) {
 			if(vo.getUserPw().equals(dbData.getUserPw())) {
 				session.setAttribute("loginSession", dbData);
@@ -85,69 +84,65 @@ public class UserController {
 			return "wrongId";
 		}
 	}
-
+	
 	//마이페이지 이동 처리
 	@GetMapping("/mypage")
 	public ModelAndView mypage(HttpSession session, Model model) {
 		System.out.println("/user/mypage: GET");
-
 		String id = ((UserVO) session.getAttribute("loginSession")).getUserId();
 		UserVO userInfo = uservice.getInfo(id);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("userInfo", userInfo);
 		mv.setViewName("/user/mypage");
-
+		
 		//팔로우 리스트 보내기
 		UserVO user = uservice.selectOne(id);
 		UserVO loginUser = (UserVO) session.getAttribute("loginSession");
-
+		
 		int userNo = user.getUserNo();
 		int loginUserNo = loginUser.getUserNo();
-
+		
 		FollowVO follow = new FollowVO();
 		follow.setActiveUser(loginUserNo);
 		follow.setPassiveUser(userNo);
 		int followCheck = fservice.isFollow(follow);
 		System.out.println("팔로우 유무 체크:"+ followCheck);
-
+		
 		//팔로워리스트
 		List<FollowVO> followerList = fservice.selectPassiveUserList(userNo);
 		System.out.println(followerList);
 		//팔로잉리스트
 		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
 		System.out.println(followingList);
-
+		
 		model.addAttribute("user", user);
 		model.addAttribute("followCheck", followCheck);
 		model.addAttribute("followerList", followerList);
 		model.addAttribute("followingList", followingList);
-
-
+	
+		
 		return mv;
 	}
-
+	
 	//다른사람 페이지 이동 처리
 	@GetMapping("/userpage/{userId}")
 	public ModelAndView userpage(@PathVariable("userId") String id ,String nickname, HttpSession session) {
 		System.out.println("user/userpage: get");
 		UserVO userInfo = uservice.getInfo(id);
-
+		
 		//팔로우 리스트 보내기
 		UserVO user = uservice.selectOne(id);
-		FollowVO follow = new FollowVO();
-		if(session.getAttribute("loginSession") != null) {
-			UserVO loginUser = (UserVO) session.getAttribute("loginSession");
-			int loginUserNo = loginUser.getUserNo();
-			follow.setActiveUser(loginUserNo);
-
-		}
-
+		UserVO loginUser = (UserVO) session.getAttribute("loginSession");
+		
 		int userNo = user.getUserNo();
-
+		int loginUserNo = loginUser.getUserNo();
+		
+		FollowVO follow = new FollowVO();
+		follow.setActiveUser(loginUserNo);
 		follow.setPassiveUser(userNo);
 		int followCheck = fservice.isFollow(follow);
 		System.out.println("팔로우 유무 체크:"+ followCheck);
-
+		
 		//팔로워리스트
 		List<FollowVO> followerList = fservice.selectPassiveUserList(userNo);
 		System.out.println("userNO:"+userNo);
@@ -155,9 +150,8 @@ public class UserController {
 		//팔로잉리스트
 		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
 		System.out.println("followinglist: "+ followingList);
-		System.out.println("userInfo: "+userInfo);
-		System.out.println("userInfo의 보드리스트: "+userInfo.getBoardList());
-
+		
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("userInfo", userInfo);//사용자 정보 보내기 
 		mv.addObject("user", user);
@@ -168,73 +162,72 @@ public class UserController {
 		mv.setViewName("user/userpage");
 		return mv;
 	}
-
+	
 	//회원정보수정 페이지 이동 처리
 	@GetMapping("/editUser")
 	public ModelAndView editUser() {
 		System.out.println("/user/editUser: GET");
 		return new ModelAndView("/user/editProfile");
 	}
-
+	
 	//프로필 이미지 업로드 처리
 	@PostMapping("/editUser/imgUpload")
 	public String upload(MultipartFile file, HttpSession session) {
-
+		
 		try {
 			String userId = ((UserVO)session.getAttribute("loginSession")).getUserId();
-
+			
 			//저장할 폴더 경로
-			System.out.println("=============유저컨트롤러 프로필이미지=======================");
 			String uploadPath = "C:\\test\\upload";
-
+			
 			String fileRealName = file.getOriginalFilename();
-
+			
 			//파일명을 고유한 랜덤 문자로 생성
 			UUID uuid = UUID.randomUUID();
 			String uuids = uuid.toString().replaceAll("-", "");
-
+			
 			//확장자 추출
 			String fileExtension = fileRealName.substring(fileRealName.indexOf("."), fileRealName.length());
-
+			
 			System.out.println("저장할 폴더 경로: " + uploadPath);
 			System.out.println("실제 파일명: " + fileRealName);
 			System.out.println("확장자: " + fileExtension);
 			System.out.println("고유랜덤문자: " + uuids);
-
+			
 			String fileName = uuids + fileExtension;
 			System.out.println("변경해서 저장할 파일명: " + fileName);
-
+			
 			//업로드한 파일을 서버 컴퓨터의 저장한 경로 내에 실제로 저장
 			File saveFile = new File(uploadPath + "\\" + fileName);			
 			file.transferTo(saveFile);
-
+			
 			profileImgVO vo = new profileImgVO(userId, fileName);
 			uservice.updateProfileImg(vo);
-
+			
 			UserVO user = (UserVO) session.getAttribute("loginSession");
 			String uId = vo.getUserId();
 			UserVO dbData = uservice.selectOne(uId);
 			session.setAttribute("loginSession", dbData);
-
+			
 			return "success";
 		} catch (Exception e) {
 			System.out.println("업로드 중 에러 발생: " + e.getMessage());
 			return "fail";
 		}
-
+		
 	}
-
+	
 	//프로필 이미지 파일 보여주기 요청
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> getFile(HttpSession session) {
 		String fileName = ((UserVO)session.getAttribute("loginSession")).getUserImg();
 		System.out.println("fileName: " + fileName);
-
+		
 		File file = new File("C:\\test\\upload\\" + fileName);
 		System.out.println(file);
-
+		
 		ResponseEntity<byte[]> result = null;
-
+		
 		try {
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Type", Files.probeContentType(file.toPath()));
@@ -243,44 +236,44 @@ public class UserController {
 			e.printStackTrace();
 		}
 		return result;
-
+		
 	}
-
+	
 	//프로필 이미지 삭제 요청
 	@PostMapping("/editUser/imgDel")
 	public String imgDel(HttpSession session) {
-
+		
 		try {
 			String userId = ((UserVO)session.getAttribute("loginSession")).getUserId();
-
+			
 			//삭제할 폴더 경로
 			String uploadPath = "C:\\test\\upload";
 			//삭제할 파일 이름
 			String delFileName = ((UserVO)session.getAttribute("loginSession")).getUserImg();
 			System.out.println("삭제할 파일 이름: " + delFileName);
-
+			
 			//서버 컴퓨터에 업로드 했던 파일 실제로 삭제
 			File saveFile = new File(uploadPath + "\\" + delFileName);			
 			saveFile.delete();
-
+			
 			String fileName = "null";
-
+			
 			profileImgVO vo = new profileImgVO(userId, fileName);
 			uservice.updateProfileImg(vo);
-
+			
 			UserVO user = (UserVO) session.getAttribute("loginSession");
 			String uId = vo.getUserId();
 			UserVO dbData = uservice.selectOne(uId);
 			session.setAttribute("loginSession", dbData);
-
+			
 			return "success";
 		} catch (Exception e) {
 			System.out.println("프로필 이미지 파일 삭제 중 에러 발생: " + e.getMessage());
 			return "fail";
 		}
-
+		
 	}
-
+	
 	//닉네임 & 자기소개 수정 처리
 	@PostMapping("/nickChange")
 	public String nickChange(@RequestBody UserVO vo) {
@@ -291,8 +284,8 @@ public class UserController {
 		uservice.nickChange(vo);
 		return "changed";
 	}
-
-
+	
+	
 	//회원정보 수정 처리
 	@PostMapping("/updateUser")
 	public ModelAndView updateUser(UserVO vo, HttpSession session) {
@@ -309,18 +302,17 @@ public class UserController {
 		session.setAttribute("loginSession", dbData);
 		return new ModelAndView("redirect:/user/mypage");
 	}
-
+	
 	//회원탈퇴 처리
 	@GetMapping("/delete")
 	public ModelAndView delete(HttpSession session) {
 		System.out.println("/user/delete: GET");
 		UserVO vo = (UserVO) session.getAttribute("loginSession");
-		fservice.deleteUserAllFollow(vo.getUserNo());
 		uservice.delete(vo.getUserId());
 		session.invalidate();
 		return new ModelAndView("redirect:/");
 	}
-
+	
 	//로그아웃 처리
 	@GetMapping("/logout")
 	public ModelAndView logout(HttpSession session) {
@@ -329,5 +321,5 @@ public class UserController {
 		System.out.println("로그아웃 성공!");
 		return new ModelAndView("redirect:/");
 	}
-
+	
 }

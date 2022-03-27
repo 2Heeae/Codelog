@@ -103,7 +103,6 @@ li.ProseMirror-selectednode:after {
 
 .toastui-editor-md-container .toastui-editor,
 	.toastui-editor-md-container .toastui-editor-md-preview {
-	word-break: break-all;
 	box-sizing: border-box;
 	height: inherit;
 	padding: 0
@@ -221,7 +220,7 @@ li.ProseMirror-selectednode:after {
 }
 
 .toastui-editor-defaultUI {
-	border: none;
+	border: 1px solid #dadde6;
 	border-radius: 4px;
 	font-family: Open Sans, Helvetica Neue, Helvetica, Arial, 나눔바른고딕,
 		Nanum Barun Gothic, 맑은고딕, Malgun Gothic, sans-serif;
@@ -264,14 +263,13 @@ li.ProseMirror-selectednode:after {
 }
 
 .toastui-editor-mode-switch {
-	FONT-VARIANT: 0;
-    background-color: 0;
-    border-radius: 0;
-    border-top: 0;
-    font-size: 0;
-    height: 0;
-    padding-right: 0;
-    text-align: right;
+	background-color: #fff;
+	border-radius: 0 0 3px 3px;
+	border-top: 1px solid #dadde6;
+	font-size: 12px;
+	height: 28px;
+	padding-right: 10px;
+	text-align: right
 }
 
 .toastui-editor-mode-switch .tab-item {
@@ -283,12 +281,12 @@ li.ProseMirror-selectednode:after {
 	cursor: pointer;
 	display: inline-block;
 	font-weight: 500;
-	height: 0;
+	height: 24px;
 	line-height: 24px;
 	margin-right: -1px;
 	margin-top: -1px;
 	text-align: center;
-	width: 0
+	width: 96px
 }
 
 .toastui-editor-mode-switch .tab-item.active {
@@ -339,7 +337,9 @@ li.ProseMirror-selectednode:after {
 }
 
 .toastui-editor-defaultUI-toolbar {
-	background-color: white;
+	background-color: #f7f9fc;
+	border-bottom: 1px solid #ebedf2;
+	border-radius: 3px 3px 0 0;
 	display: -ms-flexbox;
 	display: flex;
 	height: 45px;
@@ -365,7 +365,8 @@ li.ProseMirror-selectednode:after {
 }
 
 .toastui-editor-defaultUI-toolbar button {
-	
+	border: 1px solid #f7f9fc;
+	border-radius: 3px;
 	box-sizing: border-box;
 	cursor: pointer;
 	height: 32px;
@@ -398,7 +399,6 @@ li.ProseMirror-selectednode:after {
 }
 
 .toastui-editor-defaultUI-toolbar .scroll-sync.active:before {
-	display: none;
 	color: #00a9ff
 }
 
@@ -409,7 +409,6 @@ li.ProseMirror-selectednode:after {
 }
 
 .toastui-editor-defaultUI-toolbar .switch {
-	display: none;
 	background-color: #d6d8de;
 	border-radius: 50px;
 	bottom: 0;
@@ -1481,7 +1480,6 @@ li.ProseMirror-selectednode:after {
 	.toastui-editor-md-link, .toastui-editor-md-table,
 	.toastui-editor-md-thematic-break {
 	color: #ccc
-	
 }
 
 .toastui-editor-md-code.toastui-editor-md-delimiter {
@@ -1490,7 +1488,6 @@ li.ProseMirror-selectednode:after {
 
 .toastui-editor-md-html, .toastui-editor-md-link.toastui-editor-md-link-url.toastui-editor-md-marked-text,
 	.toastui-editor-md-meta {
-	
 	color: #999
 }
 

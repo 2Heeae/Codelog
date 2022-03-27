@@ -198,26 +198,11 @@
 			<version>2.4</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
-		<!--  웹소켓 추가  -->
+		<!-- 웹소켓 -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-websocket</artifactId>
-		    <version>5.2.1.RELEASE</version>
-		</dependency>
-		<dependency>
-		    <groupId>javax.websocket</groupId>
-		    <artifactId>javax.websocket-api</artifactId>
-		    <version>1.1</version>
-		</dependency>
-		<!--  웹소켓 끝  -->
-		
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-		<!-- 지우지마세요 -->
-		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-lang3</artifactId>
-		    <version>3.4</version>
+		    <version>5.0.2.RELEASE</version>
 		</dependency>
 		
 	</dependencies>

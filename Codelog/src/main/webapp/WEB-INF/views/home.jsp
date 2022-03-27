@@ -14,10 +14,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
    <style>
-       .card-thumb{
-          overflow-y : hidden;
-          
-        }
+
        @import url("<c:url value='/css/home.css'/>");
    
    </style>
@@ -126,14 +123,14 @@
 						<div class="card" style="width: 8rem;">
 
 							<div class="card-body cc" id="all">
-								<div style="text-align: right;" id="all">
-									<span class="card-text" id="all"><strong id="all">모든 사람</strong></span>
+								<div style="text-align: right;">
+									<span class="card-text"><strong>모든 사람</strong></span>
 								</div>
 							</div>
 
 							<div class="card-body cc" id="fol">
-								<div style="text-align: right;" id="fol">
-									<span class="card-text" id="fol"><strong id="fol">팔로워</strong></span>
+								<div style="text-align: right;">
+									<span class="card-text"><strong>팔로워</strong></span>
 								</div>
 							</div>
 
@@ -169,17 +166,10 @@
 					<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
 					<a href="${pageContext.request.contextPath}/boardController/board?boardId=${Poster.boardId}" class="stretched-link"></a>
 					<!--썸네일 이미지-->
-					<div class="card-thumb">
-					<c:choose>
-						<c:when test="${Poster.thumbnail != null}"><img src="<c:url value='/image/display/${Poster.thumbnail }'/>" class="card-img-top" alt="..."></c:when>
-						<c:when test="${Poster.thumbnail == null}"><img src="<c:url value='/img/codelog.png'/>" class="card-img-top" alt="..."></c:when>
-						<c:otherwise>팔로워</c:otherwise>
-					</c:choose>
-					
-					</div>
+					<img src="<c:url value='/img/cat.jpg'/>" class="card-img-top" alt="...">
 					<!--제목 내용-->
 					<div class="card-body ">
-						<strong>${Poster.title }</strong>
+						<strong>${Poster.title },보드아이디: ${Poster.boardId }</strong>
 						<p class="card-text" style="padding-top: 0.3rem;">${Poster.preview }
 
 						</p>
@@ -188,7 +178,7 @@
 						style="font-size: 0.8rem; border-top: 0; background-color: white;">
 
 						<p class="card-text"
-							style="border-bottom: 1px solid rgb(148, 180, 159); margin-bottom: 0.4rem; padding-bottom: 0.3rem; color:gray;">
+							style="border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;">
 							<fmt:formatDate value="${Poster.regDate }" pattern="yy/MM/dd"/>
 							</p>
 
@@ -196,27 +186,21 @@
 						<div>
 
 							<div style="margin-top: 0.3rem;">
-							
 								<div style="display: inline-block; float: left;">
 									<div style="border-radius: 70%; overflow: hidden; display: inline-block;">
-										<a href="${pageContext.request.contextPath}/user/userpage/${Poster.userId}" class="stretched-link" style="position: relative; text-decoration: none;">
-											<img src="<c:url value='/image/${Poster.userId }'/>" class="img-rounded" width="25rem">
-										</a>
-										
+										<img src="<c:url value='/img/${Poster.userId }'/>" class="img-rounded" width="25rem">
 									</div>
 
 								</div>
-
-								<div  style="display: inline-block; float: left; margin-top: 0.13rem;">
-									<a href="${pageContext.request.contextPath}/user/userpage/${Poster.userId}" class="stretched-link" style="position: relative; text-decoration: none;"><span class="mx-md-1" style="color: gray;">by</span><span>${Poster.writer }</span></a>
-
+								<div style="display: inline-block; float: left; margin-top: 0.13rem;">
+								<a href="${pageContext.request.contextPath}/boardController/board?boardId=100">
+								
+									<span class="mx-md-1" style="color: gray;">by</span><span>${Poster.writer }</span></a>
 								</div>
-								
-								
-								<div  style="display: inline-block; float: right; margin-top: 0.13rem">
+								<div style="display: inline-block; float: right; margin-top: 0.13rem">
 									<i class="fa-solid fa-comment" style=""></i>
 									<span style="margin-right: 0.5rem;" class="">3</span>
-									<i class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes}</span>
+									<i class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes }</span>
 								</div>
 							</div>
 						</div>
@@ -364,12 +348,9 @@
 
 
          });
-         
-        
-         
          });
 
-   		
+   
       
       
 /*화면 클릭시 열려있는 토글창 닫기*/

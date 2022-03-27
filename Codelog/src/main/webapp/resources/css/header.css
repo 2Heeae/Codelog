@@ -16,35 +16,6 @@
     font-style: normal;
 }
 
-/*버튼 색상을 위함(로그인 모달)-------------------------*/
-.btn-primary{
-	background-color:rgb(148, 180, 159) !important;
-	border-color:rgb(148, 180, 159) !important;
-}
-
-.btn-outline-primary{
-	color:rgb(148, 180, 159) !important;
-	border-color:rgb(148, 180, 159) !important;
-}
-
-.btn-outline-primary:hover{
-	background-color:rgb(148, 180, 159) !important;
-	color:white !important;
-}
-
-element.style {
-    border-color: rgb(148, 180, 159) !important;
-}
-
-.form-control:focus {
-    color: #212529;
-    background-color: #fff;
-    border-color: rgb(148, 180, 159) !important;
-    outline: 0;
-    box-shadow: 0 0 0 0.25rem rgb(148, 180, 159 / 25%) !important;
-}
-
-/*---------------------------------------------------*/
 /* 다크모드 css 시작 */
 body {
   --text-color: #222;

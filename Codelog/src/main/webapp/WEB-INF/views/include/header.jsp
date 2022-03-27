@@ -8,8 +8,8 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <!-- jQuery -->
-   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-   
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <!-- bootstrap css -->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -33,33 +33,23 @@
             <span class="logo">CodeLog
             </span>
             </button>
-            <c:choose>
-	            <c:when test="${not empty userInfo.nickname}">
-	            	<span class="logo" style="font-size: 25px;">/</span> 
-	            	<button id="nick-logo-btn">
-	            		<span class="logo nick-logo">
-	            		 ${userInfo.nickname}
-	            		</span>
-	            	</button>
-	            </c:when>
-	            <c:when test="${not empty dto.writer}">
-	            	<span class="logo" style="font-size: 25px;">/</span> 
-	            	<button id="nick-logo-btn">
-	            		<span class="logo dto-logo">
-	            		 ${dto.writer}
-	            		</span>
-	            	</button>
-	            </c:when>
-            </c:choose>
+            <c:if test="${not empty userInfo.nickname}">
+            	<span class="logo" style="font-size: 25px;">/</span> 
+            	<button id="nick-logo-btn">
+            		<span class="logo nick-logo">
+            		 ${userInfo.nickname}
+            		</span>
+            	</button>
+            </c:if>
             <!--<span style="font-size: 2rem; color: rgba(241, 31, 129, 0.897);">log</span>
             <i class="fa-solid fa-heart" style="color: red;"></i>
             <span style="font-size: 1.7rem; color: rgb(241, 31, 129);">g</span>-->
          </div>
 
-        <div class="col-md-3 offset-2" style="padding-top:15px;">
+        <div class="col-md-3 offset-2">
             <form action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
                <input class="form-control mr-sm-2" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
-               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159);"><i class="bi bi-search" style="color:white;"></i></button>
+               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
              </form>
          </div>
 
@@ -68,8 +58,7 @@
             <!--해(다크모드)-->
             <button type="button" id="theme-btn" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" ><i
                   class="fa-regular fa-sun ic"></i></button>
-            <!--알림,알림 목록 토글-->  
-            <c:if test="${loginSession != null}">    
+            <!--알림,알림 목록 토글-->      
             <button type="button" class="btn rounded-circle position-relative c mx-md-1 my-md-3 px-md-3 hc" style=""
                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
                aria-controls="collapseExample">
@@ -108,7 +97,7 @@
                                  alt=".">
                            </div>
                            <div class="col-md-9" style=" text-align: left;">
-                              <span id="msgStack" class="card-text"></span>
+                              <span class="card-text"><strong>김철수1234</strong>님이 팔로우하였습니다.</span>
 
                               <p class="pt-1" style="font-size: 0.8rem; margin: auto 0;">19시간 전.</p>
                            </div>
@@ -117,14 +106,15 @@
                   </div>
                </div>
             </button>
-            </c:if>
 
-            
+            <!--검색 기능, 돋보기 아이콘-->
+            <button type="button" class="btn c rounded-circle mx-md-1 px-md-2 hc" id="so4"><i
+                  class="fa-solid fa-magnifying-glass ic" ></i></button>
 
             <!-- 로그인 안했을 때 보여주기 -->
             <c:if test="${loginSession == null}">
             <!-- 로그인 버튼 누르면 모달창 열림-->
-                <button style="background-color: rgb(148, 180, 159); border-color: rgb(148, 180, 159);"type="button" class="btn btn-primary mx-md-4 px-md-2 hclogin" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
+                <button type="button" class="btn btn-primary mx-md-4 px-md-2 hc" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
             </c:if>
             <!-- 로그인 안했을 때 보여주기 끝 -->
             <!-- 로그인하면 보여주기 -->
@@ -192,33 +182,8 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
    </script>
-   <!-- sockJS -->
-   <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
    
    <script>
-	// 전역변수 설정
-	var socket  = null;
-	$(document).ready(function(){
-	    // 웹소켓 연결
-	    sock = new SockJS('<c:url value="/websocket"/>');
-	    socket = sock;
-		console.log('소켓연결!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-	    // 데이터를 전달 받았을때 
-	    sock.onmessage = onMessage; // toast 생성
-	    
-	});
-
-	// toast생성 및 추가
-	function onMessage(evt){
-	    var data = evt.data;
-	    // toast
-	    let toast = data;
-	    $("#msgStack").append(toast);   // msgStack toast 추가
-	    $(".toast").toast({"animation": true, "autohide": false});
-	    $('.toast').toast('show');
-	};	
-   
-   
       //자바스크립트 시작
       //다크모드 토글 이벤트 처리
       const theme_btn = document.querySelector('#theme-btn');
@@ -238,7 +203,9 @@
          localStorage.setItem('theme', theme);
       }); //다크모드 토글 이벤트 처리 끝
       //자바스크립트 끝
-      
+   </script>
+
+   <script>
       //start jQuery
          /*메뉴바들 링크 기능(임시)*/
          $(document).ready(function() {
@@ -295,17 +262,16 @@
             }); //로그아웃 이벤트 끝
 			
             //헤더 닉네임 누를 시 페이지 이동 이벤트 처리 
-            $('.nick-logo').click(function() {
+            $('.nick-logo-btn').click(function() {
             	
-            	location.href= "<c:url value='/user/userpage/${userInfo.userId}'/>";
+   				//if(('.nick-logo') == ${session.loginSession}){
+   					
+   				//}
+            	location.href= "<c:url value='user/userpage/${userInfo.userId}'/>";
             });
-			$('.dto-logo').click(function() {
             	
-            	location.href= "<c:url value='/user/userpage/${dto.userId}'/>";
-            });	
             
-     }); //end jQuery     
-         
+         }); //end jQuery
          
    </script>
 
