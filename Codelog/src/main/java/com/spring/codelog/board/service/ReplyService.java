@@ -67,6 +67,14 @@ public class ReplyService {
 			return mapper.getRecnt(bno);
 
 	}
+	// 댓글 수정
+		public void ModifyReply(int no, String content ) {
+			
+				
+				// 모댓글 삭제  
+				mapper.ModifyReply(no,content);
+
+		}
 	
 	// 대댓글 삭제
 	public int DeleteReReply(int no, int bno) {

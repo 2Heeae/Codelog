@@ -64,6 +64,13 @@
     where no=#{no}
 </update>
 
+
+<!-- 댓글 수정 -->
+<update id="ModifyReply">
+    update p_reply set content=#{content}
+    where no=#{no}
+</update>
+
 <!-- p_board에 댓글수 감소 -->
 <update id="replyDown">
     update proj_board set recnt=recnt-1

@@ -105,34 +105,34 @@
 
   <c:if test="${not empty loginSession.nickname}">
                 <div class="row reply_write">
-                    <div class="col-2">
+                    <div class="col-1">
                         <a href="#">
                             <img id="write_reply_profileImage" style=" border-radius: 70%;
     overflow: hidden;" width="40rem" src="<c:url value='../img/pome3.jpg'/>"/>
                         </a>
                     </div>
-                    <div class="col-10" class="input_reply_div">
+                    <div class="col-11" class="input_reply_div">
                         <input class="w-100 form-control" id="input_reply${dto.boardId}"
                             type="text" placeholder="댓글입력...">
                     </div>
                     </div>
                     <div class="row reply_write">
                     
-                    <div class="offset-9 col-3 ">
-                        <button type="button" userNo="${loginSession.userNo}" writer="${loginSession.nickname}" bno="${dto.boardId}" style="background-color: #B4CFB0; " idx="${dto.boardId}"
-                            class="btn btn-success mb-1 write_reply">댓글&nbsp;달기</button>
+                    <div class="offset-10 col-2 my-md-3">
+                        <button type="button" userNo="${loginSession.userNo}" writer="${loginSession.nickname}" bno="${dto.boardId}" style="background-color: #B4CFB0; border-color: #B4CFB0; font-weight: bold;" idx="${dto.boardId}"
+                            class="btn btn-success mb-1 write_reply">댓글&nbsp;작성</button>
                     </div>
                     </div>
                
             </c:if> 
             
             
-             <button onclick='ReplyList("${dto.boardId}")' type="button" class="btn btn-success c p-0 position-relative"
-					style="margin-top:3rem; background-color:#B4CFB0; border-color: #B4CFB0;" >
-					<span class="m-0" style="font-size: 1.1rem;">댓글&nbsp;보기</span></button>
+             <button onclick='ReplyList("${dto.boardId}")' type="button" class="btn btn-success position-relative"
+					style="margin-top:0rem; background-color:#B4CFB0; border-color: #B4CFB0; font-weight: bold;" >
+					댓글&nbsp;보기</button>
 
 <div class="" id="replyBox" style="display: none;">
-    <section class="modal-section">
+    <section class="modal-section" style="margin: 1rem 0 0 0">
     
         <div class="card card-body">
             <!-- 댓글 목록 -->
@@ -237,14 +237,15 @@
 	                 let writer = data[i].writer;
 	                 let content = data[i].content;
 	                 let wdate = data[i].wdate;
-	                 
+	                 var date1 = new Date(wdate);
+	                 wdate = formatDate(date1);  	                 
 	                
 	                 
 	                 listHtml += "<div class='row replyrow reply" + no + "'>";
 	                 if(grpl == 0){	// 모댓글일때
 	                        listHtml += "	<div class='col-1'>";
 	                        listHtml += "		<a href='#'> ";
-	                        listHtml += "			<img class='reply_list_profileImage' style='border-radius: 70%; overflow: hidden;' width='40rem' src='../img/kmj2.jpg'/>";
+	                        listHtml += "			<img class='reply_list_profileImage' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' src='../img/kmj2.jpg'/>";
 	                        listHtml += "		</a> ";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='reply-content"+ no +" col-8'>";
@@ -252,9 +253,8 @@
 	                        listHtml += "			<span>";
 	                        listHtml += "				<b>"+ writer +"</b>";
 	                        listHtml += "			</span>";
-	                        listHtml += "			<textarea class='reply_content"+ no +"' readonly>";
-	                        listHtml += 				content;
-	                        listHtml += "			</textarea>";
+	                        listHtml += "			<input type='text' style='margin:0.2rem 0 0.5rem 0;' class='w-100 form-control reply_content"+ no +"' value='"+content+"' readonly>";
+	                        listHtml += "			</input>";
 	                        listHtml += "		</div>";
 	                        // 현재 로그인 상태일때 답글작성 버튼이 나온다.
 	                        if("${loginSession.nickname}" != ""){
@@ -262,7 +262,7 @@
 	                            // 함수에 게시글번호(bno), 모댓글번호(no), 모댓글 작성자(writer)를 인자로 담아서 넘긴다.
 	                            // 이때 모댓글 작성자 writer는 string인데 string을 인자에 넣기 위해선''나""로 감싸줘야한다.
 	                            // 여기선 ''와 ""가 이미 둘다 쓰이고 있는데  href를 감싸고 있는 ''와 겹치지 않는 ""를 \" 처리해서 넣어줬다.
-	                            listHtml += "			<a href='#' class='write_reply_start' data-bs-toggle='collapse' data-bs-target='#re_reply"+ grp +"' aria-expanded='false' aria-controls='collapseExample'>답글&nbsp;달기</a>";
+	                            listHtml += "			<a href='#' style='font-weight:bold;' bno='"+ bno +"' grp='"+ grp +"' class='write_reply_start' data-bs-toggle='collapse' data-bs-target='#re_reply"+ grp +"' aria-expanded='false' aria-controls='collapseExample'><i class='fa-regular fa-square-plus'></i>&nbsp;답글&nbsp;달기</a>";
 	                            listHtml += "		</div>";
 	                        }
 	                        listHtml += "	</div>";
@@ -271,24 +271,32 @@
 	                        listHtml += "	<div class='col-1'>"
 	                        listHtml += "	</div>"
 	                        listHtml += "	<div class='col-1'>";
-	                        listHtml += "		<img class='reply_list_profileImage' src='#'/>";
+	                        listHtml += "		<img class='reply_list_profileImage' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' src='../img/pome3.jpg'/>";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='rereply-content"+ no +" col-7'>";
 	                        listHtml += "		<div>";
 	                        listHtml += "			<span>";
 	                        listHtml += "				<b>"+ writer +"</b>";
 	                        listHtml += "			</span>";
-	                        listHtml += "			<textarea class='reply_content"+ no +"' readonly>";
-	                        listHtml += 				content;
-	                        listHtml += "			</textarea>";
+	                        listHtml += "			<input type='text' style='margin:0.2rem 0 0.5rem 0;' class='w-100 form-control reply_content"+ no +"' value='"+content+"' readonly>";
+	                        listHtml += "			</input>";
 	                        listHtml += "		</div>";
 
 	                        listHtml += "	</div>";
 	                    }
 	                 
 	                 	listHtml += "	<div class='col-3 reply-right'>";
-	                    listHtml += "		<div>";
+	                    listHtml += "		<div";
+	                    	if("${loginSession.nickname}" != writer){
+	                    		
+	    	            listHtml += " style='margin-top:2rem; '";
+		
+	                    	};
+	                    
+	                    listHtml += ">";
+	                    if(content != "삭제된 댓글입니다."){
 	                    listHtml += 			wdate;
+	                    }
 	                    listHtml += "		</div>";
 	                    // 책갈피
 	                    // 현재 로그인 상태이고..
@@ -302,10 +310,10 @@
 	                            //listHtml += "			<a href='javascript:' no='"+ no +"' grpl='"+ grpl +"' class='reply_modify'>수정</a>";
 	                            //listHtml += "			&nbsp;|&nbsp;";
 	                            // 삭제는 no만 넘겨주면 된다.
-	                            listHtml += "			<a href='javascript:' no='"+ no +"' grpl='"+ grpl + "' bno='"+ bno +"' grp='"+ grp +"' class='reply_modify'>수정</a>";
+	                            listHtml += "			<button type='button' style='background-color: #B4CFB0; border-color: #B4CFB0; font-weight: bold;' onclick='javascript:' no='"+ no +"' grpl='"+ grpl + "' bno='"+ bno +"' grp='"+ grp +"' class='btn btn-success reply_modify'>수정</button>";
 
 
-	                            listHtml += "			<a href='javascript:' no='"+ no +"' grpl='"+ grpl + "' bno='"+ bno +"' grp='"+ grp +"' class='reply_delete'>삭제</a>";
+	                            listHtml += "			<button type='button' style='background-color: #B4CFB0; border-color: #B4CFB0; font-weight: bold;' onclick='javascript:' no='"+ no +"' grpl='"+ grpl + "' bno='"+ bno +"' grp='"+ grp +"' class='btn btn-success reply_delete'>삭제</button>";
 	                            listHtml += "		</div>";
 	                        }
 	                        
@@ -317,16 +325,19 @@
 	                    listHtml += "	</div>";
 	                    // 댓글에 답글달기를 누르면 답글입력란이 나온다.
 	                    // ---- 답글입력란
-	                    listHtml += "	<div class='collapse row rereply_write' id='re_reply"+ no +"'>";
+	                    listHtml += "	<div class='collapse row rereply_write' style='margin-bottom:3rem;'  id='re_reply"+ no +"'>";
 	                    listHtml += "		<div class='col-1'>"
 	                    listHtml += "		</div>"
 	                    listHtml += "		<div class='col-1'>"
 	                    listHtml += "			<a href='#'> ";
-	                    listHtml += "				<img id='write_reply_profileImage' src='#'/>"
+	                    listHtml += "				<img id='write_reply_profileImage' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' src='../img/pome3.jpg'//>"
 	                    listHtml += "			</a> ";
 	                    listHtml += "		</div>"
 	                    listHtml += "		<div class='col-7'>"
-	                    listHtml +=  "  		<input class='w-100 input_rereply_div form-control' id='input_rereply"+ grp +"' type='text' placeholder='댓글입력...'>"
+	                    listHtml += "			<span>";
+                        listHtml += "				<b>"+ loginWriter +"</b>";
+                        listHtml += "			</span>";
+	                    listHtml +=  "  		<input class='w-100 input_rereply_div form-control' style='margin:0.2rem 0 0.5rem 0;' id='input_rereply"+ grp +"' type='text' placeholder='댓글입력...'>"
 	                    listHtml += "		</div>"
 	                    listHtml += "		<div class='col-3'>"
 	                    // 답글달기 버튼이 눌리면 모댓글 번호(no)와 게시물번호(bno)를 함수에 전달한다.
@@ -337,7 +348,7 @@
 	                    // listHtml += "			<button onclick='javascript:WriteReReply("+ no +","+ bno +")' type='button' class='btn btn-success mb-1 write_rereply' >답글&nbsp;달기</button>"
 	                    // 위 코드는 클릭되어도 값이 넘겨지지 않는다. 값이 undefined가 된다.
 	                    // 아래코드처럼 짜야한다. click이벤트를 처리하지 않고 데이터(no, bno)만 속성으로 넘겨주도록 작성한다.
-	                    listHtml += "			<button type='button' class='btn btn-success mb-1 write_rereply' grp='" + grp + "' bno='" + bno + "'>답글&nbsp;달기</button>"
+	                    listHtml += "			<button type='button' style='background-color: #B4CFB0; border-color: #B4CFB0; font-weight: bold; margin-top:1.5rem;'  class='btn btn-success mb-1 write_rereply' grp='" + grp + "' bno='" + bno + "'>답글&nbsp;달기</button>"
 	                    listHtml += "		</div>";
 	                    listHtml += "	</div>";
 	                    // ---- 답글입력란 끝
@@ -365,17 +376,22 @@
 	             //$('.write_re_reply_start').on('click', function(){
 	             //	$('#input_rereply'+ $(this).attr('no')).val("@"+$(this).attr('writer')+" ");
 	             //});
-
 	             //답글을 작성한 후 답글달기 버튼을 눌렀을 때 그 click event를 아래처럼 jquery로 처리한다.
-	             $('button.btn.btn-success.mb-1.write_rereply').on( 'click', function() {
+	             $('.write_reply_start').on( 'click', function() {
 	            	 console.log("대댓글 작성 클릭")
 	                 console.log( 'bno', $(this).attr('bno') );
 	            	 console.log( 'grp', $(this).attr('grp') );
-
+	            	 console.log("#input_rereply" + $(this).attr('grp'));
+	            	 $("#input_rereply" + $(this).attr('grp')).focus();
 	                 // 답글을 DB에 저장하는 함수를 호출한다. bno와 no를 같이 넘겨주어야한다.
-	                 WriteReReply($(this).attr('bno'), $(this).attr('grp'));
 	             });
 
+$('.write_rereply').on( 'click', function() {
+	 console.log("대댓글 작성 완료");
+   
+    // 답글을 DB에 저장하는 함수를 호출한다. bno와 no를 같이 넘겨주어야한다.
+    WriteReReply($(this).attr('bno'), $(this).attr('grp'));
+});
 	             // 삭제버튼을 클릭했을 때
 	             $('.reply_delete').on('click', function(){
 	                 // 모댓글 삭제일때
@@ -386,16 +402,40 @@
 
 	             });
 	             
+	          
+                 
+                 
+	             
 	             $('.reply_modify').on( 'click', function() {
 	         		console.log("수정 클릭")
 	         	    console.log( 'no', $(this).attr('no') );
 	         		
+	         	//	$(this).text('수정완료');
+	         		$(this).css('display','none');
 	         		
-	         		ModifyReply($(this).attr('no') );
+	         		let modiHtml = ""
+                      // 수정할 댓글의 no를 grpl과 함께 넘긴다. 
+                      // 모댓글 수정칸과 답글 수정칸을 화면에 다르게 나타내야하기 때문에 모댓글과 답글을 구분하는 grpl을 함께 넘겨주어야한다.
+                      //listHtml += "			<a href='javascript:' no='"+ no +"' grpl='"+ grpl +"' class='reply_modify'>수정</a>";
+                      //listHtml += "			&nbsp;|&nbsp;";
+                      // 삭제는 no만 넘겨주면 된다.
+                      modiHtml += "			<button type='button' style='background-color: #B4CFB0; border-color: #B4CFB0; font-weight: bold;' onclick='javascript:' no='"+ $(this).attr('no') +"' class='btn btn-success reply_comModify'>완료</button>";
+
+
+                      modiHtml += "			<button type='button' style='background-color: #B4CFB0; border-color: #B4CFB0; font-weight: bold;' onclick='javascript:' no='"+ $(this).attr('no') +"' class='btn btn-success reply_conModify'>취소</button>";
+                      
+	         		$(this).closest('div').html(modiHtml);
+
+	         	//	$(this).siblings().text('취소');
+	         	//	$(this).siblings().attr('class','reply_conModify');
+	         		ModifyReply($(this).attr('no'), $(this).attr('bno') );
 		
 	         	    // 답글을 DB에 저장하는 함수를 호출한다. bno와 no를 같이 넘겨주어야한다.
 	         	    
 	         	});
+	             
+	             
+	     
 	         	
 
 	            
@@ -554,22 +594,37 @@
 	
 	
 	
-	const ModifyReply = function(no) {
+	const ModifyReply = function(no, bno) {
 		 console.log('ModifyReply 함수 진입');
 	    console.log(no);
 
 	   $(".reply_content" + no).attr("readonly",false);
 	   $(".reply_content" + no).focus();
-	   
-	   $(".reply_Modify" + no).attr("class","reply_comModify");
-	   
-	   $(this).text("수정완료");
-	  // $(this).attr("class","reply_comModify");
-	 //  $(this).attr("class","reply_canModify");
+	  
 	   
 	   console.log("사라졌니?");
 	   
 	
+	   
+       // 댓글 수정완료버튼
+       $('.reply_comModify').on('click', function(){
+           
+           		    	console.log($(this).attr('no'));
+
+           		    	ComModifyReply(no, bno);
+           
+
+       });
+       
+       
+       
+       //댓글 수정 취소버튼
+       
+       $('.reply_conModify').on('click', function(){
+    	   ReplyList(bno);
+           
+
+       });
 
 
        
@@ -631,6 +686,60 @@
 	    };
 	    */
 	};
+	
+	
+	
+
+	const ComModifyReply = function(no, bno) {
+		 console.log('ComModifyReply 함수 진입');
+	    console.log(no);
+	    console.log(bno);
+
+	   // console.log($("#input_rereply" + no).val());
+
+	   // let content = $("#input_rereply" + grp).val();
+	    	    
+	 
+	    let content = $(".reply_content" + no).val();
+
+	    
+	    
+		console.log(content);
+	
+
+	   // content = content.trim();
+
+	        const info = {
+                "no" : no,
+                "content": content,
+            };
+		console.log("댓글수정 여기까지 실행")
+	    if(content == ""){	// 입력된게 없을때
+	        alert("글을 입력하세요!");
+	    }else{	
+	      
+	        $.ajax({
+	        	url : '/codelog/reply/replyModify',
+	            type : 'post',
+	            contentType : 'application/json',
+				dataType : 'text',
+	            data : JSON.stringify(info),
+	            success : function() {
+
+	              
+	                console.log("댓글 수정 성공");
+	          
+	                ReplyList(bno);
+	            },
+	            error : function() {
+	                alert('서버 에러');
+	            }
+	        });
+
+	    };
+	};
+	
+	
 	
 	
 	// 모댓글 삭제일때
@@ -699,7 +808,25 @@
 
 	};
 	
-	
+	function formatDate(date) {
+	    
+	    var d = new Date(date),
+	    
+	    month = '' + (d.getMonth() + 1) , 
+	    day = '' + d.getDate(), 
+	    year = d.getFullYear();
+	    hour = d.getHours();
+        minute = d.getMinutes();
+	    
+	    if (month.length < 2) month = '0' + month; 
+	    if (day.length < 2) day = '0' + day; 
+	    
+	    let y = [year, month, day].join('-');
+	    let m = [hour, minute].join(':')
+	    return y+" "+m;
+	    
+	    };
+
 	
 	
 	

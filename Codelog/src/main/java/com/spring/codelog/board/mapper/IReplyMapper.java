@@ -17,6 +17,7 @@ public interface IReplyMapper {
 	public void replyDown(@Param("bno") int bno);
 	public int getGrps(@Param("grp") int grp);
 	public int getRecnt(@Param("bno") int bno);
+	public void ModifyReply(@Param("no") int no, @Param("content") String content);
 
    
 }

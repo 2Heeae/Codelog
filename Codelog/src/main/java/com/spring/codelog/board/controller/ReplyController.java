@@ -62,6 +62,19 @@ public class ReplyController {
 		System.out.println("deleteReply 진입");
 	    return service.DeleteReply(no, bno);
 	}
+	
+	// 댓글 수정
+	
+		@RequestMapping(value = "/replyModify", method = RequestMethod.POST)
+		public void replyModify(@RequestBody Map<String, String> info) {
+			System.out.println("replyModify 진입");
+			int no = Integer.parseInt(info.get("no"));
+		    service.ModifyReply(no, info.get("content"));	
+		    
+		
+	}
+		
+		
 
 	// 답글 삭제
 	
