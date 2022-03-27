@@ -6,7 +6,8 @@ import com.spring.codelog.board.commons.ImgVO;
 import com.spring.codelog.board.model.BoardVO;
 
 public interface BoardMapper {
- public void write(BoardVO vo);
+	
+ public int write(BoardVO vo);
 
  public void image(ImgVO vo);
  
@@ -15,4 +16,8 @@ public interface BoardMapper {
  public BoardVO test(int boardId);
  
  public BoardVO read(int boardId);
+ 
+ public BoardVO modify(int boardId);
+ 
+ 
 }
