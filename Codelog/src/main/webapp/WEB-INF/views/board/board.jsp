@@ -295,7 +295,7 @@
 	                    if("${loginSession.nickname}" != ""){
 
 	                        //현재 사용자가 이 댓글의 작성자일때 삭제 버튼이 나온다.
-	                        if("${loginSession.nickname}" == writer){
+	                        if("${loginSession.nickname}" == writer && content != "삭제된 댓글입니다."){
 	                            listHtml += "		<div>";
 	                            // 수정할 댓글의 no를 grpl과 함께 넘긴다. 
 	                            // 모댓글 수정칸과 답글 수정칸을 화면에 다르게 나타내야하기 때문에 모댓글과 답글을 구분하는 grpl을 함께 넘겨주어야한다.
@@ -560,6 +560,12 @@
 
 	   $(".reply_content" + no).attr("readonly",false);
 	   $(".reply_content" + no).focus();
+	   
+	   $(".reply_Modify" + no).attr("class","reply_comModify");
+	   
+	   $(this).text("수정완료");
+	  // $(this).attr("class","reply_comModify");
+	 //  $(this).attr("class","reply_canModify");
 	   
 	   console.log("사라졌니?");
 	   
