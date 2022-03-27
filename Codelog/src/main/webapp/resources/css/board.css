@@ -12,11 +12,15 @@ a {
 }
 
 a:hover {
-    color: dodgerblue;
+    color:rgb(148, 180, 159);
     font-weight: bold;
 }
 
-/* ========== ÁÂÃø °íÁ¤¸Þ´º ========== */
+#container{
+	padding-bottom:151px;
+}
+
+/* ========== ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ´ï¿½ ========== */
 aside {
     width: 100px;
     position: -webkit-sticky;
@@ -58,7 +62,30 @@ aside {
     }
 }
 
-/* ========== ¿ìÃø °íÁ¤¸Þ´º ========== */
+/* ========== ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ´ï¿½ ========== */
+.title{
+	font-weight:800;
+	font-size:3rem;
+    line-height: 1.5;
+    letter-spacing: -0.004em;	
+    margin-bottom: 1rem;
+    word-break: keep-all;
+    transition: color 0.125s ease-in 0s;
+}
+
+.thumb{
+    display: inline-block;
+    background-color: transparent;
+}
+
+.thumb-date{
+	display: inline-block;
+    background-color: transparent;
+	position: relative;
+    top: 45px;
+    left: -30px;
+}
+
 .content-menu{
     padding-left: 10px;
 }
@@ -83,11 +110,11 @@ aside {
 }
 
 .content-menu a:hover, .content-menu a.active {
-    color: dodgerblue;
+    color:rgb(148, 180, 159);
     font-weight: bold;
 }
 
-/* ========== º»¹® ========== */
+/* ========== ï¿½ï¿½ï¿½ï¿½ ========== */
 .detail-main {
     width: auto;
     height: auto;
@@ -118,7 +145,7 @@ aside {
 }
 
 .hashtag {
-    margin: 1em;
+    margin: 1rem;
     display: inline-block;
 }
 
@@ -152,7 +179,7 @@ section > img {
     max-width: 100%;
 }
 
-/* ========== ´ñ±Û ========== */
+/* ========== ï¿½ï¿½ï¿½ ========== */
 section.reply {
     margin-left: 10px;
 }
@@ -220,7 +247,7 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* ========== ´ë´ñ±Û ========== */
+/* ========== ï¿½ï¿½ï¿½ï¿½ ========== */
 .hiddenDiv {
     position: relative;
     width: 100%;

@@ -168,10 +168,10 @@
 					<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
 					<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}" class="stretched-link"></a>
 					<!--썸네일 이미지-->
-					<img src="<c:url value='/img/cat.jpg'/>" class="card-img-top" alt="...">
+					<img src="<c:url value='/image/display/${s.thumbnail }'/>" class="card-img-top" alt="...">
 					<!--제목 내용-->
 					<div class="card-body ">
-						<strong>${s.title},보드아이디: ${s.boardId}</strong>
+						<strong>${s.title}</strong>
 						<p class="card-text" style="padding-top: 0.3rem;">${s.preview}
 
 						</p>
@@ -180,8 +180,8 @@
 						style="font-size: 0.8rem; border-top: 0; background-color: white;">
 
 						<p class="card-text"
-							style="border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;">
-							${s.regDate}</p>
+							style="border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;color:gray;">
+							<fmt:formatDate value="${s.regDate }" pattern="yy/MM/dd"/></p>
 
 							<!--계정사진 계정명 댓글수 좋아요수-->
 						<div>
@@ -189,7 +189,7 @@
 							<div style="margin-top: 0.3rem;">
 								<div style="display: inline-block; float: left;">
 									<div style="border-radius: 70%; overflow: hidden; display: inline-block;">
-										<img src="<c:url value='/img/${s.userId}'/>" class="img-rounded" width="25rem">
+										<img src="<c:url value='/image/${s.userId}'/>" class="img-rounded" width="25rem">
 									</div>
 
 								</div>
