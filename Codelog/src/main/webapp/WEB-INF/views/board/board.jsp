@@ -162,11 +162,30 @@
 						</c:if>
 
 
-					</section>
-					
+
+
+						<div id="viewer">${dto.content}</div>
+						<script>
+						
+						console.log(view);
+	const viewer = toastui.Editor.factory({
+		  el: document.querySelector('#viewer'),
+      viewer: true,
+      height: '500px',
+     
+	});					
 				
 	
-					
+	
+	
+	 function ToView()
+{
+    viewer.getMarkdown(viewer.setHTML());
+};	
+</script>
+
+
+		
 					
 					
 			  
@@ -261,6 +280,7 @@
 						</div>
 						<div class="thumb" style="position:relative; left: 20px; width:75px; vertical-align: bottom; display: inline-block !important;" ><img src="<c:url value='/image/display/${dto.thumbnail}'/>" class="rounded" width="75px" height="75px" ></div>		
 					<hr align="center" size="3px" width="100%" style="margin: 10px;">
+					</div>
 					<div style="width: 248.63px; height: 90px; background-color: transparent;">
 						<div class="thumb" style="width: 160px; height: 90px; padding: 5px;"> 
 							<span>Typescript는 어떻게 공부해야 하나요?</span>
@@ -268,6 +288,8 @@
 						</div>
 						<div class="thumb" style="position:relative; left: 20px; vertical-align: bottom;" ><img src="<c:url value='/image/display/${dto.thumbnail}'/>" class="rounded" width="75px" height="75px" ></div>		
 					<hr align="center" size="3px" width="100%" style="margin: 10px;">
+										</div>
+					
 					<div style="width: 248.63px; height: 90px; background-color: transparent;">
 						<div class="thumb" style="width: 160px; height: 90px; padding: 5px;"> 
 							<span>Typescript는 어떻게 공부해야 하나요?</span>
@@ -275,6 +297,8 @@
 						</div>
 						<div class="thumb" style="position:relative; left: 20px; vertical-align: bottom;" ><img src="<c:url value='/image/display/${dto.thumbnail}'/>" class="rounded" width="75px" height="75px" ></div>		
 					<hr align="center" size="3px" width="100%" style="margin: 10px;">
+										</div>
+					
 					<div style="width: 248.63px; height: 90px; background-color: transparent;">
 						<div class="thumb" style="width: 160px; height: 90px; padding: 5px;"> 
 							<span>Typescript는 어떻게 공부해야 하나요?</span>
@@ -282,6 +306,7 @@
 						</div>
 						<div class="thumb" style="position:relative; left: 20px; vertical-align: bottom;" ><img src="<c:url value='/image/display/${dto.thumbnail}'/>" class="rounded" width="75px" height="75px" ></div>		
 					<hr align="center" size="3px" width="100%" style="margin: 10px;">
+										</div>
 					
 					</nav>
 					</div>
@@ -290,13 +315,8 @@
 				<div class="col-md-1"></div>
 			</div>
 		</div>
-	</div>
 	
-	
-	
-<span id="nickname">${loginSession.nickname}</span>	
-	<span id="userNo">${loginSession.userNo}</span>	
-	
+
 
 <!-- 댓글  -->
 
