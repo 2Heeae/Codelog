@@ -943,10 +943,10 @@
 			const view_user_id = $('#view-user').val();
 			const postLike = ${postLike};
 			console.log(view_user_id);
-
-			console.log(post_like);
+			writer="${loginSession.nickname}";
+			console.log(postLike);
 			console.log(writer);
-			const msg = view_user_id + "," + writer + "," + post_like; //소켓메세지 보낼 값
+			const msg = view_user_id + "," + writer + "," + postLike; //소켓메세지 보낼 값
 
 			const data = {
 				"viewUserId" : view_user_id,
