@@ -52,8 +52,8 @@
     
     <!-- 02. 게시글 작성 -->
  
-    <insert id="write"> INSERT INTO proj_board(board_id, user_id, title, writer, tags, content, img_path, reg_date,preview, thumbnail, view_all, user_no) 
-VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, 'dd',to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'),#{preview}, #{thumbnail}, #{viewAll}, #{userNo})</insert>
+    <insert id="write"> INSERT INTO proj_board(board_id, user_id, title, writer, tags, content, img_path, reg_date,preview, thumbnail, view_all, user_no, hit) 
+VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, 'dd',to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'),#{preview}, #{thumbnail}, #{viewAll}, #{userNo}, 0)</insert>
 
     <!--03. 게시글 상세보기 조회 -->
     <select id="read" resultMap="BoardMap">
@@ -104,5 +104,10 @@ VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, '
 	<update id="totalLikeDown">
 		UPDATE proj_board SET likes = likes - 1 WHERE board_id = #{boardId}
 	</update>
+	
+	<!-- board_seq 시퀀스의 현재 값을 얻어오는 sql (write와 연계) -->
+	<select id="currentBoardId" resultType="int">
+		SELECT board_seq.CURRVAL FROM dual
+	</select>
  
  </mapper>
