@@ -215,7 +215,7 @@
                         <a href="#">
                         <!-- 로그인 사용자 이미지가 뜨도록 -->
                         	<img id="write_reply_profileImage" style=" border-radius: 70%;
-    						overflow: hidden;" width="40rem" src="<c:url value='/user/display'/>">
+    						overflow: hidden;" width="40rem" src="<c:url value='/image/${loginSession.userId}'/>"/>
                         </a>
                     </div>
                     <div class="col-11" class="input_reply_div">
@@ -259,14 +259,22 @@
 
 
 
-
 				</div>
+				
+				
+				
+				
+				
+			
+	
+	
+	
 			<!--------------------우측 고정메뉴-------------------->
 			
 			<div class="col-md-3">
 				<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted rounded" style="background-color: rgb(239 255 239); height: 520px;">
-					<a href="${pageContext.request.contextPath}/search?keyword=${dto.tags}" class="d-block h6 my-2 pb-2 border-bottom">
-						&nbsp;#${dto.tags} 관련 게시글&nbsp;&nbsp;&nbsp;></a>
+					<a href="${pageContext.request.contextPath}/search?keyword=${dto.userId}" class="d-block h6 my-2 pb-2 border-bottom">
+						&nbsp;#${tagList.get(0)} 관련 게시글&nbsp;&nbsp;&nbsp;></a>
 					
 					<c:if test="${not empty searchList}">
 					<nav id="TableOfContents">
@@ -343,7 +351,10 @@
 	                 let grpl = data[i].grpl;
 	                 let writer = data[i].writer;
 	                 let content = data[i].content;
+	                 let userId = data[i].userId;
+
 	                 let wdate = data[i].wdate;
+	                 let userImg = data[i].userImg;
 	                 var date1 = new Date(wdate);
 	                 wdate = formatDate(date1);  	                 
 	                
@@ -351,8 +362,8 @@
 	                 listHtml += "<div class='row replyrow reply" + no + "'>";
 	                 if(grpl == 0){	// 모댓글일때
 	                        listHtml += "	<div class='col-1'>";
-	                        listHtml += "		<a href='#'> ";
-	                        listHtml += "			<img class='reply_list_profileImage' src='<c:url value='/image/${loginSession.userId}'/>' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >";
+	                        listHtml += "		<a href='#'> ";                 
+	                        listHtml += "			<img class='reply_list_profileImage'  src='<c:url value='/image/"+userId+"'/>' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >";
 	                        listHtml += "		</a> ";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='reply-content"+ no +" col-8'>";
@@ -376,7 +387,7 @@
 	                        listHtml += "	<div class='col-1'>"
 	                        listHtml += "	</div>"
 	                        listHtml += "	<div class='col-1'>";
-	                        listHtml += "		<img class='reply_list_profileImage' src='<c:url value='/image/${loginSession.userId}'/>' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >";
+	                        listHtml += "		<img class='reply_list_profileImage' src='<c:url value='/image/"+userId+"'/>'  style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='rereply-content"+ no +" col-7'>";
 	                        listHtml += "		<div>";
@@ -952,15 +963,17 @@
 			}
 			
 		});
-		
+	
+		let post_like = ${postLike}; //좋아요 여부 확인 1, 0
 		function like_update() {
 			const view_user_id = $('#view-user').val(); //글 보는 사람 아이디
-			let post_like = ${postLike}; //좋아요 여부 확인 1, 0
+			
 			const writer = '${dto.userId}'; //글 쓴 사람
 			console.log(view_user_id);
 			console.log(post_like);
 			console.log(writer);
-			msg = 'like' + "," + view_user_id + "," + writer + "," + post_like; //소켓메세지 보낼 값
+			msg = "like" + "," + view_user_id + "," + writer + "," + post_like; //소켓메세지 보낼 값
+
 			const data = {
 				"viewUserId" : view_user_id, //글 보는사람 아이디값
 				"boardId" : ${dto.boardId}, //글번호
@@ -979,7 +992,10 @@
 						$('#like-check').val(0);
 						$('#like-btn').css("color", "black");
 						let total = $('#result').html();
-						$('#result').html(${dto.likes} - 1);
+						$('#result').html(${dto.likes});		
+						post_like = 0;
+						
+						
 						
 					} else if(post_like == 0) {
 						console.log('좋아요');
@@ -987,8 +1003,8 @@
 						$('#like-btn').css("color", "red");
 						let total = $('#result').html();
 						$('#result').html(${dto.likes} + 1);
+						post_like = 1;						
 						
-					} else {
 						
 					}
 					socket.send(msg);

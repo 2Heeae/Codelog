@@ -14,11 +14,12 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
    <style>
+   @import url("<c:url value='/css/home.css'/>");
        .card-thumb{
           overflow-y : hidden;
           
         }
-       @import url("<c:url value='/css/home.css'/>");
+       
    
    </style>
    <title>Document</title>
