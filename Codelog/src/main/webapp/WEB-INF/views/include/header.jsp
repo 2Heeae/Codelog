@@ -80,10 +80,11 @@
             <!--알림 아이콘, 알림개수-->
                <i class="fa-regular fa-bell ic"></i>
                <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style="left: 2.8rem;">
-                  2+
+                  ${countAlarm}
                   <span class="visually-hidden">unread messages</span>
                </span>
-            <!--알림,알림 목록 토글-(위에 거랑 세트)-->   
+            <!--알림,알림 목록 토글-(위에 거랑 세트)-->
+            <!-- 로그인해서 보여줄 알림 있을 때에만 보여줄 것 -->
                <div class="collapse" id="collapseExample"
                   style="position: absolute; width: 20rem; top:2.7rem; right: 0rem; z-index: 1000;">
                   <div class="card" style="width: 100%;">
@@ -96,7 +97,7 @@
                                  alt=".">
                            </div>
                            <div class="col-md-9" style=" text-align: left;">
-                              <span class="card-text"><strong>홍길동abcd</strong>님이 좋아요를 눌렀습니다.</span>
+                              <span class="card-text"><strong>${alarm.msg}</strong></span>
 
 
                               <p class="pt-1" style="font-size: 0.8rem;">3시간 전.</p>
@@ -104,22 +105,11 @@
                            </div>
                         </div>
                      </div>
-
-                     <div class="card-body cc" style=" height: 6rem; ">
-                        <div class="row">
-                           <div class="col-md-3">
-                              <img width="50rem" src="<c:url value='/img/pome3.jpg'/>" class="card-img-right rounded-circle"
-                                 alt=".">
-                           </div>
-                           <div class="col-md-9" style=" text-align: left;">
-                              <span id="msgStack" class="card-text"></span>
-
-                              <p class="pt-1" style="font-size: 0.8rem; margin: auto 0;">19시간 전.</p>
-                           </div>
-                        </div>
-                     </div>
+                     
+                     
                   </div>
                </div>
+            <!-- 로그인해서 보여줄 알림 있을 때에만 보여줄 것 -->
             </button>
              <!--글 작성-->
               <button type="button" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" onclick="location='/codelog/boardController/getWrite'"><i class="fa-solid fa-pen-to-square" style="font-size: 19px;"></i></button>
@@ -218,6 +208,7 @@
 	// toast생성 및 추가
 	function onMessage(evt){
 	    var data = evt.data;
+	   	console.log(data);
 	 	// toast
 	    let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
 	    toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
