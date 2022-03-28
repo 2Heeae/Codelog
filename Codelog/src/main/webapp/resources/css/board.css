@@ -73,15 +73,16 @@ aside {
     transition: color 0.125s ease-in 0s;
 }
 
+
 .thumb{
-    display: inline-block;
+    display: block;
     background-color: transparent;
 }
 
 .thumb-date{
 	display: inline-block;
     background-color: transparent;
-	position: relative;
+	position: revert;
     top: 45px;
     left: -30px;
 }
