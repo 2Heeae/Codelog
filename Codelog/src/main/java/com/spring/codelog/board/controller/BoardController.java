@@ -179,9 +179,11 @@ public class BoardController {
         
         BoardVO vo = service.read(boardId);
 		List<BoardVO> list = new ArrayList<>();
+
 		
 		String board_tag = tagList.get(0);
         list = searchService.search(board_tag);
+
         
         // 뷰에 전달할 데이터
         mav.addObject("dto", vo);
