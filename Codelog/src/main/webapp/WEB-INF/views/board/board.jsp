@@ -33,6 +33,11 @@
 	padding: 5px 14px 5px 12px;
 }
 
+
+#viewer table th>p {
+	color: white;
+}
+
 #viewer  pre {
 	background-color: #f4f7f8;
 	margin: 2px 0 8px;
@@ -56,23 +61,31 @@
 	width: 24px;
 }
 
-::marker {
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: 18px 18px;
-   
-    border-radius: 2px;
-    content: "";
-    cursor: pointer;
-    height: 18px;
-    left: 0;
-    margin-left: 0;
-    margin-top: 0;
-    position: absolute;
-    top: 1px;
-    width: 18px;
- 
+
+#viewer {
+	overflow-x: hidden;
 }
+
+/* #viewer ul>li {
+	background-color: #ccc;
+	border-radius: 50%;
+	content: "";
+	height: 5px;
+	margin-left: -17px;
+	margin-top: 6px;
+	width: 5px;
+}
+
+#viewer ol>li {
+	color: #aaa;
+	content: "." counter(li);
+	direction: rtl;
+	margin-left: -28px;
+	text-align: right;
+	width: 24px;
+}
+*/
+
 </style>
 <script
 	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
@@ -194,14 +207,15 @@
 <!-- 댓글 -->
 
 
-<h3 id=recnt>${dto.recnt }개의 댓글</h3>
+<h3 id=recnt>${dto.recnt}개의 댓글</h3>
 
   <c:if test="${not empty loginSession.nickname}">
                 <div class="row reply_write">
                     <div class="col-1">
                         <a href="#">
-                            <img id="write_reply_profileImage" style=" border-radius: 70%;
-    overflow: hidden;" width="40rem" src="<c:url value='../img/pome3.jpg'/>"/>
+                        <!-- 로그인 사용자 이미지가 뜨도록 -->
+                        	<img id="write_reply_profileImage" style=" border-radius: 70%;
+    						overflow: hidden;" width="40rem" src="<c:url value='/user/display'/>">
                         </a>
                     </div>
                     <div class="col-11" class="input_reply_div">
@@ -256,6 +270,7 @@
 					
 					<c:if test="${not empty searchList}">
 					<nav id="TableOfContents">
+
 					<c:forEach var="s" items="${searchList}" begin="0" end="4" step="1">		
 					<div style="width: 248.63px; height: 92px; background-color: transparent;" id="recom";>														
 						<div class="thumb" style="width: 160px; height: 90px; padding: 15px;display: inline-block;"> 
@@ -337,7 +352,7 @@
 	                 if(grpl == 0){	// 모댓글일때
 	                        listHtml += "	<div class='col-1'>";
 	                        listHtml += "		<a href='#'> ";
-	                        listHtml += "			<img class='reply_list_profileImage' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' src='../img/kmj2.jpg'/>";
+	                        listHtml += "			<img class='reply_list_profileImage' src='<c:url value='/image/${loginSession.userId}'/>' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >";
 	                        listHtml += "		</a> ";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='reply-content"+ no +" col-8'>";
@@ -361,7 +376,7 @@
 	                        listHtml += "	<div class='col-1'>"
 	                        listHtml += "	</div>"
 	                        listHtml += "	<div class='col-1'>";
-	                        listHtml += "		<img class='reply_list_profileImage' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' src='../img/pome3.jpg'/>";
+	                        listHtml += "		<img class='reply_list_profileImage' src='<c:url value='/image/${loginSession.userId}'/>' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='rereply-content"+ no +" col-7'>";
 	                        listHtml += "		<div>";
@@ -411,7 +426,7 @@
 	                    listHtml += "		</div>"
 	                    listHtml += "		<div class='col-1'>"
 	                    listHtml += "			<a href='#'> ";
-	                    listHtml += "				<img id='write_reply_profileImage' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' src='../img/pome3.jpg'//>"
+	                    listHtml += "				<img id='write_reply_profileImage' src='<c:url value='/image/${loginSession.userId}'/>' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >"
 	                    listHtml += "			</a> ";
 	                    listHtml += "		</div>"
 	                    listHtml += "		<div class='col-7'>"

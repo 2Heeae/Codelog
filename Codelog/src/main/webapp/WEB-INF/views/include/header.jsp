@@ -111,6 +111,8 @@
                </div>
             <!-- 로그인해서 보여줄 알림 있을 때에만 보여줄 것 -->
             </button>
+             <!--글 작성-->
+              <button type="button" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" onclick="location='/codelog/boardController/getWrite'"><i class="fa-solid fa-pen-to-square" style="font-size: 19px;"></i></button>
             </c:if>
 
             
@@ -124,7 +126,7 @@
             <!-- 로그인하면 보여주기 -->
             <c:if test="${loginSession != null}">            
             <!--메뉴, 메뉴 토글-->      
-            <div style="display: inline; float: right;">
+            <div style="display: inline;">
                <button type="button" class="btn c rounded-circle px-md-0 my-md-2 pb-md-4 pt-md-0 position-relative"
                    data-bs-toggle="collapse" style="background-color:transparent; border-color: transparent;"
                   href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
@@ -168,12 +170,12 @@
                </button>
             </div>
             </c:if>
-            <!-- 로그인하면 보여주기 -->
-            <c:if test="${loginSession != null}">
-            <!--글 작성-->
+           
+           
+           
 
-            <button type="button" class="btn btn-light rounded-circle my-md-3 px-md-1 bc" onclick="location='/codelog/boardController/getWrite'">새 글 작성</button>
-            </c:if>
+            
+          
             <!-- 로그인하면 보여주기 끝 -->
          </div>
       </div>
