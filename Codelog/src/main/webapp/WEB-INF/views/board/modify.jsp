@@ -247,10 +247,10 @@
          $("#show").click(function () {
         	 var checkTitle = $('#title').val();
 				var checkTag = $('#tag').val();
-				var checkContent = $('#editor').val;
+				
 			    if(checkTitle == '') {alert("제목을 입력해주세요!"); return false;}
 			    if(checkTag == '') {alert("태그를 입력해주세요!"); return false; }
-			    if(checkContent == '') {alert("내용을 입력해주세요!"); return false;}
+			    
             $("#check").show();
             $("#articles").hide();
             $("#check").toggleClass('fadeIn');

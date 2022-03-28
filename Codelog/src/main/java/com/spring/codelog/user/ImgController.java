@@ -23,8 +23,11 @@ import com.spring.codelog.board.service.IBoardService;
 import com.spring.codelog.user.model.UserVO;
 import com.spring.codelog.user.service.IUserService;
 
-@RequestMapping("/image")
+import lombok.Getter;
+
+
 @RestController
+@RequestMapping("/image")
 public class ImgController {
 	
 	@Autowired
