@@ -1,5 +1,7 @@
 package com.spring.codelog.util.websocket.servcice;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,7 @@ public class NotificationService implements INotificationService {
 	}
 
 	@Override
-	public NotificationVO alarm(String receiver) {
+	public List<NotificationVO> alarm(String receiver) {
 		return notiMapper.alarm(receiver);
 	}
 	

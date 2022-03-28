@@ -79,6 +79,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 					notiMsg = sender + "님이 회원님의 게시물" + comment;
 					targetSession.sendMessage(txtMsg); //글 작성자에게 알려줌
 					
+					vo.setSender(sender);
 					vo.setReceiver(receiver);
 					vo.setMsg(notiMsg);
 					System.out.println("noti VO: " + vo);
@@ -90,6 +91,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 					notiMsg = sender + "님이 회원님의 게시물" + comment;
 					session.sendMessage(txtMsg);
 					
+					vo.setSender(sender);
 					vo.setReceiver(receiver);
 					vo.setMsg(notiMsg);
 					System.out.println("noti VO: " + vo);
@@ -109,6 +111,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 						notiMsg = sender + "님이 회원님의 게시물에 댓글을 남겼습니다.";
 						targetSession.sendMessage(txtMsg);
 						
+						vo.setSender(sender);
 						vo.setReceiver(receiver);
 						vo.setMsg(notiMsg);
 						System.out.println("noti VO: " + vo);
@@ -118,6 +121,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 						notiMsg = sender + "님이 회원님의 게시물에 댓글을 남겼습니다.";
 						session.sendMessage(txtMsg);
 						
+						vo.setSender(sender);
 						vo.setReceiver(receiver);
 						vo.setMsg(notiMsg);
 						System.out.println("noti VO: " + vo);
@@ -129,6 +133,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 						notiMsg = sender + "님이 회원님을 팔로우합니다.";
 						targetSession.sendMessage(txtMsg);
 						
+						vo.setSender(sender);
 						vo.setReceiver(receiver);
 						vo.setMsg(notiMsg);
 						System.out.println("noti VO: " + vo);
@@ -138,6 +143,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 						notiMsg = sender + "님이 회원님을 팔로우합니다.";
 						session.sendMessage(txtMsg);
 						
+						vo.setSender(sender);
 						vo.setReceiver(receiver);
 						vo.setMsg(notiMsg);
 						System.out.println("noti VO: " + vo);
