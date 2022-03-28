@@ -950,10 +950,11 @@
 			}
 			
 		});
-		
+	
+		let post_like = ${postLike}; //좋아요 여부 확인 1, 0
 		function like_update() {
 			const view_user_id = $('#view-user').val(); //글 보는 사람 아이디
-			let post_like = ${postLike}; //좋아요 여부 확인 1, 0
+			
 			const writer = '${dto.userId}'; //글 쓴 사람
 			console.log(view_user_id);
 			console.log(post_like);
@@ -977,7 +978,10 @@
 						$('#like-check').val(0);
 						$('#like-btn').css("color", "black");
 						let total = $('#result').html();
-						$('#result').html(${dto.likes} - 1);
+						$('#result').html(${dto.likes});		
+						post_like = 0;
+						
+						
 						
 					} else if(post_like == 0) {
 						console.log('좋아요');
@@ -985,8 +989,8 @@
 						$('#like-btn').css("color", "red");
 						let total = $('#result').html();
 						$('#result').html(${dto.likes} + 1);
+						post_like = 1;						
 						
-					} else {
 						
 					}
 					socket.send(msg);
