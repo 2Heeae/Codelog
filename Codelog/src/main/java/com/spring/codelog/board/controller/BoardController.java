@@ -47,7 +47,7 @@ public class BoardController {
 	
 	@GetMapping("/test")
 	public String test() {
-		return "board/test";
+		return "board/temp";
 	}
 
 	@RequestMapping(value = "/getWrite", method = RequestMethod.GET)

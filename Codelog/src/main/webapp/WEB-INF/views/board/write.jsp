@@ -61,7 +61,7 @@
 </head>
 <c:if test="${loginSession == null }">
    <script>
-    alert("로그인 후 이용이 가능합니다.");
+   alert("로그인 후 이용이 가능합니다.");
     history.back();
    </script>
 
@@ -79,8 +79,10 @@
 
       <!-- 로그인 세션에 있는 사용자의 id -->
       <div id="articles">
-         <textarea placeholder="제목을 입력하세요" id="title" name="title"></textarea>
-
+      <div id="title-line">
+         <textarea placeholder="제목을 입력하세요" id="title" name="title" style="float:left;" onkeyup="priviewTitle()"></textarea>
+ 
+				</div>
          <br>
          <!--태그-->
          <div class="hashtag">
@@ -294,10 +296,7 @@
 
          </div>
 
-      </div>
-      </div>
 
-      </div>
    </form>
    <script>
       /*작성과 작성검토 부분을 버튼으로 연결함(버튼은 임시)
