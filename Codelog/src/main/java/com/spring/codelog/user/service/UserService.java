@@ -64,11 +64,7 @@ public String getUserImg(String userId) {
 	return mapper.getUserImg(userId);
 }
 
-@Override
-public String getUserImg2(int userNo) {
-	// TODO Auto-generated method stub
-	return mapper.getUserImg2(userNo);
-}
+
 
 
 

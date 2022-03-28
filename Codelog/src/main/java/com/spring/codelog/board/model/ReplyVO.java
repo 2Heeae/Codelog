@@ -6,10 +6,11 @@ import org.springframework.stereotype.Service;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Service
+@Setter
 @NoArgsConstructor
 @ToString
 public class ReplyVO {
@@ -19,6 +20,7 @@ public class ReplyVO {
 	private int grps;	//	그룹 내 댓글 순서 (오래된글 ~ 최신글  오름차순)
 	private int grpl;	//	그룹내 댓글 깊이(댓글인지 대댓글인지)
 	private int userNo;
+	private String userId;
 	private String userImg;
 	private String writer;
 	private String content;

@@ -215,7 +215,7 @@
                         <a href="#">
                         <!-- 로그인 사용자 이미지가 뜨도록 -->
                         	<img id="write_reply_profileImage" style=" border-radius: 70%;
-    						overflow: hidden;" width="40rem" src="<c:url value='/user/display'/>">
+    						overflow: hidden;" width="40rem" src="<c:url value='/image/${loginSession.userId}'/>"/>
                         </a>
                     </div>
                     <div class="col-11" class="input_reply_div">
@@ -343,8 +343,9 @@
 	                 let grpl = data[i].grpl;
 	                 let writer = data[i].writer;
 	                 let content = data[i].content;
+	                 let userId = data[i].userId;
+
 	                 let wdate = data[i].wdate;
-	                 let userNo = date[i].userNo;
 	                 var date1 = new Date(wdate);
 	                 wdate = formatDate(date1);  	                 
 	                
@@ -352,8 +353,8 @@
 	                 listHtml += "<div class='row replyrow reply" + no + "'>";
 	                 if(grpl == 0){	// 모댓글일때
 	                        listHtml += "	<div class='col-1'>";
-	                        listHtml += "		<a href='#'> ";
-	                        listHtml += "			<img class='reply_list_profileImage' src='<c:url value='/image/${loginSession.userId}'/>' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >";
+	                        listHtml += "		<a href='#'> ";                 
+	                        listHtml += "			<img class='reply_list_profileImage'  src='<c:url value='/image/"+userId+"'/>' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >";
 	                        listHtml += "		</a> ";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='reply-content"+ no +" col-8'>";
@@ -377,7 +378,7 @@
 	                        listHtml += "	<div class='col-1'>"
 	                        listHtml += "	</div>"
 	                        listHtml += "	<div class='col-1'>";
-	                        listHtml += "		<img class='reply_list_profileImage' src='<c:url value='/image/${loginSession.userId}'/>' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >";
+	                        listHtml += "		<img class='reply_list_profileImage' src='<c:url value='/image/"+userId+"'/>'  style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='rereply-content"+ no +" col-7'>";
 	                        listHtml += "		<div>";

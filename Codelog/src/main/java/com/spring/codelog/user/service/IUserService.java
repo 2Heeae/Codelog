@@ -34,7 +34,6 @@ public interface IUserService {
 	
 	String getUserImg(String userId);
 	
-	String getUserImg2(int userNo);
 
 
 

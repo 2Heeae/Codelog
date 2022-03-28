@@ -21,6 +21,11 @@
           
         }
    
+   		.card-text2:hover{
+       	background-color: blue;
+       	
+       }
+   
    </style>
    <title>Document</title>
 </head>
@@ -127,14 +132,14 @@
 						<div class="card" style="width: 8rem;">
 
 							<div class="card-body cc" id="all">
-								<div style="text-align: right;" id="all">
-									<span class="card-text" id="all"><strong id="all">모든 사람</strong></span>
+								<div class="card-text" style="text-align: right;" id="all">
+									<span class="card-text2" id="all"><strong class="card-text" id="all">모든 사람</strong></span>
 								</div>
 							</div>
 
 							<div class="card-body cc" id="fol">
-								<div style="text-align: right;" id="fol">
-									<span class="card-text" id="fol"><strong id="fol">팔로워</strong></span>
+								<div class="card-text" style="text-align: right;" id="fol">
+									<span class="card-text2" id="fol"><strong class="card-text" id="fol">팔로워</strong></span>
 								</div>
 							</div>
 

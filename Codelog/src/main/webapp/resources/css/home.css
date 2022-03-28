@@ -27,6 +27,8 @@
        .card-body:hover {
        background-color: #eee;
        }
+       
+       
    
 /* 밑줄 애니매이션 */
     
@@ -78,5 +80,8 @@ margin-left:10%;
 .toto4 {
 margin-left:14%; 
 }
+
+.card-text{
+	background-color: transparent;
+}
       
-       
