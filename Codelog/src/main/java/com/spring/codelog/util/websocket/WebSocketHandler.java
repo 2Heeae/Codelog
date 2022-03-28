@@ -41,6 +41,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		//좋아요 알림 보내기
 		String msg = message.getPayload();
 		System.out.println("소켓에 메세지 들어왔다~~~!");
+		//좋아요
 		if(StringUtils.isNotEmpty(msg)) {
 			
 			String[] strs = msg.split(",");
@@ -60,7 +61,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				
 				WebSocketSession targetSession = users.get(writer);  //메세지 받을 세션 조회
 				//실시간 접속시
-				if(targetSession!=null) {
+				if(targetSession != null) {
 					//예: 둘리님이 고길동님의 게시물을 좋아합니다.
 					TextMessage txtMsg = new TextMessage(viewUser + "님이 " + writer + "님의 게시물" + comment);
 					targetSession.sendMessage(txtMsg); //글 작성자에게 알려줌
@@ -72,6 +73,38 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				}
 			}
 		}
+		
+		//댓글
+		if(StringUtils.isNotEmpty(msg)) {
+					
+			String[] strs = msg.split(",");
+			System.out.println("소켓 전송 메세지값: " + Arrays.toString(strs));
+			
+			if(strs != null && strs.length == 3) {
+				String category = strs[0];
+				String sendUser = strs[1]; //댓글 쓴 사람 아이디(댓글), 로그인 한 사람 아이디(팔로우)
+				String toUser = strs[2]; //글 쓴 사람 아이디(댓글), 팔로우 당하는 사람 아이디(팔로우)
+				
+				WebSocketSession targetSession = users.get(toUser);  //메세지 받을 세션 조회
+				
+				if("reply".equals(category)) {
+					TextMessage txtMsg = new TextMessage(sendUser + "님이 " + toUser + "님의 게시물에 댓글을 남겼습니다.");
+					targetSession.sendMessage(txtMsg); //글 작성자에게 알려줌
+					//혼자 로그인해있어서 받을 사람이 없어서 일단 이거 작성해둠.
+					session.sendMessage(txtMsg); //발표전에 이거 지워야한다.
+				} else if("follow".equals(category)){
+					TextMessage txtMsg = new TextMessage(sendUser + "님이 " + toUser + "님을 팔로우합니다.");
+					targetSession.sendMessage(txtMsg); //팔로우 당한 사람에게 알려줌
+					session.sendMessage(txtMsg); //지금 같은 서버에 혼자 접속중이어서 메세지 들어오는지 확인이 불가능함. 그래서 나한테 보여줘서 체크하는지 확인하는 용도로 썼음.
+					
+				}
+				
+			}
+		}
+		//댓글 여기까지임
+		
+		
+		
 	}
 
 	//웹소켓 연결 해제될 때
