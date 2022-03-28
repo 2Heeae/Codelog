@@ -8,11 +8,12 @@
 		<id property="notiNo" column="noti_no" />
 		<result property="receiver" column="receiver" />	
 		<result property="msg" column="msg" />	
+		<result property="sender" column="sender" />	
 	</resultMap>
 	
 	<insert id="saveNotification">
-		INSERT INTO notification(noti_no, receiver, msg)
-		VALUES(notify_seq.NEXTVAL, #{receiver}, #{msg})
+		INSERT INTO notification(noti_no, receiver, msg, sender)
+		VALUES(notify_seq.NEXTVAL, #{receiver}, #{msg}, #{sender})
 	</insert>
 	
 	<select id="alarm" resultMap="NotificationMap">
