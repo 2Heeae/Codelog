@@ -1,6 +1,7 @@
 package com.spring.codelog.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,8 +41,10 @@ public class TagService implements ITagService {
 		mapper.deleteTags(boardId);
 	}
 
-
-
+   @Override
+  public List<Map<String, Object>> countTags(String userId) {
+	return mapper.countTags(userId);
+}
 	
 
 

@@ -1,6 +1,7 @@
 package com.spring.codelog.board.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -21,5 +22,8 @@ public interface ITagMapper {
 	
 	//태그삭제
 	void deleteTags(int boardId);
+	
+	//태그갯수
+	List<Map<String, Object>> countTags(String userId);
 	
 }

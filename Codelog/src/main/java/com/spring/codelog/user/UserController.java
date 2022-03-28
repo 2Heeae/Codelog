@@ -3,6 +3,8 @@ package com.spring.codelog.user;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -30,6 +32,7 @@ import com.spring.codelog.user.commons.profileImgVO;
 import com.spring.codelog.user.model.UserVO;
 import com.spring.codelog.user.service.IFollowService;
 import com.spring.codelog.user.service.IUserService;
+
 
 
 @RestController
@@ -107,7 +110,7 @@ public class UserController {
 
 		int userNo = user.getUserNo();
 		int loginUserNo = loginUser.getUserNo();
-
+       
 		FollowVO follow = new FollowVO();
 		follow.setActiveUser(loginUserNo);
 		follow.setPassiveUser(userNo);
@@ -120,7 +123,9 @@ public class UserController {
 		//팔로잉리스트
 		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
 		System.out.println(followingList);
-
+       
+	    
+		
 		//태그리스트 부르기
 		List<String> tagList =tagService.listbyuId(loginUser.getUserId());
 
@@ -129,7 +134,19 @@ public class UserController {
 		model.addAttribute("followerList", followerList);
 		model.addAttribute("followingList", followingList);
 		model.addAttribute("tagList", tagList);
-
+		List<Map<String, Object>> tagmap = tagService.countTags(user.getUserId());
+		
+		System.out.println(tagmap);
+		Map<String, Object> realMap = new HashMap<>();
+		
+		for(Map<String, Object> map : tagmap) {
+			realMap.put((String) map.get("TAG_NAME"), map.get("COUNT(*)"));
+		}
+		
+		System.out.println(realMap);
+		
+		model.addAttribute("tagCount", realMap);
+	    
 
 		return mv;
 	}
