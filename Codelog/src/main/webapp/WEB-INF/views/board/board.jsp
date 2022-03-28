@@ -33,6 +33,11 @@
 	padding: 5px 14px 5px 12px;
 }
 
+
+#viewer table th>p {
+	color: white;
+}
+
 #viewer  pre {
 	background-color: #f4f7f8;
 	margin: 2px 0 8px;
@@ -56,23 +61,31 @@
 	width: 24px;
 }
 
-::marker {
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: 18px 18px;
-   
-    border-radius: 2px;
-    content: "";
-    cursor: pointer;
-    height: 18px;
-    left: 0;
-    margin-left: 0;
-    margin-top: 0;
-    position: absolute;
-    top: 1px;
-    width: 18px;
- 
+
+#viewer {
+	overflow-x: hidden;
 }
+
+/* #viewer ul>li {
+	background-color: #ccc;
+	border-radius: 50%;
+	content: "";
+	height: 5px;
+	margin-left: -17px;
+	margin-top: 6px;
+	width: 5px;
+}
+
+#viewer ol>li {
+	color: #aaa;
+	content: "." counter(li);
+	direction: rtl;
+	margin-left: -28px;
+	text-align: right;
+	width: 24px;
+}
+*/
+
 </style>
 <script
 	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
@@ -146,7 +159,11 @@
 					
 					<br>
 					<div class="hashtag">
-						<a style="color:rgb(120, 147, 149);" href="${pageContext.request.contextPath}//search?keyword=${dto.tags}">#${dto.tags}</a>
+						<c:forEach var="tag" items="${tagList }">
+							<a style="color:rgb(120, 147, 149);" href="${pageContext.request.contextPath}//search?keyword=${tag}">
+								#${tag}
+							</a>
+						</c:forEach>
 					</div>
 
 						<!-- 로그인시 수정,삭제 버튼 활성화 -->
@@ -253,14 +270,14 @@
 					
 					<c:if test="${not empty searchList}">
 					<nav id="TableOfContents">
-					<c:forEach var="s" items="${searchList}" begin="0" end="3" step="1">
-						<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
-					<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}" class="stretched-link"></a>		
-					<div style="width: 248.63px; height: 90px; background-color: transparent;">								
-					
-						<div class="thumb" style="width: 160px; height: 90px; padding: 5px;display: inline-block;"> 
-							<span class="thumb">${s.title}</span>
-							<div class="thumb-date" style="margin-top: 10px;"><fmt:formatDate value="${s.regDate}" pattern="yy/MM/dd"/></div>
+
+					<c:forEach var="s" items="${searchList}" begin="0" end="4" step="1">		
+					<div style="width: 248.63px; height: 92px; background-color: transparent;" id="recom";>														
+						<div class="thumb" style="width: 160px; height: 90px; padding: 15px;display: inline-block;"> 
+							<span class="thumb" style="height:40px;"><a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}">${s.title}</a></span>
+							<div class="thumb-date" style="margin-top: 10px;">
+							<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}">
+							<fmt:formatDate value="${s.regDate}" pattern="yy/MM/dd"/></a></div>
 						</div>
 						<div class="thumb" style="position:relative;  left: 20px; width:75px; vertical-align: bottom; display: inline-block !important;" >
 							<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}">
