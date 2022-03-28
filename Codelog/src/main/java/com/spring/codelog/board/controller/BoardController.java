@@ -1,6 +1,7 @@
 package com.spring.codelog.board.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +25,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.codelog.board.commons.PostLikeVO;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.service.BoardService;
+
+import com.spring.codelog.board.service.ISearchService;
+
 import com.spring.codelog.board.service.ReplyService;
+
 
 
 import com.spring.codelog.board.service.PostLikeService;
@@ -43,6 +48,9 @@ public class BoardController {
 	
 	@Autowired
 	PostLikeService likeService;
+	
+	@Autowired
+	private ISearchService searchService;
 	
 	@GetMapping("/test")
 	public String test() {
@@ -146,10 +154,20 @@ public class BoardController {
         	
         }
         
+
+        
         // 뷰의 이름
         mav.setViewName("board/board");
+        
+        BoardVO vo = service.read(boardId);
+		List<BoardVO> list = new ArrayList<>();
+
+        list = searchService.search(vo.getTags());
+        
+        
         // 뷰에 전달할 데이터
-        mav.addObject("dto", service.read(boardId));
+        mav.addObject("dto", vo);
+        mav.addObject("searchList", list);
         mav.addObject("postLike", like);
         return mav;
     }
@@ -185,5 +203,6 @@ public class BoardController {
         return "redirect:/";
     }
 	
+
 
 }
