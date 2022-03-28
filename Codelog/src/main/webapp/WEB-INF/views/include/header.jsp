@@ -59,10 +59,10 @@
 		<!-- 검색 창 -->
         <div class="col-md-3 offset-1" style="padding-top:15px;">
             <form action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
-               <input class="form-control mr-sm-2" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
+               <input class="form-control mr-sm-2" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159);"><i class="bi bi-search" style="color:white;"></i></button>
              </form>
-         <div class="" id="toast_area" style="z-index: 1000;"></div>
+         <div class="" id="toast_area" style="background-color:transparent; margin-top:1rem; width:255px; z-index: 1000; position: absolute;" ></div>
          </div>
          
 
@@ -179,6 +179,7 @@
             <!-- 로그인하면 보여주기 끝 -->
          </div>
       </div>
+      <div class="row" id=searchIds></div>
    </div>   
    <!-- Button trigger modal -->
 
@@ -203,6 +204,64 @@
 		    // 데이터를 전달 받았을때 
 		    socket.onmessage = onMessage; // toast 생성
 	    
+	});
+	
+	
+$('#searchInput').keydown(function(){
+		
+		$('#searchResult').remove();
+	
+	});
+
+	
+	$('#searchInput').keyup(function(){
+		$('#searchResult').remove();
+
+		let x = $('#searchInput').val();
+		console.log("x는 "+x);
+		if(x.indexOf("@")==0 && x.length>=2){
+			console.log("계정탐색");
+			x = x.replace("@","");
+			
+			
+
+	        
+			 $.ajax({
+			        url : '/codelog/search/searchId',
+			        type : 'post',
+			        contentType : 'application/json',
+					dataType : 'json',
+		            data : JSON.stringify({
+			        	"userId" : x
+			        }),
+			        success : function(pto) {
+			    		$('#searchResult').remove();
+
+			        	console.log(pto);
+			        	console.log("성공");
+			        	if(pto!=null){
+			        	 // 댓글 목록을 html로 담기
+			             for(const i in pto){
+			                 let userId = pto[i].userId;
+
+            let listHtml = "";
+            listHtml += "	<div class='' id=searchResult style='z-index: 10000; border-collapse: collapse; border:1px solid rgb(231,231,231); background-color:rgb(231,231,231); margin:0px' width:150px >";
+            listHtml += "		<a style='text-decoration:none;' href='#' >";
+            listHtml += "			<img class='reply_list_profileImage' style='margin-top:0.20rem; border-radius: 70%; overflow: hidden;' width='40rem' src='img/pome3.jpg'/>&nbsp;&nbsp;<span>"+userId+"</span>";
+            listHtml += "		</a> ";
+            listHtml += "	</div>";
+            $("#toast_area").append(listHtml);
+			             }
+			        	} else {
+				    		$('#searchResult').remove();
+
+			        	}
+			        },
+			        error : function() {
+			            alert('서버 에러');
+			        }
+			 });
+		}
 	});
 
 	// toast생성 및 추가

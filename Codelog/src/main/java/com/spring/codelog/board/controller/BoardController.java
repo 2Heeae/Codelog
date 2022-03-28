@@ -165,6 +165,7 @@ public class BoardController {
         	}
         	
         }
+        
         List<String> tagList =  tagService.listbybId(boardId);
         // 뷰의 이름
         mav.setViewName("board/board");
@@ -178,7 +179,7 @@ public class BoardController {
         mav.setViewName("board/board");
         
         BoardVO vo = service.read(boardId);
-		List<BoardVO> list = new ArrayList<>();
+	//	List<BoardVO> list = new ArrayList<>();
 
 		
 		if(tagList.size() != 0) {
@@ -189,7 +190,7 @@ public class BoardController {
         
         // 뷰에 전달할 데이터
         mav.addObject("dto", vo);
-        mav.addObject("searchList", list);
+       // mav.addObject("searchList", list);
         mav.addObject("postLike", like);
         return mav;
     }

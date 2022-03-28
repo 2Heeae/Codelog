@@ -33,6 +33,8 @@ public interface IUserService {
 	UserVO getInfo(String userId);
 	
 	String getUserImg(String userId);
+	
+
 
 
 }
