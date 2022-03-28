@@ -182,9 +182,11 @@ public class BoardController {
 	//	List<BoardVO> list = new ArrayList<>();
 
 		
-		//String board_tag = tagList.get(0);
-       // list = searchService.search(board_tag);
 
+		if(tagList.size() != 0) {
+			String board_tag = tagList.get(0);
+	        list = searchService.search(board_tag);
+		}
         
         // 뷰에 전달할 데이터
         mav.addObject("dto", vo);
