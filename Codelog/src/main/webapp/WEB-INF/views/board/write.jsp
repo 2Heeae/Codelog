@@ -124,63 +124,7 @@
 
       </div>
 
-	<form action="<c:url value='/boardController/write' />" class="write-bbs" enctype=multipart/form-data method="post">
-
-		<!-- 글등록 페이지에 따로 작성자를 기입하지는 않으므로 현재 로그인 세션에서 작성자 명을 뽑아옵니다. -->
-		<input type="hidden" id="test2" name="content"> 
-		<input type="hidden" name="writer" value="${loginSession.nickname}">
-		<!-- 로그인 세션에 있는 사용자의 닉네임 -->
-		<input type="hidden" name="userId" value="${loginSession.userId}">
-		<input type="hidden" name="userNo" value="${loginSession.userNo}">
-
-		<!-- 로그인 세션에 있는 사용자의 id -->
-		<div id="articles">
-			<textarea placeholder="제목을 입력하세요" id="title" name="title"></textarea>
-
-			<br>
-			<!--태그-->
-			<div class="hashtag">
-				<div class="form-group">
-					<input type="hidden" value="" name="tag" id="rdTag" />
-				</div>
-				<ul id="tag-list"></ul>
-				<div class="form-group">
-					<input type="text" id="tag" size="7" class="tag" name="tags"
-						placeholder="엔터로 태그를 입력하세요" style="width: 500px;">
-				</div>
-			</div>
-			<!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
-			<div id="editor"></div>
-
-
-			<script>
-				const Editor = toastui.Editor;
-				const content = ('#editor').val
-
-				const editor = new Editor({
-					el : document.querySelector('#editor'),
-					width : '100%',
-					height : '41.327rem',
-					initialEditType : 'markdown',
-					previewStyle : 'vertical'
-				});
-			</script>
-			<script>
-				function submit() {
-					let content = editor.getMarkdown();
-					$('#test2').val(content);
-					console.log(content);
-
-					$('#test3').val(content);
-				}
-			</script>
-
-			<button class="ok" id="show" type="button">
-				<i class="fa-solid fa-check"></i>
-			</button>
-			<button type="button" class="exit" onclick="history.back()">
-				<i class="fa-solid fa-right-from-bracket"></i>
-			</button>
+	
 
 
 
