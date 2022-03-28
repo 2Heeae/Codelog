@@ -10,6 +10,8 @@
    <result property="grpl" column="grpl" />
    <result property="userNo" column="user_no" />
    <result property="userImg" column="user_img" />
+   <result property="userId" column="user_id" />
+   
    <result property="writer" column="writer" />
    <result property="content" column="content" />
    <result property="wdate" column="wdate" />
@@ -36,7 +38,7 @@
 
 <!-- 댓글 리스트 가져오기 -->
 <select id="replyList" resultMap="ReplyMap">
-     select r.no, r.bno, r.grp, r.grpl, r.writer, r.content, r.wdate, u.user_img
+     select r.no, r.bno, r.grp, r.grpl, r.writer, r.content, r.wdate, u.user_id
     from p_reply r join proj_user u
     on r.user_no = u.user_no
     where r.bno = #{bno}

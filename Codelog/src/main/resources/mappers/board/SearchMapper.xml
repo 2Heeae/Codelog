@@ -22,6 +22,21 @@
 		<result property="recnt" column="recnt" />
 	</resultMap>
 	
+	
+	 <resultMap type="com.spring.codelog.user.model.UserVO" id="searchIdMap">
+      <result property="userId" column="user_id" />
+      <result property="userNo" column="user_no" />
+      <result property="nickname" column="nickname" />
+      <result property="userPw" column="user_pw" />
+      <result property="userInfo" column="user_info" />
+      <result property="userImg" column="user_img" />
+      <result property="email1" column="email1" />
+      <result property="email2" column="email2" />
+   </resultMap>
+   
+   
+   
+	
 	<select id="search" resultMap="searchMap">
 		SELECT * FROM proj_board
 		WHERE title like '%'||#{keyword}||'%'
@@ -40,4 +55,12 @@
 		AND user_id = #{user_id}
 		ORDER BY board_id DESC
 	</select>
+	
+	
+	<select id="searchId" resultMap="searchIdMap">
+		SELECT * FROM proj_user
+		WHERE user_id like #{userId}||'%'
+		ORDER BY user_id DESC
+	</select>
+	
 </mapper>
