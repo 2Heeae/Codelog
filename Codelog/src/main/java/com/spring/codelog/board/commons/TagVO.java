@@ -15,5 +15,5 @@ public class TagVO {
 	private int tagNo;
 	private String userId;
 	private int boardId;
-	private int tagName;
+	private String tagName;
 }

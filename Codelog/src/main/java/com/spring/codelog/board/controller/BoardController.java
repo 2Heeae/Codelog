@@ -1,6 +1,7 @@
 package com.spring.codelog.board.controller;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.codelog.board.commons.PostLikeVO;
+import com.spring.codelog.board.commons.TagVO;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.service.BoardService;
 
@@ -33,6 +35,7 @@ import com.spring.codelog.board.service.ReplyService;
 
 
 import com.spring.codelog.board.service.PostLikeService;
+import com.spring.codelog.board.service.TagService;
 import com.spring.codelog.user.model.UserVO;
 
 
@@ -50,6 +53,7 @@ public class BoardController {
 	PostLikeService likeService;
 	
 	@Autowired
+	TagService tagService;
 	private ISearchService searchService;
 	
 	@GetMapping("/test")
@@ -153,6 +157,12 @@ public class BoardController {
         	}
         	
         }
+        List<String> tagList =  tagService.listbybId(boardId);
+        // 뷰의 이름
+        mav.setViewName("board/board");
+        mav.addObject("tagList", tagList);
+        System.out.println("태그리스트: "+tagList);
+
         
 
         
@@ -193,13 +203,27 @@ public class BoardController {
     	System.out.println("글 수정 요청");
     	System.out.println(vo);
         service.update(vo);
+        //태그수정
+        String tags = vo.getTags();
+        String str = tags.replace(" ", "");
+		String st = str.replace("\"", "");
+		System.out.println("정제한 문자열"+st);
+		String[] eachTag = st.split(",");
+		System.out.println(Arrays.toString(eachTag));
+		tagService.deleteTags(vo.getBoardId());
+		for(int i = 0; i<eachTag.length; i++) {
+			tagService.registTags(eachTag[i], vo.getUserId(), vo.getBoardId());
+		}
+		
         return "redirect:/boardController/board?boardId=" + vo.getBoardId();
     }
     
     //  게시글 삭제
     @PostMapping("/delete")
     public String delete(@RequestParam int boardId) {
+    	System.out.println("게시물 삭제: 보드번호"+ boardId);
         service.delete(boardId);
+        tagService.deleteTags(boardId);
         return "redirect:/";
     }
 	

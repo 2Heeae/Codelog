@@ -36,9 +36,9 @@ public interface IBoardMapper {
 	// 08. 게시글 좋아요 감소(유저 기준 아님 상세보기 해당 게시글 기준임)
 	void totalLikeDown(int boardId);
 	
-	 public int currentBoardId();
+	public int currentBoardId();
 
-
+	int lastbno();
 	 	//우측 검색
 		//검색 결과 리스트 보여주기
 		List<BoardVO> search(String keyword);

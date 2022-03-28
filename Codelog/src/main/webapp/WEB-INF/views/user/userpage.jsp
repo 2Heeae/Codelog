@@ -162,7 +162,11 @@
 		<div class="col-md-2 tags">
 			태그목록
 			<hr>
-			<a href="#"> tag(1)<br></a> <a href="#"> tags(2)<br></a>
+			<c:if test="${not empty tagList }">
+			<c:forEach var ="tag" items="${tagList }">
+			<a href="${pageContext.request.contextPath}//search?keyword=${tag}"> ${tag}<br></a> 
+			</c:forEach>
+			</c:if>
 		</div>
 		<!--게시글들 -->
 		<div class="col-md-10">

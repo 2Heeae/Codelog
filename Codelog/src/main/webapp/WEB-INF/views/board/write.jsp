@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 글 작성 페이지에만 적용되는 CDN들. 지우지 마세요 -->
 
+
 <link rel="stylesheet" type="text/css" href="path/to/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -24,9 +25,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+   href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap"
+   rel="stylesheet">
+
+<link
+   href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap"
+   rel="stylesheet">
+<script src="https://kit.fontawesome.com/fec7fe9db7.js"
+   crossorigin="anonymous"></script>
+<script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+   src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
+<link
+   href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+   rel="stylesheet"
+   integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+   crossorigin="anonymous">
+<link rel="stylesheet"
+   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <!-- 글 작성 페이지에만 적용되는 CDN들. 지우지 마세요 -->
 
 <style>
@@ -36,6 +56,7 @@
 @import url("<c:url value='/css/test.css'/>");
 
 .toastui-editor-md-html, .toastui-editor-md-link.toastui-editor-md-link-url.toastui-editor-md-marked-text,
+
 	.toastui-editor-md-meta {
 	position: absolute;
 	font-size: 1px !important;
@@ -49,6 +70,7 @@
 <title>Document</title>
 </head>
 <c:if test="${loginSession == null }">
+
 	<script>
 		alert("로그인 후 이용이 가능합니다.");
 		history.back();
@@ -122,6 +144,7 @@
 
 
 
+
       </div>
 
 	
@@ -129,11 +152,13 @@
 
 
 
+      </div>
 
-		<!-- 미리보기 버튼 작동 후 페이지-->
-		<!--contanier 1개에 row 1개 col 2개로 영역 구분
+      <!-- 미리보기 버튼 작동 후 페이지-->
+      <!--contanier 1개에 row 1개 col 2개로 영역 구분
         썸네일 직접 업로드 가능(기본값은 글 작성에 이미지를 넣었으면 그 중 최상단 이미지 없으면 null)
     -->
+
 
 
 
@@ -331,18 +356,107 @@
 					</div>
 				</div>
 
+            </div>
 
-			</div>
+
+         </div>
+
+      </div>
+      </div>
+
+      </div>
+   </form>
+   <script>
+      /*작성과 작성검토 부분을 버튼으로 연결함(버튼은 임시)
+    up은 작성검토 페이지 화면으로 올리기 down은 내리기
+    toggleclass사용
+*/
+      
+      
+
+      $(document).ready(function () {
+         //태그 기능 이벤트
+         var tag ={};
+         var counter = 0;
+         
+         
+         //글자수 많을시 처리 
+         $('#tag').keyup(function () {
+              var contentL = $(this).val().length;
+              console.log(contentL);
+              $('#textL').text(contentL);
+              if (contentL > 30) {
+                 $(this).val($(this).val().substring(0, 30));
+                 alert("태그가 너무 많아요!");
+
+              }
+           });
+       
+         
+         
+         $(".hide").click(function () {
+            $("#articles").show();
+            $("#check").hide();
+            $("#articles").toggleClass('fadeIn');
+            $("#check").toggleClass();
 
 
-		</div>
 
-		</div>
-		</div>
+         });
+         $("#show").click(function () {
+            let content = editor.getHTML();
+              $('#test2').val(content);
+            $("#check").show();
+            $("#articles").hide();
+            $("#check").toggleClass('fadeIn');
+            $("#articles").toggleClass();
+			
+            const info = {
+            		"tags": $('#tag').val(),
+            		"userId" : '${loginSession.userId}'
+            }
+            $.ajax({
+            	type: 'post',
+            	url : '<c:url value="/tag/regist"/>',
+            	contentType : 'application/json',
+            	dataType: 'text',
+            	data : JSON.stringify(info),
+            	success: function(result){
+            		console.log('태그 전송 성공 '+ result);
+            	},
+            	error: function(){
+            		console.log('태그 전송 실패 ')
+            	}
+            });
 
-	</form>
+         });
+		
+         $('')
+         var checked = $('.form-check-input').is(':checked');
+         console.log('check여부' + checked);
 
-	<script>
+         $(".form-switch").click(function () {
+
+
+
+            var checked = $('.form-check-input').is(':checked');
+            var checkVal;
+            console.log('check여부' + checked);
+            if (!checked) {
+               $(".form-check-label").html('&nbsp;비공개');
+               checkVal = 0;
+               $("#viewAll").val(checkVal);   
+               // $('.form-switch').attr('checked',true);
+            } else {
+               $(".form-check-label").text('전체 공개');
+               checkVal = 1;
+               $("#viewAll").val('1');   
+
+            }
+         });
+         
+         
+
 
 		/*작성과 작성검토 부분을 버튼으로 연결함(버튼은 임시)
 		up은 작성검토 페이지 화면으로 올리기 down은 내리기
@@ -447,6 +561,7 @@
 		})
 		
 	</script>
+
 
 
    <!-- 글 작성 페이지에만 적용되는 bootstrap js. 여기는 헤더가 없어요. 지우지 마세요. -->
