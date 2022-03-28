@@ -7,7 +7,7 @@
 	<resultMap type="com.spring.codelog.util.websocket.model.NotificationVO" id="NotificationMap">
 		<id property="notiNo" column="noti_no" />
 		<result property="receiver" column="receiver" />	
-		<result property="msg" column="msgs" />	
+		<result property="msg" column="msg" />	
 	</resultMap>
 	
 	<insert id="saveNotification">
@@ -17,6 +17,13 @@
 	
 	<select id="alarm" resultMap="NotificationMap">
 		SELECT * FROM notification
+		WHERE receiver = #{receiver}
+		ORDER BY noti_no DESC
+	</select>
+
+	<select id="countAlarm" resultType="int">
+		SELECT COUNT(msg)
+		FROM notification
 		WHERE receiver = #{receiver}
 	</select>
 	

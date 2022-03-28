@@ -21,6 +21,11 @@ public class NotificationService implements INotificationService {
 	public NotificationVO alarm(String receiver) {
 		return notiMapper.alarm(receiver);
 	}
+	
+	@Override
+	public int countAlarm(String receiver) {
+		return notiMapper.countAlarm(receiver);
+	}
 
 	@Override
 	public void deleteNotification(int notiNo) {
