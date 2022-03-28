@@ -1,3 +1,4 @@
+
 package com.spring.codelog.board.controller;
 
 import java.util.Arrays;
@@ -23,8 +24,12 @@ import oracle.jdbc.proxy.annotation.Post;
 @RequestMapping("/tag")
 public class TagController {
 	
-	@Autowired
-	ITagService service;
+
+
+	/*
+	 * @Autowired ITagService service;
+	 */
+
 	
 	@Autowired
 	IBoardService boardService;

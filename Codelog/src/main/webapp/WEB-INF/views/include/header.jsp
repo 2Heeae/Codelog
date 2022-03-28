@@ -56,18 +56,22 @@
             <span style="font-size: 1.7rem; color: rgb(241, 31, 129);">g</span>-->
          </div>
 
-        <div class="col-md-3 offset-2" style="padding-top:15px;">
+		<!-- 검색 창 -->
+        <div class="col-md-3 offset-1" style="padding-top:15px;">
             <form action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
                <input class="form-control mr-sm-2" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159);"><i class="bi bi-search" style="color:white;"></i></button>
              </form>
+         <div class="" id="toast_area" style="z-index: 1000;"></div>
          </div>
+         
 
             <!--해,알림,검색,글작성,메뉴토글 바-->
          <div class="col-md-3 offset-2 p-0">
             <!--해(다크모드)-->
-            <button type="button" id="theme-btn" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" ><i
-                  class="fa-regular fa-sun ic"></i></button>
+            <button type="button" id="theme-btn" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" >
+            	<i class="fa-regular fa-sun ic" id="theme-icon"></i>
+            </button>
             <!--알림,알림 목록 토글-->  
             <c:if test="${loginSession != null}">    
             <button type="button" class="btn rounded-circle position-relative c mx-md-1 my-md-3 px-md-3 hc" style=""
@@ -197,27 +201,32 @@
    
    <script>
 	// 전역변수 설정
-	var socket  = null;
+	var socket = null;
 	$(document).ready(function(){
-	    // 웹소켓 연결
-	    sock = new SockJS('<c:url value="/websocket"/>');
-	    socket = sock;
-	
-	    // 데이터를 전달 받았을때 
-	    sock.onmessage = onMessage; // toast 생성
-	    //...
+	    	// 웹소켓 연결
+		    sock = new SockJS('<c:url value="/websocket"/>');
+		   	socket = sock;
+			console.log('소켓연결!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+			
+		    // 데이터를 전달 받았을때 
+		    socket.onmessage = onMessage; // toast 생성
+	    
 	});
 
 	// toast생성 및 추가
 	function onMessage(evt){
 	    var data = evt.data;
-	    // toast
-	    let toast = data;
-	    $("#msgStack").append(toast);   // msgStack toast 추가
-	    $(".toast").toast({"animation": true, "autohide": false});
+	 	// toast
+	    let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
+	    toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
+	    toast += "<small class='text-muted'>just now</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
+	    toast += "<span aria-hidden='true'>&times;</span></button>";
+	    toast += "</div> <div class='toast-body'>" + data + "</div></div>";
+	    //let toast = data;
+	    $("#toast_area").append(toast);   // msgStack toast 추가
+	    $(".toast").toast({"animation": true, "autohide": true});
 	    $('.toast').toast('show');
 	};	
-   
    
       //자바스크립트 시작
       //다크모드 토글 이벤트 처리
@@ -242,9 +251,19 @@
       //start jQuery
          /*메뉴바들 링크 기능(임시)*/
          $(document).ready(function() {
+        	 
+        	$('#theme-icon').click(function() {
+				if($('#theme-icon').attr('class') == 'fa-regular fa-sun ic') {
+					$('#theme-icon').attr('class', 'bi bi-moon-fill');
+				} else {
+					$('#theme-icon').attr('class', 'fa-regular fa-sun ic');
+				}
+			});
+        	 
             $("#so").click(function() {
                $(location).attr("href", "https://www.naver.com/")
             });               
+            
             $("#so4").click(function() {
                $(location).attr("href", "https://www.naver.com/")
             });

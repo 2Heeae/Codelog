@@ -35,6 +35,7 @@
 	<mybatis-spring:scan base-package="com.spring.codelog.user.mapper"/>
 	<mybatis-spring:scan base-package="com.spring.codelog.board.mapper"/>
 	<mybatis-spring:scan base-package="com.spring.codelog.follow.mapper"/>
+
 	 
 
 </beans>

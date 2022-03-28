@@ -2,6 +2,7 @@ package com.spring.codelog.board.controller;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +27,13 @@ import com.spring.codelog.board.commons.PostLikeVO;
 import com.spring.codelog.board.commons.TagVO;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.service.BoardService;
+
+import com.spring.codelog.board.service.ISearchService;
+
+import com.spring.codelog.board.service.ReplyService;
+
+
+
 import com.spring.codelog.board.service.PostLikeService;
 import com.spring.codelog.board.service.TagService;
 import com.spring.codelog.user.model.UserVO;
@@ -37,12 +45,16 @@ public class BoardController {
 
 	@Autowired
 	BoardService service;
+	@Autowired
+	ReplyService service2;
+	
 	
 	@Autowired
 	PostLikeService likeService;
 	
 	@Autowired
 	TagService tagService;
+	private ISearchService searchService;
 	
 	@GetMapping("/test")
 	public String test() {
@@ -116,6 +128,7 @@ public class BoardController {
     @RequestMapping(value="/board", method=RequestMethod.GET)
     public ModelAndView home(@RequestParam int boardId, HttpSession session) {
         // 조회수 증가 처리
+    	if(session.getAttribute("loginSession") != null)
         service.increaseHit(boardId, session);
         
         // 모델(데이터)+뷰(화면)를 함께 전달하는 객체
@@ -149,8 +162,22 @@ public class BoardController {
         mav.setViewName("board/board");
         mav.addObject("tagList", tagList);
         System.out.println("태그리스트: "+tagList);
+
+        
+
+        
+        // 뷰의 이름
+        mav.setViewName("board/board");
+        
+        BoardVO vo = service.read(boardId);
+		List<BoardVO> list = new ArrayList<>();
+
+        list = searchService.search(vo.getTags());
+        
+        
         // 뷰에 전달할 데이터
-        mav.addObject("dto", service.read(boardId));
+        mav.addObject("dto", vo);
+        mav.addObject("searchList", list);
         mav.addObject("postLike", like);
         return mav;
     }
@@ -200,5 +227,6 @@ public class BoardController {
         return "redirect:/";
     }
 	
+
 
 }

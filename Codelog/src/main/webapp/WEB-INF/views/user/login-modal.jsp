@@ -83,7 +83,7 @@
             <select name="" id="email2" class="form-select email2-select">
               <option selected value="default">선택</option>
               <option value="naver">naver.com</option>
-              <option value="google">google.com</option>
+              <option value="google">gmail.com</option>
               <option value="daum">hanmail.net</option>
               <option value="self">직접 입력</option>
             </select>
@@ -320,7 +320,7 @@
 					success : function(result) {
 						console.log('통신 성공!: ' + result);
 						alert('회원 가입을 환영합니다.');
-						document.location.reload();
+						location.reload();
 					},
 					error : function() {
 						alert('회원 가입 실패!');

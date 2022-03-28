@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.spring.codelog.board.commons.ImgVO;
 import com.spring.codelog.board.commons.PostLikeVO;
 import com.spring.codelog.board.mapper.IBoardMapper;
+import com.spring.codelog.board.mapper.ISearchMapper;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.util.BoardUtil;
 import com.spring.codelog.user.commons.profileImgVO;
@@ -80,6 +81,7 @@ public class BoardService implements IBoardService {
 	// 게시글 조회수 증가
 	@Override
 	public void increaseHit(int boardId, HttpSession session)  {
+		System.out.println("전달?");
 		long update_time = 0;
 		// 세션에 저장된 조회시간 검색
 		// 최초로 조회할 경우 세션에 저장된 값이 없기 때문에 if문은 실행X
@@ -91,7 +93,7 @@ public class BoardService implements IBoardService {
 		long current_time = System.currentTimeMillis();
 		// 일정시간이 경과 후 조회수 증가 처리 24*60*60*1000(24시간)
 		// 시스템현재시간 - 열람시간 > 일정시간(조회수 증가가 가능하도록 지정한 시간)
-		if (current_time - update_time > 5 * 1000) {
+		if (current_time - update_time > 300 * 1000) {
 			boardMapper.increaseHit(boardId);
 			// 세션에 시간을 저장 : "update_time_"+boardId는 다른변수와 중복되지 않게 명명한 것
 			session.setAttribute("update_time_" + boardId, current_time);
@@ -115,6 +117,10 @@ public class BoardService implements IBoardService {
 	public int lastBno() {
 		System.out.println("확인용");
 		return boardMapper.lastbno();
+	
+	@Override
+	public List<BoardVO> search(String keyword) {
+		 return boardMapper.search(keyword);
 	}
 
 }
