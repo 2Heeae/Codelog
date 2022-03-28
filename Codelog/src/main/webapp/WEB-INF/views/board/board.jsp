@@ -265,8 +265,11 @@
 			
 			<div class="col-md-3">
 				<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted rounded" style="background-color: rgb(239 255 239); height: 520px;">
-					<a href="${pageContext.request.contextPath}/search?keyword=${dto.userId}" class="d-block h6 my-2 pb-2 border-bottom">
+					<c:if test="${not empty tagList}">
+						<a href="${pageContext.request.contextPath}/search?keyword=${tagList.get(0)}" class="d-block h6 my-2 pb-2 border-bottom">
 						&nbsp;#${tagList.get(0)} 관련 게시글&nbsp;&nbsp;&nbsp;></a>
+					</c:if>
+					
 					
 					<c:if test="${not empty searchList}">
 					<nav id="TableOfContents">
