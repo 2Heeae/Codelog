@@ -244,6 +244,10 @@
         $('.follow-button').click(function () {
         	console.log('${userInfo.userId}');
         	console.log('넘어오니?');
+        	
+        	//소켓 메세지 보낼 내용
+        	let msg = 'follow' + ',' + '${loginSession.userId}' + ',' + '${userInfo.userId}';
+        	
           if ($('.follow-txt').html() == '팔로우') {
             $(this).css("background-color", "#C0D8C0")
             $.ajax({
@@ -255,6 +259,8 @@
             		console.log('연결 성공:'+ data);
             		if(data === 'followOk'){
 			            $('.follow-txt').html('<i class="fa-solid fa-check">&nbsp;팔로잉</i>');
+			            //$('.followers').html('팔로워 ' + ${fn:length(followerList)} + 1);
+			            socket.send(msg); //소켓 메세지 전송
 			            location.reload();
             		}
             	}, 
@@ -273,6 +279,7 @@
             		if(data === 'unfollowOk'){
 			            $('.follow-txt').html('팔로우');
 			            $('.follow-button').css("background-color", "gray");
+			            //$('.followers').html('팔로워 ' + ${fn:length(followerList)} - 1);
 			            location.reload();
             		}
             	}, 

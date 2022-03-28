@@ -250,6 +250,7 @@
 
 <script>
 	$(document).ready(function() {
+		
 		$("#so").click(function() {
 			$(location).attr("href", "https://www.naver.com/")
 		});

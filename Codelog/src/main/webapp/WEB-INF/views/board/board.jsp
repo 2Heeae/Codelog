@@ -301,7 +301,8 @@
 	<%@include file="../include/footer.jsp"%>
 
 	<script>
-	
+	//소켓 메세지 변수 선언
+	let msg = null;
 	
 	
 	<!-- 댓글  -->
@@ -539,6 +540,9 @@
 	    let writer = $(".write_reply").attr('writer');
 	    let userNo = $(".write_reply").attr('userNo');
 	    
+	    // 소켓 메세지에 보낼 내용(댓작성자id? 닉네임?, 글작성자id)
+	    msg = 'reply' + ',' + writer + ',' + '{dto.userId}';
+	    
 	    if(content == ""){	// 입력된게 없을때
 	        alert("댓글을 입력하세요!");
 	    }else{	
@@ -563,7 +567,9 @@
 	              
 	                console.log("댓글 작성 성공");
 	               	$('#recnt').text(pto+"개의 댓글");
-
+					
+	               	// 소켓 메세지 전송하기
+	               	socket.send(msg);
 
 	                // 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
 	                ReplyList(bno);
@@ -940,18 +946,17 @@
 		});
 		
 		function like_update() {
-			const view_user_id = $('#view-user').val();
-			const postLike = ${postLike};
+			const view_user_id = $('#view-user').val(); //글 보는 사람 아이디
+			let post_like = ${postLike}; //좋아요 여부 확인 1, 0
+			const writer = '${dto.userId}'; //글 쓴 사람
 			console.log(view_user_id);
-			writer="${loginSession.nickname}";
-			console.log(postLike);
+			console.log(post_like);
 			console.log(writer);
-			const msg = view_user_id + "," + writer + "," + postLike; //소켓메세지 보낼 값
-
+			msg = view_user_id + "," + writer + "," + post_like; //소켓메세지 보낼 값
 			const data = {
-				"viewUserId" : view_user_id,
-				"boardId" : ${dto.boardId},
-				"postLike" : postLike,	//너는 왜 값 전달이 안되는거니 ㅠ	
+				"viewUserId" : view_user_id, //글 보는사람 아이디값
+				"boardId" : ${dto.boardId}, //글번호
+				"postLike" : post_like	//1 = 좋아요, 0 = 좋아요 취소	
 			};
 			
 			$.ajax({
@@ -961,36 +966,29 @@
 				data : JSON.stringify(data),
 				success : function(result) {
 					console.log('좋아요 수정' + result);
-					if(postLike == 1) {
+					if(post_like == 1) {
 						console.log('좋아요 취소');
 						$('#like-check').val(0);
-
-						//소켓메세지
-						console.log(msg);
-						socket.send(msg);
-						//소켓메세지
-
-						//location.reload();
-
+						$('#like-btn').css("color", "black");
+						let total = $('#result').html();
+						$('#result').html(${dto.likes} - 1);
 						
-					} else if(postLike == 0) {
+					} else if(post_like == 0) {
 						console.log('좋아요');
 						$('#like-check').val(1);
-
-						//소켓메세지
-						console.log(msg);
-						socket.send(msg);
-						//소켓메세지
-						//location.reload();
-
+						$('#like-btn').css("color", "red");
+						let total = $('#result').html();
+						$('#result').html(${dto.likes} + 1);
 						
-
+					} else {
+						
 					}
+					socket.send(msg);
+					
 				}, error : function(result) {
 					console.log('좋아요 에러: ' + result);
 				}
 			}); //ajax 끝
-			
 			
 		}
 	

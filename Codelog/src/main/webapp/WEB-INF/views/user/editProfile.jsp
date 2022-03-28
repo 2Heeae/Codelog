@@ -112,9 +112,9 @@
             <input type="text" class="form-control rounded-4 email2input" name="email2" value="${loginSession.email2}">
             <select class="form-select email2-select">
               <option value="naver" ${loginSession.email2 == 'naver.com' ? 'selected' : ''}>naver.com</option>
-              <option value="google" ${loginSession.email2 == 'google.com' ? 'selected' : ''}>google.com</option>
+              <option value="google" ${loginSession.email2 == 'gmail.com' ? 'selected' : ''}>gmail.com</option>
               <option value="daum" ${loginSession.email2 == 'hanmail.net' ? 'selected' : ''}>hanmail.net</option>
-              <option value="self" ${loginSession.email2 != 'naver.com' && loginSession.email2 != 'google.com' && loginSession.email2 != 'hanmail.net' ? 'selected' : ''}>직접 입력</option>
+              <option value="self" ${loginSession.email2 != 'naver.com' && loginSession.email2 != 'gmail.com' && loginSession.email2 != 'hanmail.net' ? 'selected' : ''}>직접 입력</option>
             </select>
           </div>
         </div>
