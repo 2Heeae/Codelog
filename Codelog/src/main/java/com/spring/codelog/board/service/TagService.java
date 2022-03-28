@@ -2,33 +2,47 @@ package com.spring.codelog.board.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.spring.codelog.board.commons.TagVO;
+import com.spring.codelog.board.mapper.IBoardMapper;
+import com.spring.codelog.board.mapper.ITagMapper;
 import com.spring.codelog.board.model.BoardVO;
 
+@Service
 public class TagService implements ITagService {
 
+	@Autowired
+	ITagMapper mapper;
+	
+	@Autowired
+	IBoardMapper bmapper;
+	
 	@Override
-	public void registTags(int boardId) {
-		// TODO Auto-generated method stub
-
+	public void registTags(String tagName, String userId,int boardId) {
+		mapper.registTags(boardId, userId, tagName);
+		
 	}
 
 	@Override
-	public List<TagVO> list(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> listbybId(int boardId) {
+		return mapper.listbybId(boardId);
 	}
 
 	@Override
-	public void deleteTags(int tagNo) {
-		// TODO Auto-generated method stub
-
+	public List<String> listbyuId(String userId) {
+		return mapper.listbyuId(userId);
 	}
-
+	
 	@Override
-	public List<BoardVO> searchTags(String tagName) {
-		// TODO Auto-generated method stub
-		return null;
+	public void deleteTags(int boardId) {
+		mapper.deleteTags(boardId);
 	}
+
+
+
+	
+
 
 }

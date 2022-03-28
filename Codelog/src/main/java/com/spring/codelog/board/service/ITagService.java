@@ -8,17 +8,17 @@ import com.spring.codelog.board.model.BoardVO;
 public interface ITagService {
 	
 	//태그 등록
-	void registTags(int boardId);
+	void registTags(String tagName, String userId, int boardId);
 	
 	//태그 조회
-	List<TagVO> list(String userId);
+	List<String> listbybId(int boardId);
+	
+	//회원아이디로 태그조회
+	List<String> listbyuId(String userId);
+	
 	
 	//태그삭제
-	void deleteTags(int tagNo);
-	
-	//태그검색
-	List<BoardVO> searchTags(String tagName);
-	
-	
-	
+	void deleteTags(int boardId);
+
+
 }

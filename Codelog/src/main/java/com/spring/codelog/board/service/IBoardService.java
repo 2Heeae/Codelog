@@ -36,7 +36,12 @@ public interface IBoardService {
 		
 	//게시글 좋아요 감소(유저 기준 아님 상세보기 해당 게시글 기준임)
 	public void totalLikeDown(int boardId);
+	//게시글 번호 +1 조회
+	
+	int lastBno();
 
+	//검색 결과 리스트 보여주기
+	List<BoardVO> search(String keyword);
 
 	
     
