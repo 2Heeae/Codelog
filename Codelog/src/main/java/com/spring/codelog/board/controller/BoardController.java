@@ -179,6 +179,7 @@ public class BoardController {
         
         BoardVO vo = service.read(boardId);
 		List<BoardVO> list = new ArrayList<>();
+
 		
 		if(tagList.size() != 0) {
 			String board_tag = tagList.get(0);

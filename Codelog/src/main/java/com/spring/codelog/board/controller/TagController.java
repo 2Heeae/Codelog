@@ -26,7 +26,8 @@ public class TagController {
 	
 
 
-	 @Autowired ITagService service;
+	@Autowired
+	ITagService service;
 	
 
 	
