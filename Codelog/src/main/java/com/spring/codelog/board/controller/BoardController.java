@@ -55,6 +55,8 @@ public class BoardController {
 	
 	@Autowired
 	TagService tagService;
+	
+	@Autowired
 	private ISearchService searchService;
 	
 	@GetMapping("/test")
@@ -178,8 +180,10 @@ public class BoardController {
         BoardVO vo = service.read(boardId);
 		List<BoardVO> list = new ArrayList<>();
 
-//        list = searchService.search(vo.getTags());
-        
+		
+		String board_tag = tagList.get(0);
+        list = searchService.search(board_tag);
+
         
         // 뷰에 전달할 데이터
         mav.addObject("dto", vo);
