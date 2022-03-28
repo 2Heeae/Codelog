@@ -31,4 +31,13 @@
 		ORDER BY board_id DESC
 	</select>
 	
+	<select id="searchMypage" resultMap="searchMap">
+		SELECT * FROM proj_board
+		WHERE title like '%'||#{keyword}||'%'
+		OR tags like '%'||#{keyword}||'%'
+		OR content like '%'||#{keyword}||'%'
+		OR preview like '%'||#{keyword}||'%'
+		AND user_id = #{user_id}
+		ORDER BY board_id DESC
+	</select>
 </mapper>

@@ -11,8 +11,20 @@
 		<result property="tagName" column="tag_name"/>
 	</resultMap>
 	
-	<select id="registTags">
-		INSERT INTO tags VALUES(tag_no, )
+	<insert id="registTags">
+		INSERT INTO tags (tag_no,user_id,board_id,tag_name) values (tag_seq.NEXTVAL, #{userId}, #{boardId}, #{tagName})
+	</insert>
+	
+	<select id="listbybId" resultType="String">
+		SELECT tag_name FROM tags where board_id = #{boardId}
 	</select>
-
+	
+	<select id="listbyuId" resultType="String">
+		SELECT tag_name FROM tags where user_id =#{userId} ORDER BY tag_name
+	</select>
+	
+	<delete id="deleteTags">
+		DELETE tags WHERE board_id =#{boardId}
+	</delete>
+	
 </mapper>
