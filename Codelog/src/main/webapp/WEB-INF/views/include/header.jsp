@@ -67,14 +67,14 @@
          
 
             <!--해,알림,검색,글작성,메뉴토글 바-->
-         <div class="col-md-3 offset-2 p-0">
+         <div class="col-md-3 offset-3 p-0">
             <!--해(다크모드)-->
-            <button type="button" id="theme-btn" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" >
+            <button style="margin-left:5rem;" type="button" id="theme-btn" class="btn c rounded-circle mx-md-1 px-md-2 hc" >
             	<i class="fa-regular fa-sun ic" id="theme-icon"></i>
             </button>
             <!--알림,알림 목록 토글-->  
             <c:if test="${loginSession != null}">    
-            <button type="button" class="btn rounded-circle position-relative c mx-md-1 my-md-3 px-md-3 hc" style=""
+            <button type="button" class="btn rounded-circle position-relative c mx-md-1  px-md-3 hc" style=""
                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
                aria-controls="collapseExample">
             <!--알림 아이콘, 알림개수-->
@@ -112,7 +112,7 @@
             <!-- 로그인해서 보여줄 알림 있을 때에만 보여줄 것 -->
             </button>
              <!--글 작성-->
-              <button type="button" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" onclick="location='/codelog/boardController/getWrite'"><i class="fa-solid fa-pen-to-square" style="font-size: 19px;"></i></button>
+              <button type="button" class="btn c rounded-circle mx-md-1 px-md-2 hc" onclick="location='/codelog/boardController/getWrite'"><i class="fa-solid fa-pen-to-square" style="font-size: 19px;"></i></button>
             </c:if>
 
             
@@ -126,20 +126,20 @@
             <!-- 로그인하면 보여주기 -->
             <c:if test="${loginSession != null}">            
             <!--메뉴, 메뉴 토글-->      
-            <div style="display: inline;">
-               <button type="button" class="btn c rounded-circle px-md-0 my-md-2 pb-md-4 pt-md-0 position-relative"
+            <div style="display: inline; margin-left:5rem;">
+               <button width="10px"type="button" class="btn c rounded-circle px-md-0 x pb-md-4 pt-md-0 position-relative"
                    data-bs-toggle="collapse" style="background-color:transparent; border-color: transparent;"
                   href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
                   <!--메뉴 이미지+화살표 아래 아이콘-->
                   <!-- 프로필 이미지 -->
                   <c:choose>
                      <c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
-                        <img width="50rem" id="small-profile-img" src="<c:url value='/img/user_icon.png'/>" class="card-img-right rounded-circle mx-md-1"
-                           alt="."><i class="fa-solid fa-caret-down"></i>
+                        <img width="10px" style="margin-top:1rem;"  id="small-profile-img" src="<c:url value='/img/user_icon.png'/>" class="card-img-right rounded-circle mx-md-1"
+                           alt="."><i  class="fa-solid fa-caret-down"></i>
                      </c:when>
                      <c:otherwise>
-                           <img width="50rem" id="small-profile-img" src="<c:url value='/user/display'/>" class="card-img-right rounded-circle mx-md-1"
-                           alt="."><i class="fa-solid fa-caret-down"></i>
+                           <img width="10px" style="margin-top:1rem;" id="small-profile-img" src="<c:url value='/user/display'/>" class="card-img-right rounded-circle mx-md-1"
+                           alt="."><i  class="fa-solid fa-caret-down"></i>
                      </c:otherwise>
                   </c:choose>
             <!--메뉴, 메뉴 토글(위에꺼랑 세트)-->   
