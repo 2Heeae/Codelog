@@ -360,6 +360,24 @@
             $("#check").toggleClass('fadeIn');
             $("#articles").toggleClass();
 
+          //태그
+            const info = {
+                  "tags": $('#tag').val(),
+                  "userId" : '${loginSession.userId}'
+            }
+            $.ajax({
+               type: 'post',
+               url : '<c:url value="/tag/regist"/>',
+               contentType : 'application/json',
+               dataType: 'text',
+               data : JSON.stringify(info),
+               success: function(result){
+                  console.log('태그 전송 성공 '+ result);
+               },
+               error: function(){
+                  console.log('태그 전송 실패 ')
+               }
+            });
 
 
          });
