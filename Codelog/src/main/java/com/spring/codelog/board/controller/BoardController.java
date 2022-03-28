@@ -166,11 +166,11 @@ public class BoardController {
         	
         }
         
-       // List<String> tagList =  tagService.listbybId(boardId);
+        List<String> tagList =  tagService.listbybId(boardId);
         // 뷰의 이름
         mav.setViewName("board/board");
-      //  mav.addObject("tagList", tagList);
-      //  System.out.println("태그리스트: "+tagList);
+        mav.addObject("tagList", tagList);
+        System.out.println("태그리스트: "+tagList);
 
         
 
@@ -179,18 +179,18 @@ public class BoardController {
         mav.setViewName("board/board");
         
         BoardVO vo = service.read(boardId);
-	//	List<BoardVO> list = new ArrayList<>();
+		List<BoardVO> list = new ArrayList<>();
 
 		
-		//String board_tag = tagList.get(0);
-       // list = searchService.search(board_tag);
 
-        //list = searchService.search(vo.getTags());
-        
+		if(tagList.size() != 0) {
+			String board_tag = tagList.get(0);
+	        list = searchService.search(board_tag);
+		}
         
         // 뷰에 전달할 데이터
         mav.addObject("dto", vo);
-       // mav.addObject("searchList", list);
+        mav.addObject("searchList", list);
         mav.addObject("postLike", like);
         return mav;
     }
