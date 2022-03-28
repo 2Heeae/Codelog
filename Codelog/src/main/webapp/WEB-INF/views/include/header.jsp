@@ -62,7 +62,7 @@
                <input class="form-control mr-sm-2" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159);"><i class="bi bi-search" style="color:white;"></i></button>
              </form>
-         <div class="" id="toast_area" style="z-index: 1000;"></div>
+         <div class="" id="toast_area" style="background-color:transparent; margin-top:1rem; width:255px; z-index: 1000; position: absolute;" ></div>
          </div>
          
 
@@ -253,12 +253,12 @@ $('#searchInput').keydown(function(){
 			                 let userId = pto[i].userId;
 
             let listHtml = "";
-            listHtml += "	<div class='col-2' id=searchResult style='z-index: 10000;'>";
-            listHtml += "		<a href='#'>";
-            listHtml += "			<img class='reply_list_profileImage' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' src='img/pome3.jpg'/>&nbsp;"+userId;
+            listHtml += "	<div class='' id=searchResult style='z-index: 10000; border-collapse: collapse; border:1px solid rgb(231,231,231); background-color:rgb(231,231,231); margin:0px' width:150px >";
+            listHtml += "		<a style='text-decoration:none;' href='#' >";
+            listHtml += "			<img class='reply_list_profileImage' style='margin-top:0.20rem; border-radius: 70%; overflow: hidden;' width='40rem' src='img/pome3.jpg'/>&nbsp;&nbsp;<span>"+userId+"</span>";
             listHtml += "		</a> ";
             listHtml += "	</div>";
-            $("#searchIds").append(listHtml);
+            $("#toast_area").append(listHtml);
 			             }
 			        	} else {
 				    		$('#searchResult').remove();
