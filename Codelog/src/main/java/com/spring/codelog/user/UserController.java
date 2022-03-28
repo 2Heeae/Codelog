@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.codelog.board.service.ITagService;
 import com.spring.codelog.user.commons.FollowVO;
 import com.spring.codelog.user.commons.profileImgVO;
 import com.spring.codelog.user.model.UserVO;
@@ -40,6 +41,9 @@ public class UserController {
 
 	@Autowired
 	private IFollowService fservice;
+	
+	@Autowired
+	private ITagService tagService;
 
 	//아이디 중복 확인 처리
 	@PostMapping("/checkId")
@@ -117,10 +121,14 @@ public class UserController {
 		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
 		System.out.println(followingList);
 
+		//태그리스트 부르기
+		List<String> tagList =tagService.listbyuId(loginUser.getUserId());
+
 		model.addAttribute("user", user);
 		model.addAttribute("followCheck", followCheck);
 		model.addAttribute("followerList", followerList);
 		model.addAttribute("followingList", followingList);
+		model.addAttribute("tagList", tagList);
 
 
 		return mv;
@@ -158,6 +166,10 @@ public class UserController {
 		System.out.println("userInfo: "+userInfo);
 		System.out.println("userInfo의 보드리스트: "+userInfo.getBoardList());
 
+		
+		//태그리스트 부르기
+		List<String> tagList =tagService.listbyuId(id);
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("userInfo", userInfo);//사용자 정보 보내기 
 		mv.addObject("user", user);
@@ -165,6 +177,7 @@ public class UserController {
 		mv.addObject("followerList", followerList);
 		mv.addObject("followingList", followingList);
 		mv.addObject("id", user.getUserId());
+		mv.addObject("tagList", tagList);
 		mv.setViewName("user/userpage");
 		return mv;
 	}

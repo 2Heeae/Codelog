@@ -21,6 +21,9 @@ import com.spring.codelog.board.util.BoardUtil;
 import com.spring.codelog.user.commons.profileImgVO;
 import com.spring.codelog.user.model.UserVO;
 
+
+
+
 @Service
 public class BoardService implements IBoardService {
 	@Autowired
@@ -30,7 +33,6 @@ public class BoardService implements IBoardService {
 
 	@Override
 	public int write(BoardVO vo) {
-		
 		
 		
 		 
@@ -108,6 +110,11 @@ public class BoardService implements IBoardService {
 	@Override
 	public void totalLikeDown(int boardId) {
 		boardMapper.totalLikeDown(boardId);
+	}
+	@Override
+	public int lastBno() {
+		System.out.println("확인용");
+		return boardMapper.lastbno();
 	}
 
 }

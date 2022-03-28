@@ -146,7 +146,11 @@
 					
 					<br>
 					<div class="hashtag">
-						<a style="color:rgb(120, 147, 149);" href="${pageContext.request.contextPath}//search?keyword=${dto.tags}">#${dto.tags}</a>
+						<c:forEach var="tag" items="${tagList }">
+							<a style="color:rgb(120, 147, 149);" href="${pageContext.request.contextPath}//search?keyword=${tag}">
+								#${tag}
+							</a>
+						</c:forEach>
 					</div>
 
 						<!-- 로그인시 수정,삭제 버튼 활성화 -->

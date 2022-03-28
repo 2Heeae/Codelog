@@ -110,4 +110,7 @@ VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, '
 		SELECT board_seq.CURRVAL FROM dual
 	</select>
  
+ 	<select id="lastbno" resultType="int">
+ 		SELECT max(board_id)+1 FROM proj_board
+ 	</select>
  </mapper>
