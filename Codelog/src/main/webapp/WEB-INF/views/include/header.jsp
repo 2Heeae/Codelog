@@ -216,6 +216,7 @@
 	// toast생성 및 추가
 	function onMessage(evt){
 	    var data = evt.data;
+	   	console.log(data);
 	 	// toast
 	    let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
 	    toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";

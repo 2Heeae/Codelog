@@ -279,8 +279,7 @@
             		if(data === 'unfollowOk'){
 			            $('.follow-txt').html('팔로우');
 			            $('.follow-button').css("background-color", "gray");
-			            //$('.followers').html('팔로워 ' + ${fn:length(followerList)} - 1);
-			            //location.reload();
+			            location.reload();
             		}
             	}, 
             	error: function(){
