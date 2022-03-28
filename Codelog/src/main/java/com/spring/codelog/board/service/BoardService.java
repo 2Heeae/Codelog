@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.spring.codelog.board.commons.ImgVO;
 import com.spring.codelog.board.commons.PostLikeVO;
 import com.spring.codelog.board.mapper.IBoardMapper;
+import com.spring.codelog.board.mapper.ISearchMapper;
 import com.spring.codelog.board.model.BoardVO;
 import com.spring.codelog.board.util.BoardUtil;
 import com.spring.codelog.user.commons.profileImgVO;
@@ -109,6 +110,11 @@ public class BoardService implements IBoardService {
 	@Override
 	public void totalLikeDown(int boardId) {
 		boardMapper.totalLikeDown(boardId);
+	}
+	
+	@Override
+	public List<BoardVO> search(String keyword) {
+		 return boardMapper.search(keyword);
 	}
 
 }
