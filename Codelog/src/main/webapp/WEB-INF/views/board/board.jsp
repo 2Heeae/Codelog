@@ -253,13 +253,14 @@
 					
 					<c:if test="${not empty searchList}">
 					<nav id="TableOfContents">
-					<c:forEach var="s" items="${searchList}" begin="0" end="4" step="1">		
-					<div style="width: 248.63px; height: 92px; background-color: transparent;" id="recom";>														
-						<div class="thumb" style="width: 160px; height: 90px; padding: 15px;display: inline-block;"> 
-							<span class="thumb" style="height:40px;"><a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}">${s.title}</a></span>
-							<div class="thumb-date" style="margin-top: 10px;">
-							<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}">
-							<fmt:formatDate value="${s.regDate}" pattern="yy/MM/dd"/></a></div>
+					<c:forEach var="s" items="${searchList}" begin="0" end="3" step="1">
+						<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
+					<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}" class="stretched-link"></a>		
+					<div style="width: 248.63px; height: 90px; background-color: transparent;">								
+					
+						<div class="thumb" style="width: 160px; height: 90px; padding: 5px;display: inline-block;"> 
+							<span class="thumb">${s.title}</span>
+							<div class="thumb-date" style="margin-top: 10px;"><fmt:formatDate value="${s.regDate}" pattern="yy/MM/dd"/></div>
 						</div>
 						<div class="thumb" style="position:relative;  left: 20px; width:75px; vertical-align: bottom; display: inline-block !important;" >
 							<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}">
