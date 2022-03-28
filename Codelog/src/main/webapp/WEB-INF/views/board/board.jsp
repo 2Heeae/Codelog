@@ -331,6 +331,7 @@
 	                 let writer = data[i].writer;
 	                 let content = data[i].content;
 	                 let wdate = data[i].wdate;
+	                 let userImg = data[i].userImg;
 	                 var date1 = new Date(wdate);
 	                 wdate = formatDate(date1);  	                 
 	                
