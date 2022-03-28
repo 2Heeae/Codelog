@@ -33,6 +33,11 @@
 	padding: 5px 14px 5px 12px;
 }
 
+
+#viewer table th>p {
+	color: white;
+}
+
 #viewer  pre {
 	background-color: #f4f7f8;
 	margin: 2px 0 8px;
@@ -56,23 +61,31 @@
 	width: 24px;
 }
 
-::marker {
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: 18px 18px;
-   
-    border-radius: 2px;
-    content: "";
-    cursor: pointer;
-    height: 18px;
-    left: 0;
-    margin-left: 0;
-    margin-top: 0;
-    position: absolute;
-    top: 1px;
-    width: 18px;
- 
+
+#viewer {
+	overflow-x: hidden;
 }
+
+/* #viewer ul>li {
+	background-color: #ccc;
+	border-radius: 50%;
+	content: "";
+	height: 5px;
+	margin-left: -17px;
+	margin-top: 6px;
+	width: 5px;
+}
+
+#viewer ol>li {
+	color: #aaa;
+	content: "." counter(li);
+	direction: rtl;
+	margin-left: -28px;
+	text-align: right;
+	width: 24px;
+}
+*/
+
 </style>
 <script
 	src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
