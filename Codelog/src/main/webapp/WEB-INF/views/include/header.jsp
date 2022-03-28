@@ -62,15 +62,16 @@
                <input class="form-control mr-sm-2" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159);"><i class="bi bi-search" style="color:white;"></i></button>
              </form>
-         <div class="" id="toast_area"></div>
+         <div class="" id="toast_area" style="z-index: 1000;"></div>
          </div>
          
 
             <!--해,알림,검색,글작성,메뉴토글 바-->
          <div class="col-md-3 offset-2 p-0">
             <!--해(다크모드)-->
-            <button type="button" id="theme-btn" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" ><i
-                  class="fa-regular fa-sun ic"></i></button>
+            <button type="button" id="theme-btn" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" >
+            	<i class="fa-regular fa-sun ic" id="theme-icon"></i>
+            </button>
             <!--알림,알림 목록 토글-->  
             <c:if test="${loginSession != null}">    
             <button type="button" class="btn rounded-circle position-relative c mx-md-1 my-md-3 px-md-3 hc" style=""
@@ -227,7 +228,6 @@
 	    $('.toast').toast('show');
 	};	
    
-   
       //자바스크립트 시작
       //다크모드 토글 이벤트 처리
       const theme_btn = document.querySelector('#theme-btn');
@@ -251,6 +251,15 @@
       //start jQuery
          /*메뉴바들 링크 기능(임시)*/
          $(document).ready(function() {
+        	 
+        	$('#theme-icon').click(function() {
+				if($('#theme-icon').attr('class') == 'fa-regular fa-sun ic') {
+					$('#theme-icon').attr('class', 'bi bi-moon-fill');
+				} else {
+					$('#theme-icon').attr('class', 'fa-regular fa-sun ic');
+				}
+			});
+        	 
             $("#so").click(function() {
                $(location).attr("href", "https://www.naver.com/")
             });               

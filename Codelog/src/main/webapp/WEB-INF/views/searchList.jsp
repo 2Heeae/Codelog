@@ -24,138 +24,6 @@
 <body style="margin-top: 1rem; font-family: ONE-Mobile-Regular;">
 
    <div class="container">
-   <!-- 
-<!-- 최신, 트랜딩 메뉴판 날짜설정메뉴는은 트랜딩메뉴 적용시만 활성 
-		<div class="row" style="padding: 1.5rem 1.5rem 0.5rem 1.5rem;">
-			<div class="col-md-1 px-md-0" id="recent2">
-			
-			<form action="<c:url value='/'/>" method="post">
-			<c:if test="${trending==true }"><input type="hidden" name=fromT value="true"></c:if>
-			<button type="submit" id="recent" class="btn z lo c p-0"
-					style="margin-left: 0.3rem;background-color:transparent; border-color: transparent;  <c:if test="${recent==true }">font-weight: bold; color: black;</c:if>">
-					<i class="fa-regular fa-clock fa-1x mx-md-1"></i>
-					<span class="m-0" style="font-size: 1.1rem;">최신</span>
-			</button></form>
-			
-			</div>
-						
-						
-			<div class="col-md-1 px-md-0" >
-			<form action="<c:url value='/trending'/>" method="post">
-			<c:if test="${recent==true}"><input type="hidden" name=fromR value="true"></c:if>
-			<button type="submit" id="trend" class="btn z c lo p-0"
-					style="background-color:transparent; border-color: transparent; <c:if test="${trending==true }">font-weight: bold; color: black;</c:if>"><i
-						class="fa-solid fa-arrow-trend-up fa-1x mx-md-1"></i>
-						<span class="m-0" style="font-size: 1.1rem;">트랜딩</span>
-			</button></form>
-			</div>
-							
-			<div class="col-md-2 px-md-3">
-			
-			
-			<c:if test="${trending==true }">	
-				
-				<button type="button" class="btn c rounded-circle p-0 position-relative"
-					style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
-					href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
-					<span id ="period" class="m-0" id="dateT" style="font-size: 1.1rem;">
-					<c:choose>
-						<c:when test="${period=='year'}">올해</c:when>
-						<c:when test="${period=='month'}">이번 달</c:when>
-						<c:when test="${period=='week'}">이번 주</c:when>
-						<c:when test="${period=='day'}">오늘</c:when>
-						<c:otherwise>이번 주</c:otherwise>
-					</c:choose>
-					<i class="fa-solid fa-caret-down mx-md-1"></i></span>
-
-					<div class="collapse" id="collapseExample3"
-						style="position: absolute; width: 10rem; top:2.5rem; left: -3.6rem; z-index: 1000;">
-						<div class="card" style="width: 8rem;">
-
-							<div class="card-body cc" id="day">
-								<div style="text-align: right;">
-									<span class="card-text"><strong>오늘</strong></span>
-								</div>
-							</div>
-
-							<div class="card-body cc" id="week">
-								<div style="text-align: right;">
-									<span class="card-text"><strong>이번 주</strong></span>
-								</div>
-							</div>
-
-							<div class="card-body cc" id="month">
-								<div style="text-align: right;">
-									<span class="card-text"><strong>이번 달</strong></span>
-								</div>
-							</div>
-
-
-							<div class="card-body cc" id="year">
-								<div style="text-align: right;">
-									<span class="card-text"><strong>올해</strong></span>
-								</div>
-							</div>
-						</div>	
-					</div>
-				</button>
-			</c:if>
-
-			
-			
-			
-			
-			<c:if test="${recent==true }">	
-				<c:if test="${sessionScope.loginSession != null}">
-				<button type="button" class="btn c rounded-circle p-0 position-relative"
-					style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
-					href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample4">
-					<span id="allChk" class="m-0" style="font-size: 1.1rem;">
-					<c:choose>
-						<c:when test="${allChk=='fol'}">팔로워</c:when>
-						<c:when test="${allChk=='all'}">모든 사람</c:when>
-						<c:otherwise>팔로워</c:otherwise>
-					</c:choose>
-					
-					<i class="fa-solid fa-caret-down mx-md-1"></i></span>
-
-					<div class="collapse" id="collapseExample4"
-						style="position: absolute; width: 10rem; top:2.5rem; left: -3.6rem; z-index: 1000;">
-						<div class="card" style="width: 8rem;">
-
-							<div class="card-body cc" id="all">
-								<div style="text-align: right;">
-									<span class="card-text"><strong>모든 사람</strong></span>
-								</div>
-							</div>
-
-							<div class="card-body cc" id="fol">
-								<div style="text-align: right;">
-									<span class="card-text"><strong>팔로워</strong></span>
-								</div>
-							</div>
-
-							
-						</div>	
-					</div>
-				</button>
-				</c:if>
-			</c:if>
-			
-			
-			
-			
-			
-			
-			</div>
-		</div>
-	<!-- 최신, 트랜딩 밑줄 애니매이션 
-	<div id="tot"  style="<c:choose><c:when test="${trending==true && fromR==false}">margin-left:7.7rem;</c:when>
-		<c:otherwise>margin-left:0.7rem;</c:otherwise></c:choose>width: 5rem; height: 0.1rem; background-color: black;" >
-	</div>
-	
-	</div>
-	 -->	
 		
 	<!-- Button trigger modal -->
 	<div class="container" style="margin-top: 2rem;" id="posterbox">
@@ -168,7 +36,14 @@
 					<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
 					<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}" class="stretched-link"></a>
 					<!--썸네일 이미지-->
-					<img src="<c:url value='/image/display/${s.thumbnail }'/>" class="card-img-top" alt="...">
+					<div class="card-thumb">
+					<c:choose>
+						<c:when test="${s.thumbnail != null}"><img src="<c:url value='/image/display/${s.thumbnail }'/>" class="card-img-top" alt="..."></c:when>
+						<c:when test="${s.thumbnail == null}"><img src="<c:url value='/img/codelog.png'/>" class="card-img-top" alt="..."></c:when>
+						<c:otherwise>팔로워</c:otherwise>
+					</c:choose>
+					
+					</div>
 					<!--제목 내용-->
 					<div class="card-body ">
 						<strong>${s.title}</strong>
@@ -212,6 +87,8 @@
 
 </div>
 </div>
+
+
 </body>
 
 </html>

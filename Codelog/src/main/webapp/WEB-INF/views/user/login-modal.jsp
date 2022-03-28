@@ -83,7 +83,7 @@
             <select name="" id="email2" class="form-select email2-select">
               <option selected value="default">선택</option>
               <option value="naver">naver.com</option>
-              <option value="google">google.com</option>
+              <option value="google">gmail.com</option>
               <option value="daum">hanmail.net</option>
               <option value="self">직접 입력</option>
             </select>
