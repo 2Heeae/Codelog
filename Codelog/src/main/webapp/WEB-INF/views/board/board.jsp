@@ -190,14 +190,15 @@
 <!-- 댓글 -->
 
 
-<h3 id=recnt>${dto.recnt }개의 댓글</h3>
+<h3 id=recnt>${dto.recnt}개의 댓글</h3>
 
   <c:if test="${not empty loginSession.nickname}">
                 <div class="row reply_write">
                     <div class="col-1">
                         <a href="#">
-                            <img id="write_reply_profileImage" style=" border-radius: 70%;
-    overflow: hidden;" width="40rem" src="<c:url value='../img/pome3.jpg'/>"/>
+                        <!-- 로그인 사용자 이미지가 뜨도록 -->
+                        	<img id="write_reply_profileImage" style=" border-radius: 70%;
+    						overflow: hidden;" width="40rem" src="<c:url value='/user/display'/>">
                         </a>
                     </div>
                     <div class="col-11" class="input_reply_div">
@@ -246,21 +247,23 @@
 			<!--------------------우측 고정메뉴-------------------->
 			
 			<div class="col-md-3">
-				<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted rounded" style="background-color: rgb(239 255 239); height: 500px;">
+				<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted rounded" style="background-color: rgb(239 255 239); height: 520px;">
 					<a href="${pageContext.request.contextPath}/search?keyword=${dto.tags}" class="d-block h6 my-2 pb-2 border-bottom">
-						#${dto.tags} 관련 게시글&nbsp;&nbsp;&nbsp;></a>
+						&nbsp;#${dto.tags} 관련 게시글&nbsp;&nbsp;&nbsp;></a>
 					
 					<c:if test="${not empty searchList}">
 					<nav id="TableOfContents">
-					<c:forEach var="s" items="${searchList}" begin="0" end="3" step="1">		
-					<div style="width: 248.63px; height: 90px; background-color: transparent;">								
-						<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
-					<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}" class="stretched-link"></a>
-						<div class="thumb" style="width: 160px; height: 90px; padding: 5px;display: inline-block;"> 
-							<span class="thumb">${s.title}</span>
-							<div class="thumb-date" style="margin-top: 10px;"><fmt:formatDate value="${s.regDate}" pattern="yy/MM/dd"/></div>
+					<c:forEach var="s" items="${searchList}" begin="0" end="4" step="1">		
+					<div style="width: 248.63px; height: 92px; background-color: transparent;" id="recom";>														
+						<div class="thumb" style="width: 160px; height: 90px; padding: 15px;display: inline-block;"> 
+							<span class="thumb" style="height:40px;"><a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}">${s.title}</a></span>
+							<div class="thumb-date" style="margin-top: 10px;">
+							<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}">
+							<fmt:formatDate value="${s.regDate}" pattern="yy/MM/dd"/></a></div>
 						</div>
-						<div class="thumb" style="position:relative; left: 20px; width:75px; vertical-align: bottom; display: inline-block !important;" ><img src="<c:url value='/image/display/${s.thumbnail}'/>" class="rounded" width="75px" height="75px" ></div>		
+						<div class="thumb" style="position:relative;  left: 20px; width:75px; vertical-align: bottom; display: inline-block !important;" >
+							<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}">
+							<img src="<c:url value='/image/display/${s.thumbnail}'/>" class="rounded" width="75px" height="75px" ></a></div>		
 					<hr align="center" size="3px" width="100%" style="margin: 10px;">
 					<!-------------------한 묶음-------------------->
 					</div>
@@ -331,7 +334,7 @@
 	                 if(grpl == 0){	// 모댓글일때
 	                        listHtml += "	<div class='col-1'>";
 	                        listHtml += "		<a href='#'> ";
-	                        listHtml += "			<img class='reply_list_profileImage' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' src='../img/kmj2.jpg'/>";
+	                        listHtml += "			<img class='reply_list_profileImage' src='<c:url value='/image/${loginSession.userId}'/>' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >";
 	                        listHtml += "		</a> ";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='reply-content"+ no +" col-8'>";
@@ -355,7 +358,7 @@
 	                        listHtml += "	<div class='col-1'>"
 	                        listHtml += "	</div>"
 	                        listHtml += "	<div class='col-1'>";
-	                        listHtml += "		<img class='reply_list_profileImage' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' src='../img/pome3.jpg'/>";
+	                        listHtml += "		<img class='reply_list_profileImage' src='<c:url value='/image/${loginSession.userId}'/>' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='rereply-content"+ no +" col-7'>";
 	                        listHtml += "		<div>";
@@ -405,7 +408,7 @@
 	                    listHtml += "		</div>"
 	                    listHtml += "		<div class='col-1'>"
 	                    listHtml += "			<a href='#'> ";
-	                    listHtml += "				<img id='write_reply_profileImage' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' src='../img/pome3.jpg'//>"
+	                    listHtml += "				<img id='write_reply_profileImage' src='<c:url value='/image/${loginSession.userId}'/>' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >"
 	                    listHtml += "			</a> ";
 	                    listHtml += "		</div>"
 	                    listHtml += "		<div class='col-7'>"
@@ -798,6 +801,8 @@
 				}
 			});
 		});
+		
+
 	</script>
 
 		<!--  
