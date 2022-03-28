@@ -960,7 +960,7 @@
 			console.log(view_user_id);
 			console.log(post_like);
 			console.log(writer);
-			msg = like + "," + view_user_id + "," + writer + "," + post_like; //소켓메세지 보낼 값
+			msg = 'like' + "," + view_user_id + "," + writer + "," + post_like; //소켓메세지 보낼 값
 			const data = {
 				"viewUserId" : view_user_id, //글 보는사람 아이디값
 				"boardId" : ${dto.boardId}, //글번호

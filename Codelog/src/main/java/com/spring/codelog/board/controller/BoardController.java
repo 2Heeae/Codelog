@@ -178,7 +178,7 @@ public class BoardController {
         BoardVO vo = service.read(boardId);
 		List<BoardVO> list = new ArrayList<>();
 
-        list = searchService.search(vo.getTags());
+        //list = searchService.search(vo.getTags());
         
         
         // 뷰에 전달할 데이터
