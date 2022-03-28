@@ -33,5 +33,8 @@ public interface IUserMapper {
 	UserVO getInfo(String userId);
 	
 	String getUserImg(String userId);
+	
+	String getUserImg2(int userNo);
+
 
 }

@@ -87,5 +87,9 @@
 	<select id="getUserImg" resultType="String">
 		SELECT user_img FROM proj_user WHERE user_id=#{userId}
 	</select>
+	
+		<select id="getUserImg2" resultType="String">
+		SELECT user_img FROM proj_user WHERE user_no=#{userNo}
+	</select>
 
 </mapper>

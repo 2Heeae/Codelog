@@ -66,6 +66,39 @@ public class ImgController {
 		
 	}
 	
+	
+	@GetMapping("/{userNo}")
+	public ResponseEntity<byte[]> getUserImgFile2(@PathVariable("userNo") int userNo) {
+		System.out.println("프로필이미지 "+userNo);
+		String fileName = service.getUserImg2(userNo);
+		System.out.println("fileName: " + fileName);
+		
+		File file;
+		
+		if(fileName == null || fileName.equals("null")) {
+			file = new File("C:\\test\\upload\\user_icon.png");
+			
+		} else {
+			file = new File("C:\\test\\upload\\" + fileName);
+			System.out.println(file);
+			
+		}
+		
+		ResponseEntity<byte[]> result = null;
+		
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Type", Files.probeContentType(file.toPath()));
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
+	
+	
+	
 	//썸네일 이미지 파일 보여주기 요청
 	@GetMapping("/display/{thumbnail}")
 	public ResponseEntity<byte[]> getFile(@PathVariable("thumbnail") String thumbnail, HttpSession session) {
