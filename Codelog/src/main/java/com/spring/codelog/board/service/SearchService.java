@@ -18,5 +18,11 @@ public class SearchService implements ISearchService {
 	public List<BoardVO> search(String keyword) {
 		return mapper.search(keyword);
 	}
+	
+	@Override
+	public List<BoardVO> searchId(String userId) {
+		// TODO Auto-generated method stub
+		return mapper.searchId(userId);
+	}
 
 }

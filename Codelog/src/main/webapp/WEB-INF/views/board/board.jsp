@@ -259,8 +259,16 @@
 
 
 
-
 				</div>
+				
+				
+				
+				
+				
+			
+	
+	
+	
 			<!--------------------우측 고정메뉴-------------------->
 			
 			<div class="col-md-3">
@@ -346,6 +354,7 @@
 	                 let userId = data[i].userId;
 
 	                 let wdate = data[i].wdate;
+	                 let userImg = data[i].userImg;
 	                 var date1 = new Date(wdate);
 	                 wdate = formatDate(date1);  	                 
 	                
