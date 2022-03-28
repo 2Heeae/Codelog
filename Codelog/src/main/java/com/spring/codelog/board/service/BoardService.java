@@ -117,6 +117,7 @@ public class BoardService implements IBoardService {
 	public int lastBno() {
 		System.out.println("확인용");
 		return boardMapper.lastbno();
+	}
 	
 	@Override
 	public List<BoardVO> search(String keyword) {

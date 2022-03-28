@@ -1,6 +1,7 @@
 package com.spring.codelog.board.controller;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
