@@ -48,15 +48,20 @@ element.style {
 /* 다크모드 css 시작 */
 body {
   --text-color: #222;
-  --bkg-color: #fff;
+  --bkg-color: #F8F9FA;
+  --ckg-color: white;
+  --skg-color: #E9ECEF;
 }
 
 body.dark-theme {
   --text-color: #eee;
   --bkg-color: #121212;
+  --ckg-color:  #212121;
+    --skg-color: #121212;
+  
 }
 
-body, div {
+body {
   background: var(--bkg-color);
 }
 
@@ -81,9 +86,14 @@ h1, p {
 }
 
 .card-footer {
-   background-color: var(--bkg-color) !important;
+   background-color: var(--ckg-color) !important;
 }
 
+.card {
+   background: var(--ckg-color) !important;
+   box-shadow: 2px 1px 1px  var(--skg-color);
+   border-color: var(--ckg-color) !important;
+}
 /* 포스트 테두리
 .card {
    border-color: var(--bkg-color) !important;
