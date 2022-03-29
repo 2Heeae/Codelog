@@ -206,7 +206,7 @@
 <!-- 댓글 -->
 
 
-<h3 id=recnt>${dto.recnt}개의 댓글</h3>
+<h5 id="recnt" style="margin-top: 3rem; margin-bottom: 1.5rem;">${dto.recnt}개의 댓글</h5>
 
   <c:if test="${not empty loginSession.nickname}">
                 <div class="row reply_write">

@@ -14,13 +14,15 @@
    <result property="viewAll" column="view_all" />
    <result property="imgPath" column="img_path" />
    <result property="regDate" column="reg_date" />
+      <result property="recnt" column="recnt" />
+   
    <result property="bno" column="bno" />
    <result property="hit" column="hit" />
 </resultMap>
 
 
 <select id="RPosters" resultMap="boardMap">
-    SELECT board_id,user_id,title,writer,preview,likes,thumbnail,reg_date FROM(
+    SELECT board_id,user_id,title,writer,preview,likes,thumbnail,recnt,reg_date FROM(
  SELECT ROWNUM as rn, a.* FROM(
     SELECT * FROM proj_board ORDER BY  board_id DESC)a) 
     <![CDATA[ WHERE rn<=18]]>
@@ -28,7 +30,7 @@
 
 
 <select id="RAPosters" resultMap="boardMap">
-    SELECT board_id,user_id,title,writer,preview,likes,thumbnail, reg_date FROM(
+    SELECT board_id,user_id,title,writer,preview,likes,thumbnail,recnt, reg_date FROM(
  SELECT ROWNUM as rn, a.* FROM(
     SELECT * FROM proj_board WHERE      <![CDATA[
     board_id<#{boardId} 
@@ -60,7 +62,7 @@
  -->
 
 <select id="TPosters" resultMap="boardMap">
-     SELECT board_id,user_id,title,writer,preview,likes,thumbnail,reg_date FROM(
+     SELECT board_id,user_id,title,writer,preview,likes,thumbnail,reg_date,recnt, FROM(
  SELECT ROWNUM as rn, a.* FROM(
     SELECT * FROM proj_board 
     <![CDATA[
@@ -72,7 +74,7 @@
 </select>
 
 <select id="TAPosters" resultMap="boardMap">
-        SELECT board_id,user_id,title,writer,preview,likes,thumbnail, reg_date FROM(
+        SELECT board_id,user_id,title,writer,preview,likes,thumbnail,recnt, reg_date FROM(
  SELECT ROWNUM as rn, a.* FROM(
     SELECT * FROM proj_board WHERE      <![CDATA[
     likes<#{likes} AND TO_CHAR(reg_date)>#{start} AND TO_CHAR(reg_date)<=#{end} AND likes IS NOT NULL
@@ -85,7 +87,7 @@
 </select> 
 
 <select id="FPosters" resultMap="boardMap">
-    SELECT board_id,user_id,title,writer,preview,likes,thumbnail, reg_date FROM(
+    SELECT board_id,user_id,title,writer,preview,likes,thumbnail,recnt, reg_date FROM(
      SELECT ROWNUM as rn, t.* FROM(
     SELECT a.* FROM proj_board a JOIN (SELECT * FROM follow WHERE active_user = #{userNo})b
     ON a.user_no = b.passive_user ORDER BY  board_id DESC)t)
@@ -95,7 +97,7 @@
 </select>
 
 <select id="FAPosters" resultMap="boardMap">
-      SELECT board_id,user_id,title,writer,preview,likes,thumbnail, reg_date FROM(
+      SELECT board_id,user_id,title,writer,preview,likes,thumbnail,recnt, reg_date, FROM(
      SELECT ROWNUM as rn, t.* FROM(
     SELECT a.* FROM proj_board a JOIN (SELECT * FROM follow WHERE active_user = #{userNo})b
 

@@ -78,26 +78,26 @@
 
                      <div class="card-body " id="day">
                         <div style="text-align: right;">
-                           <span class="card-text"><strong>오늘</strong></span>
+                           <span class="card-text"><strong id="day">오늘</strong></span>
                         </div>
                      </div>
 
                      <div class="card-body " id="week">
                         <div style="text-align: right;">
-                           <span class="card-text"><strong>이번 주</strong></span>
+                           <span class="card-text"><strong id="week">이번 주</strong></span>
                         </div>
                      </div>
 
                      <div class="card-body " id="month">
                         <div style="text-align: right;">
-                           <span class="card-text"><strong>이번 달</strong></span>
+                           <span class="card-text"><strong id="month">이번 달</strong></span>
                         </div>
                      </div>
 
 
                      <div class="card-body " id="year">
                         <div style="text-align: right;">
-                           <span class="card-text"><strong>올해</strong></span>
+                           <span class="card-text"><strong id="year">올해</strong></span>
                         </div>
                      </div>
                   </div>   
@@ -217,7 +217,7 @@
                         
                         <div  style="display: inline-block; float: right; margin-top: 0.13rem">
                            <i class="fa-solid fa-comment" style=""></i>
-                           <span style="margin-right: 0.5rem;" class="">3</span>
+                           <span style="margin-right: 0.5rem;" class="">${Poster.recnt}</span>
                            <i class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes}</span>
                         </div>
                      </div>
@@ -468,7 +468,7 @@
                            + "</div>"   
                            +"<div style="+"'display: inline-block; float: right; margin-top: 0.13rem'"+">"
                                + "<i class="+"'fa-solid fa-comment'"+"></i>"
-                               +"<span style="+"'margin-right: 0.5rem;'"+">3</span>"   
+                               +"<span style="+"'margin-right: 0.5rem;'"+">"+this.recnt+"</span>"   
                                +"<i class="+"'fa-solid fa-heart'"+"></i><span class="+"'mx-md-1'"+">"+this.likes+"</span>"      
                                + "</div>"   
                              + "</div>"   
@@ -541,7 +541,7 @@
                         + "</div>"   
                         +"<div style="+"'display: inline-block; float: right; margin-top: 0.13rem'"+">"
                            + "<i class="+"'fa-solid fa-comment'"+"></i>"
-                           +"<span style="+"'margin-right: 0.5rem;'"+">3</span>"   
+                           +"<span style="+"'margin-right: 0.5rem;'"+">"+this.likes+"</span>"   
                            +"<i class="+"'fa-solid fa-heart'"+"></i><span class="+"'mx-md-1'"+">"+this.likes+"</span>"      
                            + "</div>"   
                          + "</div>"   
