@@ -37,7 +37,7 @@
          <button type="submit" id="recent" class="btn z lo c p-0 pop"
                style="margin-left: 0.3rem;background-color:transparent; border-color: transparent;  <c:if test="${recent==true }">font-weight: bold; color: rgb(148 180 159)!important;</c:if>">
                <i class="fa-regular fa-clock fa-1x mx-md-1 pop"></i>
-               <span class="m-0 pop" style="font-size: 1.2rem;">최신</span>
+               <span class="m-0 pop" style="font-size: 1.2rem;">recent</span>
          </button></form>
          
          </div>
@@ -49,7 +49,7 @@
          <button type="submit" id="trend" class="btn z c lo p-0 pop"
                style="background-color:transparent; border-color: transparent; <c:if test="${trending==true }">font-weight: bold; color: rgb(148 180 159)!important;</c:if>">
                 <i class="fa-solid fa-arrow-trend-up fa-1x mx-md-1 pop"></i>
-                  <span class="m-0 pop" style="font-size: 1.2rem;">트랜딩</span>
+                  <span class="m-0 pop" style="font-size: 1.2rem;">trending</span>
          </button></form>
          </div>
                      

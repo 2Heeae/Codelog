@@ -161,8 +161,8 @@
 		<div class="col-md-2 tags">
 			태그목록
 			<hr>
-			<c:if test="${not empty tagList }">
-				<c:forEach var ="tag" items="${tagList }">
+			<c:if test="${not empty tagList}">
+				<c:forEach var ="tag" items="${tagList}">
 					<c:if test=""></c:if>
 				<a href="${pageContext.request.contextPath}//search?keyword=${tag}"> ${tag} &nbsp;()<br></a> 
 			</c:forEach>

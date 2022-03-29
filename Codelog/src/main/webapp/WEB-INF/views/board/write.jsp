@@ -91,7 +91,7 @@
             </div>
             <ul id="tag-list"></ul>
             <div class="form-group">
-               <input type="text" id="tag" size="7" class="tag" name="tags" placeholder="엔터로 태그를 입력하세요" style="width: 500px;">
+               <input type="text" id="tag" size="7" class="tag" name="tags" placeholder="태그를 입력하세요" style="width: 500px;">
             </div>
          </div>
          <!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
