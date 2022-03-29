@@ -26,10 +26,13 @@
           
        }
        
-       .card-body:hover {
-       background-color: #eee;
-       }
-       
+.pop:hover{
+	color:rgb(148 180 159);
+	font-weight: bold;
+	font-size:103%;	
+}
+
+
        
    
 /* 밑줄 애니매이션 */

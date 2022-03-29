@@ -34,6 +34,7 @@
                   <img src="<c:url value='/user/display' />" id="img-preview" class="img-circle" alt="" width="130px" height="130px">
                </c:otherwise>
             </c:choose>
+            <div style="height:10px;"></div>
             <!-- 이미지 업로드 버튼 -->
             <label for="img_upload" class="upload-btn">이미지 업로드</label>
             <input type="file" class="img-upload" id="img_upload">
@@ -45,7 +46,7 @@
       <!-- 닉네임, 자기소개 영역 -->
       <div class="col-md-8 info-area">
         <div class="row">
-          <h3 class="nickname">${loginSession.nickname}</h3>
+          <h3 class="nickname" style="font-size:2.2rem;font-weight: 600; line-height: 1.3;">${loginSession.nickname}</h3>
           <p class="profile">${loginSession.userInfo}</p>
         </div>
         <div class="row">

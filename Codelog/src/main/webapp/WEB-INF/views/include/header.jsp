@@ -93,20 +93,26 @@
                   <div class="card" style="width: 100%;">
 
                      <!--알림 목록 내용-->
-                     <div class="card-body cc" style=" height: 6rem; " id="so">
+
+                     
+                     <div class="card-body cc" style=" height: 6rem; " class="alarm-list">
+                     <c:forEach var="a" items="${alarm}">
                         <div class="row">
                            <div class="col-md-3">
-                              <img width="50rem" src="<c:url value='/img/cat2.jpg'/>" class="card-img-right rounded-circle"
+                           	<a href="${pageContext.request.contextPath}/user/userpage/${a.sender}" class="stretched-link" style="position: relative; text-decoration: none;">
+                              <img width="50rem" src="<c:url value='/image/${a.sender}'/>" class="card-img-right rounded-circle"
                                  alt=".">
+                            </a>
                            </div>
                            <div class="col-md-9" style=" text-align: left;">
-                              <span class="card-text"><strong>${alarm.msg}</strong></span>
+                              <span class="card-text"><strong>${a.msg}</strong></span>
 
 
                               <p class="pt-1" style="font-size: 0.8rem;">3시간 전.</p>
 
                            </div>
                         </div>
+                     </c:forEach>
                      </div>
                      
                      
@@ -151,21 +157,21 @@
                <!--메뉴 토글 내용-->      
                      <div class="card" style="width: 8rem;">
 
-                        <div class="card-body cc" id="mycodelog">
+                        <div class="card-body " id="mycodelog">
                            <div style="text-align: right;">
-                              <span class="card-text"><strong>내 코드로그</strong></span>
+                              <span class="card-text pop"><strong>내 코드로그</strong></span>
                            </div>
                         </div>
 
-                        <div class="card-body cc" id="edit-profile">
+                        <div class="card-body " id="edit-profile">
                            <div style="text-align: right;">
-                              <span class="card-text"><strong>프로필 수정</strong></span>
+                              <span class="card-text pop"><strong>프로필 수정</strong></span>
                            </div>
                         </div>
 
-                        <div class="card-body cc" id="logout">
+                        <div class="card-body " id="logout">
                            <div style="text-align: right;">
-                              <span class="card-text"><strong>로그아웃</strong></span>
+                              <span class="card-text pop"><strong>로그아웃</strong></span>
                            </div>
                         </div>   
                      </div>   
@@ -315,18 +321,11 @@ $('#searchInput').keydown(function(){
 				}
 			});
         	 
-            $("#so").click(function() {
-               $(location).attr("href", "https://www.naver.com/")
-            });               
             
             $("#so4").click(function() {
                $(location).attr("href", "https://www.naver.com/")
             });
             
-            //새 글 작성 버튼 클릭 시 글쓰기페이지 이동 이벤트 처리
-            //$('#write-btn').click(function() {
-            	//location.href = "<c:url value='/write' />";				
-			//}); //새 글 작성 버튼 클릭 시 글쓰기페이지 이동 이벤트 처리 끝
             
             //로고버튼 클릭 시 메인페이지 이동 이벤트 처리
             $('#logo-btn').click(function() {
@@ -377,6 +376,13 @@ $('#searchInput').keydown(function(){
             	
             	location.href= "<c:url value='/user/userpage/${dto.userId}'/>";
             });	
+			
+			//종 알림 알림 클릭 시 이벤트 처리
+			$('.alarm-list').click(function() {
+				console.log('알람리스트 클릭 됨');
+				
+				
+			});
             
      }); //end jQuery     
          

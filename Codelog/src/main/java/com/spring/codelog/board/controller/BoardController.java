@@ -48,17 +48,17 @@ public class BoardController {
 	BoardService service;
 	@Autowired
 	ReplyService service2;
-	
-	
+
+
 	@Autowired
 	PostLikeService likeService;
-	
+
 	@Autowired
 	TagService tagService;
 	
 	@Autowired
 	private ISearchService searchService;
-	
+
 	@GetMapping("/test")
 	public String test() {
 		return "board/temp";
@@ -67,17 +67,17 @@ public class BoardController {
 	@RequestMapping(value = "/getWrite", method = RequestMethod.GET)
 	public String write(HttpServletRequest request ,Model model)
 	{
-       
+
 		return "board/write";
 
 	}
 	@ResponseBody
-   @RequestMapping(value ="/thumbnail", method = {RequestMethod.POST})
-   public String thumb(MultipartHttpServletRequest mhsr,MultipartFile file)
-   {
-	   UUID uuid = UUID.randomUUID();
-	   String uuids = uuid.toString().replaceAll("-", "");
-	   try {
+	@RequestMapping(value ="/thumbnail", method = {RequestMethod.POST})
+	public String thumb(MultipartHttpServletRequest mhsr,MultipartFile file)
+	{
+		UUID uuid = UUID.randomUUID();
+		String uuids = uuid.toString().replaceAll("-", "");
+		try {
 			System.out.println("--------------------------보드컨트롤러썸네일-----------------");
 			String uploadPath = "C:\\test\\thumbnail";
 			String fileRealName = file.getOriginalFilename();	
@@ -97,25 +97,29 @@ public class BoardController {
 			System.out.println("업로드 중 에러 발생: " + e.getMessage());
 			e.printStackTrace();
 			return "false";
-			
+
 		}
-	   
-   }
-   
+
+	}
+
 	@RequestMapping(value = "/write", method = {RequestMethod.POST})
 	public String write(BoardVO vo, RedirectAttributes ra, HttpServletRequest hsr, MultipartFile file) {
-       try {
-		hsr.setCharacterEncoding("UTF-8");
-	} catch (UnsupportedEncodingException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+		try {
+			hsr.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("글 작성 요청");
 		int boardId = service.write(vo);
 		ra.addFlashAttribute("msg", "글 작성 완료");
-
+		
+		
+		
+		
 		return "redirect:/boardController/board?boardId=" + boardId;
 	}
+
 	
     // 01. 게시글 목록
     @RequestMapping("list")
@@ -170,7 +174,7 @@ public class BoardController {
         // 뷰의 이름
         mav.setViewName("board/board");
         mav.addObject("tagList", tagList);
-      //  System.out.println("태그리스트: "+tagList);
+        System.out.println("태그리스트: "+tagList);
 
         
 
@@ -179,7 +183,7 @@ public class BoardController {
         mav.setViewName("board/board");
         
         BoardVO vo = service.read(boardId);
-		List<BoardVO> list = new ArrayList<>();
+		    List<BoardVO> list = new ArrayList<>();
 
 		
 
@@ -227,19 +231,19 @@ public class BoardController {
 		for(int i = 0; i<eachTag.length; i++) {
 			tagService.registTags(eachTag[i], vo.getUserId(), vo.getBoardId());
 		}
-		
-        return "redirect:/boardController/board?boardId=" + vo.getBoardId();
-    }
-    
-    //  게시글 삭제
-    @PostMapping("/delete")
-    public String delete(@RequestParam int boardId) {
-    	System.out.println("게시물 삭제: 보드번호"+ boardId);
-        service.delete(boardId);
-        tagService.deleteTags(boardId);
-        return "redirect:/";
-    }
-	
+
+		return "redirect:/boardController/board?boardId=" + vo.getBoardId();
+	}
+
+	//  게시글 삭제
+	@PostMapping("/delete")
+	public String delete(@RequestParam int boardId) {
+		System.out.println("게시물 삭제: 보드번호"+ boardId);
+		service.delete(boardId);
+		tagService.deleteTags(boardId);
+		return "redirect:/";
+	}
+
 
 
 }
