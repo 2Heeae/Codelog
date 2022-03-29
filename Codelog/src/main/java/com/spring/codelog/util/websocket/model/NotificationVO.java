@@ -1,6 +1,5 @@
 package com.spring.codelog.util.websocket.model;
 
-
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
@@ -20,4 +19,5 @@ public class NotificationVO {
 	private String msg;
 	private String sender;
 	private Timestamp regDate;
+
 }
