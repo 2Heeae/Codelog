@@ -61,8 +61,8 @@
 		<!-- 검색 창 -->
         <div class="col-md-3 offset-2" style="margin-top: 1.2rem;" >
             <form style="width: 80%; margin-left:3rem;" action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
-               <input style="border-color:black; border-right:none;" class="form-control mr-sm-2" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
-               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: white; border-color:black; border-left:none;"><i class="bi bi-search" style="color:black"></i></button>
+               <input style="border-color:gary; border-right:none;" class="form-control mr-sm-2" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
+               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159); border-left:none;"><i class="bi bi-search" style="color:white"></i></button>
              </form>
          <div class="" id="toast_area" style="background-color:transparent; margin-top:0.3rem; width:255px; z-index: 1000; position: absolute; " ></div>
          </div>
@@ -70,6 +70,8 @@
 
             <!--해,알림,검색,글작성,메뉴토글 바-->
          <div class="col-md-3 offset-2 p-0" style="padding-left:2rem;">
+             <c:if test="${loginSession != null}">    
+         
             <!--해(다크모드)-->
             <div style="display: inline-block; margin-left: 5rem;">
             <button style="margin-left:5rem;" type="button" id="theme-btn" class="btn c rounded-circle mx-md-1 px-md-2 hc" >
@@ -77,7 +79,6 @@
             </button>
             </div>
             <!--알림,알림 목록 토글-->  
-            <c:if test="${loginSession != null}">    
             <button type="button" class="btn rounded-circle position-relative c mx-md-1  px-md-3 hc" style=""
                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
                aria-controls="collapseExample">
@@ -131,6 +132,11 @@
             <!-- 로그인 안했을 때 보여주기 -->
             <c:if test="${loginSession == null}">
             <!-- 로그인 버튼 누르면 모달창 열림-->
+            <div style="display: inline-block; margin-left: 9.2rem; margin-top:1.3rem;">
+            <button  type="button" id="theme-btn" class="btn c rounded-circle mx-md-1 px-md-2 hc" >
+            	<i class="fa-regular fa-sun ic" id="theme-icon"></i>
+            </button>
+            </div>
                 <button style="background-color: rgb(148, 180, 159); border-color: rgb(148, 180, 159);"type="button" class="btn btn-primary mx-md-4 px-md-2 hclogin" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
             </c:if>
             <!-- 로그인 안했을 때 보여주기 끝 -->
