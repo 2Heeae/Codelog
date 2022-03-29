@@ -160,7 +160,7 @@
 					<br>
 					<div class="hashtag">
 						<c:forEach var="tag" items="${tagList }">
-							<a style="color:rgb(120, 147, 149);" href="${pageContext.request.contextPath}//search?keyword=${tag}">
+							<a style="color:rgb(120, 147, 149);" href="${pageContext.request.contextPath}/search?keyword=${tag}">
 								#${tag}
 							</a>
 						</c:forEach>

@@ -48,15 +48,15 @@ public class BoardController {
 	BoardService service;
 	@Autowired
 	ReplyService service2;
-	
-	
+
+
 	@Autowired
 	PostLikeService likeService;
-	
+
 	@Autowired
 	TagService tagService;
 	private ISearchService searchService;
-	
+
 	@GetMapping("/test")
 	public String test() {
 		return "board/temp";
@@ -65,17 +65,17 @@ public class BoardController {
 	@RequestMapping(value = "/getWrite", method = RequestMethod.GET)
 	public String write(HttpServletRequest request ,Model model)
 	{
-       
+
 		return "board/write";
 
 	}
 	@ResponseBody
-   @RequestMapping(value ="/thumbnail", method = {RequestMethod.POST})
-   public String thumb(MultipartHttpServletRequest mhsr,MultipartFile file)
-   {
-	   UUID uuid = UUID.randomUUID();
-	   String uuids = uuid.toString().replaceAll("-", "");
-	   try {
+	@RequestMapping(value ="/thumbnail", method = {RequestMethod.POST})
+	public String thumb(MultipartHttpServletRequest mhsr,MultipartFile file)
+	{
+		UUID uuid = UUID.randomUUID();
+		String uuids = uuid.toString().replaceAll("-", "");
+		try {
 			System.out.println("--------------------------보드컨트롤러썸네일-----------------");
 			String uploadPath = "C:\\test\\thumbnail";
 			String fileRealName = file.getOriginalFilename();	
@@ -95,123 +95,126 @@ public class BoardController {
 			System.out.println("업로드 중 에러 발생: " + e.getMessage());
 			e.printStackTrace();
 			return "false";
-			
+
 		}
-	   
-   }
-   
+
+	}
+
 	@RequestMapping(value = "/write", method = {RequestMethod.POST})
 	public String write(BoardVO vo, RedirectAttributes ra, HttpServletRequest hsr, MultipartFile file) {
-       try {
-		hsr.setCharacterEncoding("UTF-8");
-	} catch (UnsupportedEncodingException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+		try {
+			hsr.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("글 작성 요청");
 		int boardId = service.write(vo);
 		ra.addFlashAttribute("msg", "글 작성 완료");
-
+		
+		
+		
+		
 		return "redirect:/boardController/board?boardId=" + boardId;
 	}
-	
-    // 01. 게시글 목록
-    @RequestMapping("list")
-    public ModelAndView list() throws Exception{ 
-        List<BoardVO> list = service.listAll();
-        // ModelAndView - 모델과 뷰
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("user/mypage"); // 뷰를 mypage.jsp로 설정
-        mav.addObject("list", list); // 데이터를 저장
-        return mav; // mypage.jsp로 List가 전달된다.
-    }
-	
 
-	
-    // 게시글 상세내용 조회, 게시글 조회수 증가 처리
-    // @RequestParam : get/post방식으로 전달된 변수 1개
-    // HttpSession 세션객체
-    @RequestMapping(value="/board", method=RequestMethod.GET)
-    public ModelAndView home(@RequestParam int boardId, HttpSession session) {
-        // 조회수 증가 처리
-    	if(session.getAttribute("loginSession") != null)
-        service.increaseHit(boardId, session);
-        
-        // 모델(데이터)+뷰(화면)를 함께 전달하는 객체
-        ModelAndView mav = new ModelAndView();
-        
-        int like = 0;
-        
-        //좋아요 처리
-        if(session.getAttribute("loginSession") != null) {
-        	PostLikeVO vo = new PostLikeVO();
-        	UserVO user = (UserVO) session.getAttribute("loginSession");
-        	
-        	String viewUserId = user.getUserId();
-        	System.out.println("이 글 보고 있는 사용자 아이디: " + viewUserId);
-        	
-        	vo.setBoardId(boardId);
-        	vo.setViewUserId(viewUserId);
-        	
-        	
-        	int checkNum = likeService.likeCount(vo);
-        	
-        	if(checkNum == 0) {
-        		likeService.likeInsert(vo);
-        	} else {
-        		like = likeService.getLikeInfo(vo);
-        	}
-        	
-        }
-        List<String> tagList =  tagService.listbybId(boardId);
-        // 뷰의 이름
-        mav.setViewName("board/board");
-        mav.addObject("tagList", tagList);
-        System.out.println("태그리스트: "+tagList);
+	// 01. 게시글 목록
+	@RequestMapping("list")
+	public ModelAndView list() throws Exception{ 
+		List<BoardVO> list = service.listAll();
+		// ModelAndView - 모델과 뷰
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("user/mypage"); // 뷰를 mypage.jsp로 설정
+		mav.addObject("list", list); // 데이터를 저장
+		return mav; // mypage.jsp로 List가 전달된다.
+	}
 
-        
 
-        
-        // 뷰의 이름
-        mav.setViewName("board/board");
-        
-        BoardVO vo = service.read(boardId);
+
+	// 게시글 상세내용 조회, 게시글 조회수 증가 처리
+	// @RequestParam : get/post방식으로 전달된 변수 1개
+	// HttpSession 세션객체
+	@RequestMapping(value="/board", method=RequestMethod.GET)
+	public ModelAndView home(@RequestParam int boardId, HttpSession session) {
+		// 조회수 증가 처리
+		if(session.getAttribute("loginSession") != null)
+			service.increaseHit(boardId, session);
+
+		// 모델(데이터)+뷰(화면)를 함께 전달하는 객체
+		ModelAndView mav = new ModelAndView();
+
+		int like = 0;
+
+		//좋아요 처리
+		if(session.getAttribute("loginSession") != null) {
+			PostLikeVO vo = new PostLikeVO();
+			UserVO user = (UserVO) session.getAttribute("loginSession");
+
+			String viewUserId = user.getUserId();
+			System.out.println("이 글 보고 있는 사용자 아이디: " + viewUserId);
+
+			vo.setBoardId(boardId);
+			vo.setViewUserId(viewUserId);
+
+
+			int checkNum = likeService.likeCount(vo);
+
+			if(checkNum == 0) {
+				likeService.likeInsert(vo);
+			} else {
+				like = likeService.getLikeInfo(vo);
+			}
+
+		}
+		List<String> tagList =  tagService.listbybId(boardId);
+		// 뷰의 이름
+		mav.setViewName("board/board");
+		mav.addObject("tagList", tagList);
+		System.out.println("태그리스트: "+tagList);
+
+
+
+
+		// 뷰의 이름
+		mav.setViewName("board/board");
+
+		BoardVO vo = service.read(boardId);
 		List<BoardVO> list = new ArrayList<>();
 
-        list = searchService.search(vo.getTags());
-        
-        
-        // 뷰에 전달할 데이터
-        mav.addObject("dto", vo);
-        mav.addObject("searchList", list);
-        mav.addObject("postLike", like);
-        return mav;
-    }
-	
-    
-    //  게시글 수정 불러오기
-    @RequestMapping(value="/modify", method=RequestMethod.GET)
-    public ModelAndView home2(@RequestParam int boardId, HttpSession session) {
-        // 모델(데이터)+뷰(화면)를 함께 전달하는 객체
-        ModelAndView mav2 = new ModelAndView();
-        // 뷰의 이름
-        mav2.setViewName("board/modify");
-        // 뷰에 전달할 데이터
-        mav2.addObject("dto2", service.modify(boardId));
-        return mav2;
-    }
-    
-    
-    // 게시글 수정
-    // 폼에서 입력한 내용들은 @ModelAttribute BoardVO vo로 전달됨
-    @RequestMapping(value="update", method=RequestMethod.POST)
-    public String update(BoardVO vo) {
-    	System.out.println("글 수정 요청");
-    	System.out.println(vo);
-        service.update(vo);
-        //태그수정
-        String tags = vo.getTags();
-        String str = tags.replace(" ", "");
+		//        list = searchService.search(vo.getTags());
+
+
+		// 뷰에 전달할 데이터
+		mav.addObject("dto", vo);
+		mav.addObject("searchList", list);
+		mav.addObject("postLike", like);
+		return mav;
+	}
+
+
+	//  게시글 수정 불러오기
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
+	public ModelAndView home2(@RequestParam int boardId, HttpSession session) {
+		// 모델(데이터)+뷰(화면)를 함께 전달하는 객체
+		ModelAndView mav2 = new ModelAndView();
+		// 뷰의 이름
+		mav2.setViewName("board/modify");
+		// 뷰에 전달할 데이터
+		mav2.addObject("dto2", service.modify(boardId));
+		return mav2;
+	}
+
+
+	// 게시글 수정
+	// 폼에서 입력한 내용들은 @ModelAttribute BoardVO vo로 전달됨
+	@RequestMapping(value="update", method=RequestMethod.POST)
+	public String update(BoardVO vo) {
+		System.out.println("글 수정 요청");
+		System.out.println(vo);
+		service.update(vo);
+		//태그수정
+		String tags = vo.getTags();
+		String str = tags.replace(" ", "");
 		String st = str.replace("\"", "");
 		System.out.println("정제한 문자열"+st);
 		String[] eachTag = st.split(",");
@@ -220,19 +223,19 @@ public class BoardController {
 		for(int i = 0; i<eachTag.length; i++) {
 			tagService.registTags(eachTag[i], vo.getUserId(), vo.getBoardId());
 		}
-		
-        return "redirect:/boardController/board?boardId=" + vo.getBoardId();
-    }
-    
-    //  게시글 삭제
-    @PostMapping("/delete")
-    public String delete(@RequestParam int boardId) {
-    	System.out.println("게시물 삭제: 보드번호"+ boardId);
-        service.delete(boardId);
-        tagService.deleteTags(boardId);
-        return "redirect:/";
-    }
-	
+
+		return "redirect:/boardController/board?boardId=" + vo.getBoardId();
+	}
+
+	//  게시글 삭제
+	@PostMapping("/delete")
+	public String delete(@RequestParam int boardId) {
+		System.out.println("게시물 삭제: 보드번호"+ boardId);
+		service.delete(boardId);
+		tagService.deleteTags(boardId);
+		return "redirect:/";
+	}
+
 
 
 }

@@ -58,7 +58,7 @@
 				
 			</h3>
 			<p class="posts">
-				게시물 3 &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal"
+				게시물 ${fn:length(userInfo.boardList)} &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal"
 					data-bs-target="#followers_modal" style="cursor: pointer;">팔로워
 					${fn:length(followerList)}</a> &nbsp;&nbsp;&nbsp; <a class="folloing"
 					data-bs-toggle="modal" data-bs-target="#following_modal"
@@ -171,12 +171,9 @@
 		<!--게시글들 -->
 		<div class="col-md-10">
 			<!--검색 -->
-			<form action="d-flex">
-				<section>
-					<input class="form-control search" type="search"
-						placeholder="Search" aria-label="Search">
+			<form action="<c:url value='/search/${userInfo.userId }' />">
+					<input class="form-control search" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search">
 					<button class="btn btn-outline-primary" type="submit">검색</button>
-				</section>
 			</form>
 			<!-- 사진 썸네일, 글제목, 보이는 곳  -->
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
