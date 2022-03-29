@@ -90,6 +90,7 @@
                   <div class="card" style="width: 100%;">
 
                      <!--알림 목록 내용-->
+
                      
                      <div class="card-body cc" style=" height: 6rem; " class="alarm-list">
                      <c:forEach var="a" items="${alarm}">
@@ -143,7 +144,7 @@
                      </c:when>
                      <c:otherwise>
                            <img width="50rem" id="small-profile-img" src="<c:url value='/user/display'/>" class="card-img-right rounded-circle mx-md-1"
-                           alt="."><i class="fa-solid fa-caret-down"></i>
+                           alt="."><i class="fa-solid fa-caret-down pop"></i>
                      </c:otherwise>
                   </c:choose>
             <!--메뉴, 메뉴 토글(위에꺼랑 세트)-->   
@@ -152,21 +153,21 @@
                <!--메뉴 토글 내용-->      
                      <div class="card" style="width: 8rem;">
 
-                        <div class="card-body cc" id="mycodelog">
+                        <div class="card-body " id="mycodelog">
                            <div style="text-align: right;">
-                              <span class="card-text"><strong>내 코드로그</strong></span>
+                              <span class="card-text pop"><strong>내 코드로그</strong></span>
                            </div>
                         </div>
 
-                        <div class="card-body cc" id="edit-profile">
+                        <div class="card-body " id="edit-profile">
                            <div style="text-align: right;">
-                              <span class="card-text"><strong>프로필 수정</strong></span>
+                              <span class="card-text pop"><strong>프로필 수정</strong></span>
                            </div>
                         </div>
 
-                        <div class="card-body cc" id="logout">
+                        <div class="card-body " id="logout">
                            <div style="text-align: right;">
-                              <span class="card-text"><strong>로그아웃</strong></span>
+                              <span class="card-text pop"><strong>로그아웃</strong></span>
                            </div>
                         </div>   
                      </div>   

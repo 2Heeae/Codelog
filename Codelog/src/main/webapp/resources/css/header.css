@@ -60,9 +60,11 @@ body, div {
   background: var(--bkg-color);
 }
 
-span, i, div, a {
+
+ span, i, div, a {
   color: var(--text-color);
-}
+} 
+
 
 body {
   background: var(--bkg-color);
@@ -70,6 +72,12 @@ body {
 
 h1, p {
   color: var(--text-color);
+}
+
+.pop:hover{
+	color:rgb(148 180 159);
+	font-weight: bold;
+	font-size:103%;	
 }
 
 .card-footer {
