@@ -61,10 +61,7 @@
 		WHERE tags like '%'||#{keyword}||'%'
 		ORDER BY board_id DESC
 	</select>
-<<<<<<< HEAD
 	
-=======
->>>>>>> 899f8df404fcef161a0607c5bd398ccb45f02616
 	<select id="searchId" resultMap="searchIdMap">
 		SELECT * FROM proj_user
 		WHERE user_id like #{userId}||'%'
