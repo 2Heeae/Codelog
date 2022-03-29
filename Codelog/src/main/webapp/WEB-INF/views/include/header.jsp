@@ -95,9 +95,9 @@
                   <div class="card" style="width: 100%;">
 
                      <!--알림 목록 내용-->
-                      <div class="card-body " style=" height: 6rem; " class="alarm-list">
                      <c:forEach var="a" items="${alarm}">
-                        <div class="row">
+                      <div class="card-body" style=" height: 6rem;">
+                        <div class="row alarm-list${a.notiNo}">
                            <div class="col-md-3">
                               <a href="${pageContext.request.contextPath}/user/userpage/${a.sender}" class="stretched-link" style="position: relative; text-decoration: none;">
                               <img width="50rem" src="<c:url value='/image/${a.sender}'/>" class="card-img-right rounded-circle"
@@ -106,6 +106,7 @@
                            </div>
                            <div class="col-md-9" style=" text-align: left;">
                               <span class="card-text"><strong>${a.msg}</strong></span>
+                              
 
 
                               <p class="pt-1" style="font-size: 0.8rem;">
@@ -114,8 +115,8 @@
 
                            </div>
                         </div>
-                     </c:forEach>
                      </div>
+                     </c:forEach>
                      
                      
                   </div>
@@ -391,7 +392,9 @@ $('#searchInput').keydown(function(){
 			$('.dto-logo').click(function() {
             	
             	location.href= "<c:url value='/user/userpage/${dto.userId}'/>";
-            });	
+            });
+			
+			//알림 클릭시 사라지게 하기
             
      }); //end jQuery     
          
