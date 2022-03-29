@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,9 +60,9 @@
 
 		<!-- 검색 창 -->
         <div class="col-md-3 offset-2" style="margin-top: 1.2rem;" >
-            <form style="width: 80%; margin-left:3rem;" action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
-               <input style="border-color:gary; border-right:none;" class="form-control mr-sm-2" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
-               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159); border-left:none;"><i class="bi bi-search" style="color:white"></i></button>
+            <form style="width: 80%; margin-left:3rem;" action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group shadow-none">
+               <input style="border-color:gary; border-right:none;" class="form-control mr-sm-2 shadow-none" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
+               <button class="btn btn-outline-secondary my-2 my-sm-0 shadow-none" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159); border-left:none;"><i class="bi bi-search" style="color:white"></i></button>
              </form>
          <div class="" id="toast_area" style="background-color:transparent; margin-top:0.3rem; width:255px; z-index: 1000; position: absolute; " ></div>
          </div>
@@ -107,7 +108,9 @@
                               <span class="card-text"><strong>${a.msg}</strong></span>
 
 
-                              <p class="pt-1" style="font-size: 0.8rem;">${a.regDate}</p>
+                              <p class="pt-1" style="font-size: 0.8rem;">
+                              	<fmt:formatDate value="${a.regDate}" pattern="yy/MM/dd" />
+                              </p>
 
                            </div>
                         </div>
@@ -134,7 +137,7 @@
             	<i class="fa-regular fa-sun ic" id="theme-icon"></i>
             </button>
             </div>
-                <button style="background-color: rgb(148, 180, 159); border-color: rgb(148, 180, 159);"type="button" class="btn btn-primary mx-md-4 px-md-2 hclogin" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
+                <button style="background-color: rgb(148, 180, 159); border-color: rgb(148, 180, 159);"type="button" class="btn btn-primary mx-md-4 px-md-2 hclogin shadow-none" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
             </c:if>
             <!-- 로그인 안했을 때 보여주기 끝 -->
             <!-- 로그인하면 보여주기 -->
@@ -384,6 +387,7 @@ $('#searchInput').keydown(function(){
             	
             	location.href= "<c:url value='/user/userpage/${userInfo.userId}'/>";
             });
+            
 			$('.dto-logo').click(function() {
             	
             	location.href= "<c:url value='/user/userpage/${dto.userId}'/>";
