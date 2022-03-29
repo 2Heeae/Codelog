@@ -19,17 +19,18 @@
    <script src="https://kit.fontawesome.com/7b2a04da3a.js" crossorigin="anonymous"></script>
    <style type="text/css">
       @import url("<c:url value='/css/header.css'/>");
+      
    </style>
 
    <title>Document</title>
 </head>
 
-<body style="margin-top: 1rem; font-family: ONE-Mobile-Regular;">
+<body style="margin-top: 0.3rem; font-family: ONE-Mobile-Regular;">
    <div class="container">
       <div class="row px-md-4">
          <!--로고 부분-->
          <div class="col-md-2 px-md-0 my-md-0 pb-md-4">
-            <button id="logo-btn">
+            <button id="logo-btn" style="margin-top:0.5rem;">
             <span class="logo">CodeLog
             </span>
             </button>
@@ -57,21 +58,23 @@
          </div>
 
 		<!-- 검색 창 -->
-        <div class="col-md-3 offset-1" style="padding-top:15px;">
-            <form action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
-               <input class="form-control mr-sm-2" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
-               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159);"><i class="bi bi-search" style="color:white;"></i></button>
+        <div class="col-md-3 offset-2" style="margin-top: 1.2rem;" >
+            <form style="width: 80%; margin-left:3rem;" action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
+               <input style="border-color:black; border-right:none;" class="form-control mr-sm-2" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
+               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: white; border-color:black; border-left:none;"><i class="bi bi-search" style="color:black"></i></button>
              </form>
-         <div class="" id="toast_area" style="background-color:transparent; margin-top:1rem; width:255px; z-index: 1000; position: absolute;" ></div>
+         <div class="" id="toast_area" style="background-color:transparent; margin-top:0.3rem; width:255px; z-index: 1000; position: absolute; " ></div>
          </div>
          
 
             <!--해,알림,검색,글작성,메뉴토글 바-->
-         <div class="col-md-3 offset-3 p-0">
+         <div class="col-md-3 offset-2 p-0" style="padding-left:2rem;">
             <!--해(다크모드)-->
+            <div style="display: inline-block; margin-left: 5rem;">
             <button style="margin-left:5rem;" type="button" id="theme-btn" class="btn c rounded-circle mx-md-1 px-md-2 hc" >
             	<i class="fa-regular fa-sun ic" id="theme-icon"></i>
             </button>
+            </div>
             <!--알림,알림 목록 토글-->  
             <c:if test="${loginSession != null}">    
             <button type="button" class="btn rounded-circle position-relative c mx-md-1  px-md-3 hc" style=""
@@ -126,7 +129,7 @@
             <!-- 로그인하면 보여주기 -->
             <c:if test="${loginSession != null}">            
             <!--메뉴, 메뉴 토글-->      
-            <div style="display: inline; margin-left:5rem;">
+            <div style="display: inline;">
                <button width="10px"type="button" class="btn c rounded-circle px-md-0 x pb-md-4 pt-md-0 position-relative"
                    data-bs-toggle="collapse" style="background-color:transparent; border-color: transparent;"
                   href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
@@ -135,11 +138,11 @@
                   <c:choose>
                      <c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
                         <img width="10px" style="margin-top:1rem;"  id="small-profile-img" src="<c:url value='/img/user_icon.png'/>" class="card-img-right rounded-circle mx-md-1"
-                           alt="."><i  class="fa-solid fa-caret-down"></i>
+                           alt=".">
                      </c:when>
                      <c:otherwise>
                            <img width="10px" style="margin-top:1rem;" id="small-profile-img" src="<c:url value='/user/display'/>" class="card-img-right rounded-circle mx-md-1"
-                           alt="."><i  class="fa-solid fa-caret-down"></i>
+                           alt=".">
                      </c:otherwise>
                   </c:choose>
             <!--메뉴, 메뉴 토글(위에꺼랑 세트)-->   
@@ -245,7 +248,7 @@ $('#searchInput').keydown(function(){
 			                 let userId = pto[i].userId;
 
             let listHtml = "";
-            listHtml += "	<div class='' id=searchResult style='z-index: 10000; border-collapse: collapse; border:1px solid rgb(231,231,231); background-color:rgb(231,231,231); margin:0px' width:150px >";
+            listHtml += "	<div class='' id=searchResult style='z-index: 10000; border-collapse: collapse; border:1px solid white; background-color:white; width:78%; margin-left:3rem'  >";
             listHtml += "		<a style='text-decoration:none;' href='#' >";
             listHtml += "			<img class='reply_list_profileImage' style='margin-top:0.20rem; border-radius: 70%; overflow: hidden;' width='40rem' src='img/pome3.jpg'/>&nbsp;&nbsp;<span>"+userId+"</span>";
             listHtml += "		</a> ";

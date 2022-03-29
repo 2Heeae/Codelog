@@ -2,6 +2,8 @@
    /*포스터 카드 호버 시 크기 확대+위로 올리가기*/
 
 
+
+
       .poster:hover {
          transform: scale(1.02) translateY(-0.5em);
          transition-duration: 0.5s;
@@ -44,11 +46,11 @@ animation-fill-mode: forwards;
 
 @-webkit-keyframes totrend {
   0% {
-    left:10%
+    left:16vh;
   
   }
   100% {
-    left:14.7%
+    left:30vh;
   }
 }
 
@@ -65,20 +67,20 @@ animation-fill-mode: forwards;
 
 @-webkit-keyframes torent {
   0% {
-    left:14.7%
+    left:30vh
   }
   100% {
-    left:7.4%
+    left:17vh
   }
 }
 
 
 .toto3 {
-margin-left:10%; 
+margin-left:19vh 
 }
 
 .toto4 {
-margin-left:14%; 
+margin-left:30vh 
 }
 
 .card-text{
