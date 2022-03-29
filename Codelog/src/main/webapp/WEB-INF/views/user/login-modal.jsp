@@ -10,27 +10,27 @@
       <div class="modal-header p-5 pb-4 border-bottom-0">
         <!-- <h5 class="modal-title">Modal title</h5> -->
         <h2 class="fw-bold mb-0">로그인</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body p-5 pt-0">
         <form>
           <label for="basic-url" class="form-label">아이디</label>
           <div class="form-floating mb-3">
-            <input type="text" class="form-control rounded-4" id="login-id">
+            <input type="text" class="form-control rounded-4 shadow-none" id="login-id">
             <label for="floatingInput" id="login-id-msg"></label>
           </div>
           <label for="basic-url" class="form-label">비밀번호</label>
           <div class="form-floating mb-3">
-            <input type="password" class="form-control rounded-4" id="login-pw">
+            <input type="password" class="form-control rounded-4 shadow-none" id="login-pw">
             <label for="floatingPassword" id="login-pw-msg"></label>
           </div>
-          <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="button" id="login-btn">로그인</button>
+          <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary shadow-none" type="button" id="login-btn">로그인</button>
           <hr class="my-4">
           <small class="text-muted">아직 회원이 아니신가요?</small>
           <h2 class="fs-5 fw-bold mb-3"></h2>
           <!-- 회원가입 버튼 클릭 시 회원가입 모달 열림-->
-          <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-4" type="button" data-bs-toggle="modal"
+          <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-4 shadow-none" type="button" data-bs-toggle="modal"
             data-bs-target="#joinModal">
             회원가입
           </button>
@@ -48,39 +48,39 @@
       <div class="modal-header p-5 pb-4 border-bottom-0">
         <!-- <h5 class="modal-title">Modal title</h5> -->
         <h2 class="fw-bold mb-0">회원가입</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body p-5 pt-0">
         <form>
           <label for="basic-url" class="form-label">아이디</label>
           <div class="form-floating mb-3">
-            <input class="form-control rounded-4" id="user-id">
+            <input class="form-control rounded-4 shadow-none" id="user-id">
             <label for="floatingInput" id="id-msg"></label>
           </div>
           <label for="basic-url" class="form-label">비밀번호</label>
           <div class="form-floating mb-3">
-            <input type="password" class="form-control rounded-4" id="user-pw">
+            <input type="password" class="form-control rounded-4 shadow-none" id="user-pw">
             <label for="floatingPassword" id="pw-msg"></label>
           </div>
           <label for="basic-url" class="form-label">비밀번호 확인</label>
           <div class="form-floating mb-3">
-            <input type="password" class="form-control rounded-4" id="user-pw-check">
+            <input type="password" class="form-control rounded-4 shadow-none" id="user-pw-check">
             <label for="floatingPassword" id="pw-check-msg"></label>
           </div>
           <label for="basic-url" class="form-label">닉네임</label>
           <div class="form-floating mb-3">
-            <input class="form-control rounded-4" id="user-nick">
+            <input class="form-control rounded-4 shadow-none" id="user-nick">
             <label for="floatingInput" id="nick-msg"></label>
           </div>
           <label for="basic-url" class="form-label">이메일</label> <br>
           <span id="email-msg"></span>
           <div class="form-floating input-group mb-3">
-            <input type="text" class="form-control rounded-4" id="email1">
+            <input type="text" class="form-control rounded-4 shadow-none" id="email1">
             <span class="input-group-text">@</span>
-            <input type="text" class="form-control rounded-4" id="email2-input" placeholder="Server"
+            <input type="text" class="form-control rounded-4 shadow-none" id="email2-input" placeholder="Server"
               aria-label="Server" style="display: none;">
-            <select name="" id="email2" class="form-select email2-select">
+            <select name="" id="email2" class="form-select email2-select shadow-none">
               <option selected value="default">선택</option>
               <option value="naver">naver.com</option>
               <option value="google">gmail.com</option>
@@ -88,11 +88,11 @@
               <option value="self">직접 입력</option>
             </select>
           </div>
-          <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="button" id="join-btn">회원가입</button>
+          <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary shadow-none" type="button" id="join-btn">회원가입</button>
           <hr class="my-4">
           <small class="text-muted">계정이 이미 있으신가요?</small>
           <h2 class="fs-5 fw-bold mb-3"></h2>
-          <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-4" type="button" data-bs-toggle="modal"
+          <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-4 shadow-none" type="button" data-bs-toggle="modal"
             data-bs-target="#loginModal">
             <svg class="bi me-1" width="16" height="16">
               <use xlink:href="#facebook" /></svg>
@@ -150,12 +150,12 @@
 					success : function(result) {
 						console.log('통신 성공!: ' + result);
 						if(result === 'available') {
-							$('#user-id').css('border-color', 'blue');
-							$('#id-msg').html('<b style="font-size: 14px; color: blue">[사용 가능한 아이디입니다.]</b>');
+							$('#user-id').css('border-color', '#94B49F');
+							$('#id-msg').html('<b style="font-size: 14px; color: #94B49F">[사용 가능한 아이디입니다.]</b>');
 							chk1 = true;
 						} else {
-							$('#user-id').css('border-color', 'FF8882');
-							$('#id-msg').html('<b style="font-size: 14px; color: FF8882">[아이디가 중복되었습니다.]</b>');
+							$('#user-id').css('border-color', '#FF8882');
+							$('#id-msg').html('<b style="font-size: 14px; color: #FF8882">[아이디가 중복되었습니다.]</b>');
 							chk1 = false;
 						}
 					},
@@ -183,8 +183,8 @@
 			}
 			//통과
 			else {
-				$(this).css('border-color', 'blue');
-				$('#pw-msg').html('<b style="font-size: 14px; color: blue">[사용 가능한 비밀번호입니다.]</b>');
+				$(this).css('border-color', '#94B49F');
+				$('#pw-msg').html('<b style="font-size: 14px; color: #94B49F">[사용 가능한 비밀번호입니다.]</b>');
 				chk2 = true;
 			}
 		}); //비밀번호 입력값 검증 끝
@@ -203,8 +203,8 @@
 				$('#pw-check-msg').html('<b style="font-size: 14px; color: #FF8882">[비밀번호와 일치하지 않습니다.]</b>');
 				chk3 = false;
 			} else {
-				$(this).css('border-color', 'blue');
-				$('#pw-check-msg').html('<b style="font-size: 14px; color: blue">[비밀번호와 일치합니다.]</b>');
+				$(this).css('border-color', '#94B49F');
+				$('#pw-check-msg').html('<b style="font-size: 14px; color: #94B49F">[비밀번호와 일치합니다.]</b>');
 				chk3 = true;
 			}
 		}); //비밀번호 확인란 검증 끝
@@ -222,8 +222,8 @@
 				$('#nick-msg').html('<b style="font-size: 14px; color: #FF8882">[닉네임은 한글, 영어, 숫자 2~20자로 입력하세요.]</b>');
 				chk4 = false;
 			} else {
-				$(this).css('border-color', 'blue');
-				$('#nick-msg').html('<b style="font-size: 14px; color: blue">[사용 가능한 닉네임 입니다.]</b>');
+				$(this).css('border-color', '#94B49F');
+				$('#nick-msg').html('<b style="font-size: 14px; color: #94B49F">[사용 가능한 닉네임 입니다.]</b>');
 				chk4 = true;
 			}
 		}); //닉네임 입력 검증 끝
@@ -239,7 +239,7 @@
 				$('#email-msg').html('<b style="font-size: 14px; color: #FF8882">[이메일 주소를 다시 입력하세요.]</b>');
 				chk5 = false;
 			} else {
-				$(this).css('border-color', 'blue');
+				$(this).css('border-color', '#94B49F');
 				$('#email-msg').html('');
 				chk5 = true;
 			}
@@ -268,14 +268,14 @@
 						$('#email-msg').html('<b style="font-size: 14px; color: #FF8882">[이메일 주소를 다시 입력하세요.]</b>');
 						chk6 = false;
 					} else {
-						$(this).css('border-color', 'blue');
+						$(this).css('border-color', '#94B49F');
 						$('#email-msg').html('');
 						chk6 = true;
 					}
 				}); 
 			} else {
 				$('#email2-input').hide();
-				$('.email2-select').css('border-color', 'blue');
+				$('.email2-select').css('border-color', '#94B49F');
 				chk6 = true;
 			} //이메일2 입력값 검증 끝
 		}); //회원가입 창 이메일 셀렉트 직접 입력 옵션 끝
@@ -347,7 +347,7 @@
 				$('#login-id-msg').html('<b style="font-size: 14px; color: #FF8882">[아이디를 다시 확인해주세요.]</b>');
 				chk1 = false;
 			} else {
-				$(this).css('border-color', 'blue');
+				$(this).css('border-color', '#94B49F');
 				$('#login-id-msg').html('');
 				chk1 = true;
 			}
@@ -364,7 +364,7 @@
 				$('#login-pw-msg').html('<b style="font-size: 14px; color: #FF8882">[비밀번호를 다시 확인해주세요.]</b>');
 				chk2 = false;
 			} else {
-				$(this).css('border-color', 'blue');
+				$(this).css('border-color', '#94B49F');
 				$('#login-pw-msg').html('');
 				chk2 = true;
 			}
