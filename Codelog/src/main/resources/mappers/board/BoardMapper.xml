@@ -79,7 +79,8 @@ VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, '
 		title = #{title},
 		tags = #{tags},
 		content = #{content},
-		preview = #{preview}
+		preview = #{preview},
+		thumbnail = #{thumbnail}
 		WHERE board_id = #{boardId}
     </update>
     
