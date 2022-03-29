@@ -38,12 +38,15 @@ import com.spring.codelog.board.service.ReplyService;
 import com.spring.codelog.board.service.PostLikeService;
 import com.spring.codelog.board.service.TagService;
 import com.spring.codelog.user.model.UserVO;
+import com.spring.codelog.util.websocket.model.NotificationVO;
+import com.spring.codelog.util.websocket.servcice.NotificationService;
 
 
 @Controller
 @RequestMapping("/boardController")
 public class BoardController {
 
+<<<<<<< HEAD
    @Autowired
    BoardService service;
    @Autowired
@@ -117,6 +120,87 @@ public class BoardController {
       return "redirect:/boardController/board?boardId=" + boardId;
    }
    
+=======
+	@Autowired
+	BoardService service;
+	@Autowired
+	ReplyService service2;
+
+	@Autowired
+	NotificationService notiService;
+
+	@Autowired
+	PostLikeService likeService;
+
+	@Autowired
+	TagService tagService;
+	
+	@Autowired
+	private ISearchService searchService;
+
+	@GetMapping("/test")
+	public String test() {
+		return "board/temp";
+	}
+
+	@RequestMapping(value = "/getWrite", method = RequestMethod.GET)
+	public String write(HttpServletRequest request ,Model model)
+	{
+
+		return "board/write";
+
+	}
+	@ResponseBody
+	@RequestMapping(value ="/thumbnail", method = {RequestMethod.POST})
+	public String thumb(MultipartHttpServletRequest mhsr,MultipartFile file)
+	{
+		UUID uuid = UUID.randomUUID();
+		String uuids = uuid.toString().replaceAll("-", "");
+		try {
+			System.out.println("--------------------------보드컨트롤러썸네일-----------------");
+			String uploadPath = "C:\\test\\thumbnail";
+			String fileRealName = file.getOriginalFilename();	
+			String fileExtension = fileRealName.substring(fileRealName.indexOf("."), fileRealName.length());
+			String fileName = uuids + fileExtension;
+			System.out.println("저장할 폴더 경로: " + uploadPath);
+			System.out.println("실제 파일명: " + fileRealName);
+			System.out.println("확장자: " + fileExtension);
+			System.out.println("고유랜덤문자: " + uuids);
+			System.out.println("변경해서 저장할 파일명: " + fileName);
+			//업로드한 파일을 서버 컴퓨터의 저장한 경로 내에 실제로 저장
+			File saveFile = new File(uploadPath + "\\" + fileName);			
+			file.transferTo(saveFile);		
+			System.out.println("통신성공");
+			return fileName;
+		} catch (Exception e) {
+			System.out.println("업로드 중 에러 발생: " + e.getMessage());
+			e.printStackTrace();
+			return "false";
+
+		}
+
+	}
+
+	@RequestMapping(value = "/write", method = {RequestMethod.POST})
+	public String write(BoardVO vo, RedirectAttributes ra, HttpServletRequest hsr, MultipartFile file) {
+		try {
+			hsr.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("글 작성 요청");
+		int boardId = service.write(vo);
+		ra.addFlashAttribute("msg", "글 작성 완료");
+		
+		
+		
+		
+		return "redirect:/boardController/board?boardId=" + boardId;
+	}
+
+	
+>>>>>>> main
     // 01. 게시글 목록
     @RequestMapping("list")
     public ModelAndView list() throws Exception{ 
@@ -144,8 +228,9 @@ public class BoardController {
         
         int like = 0;
         
-        //좋아요 처리
+        
         if(session.getAttribute("loginSession") != null) {
+<<<<<<< HEAD
            PostLikeVO vo = new PostLikeVO();
            UserVO user = (UserVO) session.getAttribute("loginSession");
            
@@ -164,6 +249,36 @@ public class BoardController {
               like = likeService.getLikeInfo(vo);
            }
            
+=======
+        	
+    	    //좋아요 처리
+        	PostLikeVO vo = new PostLikeVO();
+        	UserVO user = (UserVO) session.getAttribute("loginSession");
+        	
+        	String viewUserId = user.getUserId();
+        	System.out.println("이 글 보고 있는 사용자 아이디: " + viewUserId);
+        	
+        	vo.setBoardId(boardId);
+        	vo.setViewUserId(viewUserId);
+        	
+        	
+        	int checkNum = likeService.likeCount(vo);
+        	
+        	if(checkNum == 0) {
+        		likeService.likeInsert(vo);
+        	} else {
+        		like = likeService.getLikeInfo(vo);
+        	}
+        	
+        	//알림 가져오기
+    		List<NotificationVO> alarmList = new ArrayList<>();
+    		alarmList = notiService.alarm(viewUserId);
+    	    System.out.println("알림받을사람: " + viewUserId);
+    	    mav.addObject("alarm", alarmList);
+    	    mav.addObject("countAlarm", notiService.countAlarm(viewUserId));
+    	    //알림가져오기 끝
+        	
+>>>>>>> main
         }
         
         List<String> tagList =  tagService.listbybId(boardId);
@@ -179,7 +294,11 @@ public class BoardController {
         mav.setViewName("board/board");
         
         BoardVO vo = service.read(boardId);
+<<<<<<< HEAD
       List<BoardVO> list = new ArrayList<>();
+=======
+		    List<BoardVO> list = new ArrayList<>();
+>>>>>>> main
 
       
 
@@ -219,6 +338,7 @@ public class BoardController {
         //태그수정
         String tags = vo.getTags();
         String str = tags.replace(" ", "");
+<<<<<<< HEAD
       String st = str.replace("\"", "");
       System.out.println("정제한 문자열"+st);
       String[] eachTag = st.split(",");
@@ -240,6 +360,29 @@ public class BoardController {
         return "redirect:/";
     }
    
+=======
+		String st = str.replace("\"", "");
+		System.out.println("정제한 문자열"+st);
+		String[] eachTag = st.split(",");
+		System.out.println(Arrays.toString(eachTag));
+		tagService.deleteTags(vo.getBoardId());
+		for(int i = 0; i<eachTag.length; i++) {
+			tagService.registTags(eachTag[i], vo.getUserId(), vo.getBoardId());
+		}
+
+		return "redirect:/boardController/board?boardId=" + vo.getBoardId();
+	}
+
+	//  게시글 삭제
+	@PostMapping("/delete")
+	public String delete(@RequestParam int boardId) {
+		System.out.println("게시물 삭제: 보드번호"+ boardId);
+		service.delete(boardId);
+		tagService.deleteTags(boardId);
+		return "redirect:/";
+	}
+
+>>>>>>> main
 
 
 }

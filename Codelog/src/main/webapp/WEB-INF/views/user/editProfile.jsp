@@ -34,18 +34,19 @@
                   <img src="<c:url value='/user/display' />" id="img-preview" class="img-circle" alt="" width="130px" height="130px">
                </c:otherwise>
             </c:choose>
+            <div style="height:10px;"></div>
             <!-- 이미지 업로드 버튼 -->
             <label for="img_upload" class="upload-btn">이미지 업로드</label>
             <input type="file" class="img-upload" id="img_upload">
             <!-- 이미지 삭제 버튼 -->
-            <button type="button" id="img-del-btn" class="btn btn-light del-btn">이미지 삭제</button>
+            <button type="button" id="img-del-btn" class="btn btn-light del-btn shadow-none">이미지 삭제</button>
           </div>
         </div>
       </div>
       <!-- 닉네임, 자기소개 영역 -->
       <div class="col-md-8 info-area">
         <div class="row">
-          <h3 class="nickname">${loginSession.nickname}</h3>
+          <h3 class="nickname" style="font-size:2.2rem;font-weight: 600; line-height: 1.3;">${loginSession.nickname}</h3>
           <p class="profile">${loginSession.userInfo}</p>
         </div>
         <div class="row">
@@ -60,7 +61,7 @@
         <textarea name="" id="profile-input" cols="50" rows="4" class="mt-3">${loginSession.userInfo}</textarea>
         <div class="row">
           <div class="col-md-2">
-            <button class="btn btn-primary" id="nick-save-btn">저장</button>
+            <button class="btn btn-primary shadow-none" id="nick-save-btn">저장</button>
           </div>
         </div>
       </div>
@@ -84,7 +85,7 @@
           <label for="pw" class="col-md-12 col-form-label"><b>비밀번호</b></label>
         </div>
         <div class="col-md-3">
-          <input type="password" class="form-control" name="userPw" id="pw" value="${loginSession.userPw}">
+          <input type="password" class="form-control shadow-none" name="userPw" id="pw" value="${loginSession.userPw}">
         </div>
         <div class="col-md-5"></div>
       </div>
@@ -95,7 +96,7 @@
           <label for="pwChk" class="col-form-label"><b>비밀번호 확인</b></label>
         </div>
         <div class="col-md-3">
-          <input type="password" class="form-control" id="pw-check" value="">
+          <input type="password" class="form-control shadow-none" id="pw-check" value="">
         </div>
         <div class="col-md-5"></div>
       </div>
@@ -107,10 +108,10 @@
         </div>
         <div class="col-md-8">
           <div class="form-floating input-group mb-3">
-            <input type="text" class="form-control rounded-4" name="email1" value="${loginSession.email1}">            
+            <input type="text" class="form-control rounded-4 shadow-none" name="email1" value="${loginSession.email1}">            
             <span class="input-group-text">@</span>
-            <input type="text" class="form-control rounded-4 email2input" name="email2" value="${loginSession.email2}">
-            <select class="form-select email2-select">
+            <input type="text" class="form-control rounded-4 email2input shadow-none" name="email2" value="${loginSession.email2}">
+            <select class="form-select email2-select shadow-none">
               <option value="naver" ${loginSession.email2 == 'naver.com' ? 'selected' : ''}>naver.com</option>
               <option value="google" ${loginSession.email2 == 'gmail.com' ? 'selected' : ''}>gmail.com</option>
               <option value="daum" ${loginSession.email2 == 'hanmail.net' ? 'selected' : ''}>hanmail.net</option>
@@ -124,8 +125,8 @@
       <div class="mb-3 row text-center">
         <div class="col-md-3"></div>
         <div class="col-md-6 mt-5">
-          <button type="button" id="update-form-btn" class="btn btn-primary mod-submit-btn">수정</button>
-          <button type="button" id="cancel-btn" class="btn btn-light mod-cancel-btn">취소</button>
+          <button type="button" id="update-form-btn" class="btn btn-primary mod-submit-btn shadow-none">수정</button>
+          <button type="button" id="cancel-btn" class="btn btn-light mod-cancel-btn shadow-none">취소</button>
         </div>
         <div class="col-md-3"></div>
       </div>
@@ -134,7 +135,7 @@
       <div class="mb-3 row">
         <div class="col-md-10"></div>
         <div class="col-md-2">
-          <button type="button" id="del-user-btn" class="btn btn-dark" style="float: right;">회원탈퇴</button>
+          <button type="button" id="del-user-btn" class="btn btn-dark shadow-none" style="float: right;">회원탈퇴</button>
         </div>
       </div>
   </div>

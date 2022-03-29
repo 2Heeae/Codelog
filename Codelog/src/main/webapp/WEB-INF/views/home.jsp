@@ -19,25 +19,26 @@
           overflow-y : hidden;
           
         }
+     
        
    
    </style>
    <title>Document</title>
 </head>
 
-<body style="margin-top: 1rem; font-family: ONE-Mobile-Regular;">
+<body style="font-family: ONE-Mobile-Regular;">
 
    <div class="container">
 <!-- 최신, 트랜딩 메뉴판 날짜설정메뉴는은 트랜딩메뉴 적용시만 활성 -->
-      <div class="row" style="padding: 1.5rem 1.5rem 0.5rem 1.5rem;">
+      <div class="row" style="margin: 2.5rem 1.5rem 0.0rem 1.5rem;">
          <div class="col-md-1 px-md-0" id="recent2">
          
          <form action="<c:url value='/'/>" method="post">
          <c:if test="${trending==true }"><input type="hidden" name=fromT value="true"></c:if>
-         <button type="submit" id="recent" class="btn z lo c p-0"
-               style="margin-left: 0.3rem;background-color:transparent; border-color: transparent;  <c:if test="${recent==true }">font-weight: bold; color: black;</c:if>">
-               <i class="fa-regular fa-clock fa-1x mx-md-1"></i>
-               <span class="m-0" style="font-size: 1.1rem;">최신</span>
+         <button type="submit" id="recent" class="btn z lo c p-0 pop"
+               style="margin-left: 0.3rem;background-color:transparent; border-color: transparent; <c:if test="${recent==true }">font-weight: bold; font-size:110%;	color: rgb(148 180 159)!important;</c:if>">
+               <i class="fa-regular fa-clock fa-1x mx-md-1 pop"></i>
+               <span class="m-0 pop" style="font-size: 1.2rem; ">최신</span>
          </button></form>
          
          </div>
@@ -46,10 +47,10 @@
          <div class="col-md-1 px-md-0" >
          <form action="<c:url value='/trending'/>" method="post">
          <c:if test="${recent==true}"><input type="hidden" name=fromR value="true"></c:if>
-         <button type="submit" id="trend" class="btn z c lo p-0"
-               style="background-color:transparent; border-color: transparent; <c:if test="${trending==true }">font-weight: bold; color: black;</c:if>"><i
-                  class="fa-solid fa-arrow-trend-up fa-1x mx-md-1"></i>
-                  <span class="m-0" style="font-size: 1.1rem;">트랜딩</span>
+         <button type="submit" id="trend" class="btn z c lo p-0 pop"
+               style="background-color:transparent; border-color: transparent; <c:if test="${trending==true }">font-weight: bold; font-size:110%;color: rgb(148 180 159)!important;</c:if>">
+                <i class="fa-solid fa-arrow-trend-up fa-1x mx-md-1 pop"></i>
+                  <span class="m-0 pop" style="font-size: 1.2rem;">트랜딩</span>
          </button></form>
          </div>
                      
@@ -59,9 +60,9 @@
          <c:if test="${trending==true }">   
             
             <button type="button" class="btn c rounded-circle p-0 position-relative"
-               style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
+               style="background-color:transparent; border-color: transparent; color:rgb(148 180 159);" data-bs-toggle="collapse"
                href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
-               <span id ="period" class="m-0" id="dateT" style="font-size: 1.1rem;">
+               <span id ="period" class="m-0 pop" id="dateT" style="font-size: 1.2rem; font-weight:bold;">
                <c:choose>
                   <c:when test="${period=='year'}">올해</c:when>
                   <c:when test="${period=='month'}">이번 달</c:when>
@@ -75,28 +76,28 @@
                   style="position: absolute; width: 10rem; top:2.5rem; left: -3.6rem; z-index: 1000;">
                   <div class="card" style="width: 8rem;">
 
-                     <div class="card-body cc" id="day">
+                     <div class="card-body " id="day">
                         <div style="text-align: right;">
-                           <span class="card-text"><strong>오늘</strong></span>
+                           <span class="card-text"><strong id="day">오늘</strong></span>
                         </div>
                      </div>
 
-                     <div class="card-body cc" id="week">
+                     <div class="card-body " id="week">
                         <div style="text-align: right;">
-                           <span class="card-text"><strong>이번 주</strong></span>
+                           <span class="card-text"><strong id="week">이번 주</strong></span>
                         </div>
                      </div>
 
-                     <div class="card-body cc" id="month">
+                     <div class="card-body " id="month">
                         <div style="text-align: right;">
-                           <span class="card-text"><strong>이번 달</strong></span>
+                           <span class="card-text"><strong id="month">이번 달</strong></span>
                         </div>
                      </div>
 
 
-                     <div class="card-body cc" id="year">
+                     <div class="card-body " id="year">
                         <div style="text-align: right;">
-                           <span class="card-text"><strong>올해</strong></span>
+                           <span class="card-text"><strong id="year">올해</strong></span>
                         </div>
                      </div>
                   </div>   
@@ -113,28 +114,28 @@
             <button type="button" class="btn c rounded-circle p-0 position-relative"
                style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
                href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample4">
-               <span id="allChk" class="m-0" style="font-size: 1.1rem;">
+               <span id="allChk" class="m-0 pop" style="font-size: 1.1rem; color:rgb(148 180 159); font-weight:bold;">
                <c:choose>
                   <c:when test="${allChk=='fol'}">팔로워</c:when>
                   <c:when test="${allChk=='all'}">모든 사람</c:when>
                   <c:otherwise>팔로워</c:otherwise>
                </c:choose>
                
-               <i class="fa-solid fa-caret-down mx-md-1"></i></span>
+               <i class="fa-solid fa-caret-down mx-md-1 pop"></i></span>
 
                <div class="collapse" id="collapseExample4"
                   style="position: absolute; width: 10rem; top:2.5rem; left: -3.6rem; z-index: 1000;">
                   <div class="card" style="width: 8rem;">
 
-                     <div class="card-body cc" id="all">
+                     <div class="card-body " id="all">
                         <div style="text-align: right;" id="all">
-                           <span class="card-text" id="all"><strong id="all">모든 사람</strong></span>
+                           <span class="card-text" id="all"><strong class="pop" id="all">모든 사람</strong></span>
                         </div>
                      </div>
 
-                     <div class="card-body cc" id="fol">
+                     <div class="card-body " id="fol">
                         <div style="text-align: right;" id="fol">
-                           <span class="card-text" id="fol"><strong id="fol">팔로워</strong></span>
+                           <span class="card-text" id="fol"><strong class="pop" id="fol">팔로워</strong></span>
                         </div>
                      </div>
 
@@ -160,10 +161,10 @@
    </div>   
       
    <!-- Button trigger modal -->
-   <div class="container" style="margin-top: 2rem;" id="posterbox">
+   <div class="container" style="margin-top: 0rem;" id="posterbox">
    
    <c:if test="${not empty Posters }">
-   <div class="row py-md-3" id="start">
+   <div class="row py-md-1" id="start">
    <c:forEach var="Poster" items="${Posters }">
          <div class="col-md-4 px-md-4 py-md-4">
             <div class="card poster" style="width: 100%; height: 27rem;" data-bno="${Poster.boardId }" data-lno="${Poster.likes }">
@@ -209,14 +210,14 @@
                         </div>
 
                         <div  style="display: inline-block; float: left; margin-top: 0.13rem;">
-                           <a href="${pageContext.request.contextPath}/user/userpage/${Poster.userId}" class="stretched-link" style="position: relative; text-decoration: none;"><span class="mx-md-1" style="color: gray;">by</span><span>${Poster.writer }</span></a>
+                           <a href="${pageContext.request.contextPath}/user/userpage/${Poster.userId}" class="stretched-link" style="position: relative; text-decoration: none;"><span class="mx-md-1" style="color: gray;">by</span><span style="color:rgb(120, 147, 149); font-weight:bold;">${Poster.writer }</span></a>
 
                         </div>
                         
                         
                         <div  style="display: inline-block; float: right; margin-top: 0.13rem">
                            <i class="fa-solid fa-comment" style=""></i>
-                           <span style="margin-right: 0.5rem;" class="">3</span>
+                           <span style="margin-right: 0.5rem;" class="">${Poster.recnt}</span>
                            <i class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes}</span>
                         </div>
                      </div>
@@ -250,13 +251,21 @@
             if(${fromT}==true ){
                $("#tot").removeClass('toto');
                $("#tot").addClass('toto2')
-            }            
+            }
+            else {
+            	$("#tot").removeClass('toto2');
+                $("#tot").addClass('toto3')
+            }
          }
       
          if(${trending}==true){
             if(${fromR}==true){
                $("#tot").removeClass('toto2');
                $("#tot").addClass('toto')
+            }
+            else {
+            	$("#tot").removeClass('toto');
+                $("#tot").addClass('toto4')
             }
          }   
          
@@ -459,7 +468,7 @@
                            + "</div>"   
                            +"<div style="+"'display: inline-block; float: right; margin-top: 0.13rem'"+">"
                                + "<i class="+"'fa-solid fa-comment'"+"></i>"
-                               +"<span style="+"'margin-right: 0.5rem;'"+">3</span>"   
+                               +"<span style="+"'margin-right: 0.5rem;'"+">"+this.recnt+"</span>"   
                                +"<i class="+"'fa-solid fa-heart'"+"></i><span class="+"'mx-md-1'"+">"+this.likes+"</span>"      
                                + "</div>"   
                              + "</div>"   
@@ -532,7 +541,7 @@
                         + "</div>"   
                         +"<div style="+"'display: inline-block; float: right; margin-top: 0.13rem'"+">"
                            + "<i class="+"'fa-solid fa-comment'"+"></i>"
-                           +"<span style="+"'margin-right: 0.5rem;'"+">3</span>"   
+                           +"<span style="+"'margin-right: 0.5rem;'"+">"+this.likes+"</span>"   
                            +"<i class="+"'fa-solid fa-heart'"+"></i><span class="+"'mx-md-1'"+">"+this.likes+"</span>"      
                            + "</div>"   
                          + "</div>"   

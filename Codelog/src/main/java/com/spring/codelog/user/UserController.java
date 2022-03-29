@@ -3,8 +3,12 @@ package com.spring.codelog.user;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Iterator;
+=======
+import java.util.ArrayList;
+>>>>>>> main
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -32,6 +36,9 @@ import com.spring.codelog.user.commons.profileImgVO;
 import com.spring.codelog.user.model.UserVO;
 import com.spring.codelog.user.service.IFollowService;
 import com.spring.codelog.user.service.IUserService;
+import com.spring.codelog.util.websocket.mapper.INotificationMapper;
+import com.spring.codelog.util.websocket.model.NotificationVO;
+import com.spring.codelog.util.websocket.servcice.INotificationService;
 
 
 
@@ -47,6 +54,9 @@ public class UserController {
 	
 	@Autowired
 	private ITagService tagService;
+	
+	@Autowired
+	private INotificationService notiService;
 
 	//아이디 중복 확인 처리
 	@PostMapping("/checkId")
@@ -103,6 +113,14 @@ public class UserController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("userInfo", userInfo);
 		mv.setViewName("/user/mypage");
+		
+	    //알림 가져오기
+		List<NotificationVO> alarmList = new ArrayList<>();
+		alarmList = notiService.alarm(id);
+	    System.out.println("알림받을사람: " + id);
+	    model.addAttribute("alarm", alarmList);
+	    model.addAttribute("countAlarm", notiService.countAlarm(id));
+	    //알림가져오기 끝
 
 		//팔로우 리스트 보내기
 		UserVO user = uservice.selectOne(id);
@@ -153,7 +171,7 @@ public class UserController {
 
 	//다른사람 페이지 이동 처리
 	@GetMapping("/userpage/{userId}")
-	public ModelAndView userpage(@PathVariable("userId") String id ,String nickname, HttpSession session) {
+	public ModelAndView userpage(@PathVariable("userId") String id ,String nickname, HttpSession session, Model model) {
 		System.out.println("user/userpage: get");
 		UserVO userInfo = uservice.getInfo(id);
 
@@ -164,6 +182,15 @@ public class UserController {
 			UserVO loginUser = (UserVO) session.getAttribute("loginSession");
 			int loginUserNo = loginUser.getUserNo();
 			follow.setActiveUser(loginUserNo);
+			
+			//알림 가져오기
+			String receiver = loginUser.getUserId();
+			List<NotificationVO> alarmList = new ArrayList<>();
+			alarmList = notiService.alarm(receiver);
+		    System.out.println("알림받을사람: " + receiver);
+		    model.addAttribute("alarm", alarmList);
+		    model.addAttribute("countAlarm", notiService.countAlarm(receiver));
+		    //알림가져오기 끝
 
 		}
 
@@ -201,8 +228,21 @@ public class UserController {
 
 	//회원정보수정 페이지 이동 처리
 	@GetMapping("/editUser")
-	public ModelAndView editUser() {
+	public ModelAndView editUser(HttpSession session, Model model) {
 		System.out.println("/user/editUser: GET");
+		
+		   if(session.getAttribute("loginSession") != null) {
+			   //알림 가져오기
+			   UserVO user = (UserVO) session.getAttribute("loginSession");
+			   String receiver = user.getUserId();
+			   List<NotificationVO> alarmList = new ArrayList<>();
+			   alarmList = notiService.alarm(receiver);
+			   System.out.println("알림받을사람: " + receiver);
+			   model.addAttribute("alarm", alarmList);
+			   model.addAttribute("countAlarm", notiService.countAlarm(receiver));
+			   //알림가져오기 끝
+		   }
+		
 		return new ModelAndView("/user/editProfile");
 	}
 

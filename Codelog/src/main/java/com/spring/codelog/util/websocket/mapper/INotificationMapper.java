@@ -1,5 +1,7 @@
 package com.spring.codelog.util.websocket.mapper;
 
+import java.util.List;
+
 import com.spring.codelog.util.websocket.model.NotificationVO;
 
 public interface INotificationMapper {
@@ -8,7 +10,7 @@ public interface INotificationMapper {
 	void saveNotification(NotificationVO vo);
 
 	//알림메세지 조회 기능
-	NotificationVO alarm(String receiver);
+	List<NotificationVO> alarm(String receiver);
 	
 	//알림메세지 개수 조회 기능
 	int countAlarm(String receiver);

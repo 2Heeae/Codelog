@@ -378,3 +378,16 @@ html,body
     display :none;
 }
   
+.thumbnailBox{
+	position: relative; top: 127px; left: -176px;
+}  
+.thumbtext{
+	
+    position: absolute;
+	    top: -118px;
+}
+
+.open{
+	    position: relative;
+    left: 253px;
+}

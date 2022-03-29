@@ -5,6 +5,17 @@
  * @author NHN FE Development Lab <dl_javascript@nhn.com>
  * @license MIT
  */
+ 
+ .form-check-input:checked {
+    background-color: rgb(148 180 159) !important;
+    border-color: rgb(148 180 159) !important;
+}
+
+.btn-outline-primary:hover {
+    color: #fff !important;
+    background-color: rgb(148 180 159) !important;
+}
+ 
 .ProseMirror {
 	word-wrap: break-word;
 	font-feature-settings: "liga" 0;

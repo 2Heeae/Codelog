@@ -58,11 +58,12 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			String[] strs = msg.split(",");
 			System.out.println("소켓 전송 메세지값: " + Arrays.toString(strs));
 
-			if(strs != null && strs.length == 4) {
+			if(strs != null && strs.length == 5) {
 				String category = strs[0];
 				sender = strs[1]; //글 보는 사람 아이디
-				receiver = strs[2]; //글 쓴 사람 아이디
-				String likeChk = strs[3]; //좋아요 눌렀는지 여부
+				String nick = strs[2]; //글 보는 사람 닉네임
+				receiver = strs[3]; //글 쓴 사람 아이디
+				String likeChk = strs[4]; //좋아요 눌렀는지 여부
 
 				String comment = "";
 				if(likeChk.equals("1")) {
@@ -75,10 +76,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				//실시간 접속시
 				if(targetSession != null) {
 					//예: 둘리님이 고길동님의 게시물을 좋아합니다.
-					TextMessage txtMsg = new TextMessage(sender + "님이 " + receiver + "님의 게시물" + comment);
-					notiMsg = sender + "님이 회원님의 게시물" + comment;
+					TextMessage txtMsg = new TextMessage(nick + "님이 회원님의 게시물" + comment);
+					notiMsg = nick + "님이 회원님의 게시물" + comment;
 					targetSession.sendMessage(txtMsg); //글 작성자에게 알려줌
 					
+					vo.setSender(sender);
 					vo.setReceiver(receiver);
 					vo.setMsg(notiMsg);
 					System.out.println("noti VO: " + vo);
@@ -86,38 +88,42 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				} else { //지금 같은 서버에 혼자 접속중이어서 메세지 들어오는지 확인이 불가능함. 그래서 나한테 보여줘서 체크하는지 확인하는 용도로 썼음.
 					//서버에 저장해놨다가 보여주는 방법? 찾아서 현재 로그인 하지 않았더라도 보여줄 수 있는 방법 찾아야한다.
 					//else문 주석 처리 해야함
-					TextMessage txtMsg = new TextMessage(sender + "님이 " + receiver + "님의 게시물" + comment);
-					notiMsg = sender + "님이 회원님의 게시물" + comment;
+					TextMessage txtMsg = new TextMessage(nick + "님이 회원님의 게시물" + comment);
+					notiMsg = nick + "님이 회원님의 게시물" + comment;
 					session.sendMessage(txtMsg);
 					
+					vo.setSender(sender);
 					vo.setReceiver(receiver);
 					vo.setMsg(notiMsg);
 					System.out.println("noti VO: " + vo);
 					notiService.saveNotification(vo);
 				}
 				
-			} else if(strs != null && strs.length == 3) {
+			} else if(strs != null && strs.length == 4) {
 				String category = strs[0];
 				sender = strs[1]; //댓글 쓴 사람 아이디(댓글), 로그인 한 사람 아이디(팔로우)
-				receiver = strs[2]; //글 쓴 사람 아이디(댓글), 팔로우 당하는 사람 아이디(팔로우)
+				String nick = strs[2];
+				receiver = strs[3]; //글 쓴 사람 아이디(댓글), 팔로우 당하는 사람 아이디(팔로우)
 				
 				WebSocketSession targetSession = users.get(receiver);  //메세지 받을 세션 조회
 				
 				if("reply".equals(category)) {
 					if(targetSession != null) {
-						TextMessage txtMsg = new TextMessage(sender + "님이" + receiver + "님의 게시물에 댓글을 남겼습니다.");
-						notiMsg = sender + "님이 회원님의 게시물에 댓글을 남겼습니다.";
+						TextMessage txtMsg = new TextMessage(nick + "님이 회원님의 게시물에 댓글을 남겼습니다.");
+						notiMsg = nick + "님이 회원님의 게시물에 댓글을 남겼습니다.";
 						targetSession.sendMessage(txtMsg);
 						
+						vo.setSender(sender);
 						vo.setReceiver(receiver);
 						vo.setMsg(notiMsg);
 						System.out.println("noti VO: " + vo);
 						notiService.saveNotification(vo);
 					} else { //메세지 받은 사람이 로그인 안했을 경우(혼자 테스트 해야해서 작성해둠)
-						TextMessage txtMsg = new TextMessage(sender + "님이" + receiver + "님의 게시물에 댓글을 남겼습니다.");
-						notiMsg = sender + "님이 회원님의 게시물에 댓글을 남겼습니다.";
+						TextMessage txtMsg = new TextMessage(nick + "님이 회원님의 게시물에 댓글을 남겼습니다.");
+						notiMsg = nick + "님이 회원님의 게시물에 댓글을 남겼습니다.";
 						session.sendMessage(txtMsg);
 						
+						vo.setSender(sender);
 						vo.setReceiver(receiver);
 						vo.setMsg(notiMsg);
 						System.out.println("noti VO: " + vo);
@@ -125,19 +131,21 @@ public class WebSocketHandler extends TextWebSocketHandler {
 					}
 				} else if("follow".equals(category)) {
 					if(targetSession != null) {
-						TextMessage txtMsg = new TextMessage(sender + "님이 " + receiver + "님을 팔로우합니다.");
-						notiMsg = sender + "님이 회원님을 팔로우합니다.";
+						TextMessage txtMsg = new TextMessage(nick + "님이 회원님의 게시물에 댓글을 남겼습니다.");
+						notiMsg = nick + "님이 회원님의 게시물에 댓글을 남겼습니다.";
 						targetSession.sendMessage(txtMsg);
 						
+						vo.setSender(sender);
 						vo.setReceiver(receiver);
 						vo.setMsg(notiMsg);
 						System.out.println("noti VO: " + vo);
 						notiService.saveNotification(vo);
 					} else { //메세지 받은 사람이 로그인 안했을 경우(혼자 테스트 해야해서 작성해둠)
-						TextMessage txtMsg = new TextMessage(sender + "님이 " + receiver + "님을 팔로우합니다.");
-						notiMsg = sender + "님이 회원님을 팔로우합니다.";
+						TextMessage txtMsg = new TextMessage(nick + "님이 회원님의 게시물에 댓글을 남겼습니다.");
+						notiMsg = nick + "님이 회원님의 게시물에 댓글을 남겼습니다.";
 						session.sendMessage(txtMsg);
 						
+						vo.setSender(sender);
 						vo.setReceiver(receiver);
 						vo.setMsg(notiMsg);
 						System.out.println("noti VO: " + vo);
