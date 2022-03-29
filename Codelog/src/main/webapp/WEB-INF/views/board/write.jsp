@@ -194,8 +194,8 @@
          
          file = file.slice(file.indexOf('.') + 1).toLowerCase();
          console.log(file);
-         if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp') {
-            alert('이미지 파일(jpg, png, jpeg, bmp)만 등록이 가능합니다.');
+         if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp'  && file !== 'gif') {
+            alert('이미지 파일(jpg, png, jpeg, bmp, gif)만 등록이 가능합니다.');
             $('#thumbnailUpload').val('');
            return;            
          }

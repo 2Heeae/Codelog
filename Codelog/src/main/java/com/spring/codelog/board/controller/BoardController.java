@@ -46,85 +46,85 @@ import com.spring.codelog.util.websocket.servcice.NotificationService;
 @RequestMapping("/boardController")
 public class BoardController {
 
-	@Autowired
-	BoardService service;
-	@Autowired
-	ReplyService service2;
+   @Autowired
+   BoardService service;
+   @Autowired
+   ReplyService service2;
 
-	@Autowired
-	NotificationService notiService;
+   @Autowired
+   NotificationService notiService;
 
-	@Autowired
-	PostLikeService likeService;
+   @Autowired
+   PostLikeService likeService;
 
-	@Autowired
-	TagService tagService;
-	
-	@Autowired
-	private ISearchService searchService;
+   @Autowired
+   TagService tagService;
+   
+   @Autowired
+   private ISearchService searchService;
 
-	@GetMapping("/test")
-	public String test() {
-		return "board/temp";
-	}
+   @GetMapping("/test")
+   public String test() {
+      return "board/temp";
+   }
 
-	@RequestMapping(value = "/getWrite", method = RequestMethod.GET)
-	public String write(HttpServletRequest request ,Model model)
-	{
+   @RequestMapping(value = "/getWrite", method = RequestMethod.GET)
+   public String write(HttpServletRequest request ,Model model)
+   {
 
-		return "board/write";
+      return "board/write";
 
-	}
-	@ResponseBody
-	@RequestMapping(value ="/thumbnail", method = {RequestMethod.POST})
-	public String thumb(MultipartHttpServletRequest mhsr,MultipartFile file)
-	{
-		UUID uuid = UUID.randomUUID();
-		String uuids = uuid.toString().replaceAll("-", "");
-		try {
-			System.out.println("--------------------------보드컨트롤러썸네일-----------------");
-			String uploadPath = "C:\\test\\thumbnail";
-			String fileRealName = file.getOriginalFilename();	
-			String fileExtension = fileRealName.substring(fileRealName.indexOf("."), fileRealName.length());
-			String fileName = uuids + fileExtension;
-			System.out.println("저장할 폴더 경로: " + uploadPath);
-			System.out.println("실제 파일명: " + fileRealName);
-			System.out.println("확장자: " + fileExtension);
-			System.out.println("고유랜덤문자: " + uuids);
-			System.out.println("변경해서 저장할 파일명: " + fileName);
-			//업로드한 파일을 서버 컴퓨터의 저장한 경로 내에 실제로 저장
-			File saveFile = new File(uploadPath + "\\" + fileName);			
-			file.transferTo(saveFile);		
-			System.out.println("통신성공");
-			return fileName;
-		} catch (Exception e) {
-			System.out.println("업로드 중 에러 발생: " + e.getMessage());
-			e.printStackTrace();
-			return "false";
+   }
+   @ResponseBody
+   @RequestMapping(value ="/thumbnail", method = {RequestMethod.POST})
+   public String thumb(MultipartHttpServletRequest mhsr,MultipartFile file)
+   {
+      UUID uuid = UUID.randomUUID();
+      String uuids = uuid.toString().replaceAll("-", "");
+      try {
+         System.out.println("--------------------------보드컨트롤러썸네일-----------------");
+         String uploadPath = "C:\\test\\thumbnail";
+         String fileRealName = file.getOriginalFilename();   
+         String fileExtension = fileRealName.substring(fileRealName.indexOf("."), fileRealName.length());
+         String fileName = uuids + fileExtension;
+         System.out.println("저장할 폴더 경로: " + uploadPath);
+         System.out.println("실제 파일명: " + fileRealName);
+         System.out.println("확장자: " + fileExtension);
+         System.out.println("고유랜덤문자: " + uuids);
+         System.out.println("변경해서 저장할 파일명: " + fileName);
+         //업로드한 파일을 서버 컴퓨터의 저장한 경로 내에 실제로 저장
+         File saveFile = new File(uploadPath + "\\" + fileName);         
+         file.transferTo(saveFile);      
+         System.out.println("통신성공");
+         return fileName;
+      } catch (Exception e) {
+         System.out.println("업로드 중 에러 발생: " + e.getMessage());
+         e.printStackTrace();
+         return "false";
 
-		}
+      }
 
-	}
+   }
 
-	@RequestMapping(value = "/write", method = {RequestMethod.POST})
-	public String write(BoardVO vo, RedirectAttributes ra, HttpServletRequest hsr, MultipartFile file) {
-		try {
-			hsr.setCharacterEncoding("UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("글 작성 요청");
-		int boardId = service.write(vo);
-		ra.addFlashAttribute("msg", "글 작성 완료");
-		
-		
-		
-		
-		return "redirect:/boardController/board?boardId=" + boardId;
-	}
+   @RequestMapping(value = "/write", method = {RequestMethod.POST})
+   public String write(BoardVO vo, RedirectAttributes ra, HttpServletRequest hsr, MultipartFile file) {
+      try {
+         hsr.setCharacterEncoding("UTF-8");
+      } catch (UnsupportedEncodingException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+      System.out.println("글 작성 요청");
+      int boardId = service.write(vo);
+      ra.addFlashAttribute("msg", "글 작성 완료");
+      
+      
+      
+      
+      return "redirect:/boardController/board?boardId=" + boardId;
+   }
 
-	
+   
     // 01. 게시글 목록
     @RequestMapping("list")
     public ModelAndView list() throws Exception{ 
@@ -135,16 +135,16 @@ public class BoardController {
         mav.addObject("list", list); // 데이터를 저장
         return mav; // mypage.jsp로 List가 전달된다.
     }
-	
+   
 
-	
+   
     // 게시글 상세내용 조회, 게시글 조회수 증가 처리
     // @RequestParam : get/post방식으로 전달된 변수 1개
     // HttpSession 세션객체
     @RequestMapping(value="/board", method=RequestMethod.GET)
     public ModelAndView home(@RequestParam int boardId, HttpSession session) {
         // 조회수 증가 처리
-    	if(session.getAttribute("loginSession") != null)
+       if(session.getAttribute("loginSession") != null)
         service.increaseHit(boardId, session);
         
         // 모델(데이터)+뷰(화면)를 함께 전달하는 객체
@@ -154,34 +154,34 @@ public class BoardController {
         
         
         if(session.getAttribute("loginSession") != null) {
-        	
-    	    //좋아요 처리
-        	PostLikeVO vo = new PostLikeVO();
-        	UserVO user = (UserVO) session.getAttribute("loginSession");
-        	
-        	String viewUserId = user.getUserId();
-        	System.out.println("이 글 보고 있는 사용자 아이디: " + viewUserId);
-        	
-        	vo.setBoardId(boardId);
-        	vo.setViewUserId(viewUserId);
-        	
-        	
-        	int checkNum = likeService.likeCount(vo);
-        	
-        	if(checkNum == 0) {
-        		likeService.likeInsert(vo);
-        	} else {
-        		like = likeService.getLikeInfo(vo);
-        	}
-        	
-        	//알림 가져오기
-    		List<NotificationVO> alarmList = new ArrayList<>();
-    		alarmList = notiService.alarm(viewUserId);
-    	    System.out.println("알림받을사람: " + viewUserId);
-    	    mav.addObject("alarm", alarmList);
-    	    mav.addObject("countAlarm", notiService.countAlarm(viewUserId));
-    	    //알림가져오기 끝
-        	
+           
+           //좋아요 처리
+           PostLikeVO vo = new PostLikeVO();
+           UserVO user = (UserVO) session.getAttribute("loginSession");
+           
+           String viewUserId = user.getUserId();
+           System.out.println("이 글 보고 있는 사용자 아이디: " + viewUserId);
+           
+           vo.setBoardId(boardId);
+           vo.setViewUserId(viewUserId);
+           
+           
+           int checkNum = likeService.likeCount(vo);
+           
+           if(checkNum == 0) {
+              likeService.likeInsert(vo);
+           } else {
+              like = likeService.getLikeInfo(vo);
+           }
+           
+           //알림 가져오기
+          List<NotificationVO> alarmList = new ArrayList<>();
+          alarmList = notiService.alarm(viewUserId);
+           System.out.println("알림받을사람: " + viewUserId);
+           mav.addObject("alarm", alarmList);
+           mav.addObject("countAlarm", notiService.countAlarm(viewUserId));
+           //알림가져오기 끝
+           
         }
         
         List<String> tagList =  tagService.listbybId(boardId);
@@ -197,14 +197,14 @@ public class BoardController {
         mav.setViewName("board/board");
         
         BoardVO vo = service.read(boardId);
-		    List<BoardVO> list = new ArrayList<>();
+          List<BoardVO> list = new ArrayList<>();
 
-		
+      
 
-		if(tagList.size() != 0) {
-			String board_tag = tagList.get(0);
-	        list = searchService.search(board_tag);
-		}
+      if(tagList.size() != 0) {
+         String board_tag = tagList.get(0);
+           list = searchService.search(board_tag);
+      }
         
         // 뷰에 전달할 데이터
         mav.addObject("dto", vo);
@@ -212,7 +212,7 @@ public class BoardController {
         mav.addObject("postLike", like);
         return mav;
     }
-	
+   
     
     //  게시글 수정 불러오기
     @RequestMapping(value="/modify", method=RequestMethod.GET)
@@ -231,32 +231,32 @@ public class BoardController {
     // 폼에서 입력한 내용들은 @ModelAttribute BoardVO vo로 전달됨
     @RequestMapping(value="update", method=RequestMethod.POST)
     public String update(BoardVO vo) {
-    	System.out.println("글 수정 요청");
-    	System.out.println(vo);
+       System.out.println("글 수정 요청");
+       System.out.println(vo);
         service.update(vo);
         //태그수정
         String tags = vo.getTags();
         String str = tags.replace(" ", "");
-		String st = str.replace("\"", "");
-		System.out.println("정제한 문자열"+st);
-		String[] eachTag = st.split(",");
-		System.out.println(Arrays.toString(eachTag));
-		tagService.deleteTags(vo.getBoardId());
-		for(int i = 0; i<eachTag.length; i++) {
-			tagService.registTags(eachTag[i], vo.getUserId(), vo.getBoardId());
-		}
+      String st = str.replace("\"", "");
+      System.out.println("정제한 문자열"+st);
+      String[] eachTag = st.split(",");
+      System.out.println(Arrays.toString(eachTag));
+      tagService.deleteTags(vo.getBoardId());
+      for(int i = 0; i<eachTag.length; i++) {
+         tagService.registTags(eachTag[i], vo.getUserId(), vo.getBoardId());
+      }
 
-		return "redirect:/boardController/board?boardId=" + vo.getBoardId();
-	}
+      return "redirect:/boardController/board?boardId=" + vo.getBoardId();
+   }
 
-	//  게시글 삭제
-	@PostMapping("/delete")
-	public String delete(@RequestParam int boardId) {
-		System.out.println("게시물 삭제: 보드번호"+ boardId);
-		service.delete(boardId);
-		tagService.deleteTags(boardId);
-		return "redirect:/";
-	}
+   //  게시글 삭제
+   @PostMapping("/delete")
+   public String delete(@RequestParam int boardId) {
+      System.out.println("게시물 삭제: 보드번호"+ boardId);
+      service.delete(boardId);
+      tagService.deleteTags(boardId);
+      return "redirect:/";
+   }
 
 
 

@@ -997,7 +997,7 @@
 						$('#like-check').val(0);
 						$('#like-btn').css("color", "black");
 						let total = $('#result').html();
-						$('#result').html(${dto.likes});		
+						$('#result').html(${dto.likes} - 1);		
 						post_like = 0;
 						
 						
