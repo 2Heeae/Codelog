@@ -564,7 +564,7 @@
 	    let userNo = $(".write_reply").attr('userNo');
 	    
 	    // 소켓 메세지에 보낼 내용(댓작성자id? 닉네임?, 글작성자id)
-	    msg = 'reply' + ',' + '${loginSession.nickname}' + ',' + writer + ',' + '${dto.userId}';
+	    msg = 'reply' + ',' + '${loginSession.userId}' + ',' + '${loginSession.nickname}' + ',' + '${dto.userId}';
 	    
 	    if(content == ""){	// 입력된게 없을때
 	        alert("댓글을 입력하세요!");
