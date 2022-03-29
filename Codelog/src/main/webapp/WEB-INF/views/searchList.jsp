@@ -69,7 +69,7 @@
 
 								</div>
 								<div style="display: inline-block; float: left; margin-top: 0.13rem;">
-									<span class="mx-md-1" style="color: gray;">by</span><span>${s.writer}</span>
+									<span class="mx-md-1" style="color: gray;">by</span><span style="color:rgb(120, 147, 149); font-weight:bold;">${s.writer}</span>
 								</div>
 								<div style="display: inline-block; float: right; margin-top: 0.13rem">
 									<i class="fa-solid fa-comment" style=""></i>
