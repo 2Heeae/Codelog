@@ -92,15 +92,15 @@
                   <div class="card" style="width: 100%;">
 
                      <!--알림 목록 내용-->
-
-                     
-                     <div class="card-body cc" style=" height: 6rem; " class="alarm-list">
+                      <div class="card-body " style=" height: 6rem; " class="alarm-list">
                      <c:forEach var="a" items="${alarm}">
                         <div class="row">
                            <div class="col-md-3">
                               <a href="${pageContext.request.contextPath}/user/userpage/${a.sender}" class="stretched-link" style="position: relative; text-decoration: none;">
+
                                 <img width="50rem" src="<c:url value='/image/${a.sender}'/>" class="card-img-right rounded-circle" alt=".">
                               </a>
+
                            </div>
                            <div class="col-md-9" style=" text-align: left;">
                               <span class="card-text"><strong>${a.msg}</strong></span>
@@ -116,6 +116,7 @@
                      
                   </div>
                </div>
+
             <!-- 로그인해서 보여줄 알림 있을 때에만 보여줄 것 -->
             </button>
              <!--글 작성-->
@@ -310,7 +311,7 @@ $('#searchInput').keydown(function(){
       //start jQuery
          /*메뉴바들 링크 기능(임시)*/
          $(document).ready(function() {
-            
+
            $('#theme-icon').click(function() {
             if($('#theme-icon').attr('class') == 'fa-regular fa-sun ic') {
                $('#theme-icon').attr('class', 'bi bi-moon-fill');
@@ -319,11 +320,16 @@ $('#searchInput').keydown(function(){
             }
          });
             
+
             
             $("#so4").click(function() {
                $(location).attr("href", "https://www.naver.com/")
             });
             
+            //새 글 작성 버튼 클릭 시 글쓰기페이지 이동 이벤트 처리
+            //$('#write-btn').click(function() {
+            	//location.href = "<c:url value='/write' />";				
+			//}); //새 글 작성 버튼 클릭 시 글쓰기페이지 이동 이벤트 처리 끝
             
             //로고버튼 클릭 시 메인페이지 이동 이벤트 처리
             $('#logo-btn').click(function() {
@@ -370,17 +376,7 @@ $('#searchInput').keydown(function(){
                
                location.href= "<c:url value='/user/userpage/${userInfo.userId}'/>";
             });
-         $('.dto-logo').click(function() {
-               
-               location.href= "<c:url value='/user/userpage/${dto.userId}'/>";
-            });   
-         
-         //종 알림 알림 클릭 시 이벤트 처리
-         $('.alarm-list').click(function() {
-            console.log('알람리스트 클릭 됨');
-            
-            
-         });
+
             
      }); //end jQuery     
          
