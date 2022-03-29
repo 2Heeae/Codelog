@@ -250,7 +250,7 @@
 						
                         <!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
                         <div class="form-floating" style="margin-top: 1rem; text-align:center;padding-top: 13px;" >
-                           <textarea class="thumbtext" placeholder="Leave a comment here" id="floatingTextarea" name="preview" style="width: 290px; height: 146px; resize: none;">{dto2.preview}</textarea>
+                           <textarea class="thumbtext" placeholder="Leave a comment here" id="floatingTextarea" name="preview" style="width: 290px; height: 146px; resize: none;">${dto2.preview}</textarea>
                            <span id="textL" style="">0</span>
                            <span style="">/100</span>
                            
