@@ -60,8 +60,8 @@
 		<!-- 검색 창 -->
         <div class="col-md-3 offset-2" style="margin-top: 1.2rem;" >
             <form style="width: 80%; margin-left:3rem;" action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
-               <input style="border-color:black; border-right:none;" class="form-control mr-sm-2" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
-               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: white; border-color:black; border-left:none;"><i class="bi bi-search" style="color:black"></i></button>
+               <input style="border-color:gary; border-right:none;" class="form-control mr-sm-2" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
+               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159); border-left:none;"><i class="bi bi-search" style="color:white"></i></button>
              </form>
          <div class="" id="toast_area" style="background-color:transparent; margin-top:0.3rem; width:255px; z-index: 1000; position: absolute; " ></div>
          </div>

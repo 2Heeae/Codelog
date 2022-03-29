@@ -49,11 +49,11 @@ animation-fill-mode: forwards;
 
 @-webkit-keyframes totrend {
   0% {
-    left:16vh;
+    left:130px;
   
   }
   100% {
-    left:30vh;
+    left:240px	;
   }
 }
 
@@ -70,20 +70,20 @@ animation-fill-mode: forwards;
 
 @-webkit-keyframes torent {
   0% {
-    left:30vh
+    left:240px
   }
   100% {
-    left:17vh
+    left:130px
   }
 }
 
 
-.toto {
-margin-left:22vh 
+.toto3 {
+margin-left:20px
 }
 
-.toto2 {
-margin-left:30vh 
+.toto4 {
+margin-left:50px 
 }
 
 .card-text{
