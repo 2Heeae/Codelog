@@ -161,6 +161,15 @@
             
 <script>
 
+
+//enter 입력으로 인한 submit 방지(null값 전송 방지)
+$('input[type="text"]').keydown(function() {
+	  if (event.keyCode === 13) {
+		    event.preventDefault();
+		  };
+		});
+    
+
     // start jQuery
     $(document).ready(function () {
        
