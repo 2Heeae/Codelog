@@ -52,10 +52,14 @@
 		OR tags like '%'||#{keyword}||'%'
 		OR content like '%'||#{keyword}||'%'
 		OR preview like '%'||#{keyword}||'%'
-		AND user_id = #{user_id}
+		AND user_id = #{userId}
 		ORDER BY board_id DESC
 	</select>
 	
+	<select id="searchByTag" resultMap="searchMap">
+		SELECT * FROM proj_board
+		WHERE tags like '%'||#{keyword}||'%'
+		ORDER BY board_id DESC
 	
 	<select id="searchId" resultMap="searchIdMap">
 		SELECT * FROM proj_user

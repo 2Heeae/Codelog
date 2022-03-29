@@ -21,53 +21,54 @@
 </head>
 
 <div class="container">
-   <!--프로필 -->
-   <div class="row p-4 p-md-5 mb-2 main">
-      <div class="col-md-4">
-         <c:choose>
-            <c:when
-               test="${userInfo.userImg eq null || userInfo.userImg eq 'null'}">
-               <img src="<c:url value='/img/user_icon.png' />" alt="user_icon"
-                  width="130" height="130" style="border-radius: 70px;">
-            </c:when>
-            <c:otherwise>
-               <img src="<c:url value='/image/${userInfo.userId}' />"
-                  alt="user_icon" width="130" height="130"
-                  style="border-radius: 70px;">
-            </c:otherwise>
-         </c:choose>
-      </div>
-      <div class="col-md-8 profile">
-         <h3 class="id">${userInfo.nickname }&nbsp;&nbsp;
-            <c:if test="${not empty loginSession and userInfo.userId ne loginSession.userId}">
-            <c:choose>
-               <c:when test="${followCheck == 1 }">
-                  <button class="follow-button" style="background-color: #C0D8C0">
-                     <p class="follow-txt">
-                        &nbsp;<i class="fa-solid fa-check">팔로잉</i>
-                     </p>
-                  </button>
-               </c:when>
-               <c:otherwise>
-                  <button class="follow-button">
-                     <p class="follow-txt">팔로우</p>
-                  </button>
-               </c:otherwise>
-            </c:choose>
-            </c:if>
-            
-         </h3>
-         <p class="posts">
-            게시물 3 &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal"
-               data-bs-target="#followers_modal" style="cursor: pointer;">팔로워
-               ${fn:length(followerList)}</a> &nbsp;&nbsp;&nbsp; <a class="folloing"
-               data-bs-toggle="modal" data-bs-target="#following_modal"
-               style="cursor: pointer;">팔로우 ${fn:length(followingList)}</a>
-         </p>
-         <p class="intro">${userInfo.userInfo}</p>
-      </div>
-   </div>
-   <!-- end main-->
+	<!--프로필 -->
+	<div class="row p-4 p-md-5 mb-2 main">
+		<div class="col-md-4">
+			<c:choose>
+				<c:when
+					test="${userInfo.userImg eq null || userInfo.userImg eq 'null'}">
+					<img src="<c:url value='/img/user_icon.png' />" alt="user_icon"
+						width="130" height="130" style="border-radius: 70px;">
+				</c:when>
+				<c:otherwise>
+					<img src="<c:url value='/image/${userInfo.userId}' />"
+						alt="user_icon" width="130" height="130"
+						style="border-radius: 70px;">
+				</c:otherwise>
+			</c:choose>
+		</div>
+		<div class="col-md-8 profile">
+			<h3 class="id">${userInfo.nickname }&nbsp;&nbsp;
+				<c:if test="${not empty loginSession and userInfo.userId ne loginSession.userId}">
+				<c:choose>
+					<c:when test="${followCheck == 1 }">
+						<button class="follow-button" style="background-color: #C0D8C0">
+							<p class="follow-txt">
+								&nbsp;<i class="fa-solid fa-check">팔로잉</i>
+							</p>
+						</button>
+					</c:when>
+					<c:otherwise>
+						<button class="follow-button">
+							<p class="follow-txt">팔로우</p>
+						</button>
+					</c:otherwise>
+				</c:choose>
+				</c:if>
+				
+			</h3>
+			<p class="posts">
+				게시물 ${fn:length(userInfo.boardList)} &nbsp;&nbsp;&nbsp; <a class="followers" data-bs-toggle="modal"
+					data-bs-target="#followers_modal" style="cursor: pointer;">팔로워
+					${fn:length(followerList)}</a> &nbsp;&nbsp;&nbsp; <a class="folloing"
+					data-bs-toggle="modal" data-bs-target="#following_modal"
+					style="cursor: pointer;">팔로우 ${fn:length(followingList)}</a>
+			</p>
+			<p class="intro">${userInfo.userInfo}</p>
+		</div>
+	</div>
+	<!-- end main-->
+
 
    <!-- 클릭시 팔로워 모달 -->
    <div class="modal fade" id="followers_modal" data-bs-backdrop="static"
@@ -156,45 +157,43 @@
       </div>
    </div>
 
-   <!-- 태그 및 페이지-->
-   <div class="row">
-      <!--태그-->
-      <div class="col-md-2 tags">
-         태그목록
-         <hr>
-         <c:if test="${not empty tagList }">
-         <c:forEach var ="tag" items="${tagList }">
-         <a href="${pageContext.request.contextPath}//search?keyword=${tag}"> ${tag}<br></a> 
-         </c:forEach>
-         </c:if>
-      </div>
-      <!--게시글들 -->
-      <div class="col-md-10">
-         <!--검색 -->
-         <form action="d-flex">
-            <section>
-               <input class="form-control search" type="search"
-                  placeholder="Search" aria-label="Search">
-               <button class="btn btn-outline-primary" type="submit">검색</button>
-            </section>
-         </form>
-         <!-- 사진 썸네일, 글제목, 보이는 곳  -->
-         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
-         <c:forEach var="Poster" items="${userInfo.boardList }">
-               <div class="col-md-4 px-md-4 py-md-4">
-                  <div class="card poster" style="width: 100%; height: 24rem;"
-                     data-bno="${Poster.boardId }" data-lno="${Poster.likes }">
-                     <!--포스터카드 아무대나 클릭해도 링크 걸리기-->
-                     <a
-                        href="${pageContext.request.contextPath}/boardController/board?boardId=${Poster.boardId}"
-                        class="stretched-link"></a>
-                     <!--썸네일 이미지-->
-                     <img src="<c:url value='/image/display/${Poster.thumbnail }'/>" class="card-img-top"
-                        alt="...">
-                     <!--제목 내용-->
-                     <div class="card-body ">
-                        <strong>${Poster.title }</strong>
-                        <p class="card-text" style="padding-top: 0.3rem;">${Poster.preview }
+	<!-- 태그 및 페이지-->
+	<div class="row">
+		<!--태그-->
+		<div class="col-md-2 tags">
+			태그목록
+			<hr>
+			<c:if test="${not empty tagList }">
+			<c:forEach var ="tag" items="${tagList }">
+			<a href="${pageContext.request.contextPath}//search?keyword=${tag}"> ${tag}<br></a> 
+			</c:forEach>
+			</c:if>
+		</div>
+		<!--게시글들 -->
+		<div class="col-md-10">
+			<!--검색 -->
+			<form action="<c:url value='/search/${userInfo.userId }' />">
+					<input class="form-control search" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-primary" type="submit">검색</button>
+			</form>
+			<!-- 사진 썸네일, 글제목, 보이는 곳  -->
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
+			<c:forEach var="Poster" items="${userInfo.boardList }">
+					<div class="col-md-4 px-md-4 py-md-4">
+						<div class="card poster" style="width: 100%; height: 24rem;"
+							data-bno="${Poster.boardId }" data-lno="${Poster.likes }">
+							<!--포스터카드 아무대나 클릭해도 링크 걸리기-->
+							<a
+								href="${pageContext.request.contextPath}/boardController/board?boardId=${Poster.boardId}"
+								class="stretched-link"></a>
+							<!--썸네일 이미지-->
+							<img src="<c:url value='/image/display/${Poster.thumbnail }'/>" class="card-img-top"
+								alt="...">
+							<!--제목 내용-->
+							<div class="card-body ">
+								<strong>${Poster.title }</strong>
+								<p class="card-text" style="padding-top: 0.3rem;">${Poster.preview }
+
 
                         </p>
                      </div>
