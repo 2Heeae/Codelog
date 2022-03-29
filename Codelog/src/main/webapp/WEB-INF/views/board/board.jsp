@@ -954,8 +954,8 @@
 	 });
 	</script>
 
-		<!-- 좋아요 클릭 이벤트 처리 -->
-		<script>
+	<!-- 좋아요 클릭 이벤트 처리 -->
+	<script>
 	$(document).ready(function() { //start jQuery
 		
 		$('#like-btn').click(function() {
@@ -977,7 +977,7 @@
 			console.log(view_user_id);
 			console.log(post_like);
 			console.log(writer);
-			msg = "like" + "," + view_user_id + "," + view_user_nick "," + writer + "," + post_like; //소켓메세지 보낼 값
+			msg = "like" + "," + view_user_id + "," + view_user_nick + "," + writer + "," + post_like; //소켓메세지 보낼 값
 
 			const data = {
 				"viewUserId" : view_user_id, //글 보는사람 아이디값
@@ -1024,7 +1024,7 @@
 	}); //end jQuery
 		
 	</script>
-		<!-- 좋아요 클릭 이벤트 처리 끝 -->
+	<!-- 좋아요 클릭 이벤트 처리 끝 -->
 
 
 		<!-- 글 상세보기 페이지 끝 -->
