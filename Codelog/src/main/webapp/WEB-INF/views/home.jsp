@@ -36,9 +36,9 @@
          <form action="<c:url value='/'/>" method="post">
          <c:if test="${trending==true }"><input type="hidden" name=fromT value="true"></c:if>
          <button type="submit" id="recent" class="btn z lo c p-0 pop"
-               style="margin-left: 0.3rem;background-color:transparent; border-color: transparent;  <c:if test="${recent==true }">font-weight: bold; color: rgb(148 180 159)!important;</c:if>">
+               style="margin-left: 0.3rem;background-color:transparent; border-color: transparent; <c:if test="${recent==true }">font-weight: bold; font-size:110%;	color: rgb(148 180 159)!important;</c:if>">
                <i class="fa-regular fa-clock fa-1x mx-md-1 pop"></i>
-               <span class="m-0 pop" style="font-size: 1.2rem;">최신</span>
+               <span class="m-0 pop" style="font-size: 1.2rem; ">최신</span>
          </button></form>
          
          </div>
@@ -48,7 +48,7 @@
          <form action="<c:url value='/trending'/>" method="post">
          <c:if test="${recent==true}"><input type="hidden" name=fromR value="true"></c:if>
          <button type="submit" id="trend" class="btn z c lo p-0 pop"
-               style="background-color:transparent; border-color: transparent; <c:if test="${trending==true }">font-weight: bold; color: rgb(148 180 159)!important;</c:if>">
+               style="background-color:transparent; border-color: transparent; <c:if test="${trending==true }">font-weight: bold; font-size:110%;color: rgb(148 180 159)!important;</c:if>">
                 <i class="fa-solid fa-arrow-trend-up fa-1x mx-md-1 pop"></i>
                   <span class="m-0 pop" style="font-size: 1.2rem;">트랜딩</span>
          </button></form>
@@ -60,9 +60,9 @@
          <c:if test="${trending==true }">   
             
             <button type="button" class="btn c rounded-circle p-0 position-relative"
-               style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
+               style="background-color:transparent; border-color: transparent; color:rgb(148 180 159);" data-bs-toggle="collapse"
                href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
-               <span id ="period" class="m-0 pop" id="dateT" style="font-size: 1.2rem;">
+               <span id ="period" class="m-0 pop" id="dateT" style="font-size: 1.2rem; font-weight:bold;">
                <c:choose>
                   <c:when test="${period=='year'}">올해</c:when>
                   <c:when test="${period=='month'}">이번 달</c:when>
@@ -114,7 +114,7 @@
             <button type="button" class="btn c rounded-circle p-0 position-relative"
                style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
                href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample4">
-               <span id="allChk" class="m-0 pop" style="font-size: 1.1rem;">
+               <span id="allChk" class="m-0 pop" style="font-size: 1.1rem; color:rgb(148 180 159); font-weight:bold;">
                <c:choose>
                   <c:when test="${allChk=='fol'}">팔로워</c:when>
                   <c:when test="${allChk=='all'}">모든 사람</c:when>
@@ -210,7 +210,7 @@
                         </div>
 
                         <div  style="display: inline-block; float: left; margin-top: 0.13rem;">
-                           <a href="${pageContext.request.contextPath}/user/userpage/${Poster.userId}" class="stretched-link" style="position: relative; text-decoration: none;"><span class="mx-md-1" style="color: gray;">by</span><span>${Poster.writer }</span></a>
+                           <a href="${pageContext.request.contextPath}/user/userpage/${Poster.userId}" class="stretched-link" style="position: relative; text-decoration: none;"><span class="mx-md-1" style="color: gray;">by</span><span style="color:rgb(120, 147, 149); font-weight:bold;">${Poster.writer }</span></a>
 
                         </div>
                         
