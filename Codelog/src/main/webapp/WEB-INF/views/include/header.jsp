@@ -19,72 +19,73 @@
    <script src="https://kit.fontawesome.com/7b2a04da3a.js" crossorigin="anonymous"></script>
    <style type="text/css">
       @import url("<c:url value='/css/header.css'/>");
+      
    </style>
 
    <title>Document</title>
 </head>
 
-<body style="margin-top: 1rem; font-family: ONE-Mobile-Regular;">
+<body style="margin-top: 0.3rem; font-family: ONE-Mobile-Regular;">
    <div class="container">
       <div class="row px-md-4">
          <!--로고 부분-->
          <div class="col-md-2 px-md-0 my-md-0 pb-md-4">
-            <button id="logo-btn">
+            <button id="logo-btn" style="margin-top:0.5rem;">
             <span class="logo">CodeLog
             </span>
             </button>
             <c:choose>
-               <c:when test="${not empty userInfo.nickname}">
-                  <span class="logo" style="font-size: 25px;">/</span> 
-                  <button id="nick-logo-btn">
-                     <span class="logo nick-logo">
-                      ${userInfo.nickname}
-                     </span>
-                  </button>
-               </c:when>
-               <c:when test="${not empty dto.writer}">
-                  <span class="logo" style="font-size: 25px;">/</span> 
-                  <button id="nick-logo-btn">
-                     <span class="logo dto-logo">
-                      ${dto.writer}
-                     </span>
-                  </button>
-               </c:when>
+	            <c:when test="${not empty userInfo.nickname}">
+	            	<span class="logo" style="font-size: 25px;">/</span> 
+	            	<button id="nick-logo-btn">
+	            		<span class="logo nick-logo">
+	            		 ${userInfo.nickname}
+	            		</span>
+	            	</button>
+	            </c:when>
+	            <c:when test="${not empty dto.writer}">
+	            	<span class="logo" style="font-size: 25px;">/</span> 
+	            	<button id="nick-logo-btn">
+	            		<span class="logo dto-logo">
+	            		 ${dto.writer}
+	            		</span>
+	            	</button>
+	            </c:when>
             </c:choose>
             <!--<span style="font-size: 2rem; color: rgba(241, 31, 129, 0.897);">log</span>
             <i class="fa-solid fa-heart" style="color: red;"></i>
             <span style="font-size: 1.7rem; color: rgb(241, 31, 129);">g</span>-->
          </div>
 
-      <!-- 검색 창 -->
-        <div class="col-md-3 offset-1" style="padding-top:15px;">
-            <form action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
-               <input class="form-control mr-sm-2" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
-               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159);"><i class="bi bi-search" style="color:white;"></i></button>
+		<!-- 검색 창 -->
+        <div class="col-md-3 offset-2" style="margin-top: 1.2rem;" >
+            <form style="width: 80%; margin-left:3rem;" action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
+               <input style="border-color:black; border-right:none;" class="form-control mr-sm-2" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
+               <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: white; border-color:black; border-left:none;"><i class="bi bi-search" style="color:black"></i></button>
              </form>
-         <div class="" id="toast_area" style="background-color:transparent; margin-top:1rem; width:255px; z-index: 1000; position: absolute;" ></div>
+         <div class="" id="toast_area" style="background-color:transparent; margin-top:0.3rem; width:255px; z-index: 1000; position: absolute; " ></div>
          </div>
          
 
             <!--해,알림,검색,글작성,메뉴토글 바-->
-         <div class="col-md-3 offset-2 p-0">
+         <div class="col-md-3 offset-2 p-0" style="padding-left:2rem;">
             <!--해(다크모드)-->
-            <button type="button" id="theme-btn" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" >
-               <i class="fa-regular fa-sun ic" id="theme-icon"></i>
+            <div style="display: inline-block; margin-left: 5rem;">
+            <button style="margin-left:5rem;" type="button" id="theme-btn" class="btn c rounded-circle mx-md-1 px-md-2 hc" >
+            	<i class="fa-regular fa-sun ic" id="theme-icon"></i>
             </button>
+            </div>
             <!--알림,알림 목록 토글-->  
             <c:if test="${loginSession != null}">    
-            <button type="button" class="btn rounded-circle position-relative c mx-md-1 my-md-3 px-md-3 hc" style=""
+            <button type="button" class="btn rounded-circle position-relative c mx-md-1  px-md-3 hc" style=""
                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
                aria-controls="collapseExample">
             <!--알림 아이콘, 알림개수-->
                <i class="fa-regular fa-bell ic"></i>
-               <c:if test="${countAlarm != 0}">
                <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style="left: 2.8rem;">
                   ${countAlarm}
                   <span class="visually-hidden">unread messages</span>
                </span>
-               </c:if>
             <!--알림,알림 목록 토글-(위에 거랑 세트)-->
             <!-- 로그인해서 보여줄 알림 있을 때에만 보여줄 것 -->
                <div class="collapse" id="collapseExample"
@@ -97,10 +98,9 @@
                         <div class="row">
                            <div class="col-md-3">
                               <a href="${pageContext.request.contextPath}/user/userpage/${a.sender}" class="stretched-link" style="position: relative; text-decoration: none;">
-
-                                <img width="50rem" src="<c:url value='/image/${a.sender}'/>" class="card-img-right rounded-circle" alt=".">
-                              </a>
-
+                              <img width="50rem" src="<c:url value='/image/${a.sender}'/>" class="card-img-right rounded-circle"
+                                 alt=".">
+                            </a>
                            </div>
                            <div class="col-md-9" style=" text-align: left;">
                               <span class="card-text"><strong>${a.msg}</strong></span>
@@ -120,7 +120,7 @@
             <!-- 로그인해서 보여줄 알림 있을 때에만 보여줄 것 -->
             </button>
              <!--글 작성-->
-              <button type="button" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" onclick="location='/codelog/boardController/getWrite'"><i class="fa-solid fa-pen-to-square" style="font-size: 19px;"></i></button>
+              <button type="button" class="btn c rounded-circle mx-md-1 px-md-2 hc" onclick="location='/codelog/boardController/getWrite'"><i class="fa-solid fa-pen-to-square" style="font-size: 19px;"></i></button>
             </c:if>
 
             
@@ -135,19 +135,19 @@
             <c:if test="${loginSession != null}">            
             <!--메뉴, 메뉴 토글-->      
             <div style="display: inline;">
-               <button type="button" class="btn c rounded-circle px-md-0 my-md-2 pb-md-4 pt-md-0 position-relative"
+               <button width="10px"type="button" class="btn c rounded-circle px-md-0 x pb-md-4 pt-md-0 position-relative"
                    data-bs-toggle="collapse" style="background-color:transparent; border-color: transparent;"
                   href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
                   <!--메뉴 이미지+화살표 아래 아이콘-->
                   <!-- 프로필 이미지 -->
                   <c:choose>
                      <c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
-                        <img width="50rem" id="small-profile-img" src="<c:url value='/img/user_icon.png'/>" class="card-img-right rounded-circle mx-md-1"
-                           alt="."><i class="fa-solid fa-caret-down"></i>
+                        <img width="10px" style="margin-top:1rem;"  id="small-profile-img" src="<c:url value='/img/user_icon.png'/>" class="card-img-right rounded-circle mx-md-1"
+                           alt=".">
                      </c:when>
                      <c:otherwise>
-                           <img width="50rem" id="small-profile-img" src="<c:url value='/user/display'/>" class="card-img-right rounded-circle mx-md-1"
-                           alt="."><i class="fa-solid fa-caret-down pop"></i>
+                           <img width="10px" style="margin-top:1rem;" id="small-profile-img" src="<c:url value='/user/display'/>" class="card-img-right rounded-circle mx-md-1"
+                           alt=".">
                      </c:otherwise>
                   </c:choose>
             <!--메뉴, 메뉴 토글(위에꺼랑 세트)-->   
@@ -201,92 +201,92 @@
    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
    
    <script>
-   // 전역변수 설정
-   var socket = null;
-   $(document).ready(function(){
-          // 웹소켓 연결
-          sock = new SockJS('<c:url value="/websocket"/>');
-            socket = sock;
-         console.log('소켓연결!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-         
-          // 데이터를 전달 받았을때 
-          socket.onmessage = onMessage; // toast 생성
-       
-   });
-   
-   
+	// 전역변수 설정
+	var socket = null;
+	$(document).ready(function(){
+	    	// 웹소켓 연결
+		    sock = new SockJS('<c:url value="/websocket"/>');
+		   	socket = sock;
+			console.log('소켓연결!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+			
+		    // 데이터를 전달 받았을때 
+		    socket.onmessage = onMessage; // toast 생성
+	    
+	});
+	
+	
 $('#searchInput').keydown(function(){
-      
-      $('#searchResult').remove();
-   
-   });
+		
+		$('#searchResult').remove();
+	
+	});
 
-   
-   $('#searchInput').keyup(function(){
-      $('#searchResult').remove();
+	
+	$('#searchInput').keyup(function(){
+		$('#searchResult').remove();
 
-      let x = $('#searchInput').val();
-      console.log("x는 "+x);
-      if(x.indexOf("@")==0 && x.length>=2){
-         console.log("계정탐색");
-         x = x.replace("@","");
-         
-         
+		let x = $('#searchInput').val();
+		console.log("x는 "+x);
+		if(x.indexOf("@")==0 && x.length>=2){
+			console.log("계정탐색");
+			x = x.replace("@","");
+			
+			
 
-           
-          $.ajax({
-                 url : '/codelog/search/searchId',
-                 type : 'post',
-                 contentType : 'application/json',
-               dataType : 'json',
-                  data : JSON.stringify({
-                    "userId" : x
-                 }),
-                 success : function(pto) {
-                   $('#searchResult').remove();
+	        
+			 $.ajax({
+			        url : '/codelog/search/searchId',
+			        type : 'post',
+			        contentType : 'application/json',
+					dataType : 'json',
+		            data : JSON.stringify({
+			        	"userId" : x
+			        }),
+			        success : function(pto) {
+			    		$('#searchResult').remove();
 
-                    console.log(pto);
-                    console.log("성공");
-                    if(pto!=null){
-                     // 댓글 목록을 html로 담기
-                      for(const i in pto){
-                          let userId = pto[i].userId;
+			        	console.log(pto);
+			        	console.log("성공");
+			        	if(pto!=null){
+			        	 // 댓글 목록을 html로 담기
+			             for(const i in pto){
+			                 let userId = pto[i].userId;
 
             let listHtml = "";
-            listHtml += "   <div class='' id=searchResult style='z-index: 10000; border-collapse: collapse; border:1px solid rgb(231,231,231); background-color:rgb(231,231,231); margin:0px' width:150px >";
-            listHtml += "      <a style='text-decoration:none;' href='#' >";
-            listHtml += "         <img class='reply_list_profileImage' style='margin-top:0.20rem; border-radius: 70%; overflow: hidden;' width='40rem' src='img/pome3.jpg'/>&nbsp;&nbsp;<span>"+userId+"</span>";
-            listHtml += "      </a> ";
-            listHtml += "   </div>";
+            listHtml += "	<div class='' id=searchResult style='z-index: 10000; border-collapse: collapse; border:1px solid white; background-color:white; width:78%; margin-left:3rem'  >";
+            listHtml += "		<a style='text-decoration:none;' href='#' >";
+            listHtml += "			<img class='reply_list_profileImage' style='margin-top:0.20rem; border-radius: 70%; overflow: hidden;' width='40rem' src='img/pome3.jpg'/>&nbsp;&nbsp;<span>"+userId+"</span>";
+            listHtml += "		</a> ";
+            listHtml += "	</div>";
             $("#toast_area").append(listHtml);
-                      }
-                    } else {
-                      $('#searchResult').remove();
+			             }
+			        	} else {
+				    		$('#searchResult').remove();
 
-                    }
-                 },
-                 error : function() {
-                     alert('서버 에러');
-                 }
-          });
-      }
-   });
+			        	}
+			        },
+			        error : function() {
+			            alert('서버 에러');
+			        }
+			 });
+		}
+	});
 
-   // toast생성 및 추가
-   function onMessage(evt){
-       var data = evt.data;
-         console.log(data);
-       // toast
-       let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
-       toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
-       toast += "<small class='text-muted'>just now</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
-       toast += "<span aria-hidden='true'>&times;</span></button>";
-       toast += "</div> <div class='toast-body'>" + data + "</div></div>";
-       //let toast = data;
-       $("#toast_area").append(toast);   // msgStack toast 추가
-       $(".toast").toast({"animation": true, "autohide": true});
-       $('.toast').toast('show');
-   };   
+	// toast생성 및 추가
+	function onMessage(evt){
+	    var data = evt.data;
+	   	console.log(data);
+	 	// toast
+	    let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
+	    toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
+	    toast += "<small class='text-muted'>just now</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
+	    toast += "<span aria-hidden='true'>&times;</span></button>";
+	    toast += "</div> <div class='toast-body'>" + data + "</div></div>";
+	    //let toast = data;
+	    $("#toast_area").append(toast);   // msgStack toast 추가
+	    $(".toast").toast({"animation": true, "autohide": true});
+	    $('.toast').toast('show');
+	};	
    
       //자바스크립트 시작
       //다크모드 토글 이벤트 처리
@@ -311,16 +311,18 @@ $('#searchInput').keydown(function(){
       //start jQuery
          /*메뉴바들 링크 기능(임시)*/
          $(document).ready(function() {
-
-           $('#theme-icon').click(function() {
-            if($('#theme-icon').attr('class') == 'fa-regular fa-sun ic') {
-               $('#theme-icon').attr('class', 'bi bi-moon-fill');
-            } else {
-               $('#theme-icon').attr('class', 'fa-regular fa-sun ic');
-            }
-         });
-            
-
+        	 
+        	$('#theme-icon').click(function() {
+				if($('#theme-icon').attr('class') == 'fa-regular fa-sun ic') {
+					$('#theme-icon').attr('class', 'bi bi-moon-fill');
+				} else {
+					$('#theme-icon').attr('class', 'fa-regular fa-sun ic');
+				}
+			});
+        	 
+            $("#so").click(function() {
+               $(location).attr("href", "https://www.naver.com/")
+            });               
             
             $("#so4").click(function() {
                $(location).attr("href", "https://www.naver.com/")
@@ -370,13 +372,16 @@ $('#searchInput').keydown(function(){
                   
                }
             }); //로그아웃 이벤트 끝
-         
+			
             //헤더 닉네임 누를 시 페이지 이동 이벤트 처리 
             $('.nick-logo').click(function() {
-               
-               location.href= "<c:url value='/user/userpage/${userInfo.userId}'/>";
+            	
+            	location.href= "<c:url value='/user/userpage/${userInfo.userId}'/>";
             });
-
+			$('.dto-logo').click(function() {
+            	
+            	location.href= "<c:url value='/user/userpage/${dto.userId}'/>";
+            });	
             
      }); //end jQuery     
          
