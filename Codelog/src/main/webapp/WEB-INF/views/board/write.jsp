@@ -92,7 +92,7 @@
             </div>
             <ul id="tag-list"></ul>
             <div class="form-group">
-               <input type="text" id="tag" size="7" class="tag" name="tags" placeholder="엔터로 태그를 입력하세요" style="width: 500px;">
+               <input type="text" id="tag" size="7" class="tag" name="tags" placeholder="태그는 쉼표(,)로 구분합니다." style="width: 500px;">
             </div>
          </div>
          <!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
@@ -304,11 +304,20 @@
       /*작성과 작성검토 부분을 버튼으로 연결함(버튼은 임시)
     up은 작성검토 페이지 화면으로 올리기 down은 내리기
     toggleclass사용
-*/
+*/   
+
+//enter 입력으로 인한 submit 방지(null값 전송 방지)
+  $('input[type="text"]').keydown(function() {
+	  if (event.keyCode === 13) {
+		    event.preventDefault();
+		  };
+		});
       
       
 
       $(document).ready(function () {
+    	  
+    	  
          //태그 기능 이벤트
          var tag ={};
          var counter = 0;
