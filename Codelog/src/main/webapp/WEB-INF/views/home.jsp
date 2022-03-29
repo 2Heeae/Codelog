@@ -19,17 +19,18 @@
           overflow-y : hidden;
           
         }
+     
        
    
    </style>
    <title>Document</title>
 </head>
 
-<body style="margin-top: 1rem; font-family: ONE-Mobile-Regular;">
+<body style="font-family: ONE-Mobile-Regular;">
 
    <div class="container">
 <!-- 최신, 트랜딩 메뉴판 날짜설정메뉴는은 트랜딩메뉴 적용시만 활성 -->
-      <div class="row" style="padding: 1.5rem 1.5rem 0.5rem 1.5rem;">
+      <div class="row" style="margin: 2.5rem 1.5rem 0.0rem 1.5rem;">
          <div class="col-md-1 px-md-0" id="recent2">
          
          <form action="<c:url value='/'/>" method="post">
@@ -160,10 +161,10 @@
    </div>   
       
    <!-- Button trigger modal -->
-   <div class="container" style="margin-top: 2rem;" id="posterbox">
+   <div class="container" style="margin-top: 0rem;" id="posterbox">
    
    <c:if test="${not empty Posters }">
-   <div class="row py-md-3" id="start">
+   <div class="row py-md-1" id="start">
    <c:forEach var="Poster" items="${Posters }">
          <div class="col-md-4 px-md-4 py-md-4">
             <div class="card poster" style="width: 100%; height: 27rem;" data-bno="${Poster.boardId }" data-lno="${Poster.likes }">
@@ -250,13 +251,21 @@
             if(${fromT}==true ){
                $("#tot").removeClass('toto');
                $("#tot").addClass('toto2')
-            }            
+            }
+            else {
+            	$("#tot").removeClass('toto2');
+                $("#tot").addClass('toto3')
+            }
          }
       
          if(${trending}==true){
             if(${fromR}==true){
                $("#tot").removeClass('toto2');
                $("#tot").addClass('toto')
+            }
+            else {
+            	$("#tot").removeClass('toto');
+                $("#tot").addClass('toto4')
             }
          }   
          
