@@ -60,7 +60,7 @@
 		SELECT * FROM proj_board
 		WHERE tags like '%'||#{keyword}||'%'
 		ORDER BY board_id DESC
-	
+	</select>
 	<select id="searchId" resultMap="searchIdMap">
 		SELECT * FROM proj_user
 		WHERE user_id like #{userId}||'%'
