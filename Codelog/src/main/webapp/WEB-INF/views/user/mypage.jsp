@@ -163,7 +163,7 @@
          <hr>
                <c:if test="${not empty tagCount }">
             <c:forEach var ="tag" items="${tagCount}" varStatus="status">
-             		<a href="${pageContext.request.contextPath}//search?keyword=$"> ${tag.key} &nbsp;(${tag.value})<br></a>
+             		<a href="${pageContext.request.contextPath}//search?keyword=${tag.key}"> ${tag.key} &nbsp;(${tag.value})<br></a>
              </c:forEach>
          </c:if>
       </div>
