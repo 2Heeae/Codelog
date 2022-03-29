@@ -250,7 +250,7 @@
            console.log('넘어오니?');
            
            //소켓 메세지 보낼 내용
-           let msg = 'follow' + ',' + '${loginSession.userId}' + ',' + '${userInfo.userId}';
+           let msg = 'follow' + ',' + '${loginSession.userId}' + ',' + '${loginSession.nickname}' + ',' + '${userInfo.userId}';
            
           if ($('.follow-txt').html() == '팔로우') {
             $(this).css("background-color", "#C0D8C0")

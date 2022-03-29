@@ -69,7 +69,7 @@
             <!--해,알림,검색,글작성,메뉴토글 바-->
          <div class="col-md-3 offset-2 p-0">
             <!--해(다크모드)-->
-            <button type="button" id="theme-btn" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" >
+            <button type="button" id="theme-btn" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 ch" >
             	<i class="fa-regular fa-sun ic" id="theme-icon"></i>
             </button>
             <!--알림,알림 목록 토글-->  
@@ -96,15 +96,14 @@
                         <div class="row">
                            <div class="col-md-3">
                            	<a href="${pageContext.request.contextPath}/user/userpage/${a.sender}" class="stretched-link" style="position: relative; text-decoration: none;">
-                              <img width="50rem" src="<c:url value='/image/${a.sender}'/>" class="card-img-right rounded-circle"
-                                 alt=".">
+                              <img width="50rem" src="<c:url value='/image/${a.sender}'/>" class="card-img-right rounded-circle" alt=".">
                             </a>
                            </div>
                            <div class="col-md-9" style=" text-align: left;">
                               <span class="card-text"><strong>${a.msg}</strong></span>
 
 
-                              <p class="pt-1" style="font-size: 0.8rem;">3시간 전.</p>
+                              <p class="pt-1" style="font-size: 0.8rem;">${a.regDate}</p>
 
                            </div>
                         </div>

@@ -131,9 +131,8 @@
 								<!-- 해당 게시글의 총 좋아요 개수 -->
 								<div id='result' style="margin-left: 28px;">${dto.likes}</div>
 								<!-- 이 글을 보는 사람이 로그인 했다면 여기에 로그인 세션에서 아이디 꺼내와놓기 -->
-								<input type="hidden" id="view-user"
-									value="${loginSession.userId}"> <a
-									href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">
+								<input type="hidden" id="view-user"	value="${loginSession.userId}">
+								<a href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">
 									<img width="55rem" src="<c:url value='/image/${dto.userId }'/>"
 									class="card-img-right rounded-circle mx-md-1" alt="profile">
 
@@ -561,7 +560,7 @@
 	    let userNo = $(".write_reply").attr('userNo');
 	    
 	    // 소켓 메세지에 보낼 내용(댓작성자id? 닉네임?, 글작성자id)
-	    msg = 'reply' + ',' + writer + ',' + '${dto.userId}';
+	    msg = 'reply' + ',' + '${loginSession.nickname}' + ',' + writer + ',' + '${dto.userId}';
 	    
 	    if(content == ""){	// 입력된게 없을때
 	        alert("댓글을 입력하세요!");
@@ -958,7 +957,6 @@
 		$('#like-btn').click(function() {
 			console.log('좋아요 버튼 눌림!');
 			const view_user_id = $('#view-user').val();
-			
 			if($('#view-user').val() == '') { //로그인 안한 사람이 하트 누르면
 				alert('로그인을 먼저 진행해주세요 :)');
 			} else {
@@ -970,12 +968,12 @@
 		let post_like = ${postLike}; //좋아요 여부 확인 1, 0
 		function like_update() {
 			const view_user_id = $('#view-user').val(); //글 보는 사람 아이디
-			
+			const view_user_nick = '${loginSession.nickname}';
 			const writer = '${dto.userId}'; //글 쓴 사람
 			console.log(view_user_id);
 			console.log(post_like);
 			console.log(writer);
-			msg = "like" + "," + view_user_id + "," + writer + "," + post_like; //소켓메세지 보낼 값
+			msg = "like" + "," + view_user_id + "," + view_user_nick "," + writer + "," + post_like; //소켓메세지 보낼 값
 
 			const data = {
 				"viewUserId" : view_user_id, //글 보는사람 아이디값
