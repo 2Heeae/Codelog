@@ -24,9 +24,14 @@
           
        }
        
-       .card-body:hover {
-       background-color: #eee;
-       }
+.pop:hover{
+	color:rgb(148 180 159);
+	font-weight: bold;
+	font-size:103%;	
+}
+
+
+       
    
 /* 밑줄 애니매이션 */
     
@@ -78,5 +83,8 @@ margin-left:10%;
 .toto4 {
 margin-left:14%; 
 }
+
+.card-text{
+	background-color: transparent;
+}
       
-       

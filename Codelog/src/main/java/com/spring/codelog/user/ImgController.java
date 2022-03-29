@@ -66,6 +66,11 @@ public class ImgController {
 		
 	}
 	
+	
+
+	
+	
+	
 	//썸네일 이미지 파일 보여주기 요청
 	@GetMapping("/display/{thumbnail}")
 	public ResponseEntity<byte[]> getFile(@PathVariable("thumbnail") String thumbnail, HttpSession session) {

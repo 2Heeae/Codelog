@@ -377,6 +377,7 @@
             	error: function(){
             		console.log('태그 전송 실패 ')
             	}
+
             });
 
 

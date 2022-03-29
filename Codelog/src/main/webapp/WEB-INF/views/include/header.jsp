@@ -59,10 +59,10 @@
 		<!-- 검색 창 -->
         <div class="col-md-3 offset-1" style="padding-top:15px;">
             <form action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group">
-               <input class="form-control mr-sm-2" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
+               <input class="form-control mr-sm-2" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159);"><i class="bi bi-search" style="color:white;"></i></button>
              </form>
-         <div class="" id="toast_area" style="z-index: 1000;"></div>
+         <div class="" id="toast_area" style="background-color:transparent; margin-top:1rem; width:255px; z-index: 1000; position: absolute;" ></div>
          </div>
          
 
@@ -80,46 +80,42 @@
             <!--알림 아이콘, 알림개수-->
                <i class="fa-regular fa-bell ic"></i>
                <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style="left: 2.8rem;">
-                  2+
+                  ${countAlarm}
                   <span class="visually-hidden">unread messages</span>
                </span>
-            <!--알림,알림 목록 토글-(위에 거랑 세트)-->   
+            <!--알림,알림 목록 토글-(위에 거랑 세트)-->
+            <!-- 로그인해서 보여줄 알림 있을 때에만 보여줄 것 -->
                <div class="collapse" id="collapseExample"
                   style="position: absolute; width: 20rem; top:2.7rem; right: 0rem; z-index: 1000;">
                   <div class="card" style="width: 100%;">
 
                      <!--알림 목록 내용-->
-                     <div class="card-body cc" style=" height: 6rem; " id="so">
+
+                     
+                     <div class="card-body cc" style=" height: 6rem; " class="alarm-list">
+                     <c:forEach var="a" items="${alarm}">
                         <div class="row">
                            <div class="col-md-3">
-                              <img width="50rem" src="<c:url value='/img/cat2.jpg'/>" class="card-img-right rounded-circle"
+                           	<a href="${pageContext.request.contextPath}/user/userpage/${a.sender}" class="stretched-link" style="position: relative; text-decoration: none;">
+                              <img width="50rem" src="<c:url value='/image/${a.sender}'/>" class="card-img-right rounded-circle"
                                  alt=".">
+                            </a>
                            </div>
                            <div class="col-md-9" style=" text-align: left;">
-                              <span class="card-text"><strong>홍길동abcd</strong>님이 좋아요를 눌렀습니다.</span>
+                              <span class="card-text"><strong>${a.msg}</strong></span>
 
 
                               <p class="pt-1" style="font-size: 0.8rem;">3시간 전.</p>
 
                            </div>
                         </div>
+                     </c:forEach>
                      </div>
-
-                     <div class="card-body cc" style=" height: 6rem; ">
-                        <div class="row">
-                           <div class="col-md-3">
-                              <img width="50rem" src="<c:url value='/img/pome3.jpg'/>" class="card-img-right rounded-circle"
-                                 alt=".">
-                           </div>
-                           <div class="col-md-9" style=" text-align: left;">
-                              <span id="msgStack" class="card-text"></span>
-
-                              <p class="pt-1" style="font-size: 0.8rem; margin: auto 0;">19시간 전.</p>
-                           </div>
-                        </div>
-                     </div>
+                     
+                     
                   </div>
                </div>
+            <!-- 로그인해서 보여줄 알림 있을 때에만 보여줄 것 -->
             </button>
              <!--글 작성-->
               <button type="button" class="btn c rounded-circle my-md-3 mx-md-1 px-md-2 hc" onclick="location='/codelog/boardController/getWrite'"><i class="fa-solid fa-pen-to-square" style="font-size: 19px;"></i></button>
@@ -149,7 +145,7 @@
                      </c:when>
                      <c:otherwise>
                            <img width="50rem" id="small-profile-img" src="<c:url value='/user/display'/>" class="card-img-right rounded-circle mx-md-1"
-                           alt="."><i class="fa-solid fa-caret-down"></i>
+                           alt="."><i class="fa-solid fa-caret-down pop"></i>
                      </c:otherwise>
                   </c:choose>
             <!--메뉴, 메뉴 토글(위에꺼랑 세트)-->   
@@ -158,21 +154,21 @@
                <!--메뉴 토글 내용-->      
                      <div class="card" style="width: 8rem;">
 
-                        <div class="card-body cc" id="mycodelog">
+                        <div class="card-body " id="mycodelog">
                            <div style="text-align: right;">
-                              <span class="card-text"><strong>내 코드로그</strong></span>
+                              <span class="card-text pop"><strong>내 코드로그</strong></span>
                            </div>
                         </div>
 
-                        <div class="card-body cc" id="edit-profile">
+                        <div class="card-body " id="edit-profile">
                            <div style="text-align: right;">
-                              <span class="card-text"><strong>프로필 수정</strong></span>
+                              <span class="card-text pop"><strong>프로필 수정</strong></span>
                            </div>
                         </div>
 
-                        <div class="card-body cc" id="logout">
+                        <div class="card-body " id="logout">
                            <div style="text-align: right;">
-                              <span class="card-text"><strong>로그아웃</strong></span>
+                              <span class="card-text pop"><strong>로그아웃</strong></span>
                            </div>
                         </div>   
                      </div>   
@@ -189,6 +185,7 @@
             <!-- 로그인하면 보여주기 끝 -->
          </div>
       </div>
+      <div class="row" id=searchIds></div>
    </div>   
    <!-- Button trigger modal -->
 
@@ -214,10 +211,69 @@
 		    socket.onmessage = onMessage; // toast 생성
 	    
 	});
+	
+	
+$('#searchInput').keydown(function(){
+		
+		$('#searchResult').remove();
+	
+	});
+
+	
+	$('#searchInput').keyup(function(){
+		$('#searchResult').remove();
+
+		let x = $('#searchInput').val();
+		console.log("x는 "+x);
+		if(x.indexOf("@")==0 && x.length>=2){
+			console.log("계정탐색");
+			x = x.replace("@","");
+			
+			
+
+	        
+			 $.ajax({
+			        url : '/codelog/search/searchId',
+			        type : 'post',
+			        contentType : 'application/json',
+					dataType : 'json',
+		            data : JSON.stringify({
+			        	"userId" : x
+			        }),
+			        success : function(pto) {
+			    		$('#searchResult').remove();
+
+			        	console.log(pto);
+			        	console.log("성공");
+			        	if(pto!=null){
+			        	 // 댓글 목록을 html로 담기
+			             for(const i in pto){
+			                 let userId = pto[i].userId;
+
+            let listHtml = "";
+            listHtml += "	<div class='' id=searchResult style='z-index: 10000; border-collapse: collapse; border:1px solid rgb(231,231,231); background-color:rgb(231,231,231); margin:0px' width:150px >";
+            listHtml += "		<a style='text-decoration:none;' href='#' >";
+            listHtml += "			<img class='reply_list_profileImage' style='margin-top:0.20rem; border-radius: 70%; overflow: hidden;' width='40rem' src='img/pome3.jpg'/>&nbsp;&nbsp;<span>"+userId+"</span>";
+            listHtml += "		</a> ";
+            listHtml += "	</div>";
+            $("#toast_area").append(listHtml);
+			             }
+			        	} else {
+				    		$('#searchResult').remove();
+
+			        	}
+			        },
+			        error : function() {
+			            alert('서버 에러');
+			        }
+			 });
+		}
+	});
 
 	// toast생성 및 추가
 	function onMessage(evt){
 	    var data = evt.data;
+	   	console.log(data);
 	 	// toast
 	    let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
 	    toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
@@ -262,18 +318,11 @@
 				}
 			});
         	 
-            $("#so").click(function() {
-               $(location).attr("href", "https://www.naver.com/")
-            });               
             
             $("#so4").click(function() {
                $(location).attr("href", "https://www.naver.com/")
             });
             
-            //새 글 작성 버튼 클릭 시 글쓰기페이지 이동 이벤트 처리
-            //$('#write-btn').click(function() {
-            	//location.href = "<c:url value='/write' />";				
-			//}); //새 글 작성 버튼 클릭 시 글쓰기페이지 이동 이벤트 처리 끝
             
             //로고버튼 클릭 시 메인페이지 이동 이벤트 처리
             $('#logo-btn').click(function() {
@@ -324,6 +373,13 @@
             	
             	location.href= "<c:url value='/user/userpage/${dto.userId}'/>";
             });	
+			
+			//종 알림 알림 클릭 시 이벤트 처리
+			$('.alarm-list').click(function() {
+				console.log('알람리스트 클릭 됨');
+				
+				
+			});
             
      }); //end jQuery     
          

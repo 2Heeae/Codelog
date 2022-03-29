@@ -207,19 +207,20 @@
 <!-- 댓글 -->
 
 
-<h3 id=recnt>${dto.recnt }개의 댓글</h3>
+<h3 id=recnt>${dto.recnt}개의 댓글</h3>
 
   <c:if test="${not empty loginSession.nickname}">
                 <div class="row reply_write">
                     <div class="col-1">
                         <a href="#">
-                            <img id="write_reply_profileImage" style=" border-radius: 70%;
-    overflow: hidden;" width="40rem" src="<c:url value='../img/pome3.jpg'/>"/>
+                        <!-- 로그인 사용자 이미지가 뜨도록 -->
+                        	<img id="write_reply_profileImage" style=" border-radius: 70%;
+    						overflow: hidden;" width="40rem" src="<c:url value='/image/${loginSession.userId}'/>"/>
                         </a>
                     </div>
                     <div class="col-11" class="input_reply_div">
-                        <input class="w-100 form-control" id="input_reply${dto.boardId}"
-                            type="text" placeholder="댓글입력...">
+                        <textarea class="w-100 form-control" id="input_reply${dto.boardId}"
+                             placeholder="댓글입력..."></textarea>
                     </div>
                     </div>
                     <div class="row reply_write">
@@ -258,29 +259,45 @@
 
 
 
-
 				</div>
+				
+				
+				
+				
+				
+			
+	
+	
+	
 			<!--------------------우측 고정메뉴-------------------->
 			
 			<div class="col-md-3">
-				<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted rounded" style="background-color: rgb(239 255 239); height: 520px;">
-					<a href="${pageContext.request.contextPath}/search?keyword=${dto.tags}" class="d-block h6 my-2 pb-2 border-bottom">
-						&nbsp;#${dto.tags} 관련 게시글&nbsp;&nbsp;&nbsp;></a>
+				<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted rounded" style="background-color: rgb(249 249 249); height: 540px;">
+					<div style="height:10px; background-color:transparent"></div>
+					<c:if test="${not empty tagList}">
+						<a class="recom-top" style="color: rgb(148 180 159); font-weight:800;" href="${pageContext.request.contextPath}/search?keyword=${tagList.get(0)}" class="d-block h6 my-2 pb-2 border-bottom">
+						&nbsp;#${tagList.get(0)} 관련 게시글&nbsp;&nbsp;&nbsp;></a>
+					</c:if>
+					
+					<div style="height:4px; background-color:transparent">
+					<hr align="center" size="3px" width="88%" style="margin: 1px; height:2px; background-color:rgb(148 180 159); opacity: inherit;">
+					</div>
 					
 					<c:if test="${not empty searchList}">
 					<nav id="TableOfContents">
+
 					<c:forEach var="s" items="${searchList}" begin="0" end="4" step="1">		
 					<div style="width: 248.63px; height: 92px; background-color: transparent;" id="recom";>														
 						<div class="thumb" style="width: 160px; height: 90px; padding: 15px;display: inline-block;"> 
-							<span class="thumb" style="height:40px;"><a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}">${s.title}</a></span>
+							<span class="thumb" style="height:40px;width: 160px;"><a style="font-weight: 500;" href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}">${s.title}</a></span>
 							<div class="thumb-date" style="margin-top: 10px;">
-							<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}">
+							<a style="font-size: small;" href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}">
 							<fmt:formatDate value="${s.regDate}" pattern="yy/MM/dd"/></a></div>
 						</div>
 						<div class="thumb" style="position:relative;  left: 20px; width:75px; vertical-align: bottom; display: inline-block !important;" >
 							<a href="${pageContext.request.contextPath}/boardController/board?boardId=${s.boardId}">
 							<img src="<c:url value='/image/display/${s.thumbnail}'/>" class="rounded" width="75px" height="75px" ></a></div>		
-					<hr align="center" size="3px" width="100%" style="margin: 10px;">
+					<hr align="center" size="3px" width="100%" style="margin: 10px; background-color: rgb(122 149 131);">
 					<!-------------------한 묶음-------------------->
 					</div>
 					</c:forEach>
@@ -341,7 +358,10 @@
 	                 let grpl = data[i].grpl;
 	                 let writer = data[i].writer;
 	                 let content = data[i].content;
+	                 let userId = data[i].userId;
+
 	                 let wdate = data[i].wdate;
+	                 let userImg = data[i].userImg;
 	                 var date1 = new Date(wdate);
 	                 wdate = formatDate(date1);  	                 
 	                
@@ -349,8 +369,8 @@
 	                 listHtml += "<div class='row replyrow reply" + no + "'>";
 	                 if(grpl == 0){	// 모댓글일때
 	                        listHtml += "	<div class='col-1'>";
-	                        listHtml += "		<a href='#'> ";
-	                        listHtml += "			<img class='reply_list_profileImage' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' src='../img/kmj2.jpg'/>";
+	                        listHtml += "		<a href='#'> ";                 
+	                        listHtml += "			<img class='reply_list_profileImage'  src='<c:url value='/image/"+userId+"'/>' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >";
 	                        listHtml += "		</a> ";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='reply-content"+ no +" col-8'>";
@@ -374,7 +394,7 @@
 	                        listHtml += "	<div class='col-1'>"
 	                        listHtml += "	</div>"
 	                        listHtml += "	<div class='col-1'>";
-	                        listHtml += "		<img class='reply_list_profileImage' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' src='../img/pome3.jpg'/>";
+	                        listHtml += "		<img class='reply_list_profileImage' src='<c:url value='/image/"+userId+"'/>'  style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >";
 	                        listHtml += "	</div>";
 	                        listHtml += "	<div class='rereply-content"+ no +" col-7'>";
 	                        listHtml += "		<div>";
@@ -424,7 +444,7 @@
 	                    listHtml += "		</div>"
 	                    listHtml += "		<div class='col-1'>"
 	                    listHtml += "			<a href='#'> ";
-	                    listHtml += "				<img id='write_reply_profileImage' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' src='../img/pome3.jpg'//>"
+	                    listHtml += "				<img id='write_reply_profileImage' src='<c:url value='/image/${loginSession.userId}'/>' style='border-radius: 70%; overflow: hidden; margin-top:1rem;' width='40rem' >"
 	                    listHtml += "			</a> ";
 	                    listHtml += "		</div>"
 	                    listHtml += "		<div class='col-7'>"
@@ -545,7 +565,7 @@
 	    let userNo = $(".write_reply").attr('userNo');
 	    
 	    // 소켓 메세지에 보낼 내용(댓작성자id? 닉네임?, 글작성자id)
-	    msg = 'reply' + ',' + writer + ',' + '{dto.userId}';
+	    msg = 'reply' + ',' + writer + ',' + '${dto.userId}';
 	    
 	    if(content == ""){	// 입력된게 없을때
 	        alert("댓글을 입력하세요!");
@@ -950,15 +970,17 @@
 			}
 			
 		});
-		
+	
+		let post_like = ${postLike}; //좋아요 여부 확인 1, 0
 		function like_update() {
 			const view_user_id = $('#view-user').val(); //글 보는 사람 아이디
-			let post_like = ${postLike}; //좋아요 여부 확인 1, 0
+			
 			const writer = '${dto.userId}'; //글 쓴 사람
 			console.log(view_user_id);
 			console.log(post_like);
 			console.log(writer);
-			msg = view_user_id + "," + writer + "," + post_like; //소켓메세지 보낼 값
+			msg = "like" + "," + view_user_id + "," + writer + "," + post_like; //소켓메세지 보낼 값
+
 			const data = {
 				"viewUserId" : view_user_id, //글 보는사람 아이디값
 				"boardId" : ${dto.boardId}, //글번호
@@ -977,7 +999,10 @@
 						$('#like-check').val(0);
 						$('#like-btn').css("color", "black");
 						let total = $('#result').html();
-						$('#result').html(${dto.likes} - 1);
+						$('#result').html(${dto.likes});		
+						post_like = 0;
+						
+						
 						
 					} else if(post_like == 0) {
 						console.log('좋아요');
@@ -985,8 +1010,8 @@
 						$('#like-btn').css("color", "red");
 						let total = $('#result').html();
 						$('#result').html(${dto.likes} + 1);
+						post_like = 1;						
 						
-					} else {
 						
 					}
 					socket.send(msg);

@@ -14,4 +14,8 @@ public interface ISearchService {
 	
 	//태그 검색결과
 	List<BoardVO> searchByTag(String keyword);
+
+	List<BoardVO> searchId(String userId);
+
+	
 }

@@ -10,6 +10,7 @@ public interface ISearchMapper {
 	
 	//검색 결과 리스트 보여주기
 	List<BoardVO> search(String keyword);
+	List<BoardVO> searchId(String userId);
 
 	//검색 결과 리스트 보여주기
 	List<BoardVO> searchMypage(@Param("keyword") String keyword,@Param("userId") String userId);
