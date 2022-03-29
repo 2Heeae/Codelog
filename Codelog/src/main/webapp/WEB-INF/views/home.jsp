@@ -251,13 +251,21 @@
             if(${fromT}==true ){
                $("#tot").removeClass('toto');
                $("#tot").addClass('toto2')
-            }            
+            }
+            else {
+            	$("#tot").removeClass('toto2');
+                $("#tot").addClass('toto3')
+            }
          }
       
          if(${trending}==true){
             if(${fromR}==true){
                $("#tot").removeClass('toto2');
                $("#tot").addClass('toto')
+            }
+            else {
+            	$("#tot").removeClass('toto');
+                $("#tot").addClass('toto4')
             }
          }   
          
