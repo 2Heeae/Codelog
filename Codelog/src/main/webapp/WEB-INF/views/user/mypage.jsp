@@ -172,8 +172,8 @@
 		<div class="col-md-10">
 			<!--검색 -->
 			<form action="<c:url value='/search/${loginSession.userId }' />">
-					<input class="form-control search" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-primary" type="submit">검색</button>
+					<input class="form-control search shadow-none" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-primary shadow-none" type="submit">검색</button>
 			</form>
 			<!-- 사진 썸네일, 글제목, 보이는 곳  -->
 			<div class="row py-md-3" id="start">
