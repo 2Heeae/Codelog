@@ -996,6 +996,7 @@
 						console.log('좋아요 취소');
 						$('#like-check').val(0);
 						$('#like-btn').css("color", "black");
+						let total = $('#result').html();
 						$('#result').html(${dto.likes} - 1);		
 						post_like = 0;
 						

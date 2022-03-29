@@ -1,6 +1,7 @@
 package com.spring.codelog.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.spring.codelog.board.commons.TagVO;
 import com.spring.codelog.board.model.BoardVO;
@@ -19,6 +20,6 @@ public interface ITagService {
 	
 	//태그삭제
 	void deleteTags(int boardId);
-
-
+    
+	List<Map<String, Object>> countTags(String userId);
 }

@@ -163,10 +163,10 @@
 		<div class="col-md-2 tags">
 			태그목록
 			<hr>
-			<c:if test="${not empty tagList }">
-			<c:forEach var ="tag" items="${tagList }">
-			<a href="${pageContext.request.contextPath}//search?keyword=${tag}"> ${tag}<br></a> 
-			</c:forEach>
+			       <c:if test="${not empty tagCount }">
+            <c:forEach var ="tag" items="${tagCount}" varStatus="status">
+             		<a href="${pageContext.request.contextPath}/search?keyword=${tag.key}"> ${tag.key} &nbsp;(${tag.value})<br></a>
+             </c:forEach>
 			</c:if>
 		</div>
 		<!--게시글들 -->
@@ -219,7 +219,7 @@
                               <div
                                  style="display: inline-block; float: right; margin-top: 0.13rem">
                                  <i class="fa-solid fa-comment" style=""></i> <span
-                                    style="margin-right: 0.5rem;" class="">3</span> <i
+                                    style="margin-right: 0.5rem;" class="">${Poster.recnt }</span> <i
                                     class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes}</span>
                               </div>
                            </div>

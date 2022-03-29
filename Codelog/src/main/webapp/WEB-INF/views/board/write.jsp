@@ -92,7 +92,7 @@
             </div>
             <ul id="tag-list"></ul>
             <div class="form-group">
-               <input type="text" id="tag" size="7" class="tag" name="tags" placeholder="엔터로 태그를 입력하세요" style="width: 500px;">
+               <input type="text" id="tag" size="7" class="tag" name="tags" placeholder="태그는 쉼표(,)로 구분합니다." style="width: 500px;">
             </div>
          </div>
          <!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
@@ -162,7 +162,7 @@
 
                      <!--썸네일 부분-->
               
-                     <div class="thumbnailBox" id="thumbnailBox" style="height: 19rem; width:100%; position: relative;  text-align: center; top: 127px; left: -176px;">
+                     <div class="thumbnailBox" id="thumbnailBox" style="height: 300px; width:300px; position: relative;  text-align: center; top: 127px; left: -156px;">
                         <img src="<c:url value='/img/change.jpg'/>" class="btn thumbnailBox" type="button" id="img-preview" onclick="document.all.thumbnailUpload.click();"
                            style="width: 100%; height: 100%; position: relative"> 
                            <input type="file" id="thumbnailUpload" name="thumbnailUpload" accept="image/*" onchange="readURL(this)"> 
@@ -194,8 +194,8 @@
          
          file = file.slice(file.indexOf('.') + 1).toLowerCase();
          console.log(file);
-         if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp') {
-            alert('이미지 파일(jpg, png, jpeg, bmp)만 등록이 가능합니다.');
+         if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp'  && file !== 'gif') {
+            alert('이미지 파일(jpg, png, jpeg, bmp, gif)만 등록이 가능합니다.');
             $('#thumbnailUpload').val('');
            return;            
          }
@@ -257,12 +257,12 @@
                      <!--제목은 글작성 페이지에서 가져오기-->
 					
                      <div class="card-body my-md-2 p-0 "
-                        style=" margin-bottom: 1rem; position: relative; bottom: 183px; left: 165px;">
+                        style=" margin-bottom: 1rem; position: relative; bottom: 183px; left: 156px;">
 		
 						
                         <!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
-                        <div class="form-floating" style="margin-top: 1rem; text-align:center;" >
-                           <textarea class="thumbtext" placeholder="Leave a comment here" id="floatingTextarea" name="preview" style="width: 80%; height: 10rem; resize: none;"></textarea>
+                        <div class="form-floating" style="margin-top: 1rem; text-align:center;padding-top: 13px;" >
+                           <textarea class="thumbtext" placeholder="Leave a comment here" id="floatingTextarea" name="preview" style="width: 290px; height: 146px; resize: none;"></textarea>
                            <span id="textL" style="">0</span>
                            <span style="">/100</span>
                            
@@ -304,11 +304,20 @@
       /*작성과 작성검토 부분을 버튼으로 연결함(버튼은 임시)
     up은 작성검토 페이지 화면으로 올리기 down은 내리기
     toggleclass사용
-*/
+*/   
+
+//enter 입력으로 인한 submit 방지(null값 전송 방지)
+  $('input[type="text"]').keydown(function() {
+	  if (event.keyCode === 13) {
+		    event.preventDefault();
+		  };
+		});
       
       
 
       $(document).ready(function () {
+    	  
+    	  
          //태그 기능 이벤트
          var tag ={};
          var counter = 0;
