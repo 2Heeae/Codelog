@@ -134,12 +134,12 @@ public class HomeController {
    
    @ResponseBody
    @RequestMapping(value = "/radd", method = RequestMethod.POST)
-   public List<BoardVO> RHome(Model model, @RequestBody Map<String,Integer> info,
+   public List<BoardVO> RHome(Model model, @RequestBody Map<String,Integer> info, 
 		   HttpServletRequest request, 
 			HttpServletResponse response) {
 	   
 	   System.out.println("--------------------POST:/radd HOME:RECENT:ADD--------------------");
-
+	   System.out.println("allChk는" +info.get("allChk"));
 	   
 	   List<BoardVO> list = new ArrayList<BoardVO>();
 	   
@@ -156,7 +156,7 @@ public class HomeController {
 		   model.addAttribute("alarm", alarmList);
 		   model.addAttribute("countAlarm", notiService.countAlarm(receiver));
 		   //알림가져오기 끝
-		 
+		   if(info.get("allChk")==2) {
 		   System.out.println("출력:팔로우");
 		   System.out.println("로그인 중 id: "+login.getUserId());
 		   System.out.println("Posters: "+service.FAPosters(info.get("boardId"), login.getUserNo()));
@@ -164,7 +164,17 @@ public class HomeController {
 		   System.out.println("-----------------------------------------------------------------------");
 
 		   return list;
+		   }
+		   else if(info.get("allChk")==1) 
+		   {
+			   System.out.println("출력:모든사람");
+			   System.out.println("로그인 중 id: "+login.getUserId());
+			   list = service.RAPosters(info.get("i"),info.get("boardId"));			   
+			   System.out.println("추가 리스트는 "+list);
+			   System.out.println("-----------------------------------------------------------------------");
 
+			   return list;
+			   }
 		   
 	   }
 	   

@@ -30,7 +30,7 @@
    <div class="container">
       <div class="row px-md-4">
          <!--로고 부분-->
-         <div class="col-md-2 px-md-0 my-md-0 pb-md-4">
+         <div class="col-md-3 px-md-0 my-md-0 pb-md-4">
             <button id="logo-btn" style="margin-top:0.5rem;">
             <span class="logo">CodeLog
             </span>
@@ -59,7 +59,7 @@
          </div>
 
 		<!-- 검색 창 -->
-        <div class="col-md-3 offset-2" style="margin-top: 1.2rem;" >
+        <div class="col-md-3 offset-1" style="margin-top: 1.2rem;" >
             <form style="width: 80%; margin-left:3rem;" action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group shadow-none">
                <input style="border-color:gary; border-right:none;" class="form-control mr-sm-2 shadow-none" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
                <button class="btn btn-outline-secondary my-2 my-sm-0 shadow-none" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159); border-left:none;"><i class="bi bi-search" style="color:white"></i></button>
@@ -263,8 +263,8 @@ $('#searchInput').keydown(function(){
 
             let listHtml = "";
             listHtml += "	<div class='' id=searchResult style='z-index: 10000; border-collapse: collapse; border:1px solid white; background-color:white; width:78%; margin-left:3rem'  >";
-            listHtml += "		<a style='text-decoration:none;' href='#' >";
-            listHtml += "			<img class='reply_list_profileImage' style='margin-top:0.20rem; border-radius: 70%; overflow: hidden;' width='40rem' src='img/pome3.jpg'/>&nbsp;&nbsp;<span>"+userId+"</span>";
+            listHtml += "		<a style='text-decoration:none;' href='${pageContext.request.contextPath}/user/userpage/"+userId+"' >";
+            listHtml += "			<img class='reply_list_profileImage' style='margin-top:0.20rem; border-radius: 70%; overflow: hidden;' width='40rem' src='<c:url value='/image/"+userId+"'/>'/><span style=''>&nbsp;&nbsp;&nbsp;"+userId+"</span>";
             listHtml += "		</a> ";
             listHtml += "	</div>";
             $("#toast_area").append(listHtml);

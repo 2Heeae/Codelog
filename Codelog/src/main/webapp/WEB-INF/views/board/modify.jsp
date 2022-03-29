@@ -44,11 +44,11 @@
 @import url("<c:url value='/css/toastTest.css'/>");
 @import url("<c:url value='/css/test.css'/>");
 .toastui-editor-md-html, .toastui-editor-md-link.toastui-editor-md-link-url.toastui-editor-md-marked-text,
-	.toastui-editor-md-meta {
-		position: absolute;
-	font-size: 1px !important;
-	overflow: hidden;
-	margin: -1px;
+   .toastui-editor-md-meta {
+      position: absolute;
+   font-size: 1px !important;
+   overflow: hidden;
+   margin: -1px;
    clip-path: polygon(0 0, 0 0, 0 0);
 }
 </style>
@@ -62,7 +62,7 @@
       class="write-bbs" enctype=multipart/form-data method="post">
       <!-- 글등록 페이지에 따로 작성자를 기입하지는 않으므로 현재 로그인 세션에서 작성자 명을 뽑아옵니다. -->
 
-	<input type="hidden" name="boardId" value="${dto2.boardId}">
+   <input type="hidden" name="boardId" value="${dto2.boardId}">
 
       <input type="hidden" name="writer" value="${loginSession.nickname}">
       <!-- 로그인 세션에 있는 사용자의 닉네임 -->
@@ -77,7 +77,7 @@
          <!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
       
             <div id="editor"> ${dto2.content} </div>
-	  <input id="modContent" type="hidden" name="content" value="">
+     <input id="modContent" type="hidden" name="content" value="">
          
  
  <script>
@@ -135,31 +135,29 @@
       <!--contanier 1개에 row 1개 col 2개로 영역 구분
         썸네일 직접 업로드 가능(기본값은 글 작성에 이미지를 넣었으면 그 중 최상단 이미지 없으면 null)
     -->
-
-
-      <div id="check">
-
-
-         <div class="container-down">
-
+<div id="check">
+      <div class="container-down">
+       
             <div class="row py-md-3" style="margin: 5% 15% 0% 15%">
 
-               <div class="col-md-6 px-md-4" style="margin: 0 auto; width:70%;">
-               <p class="my-md-1" style="font-weight: bold; font-size: 1.7rem; text-align: center; position: relative; top: 65px; left: -20px; ">포스터 미리보기</p>
-                  <div class="card" style="width: 90%; border:0; background-color: transparent;">
+               <div class="col-md-6 px-md-4" style="margin: 0 auto;">
+                  <p class="my-md-1" style="font-weight: bold; font-size: 1.7rem; text-align: center; position: relative; top: 65px; left: -20px; ">포스터 미리보기</p>
+                  <div class="card" style="width: 100%; height: 40rem; border: 0; background-color: transparent;">
 
                      <!--썸네일 부분-->
-              
-                     <div class="thumbnailBox" id="thumbnailBox" style="height: 300px; width:300px; position: relative;  text-align: center; top: 127px; left: -156px;">
-                        <img src="<c:url value='/image/display/${dto2.thumbnail}'/>" class="btn thumbnailBox" type="button" id="img-preview" onclick="document.all.thumbnailUpload.click();"
-                           style="width: 100%; height: 100%; position: relative"> 
-                           <input type="file" id="thumbnailUpload" name="thumbnailUpload" accept="image/*" onchange="readURL(this)"> 
-                           <input type="hidden" id="thumbnail" name="thumbnail">
+
+                     <div class="thumbnailBox" id="thumbnailBox" 
+                        style="height: 300px; width:300px; position: relative;  text-align: center; top: 127px; left: -156px;">                   
+                       <img src="<c:url value='/image/display/${dto2.thumbnail}'/>" class="btn" type="button" id="img-preview"
+                                    onclick="document.all.thumbnailUpload.click();"
+                                    style="width: 100%; height: 100%; position: relative">    
+                                        
+                        <input type="file" id="thumbnailUpload" name="thumbnailUpload" accept="image/*"
+                           onchange="readURL(this)">
+                           <input type="hidden"   id="thumbnail" name="thumbnail" value="${dto2.thumbnail }">
+                      
                      </div>
-                  </div>
-            
-            
-<script>
+                     <script>
 
     // start jQuery
     $(document).ready(function () {
@@ -182,8 +180,8 @@
          
          file = file.slice(file.indexOf('.') + 1).toLowerCase();
          console.log(file);
-         if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp') {
-            alert('이미지 파일(jpg, png, jpeg, bmp)만 등록이 가능합니다.');
+         if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp'  && file !== 'gif') {
+            alert('이미지 파일(jpg, png, jpeg, bmp, gif)만 등록이 가능합니다.');
             $('#thumbnailUpload').val('');
            return;            
          }
@@ -243,90 +241,60 @@
      </script>
 
                      <!--제목은 글작성 페이지에서 가져오기-->
-					
+                
                      <div class="card-body my-md-2 p-0 "
-                        style=" margin-bottom: 1rem; position: relative; bottom: 183px; left: 156px;">
-		
-						
+                        style=" margin-bottom: 1rem; position: relative; bottom: 160px; left: 156px;">
+                       
                         <!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
-                        <div class="form-floating" style="margin-top: 1rem; text-align:center;padding-top: 13px;" >
-                           <textarea class="thumbtext" placeholder="Leave a comment here" id="floatingTextarea" name="preview" style="width: 290px; height: 146px; resize: none;">${dto2.preview}</textarea>
-                           <span id="textL" style="">0</span>
-                           <span style="">/100</span>
-                           
+                        <div class="form-floating" style="margin-top: 1rem;">
+                           <textarea name="preview"  style="width: 100%; height: 6rem; resize: none;">${dto2.preview}</textarea>
+                           <span style="float: right">/100</span><span id="textL" style="float: right">0</span>
                         </div>
 
-                     <div class="row" style="margin-top: 1rem">
-                        <div class="form-check form-switch open" style="margin: 0% 0% 0% 75%; margin-top: 0.5rem; margin-bottom:1rem;" >
-                           <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked> 
-                           <label class="form-check-label" for="flexSwitchCheckDefault">전체 공개</label> 
-                           <input type="hidden" id="viewAll" name="viewAll" value="1">
-                           <br>
-                        </div>
-                        <div class="btn-group my-md-0" role="group" aria-label="Basic radio toggle button group" style="height: 2.7rem;">
-                           <input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off">
-                           <button type="button" class="btn btn-outline-primary hide" for="btnradio3" style="font-size: 1.3rem; width: 2rem; border: 0; color:rgb(148 180 159); border-color:rgb(148 180 159);">
-                              취소
-                           </button>
-                           &nbsp;&nbsp;&nbsp; 
-                           <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
-                           <button class="btn btn-outline-primary show px-md-0" for="btnradio4" style="font-size: 1.3rem; width: 2rem; background-color: rgb(148 180 159); border-color:rgb(148 180 159); color: white;">
-                              작성
-                           </button>
-                        </div>
-                     </div>
-                     </div>
                      
+                <div class="row" style="margin-top:1rem">
+                  <div class="form-check form-switch" style="margin: 1.5% 0% 0% 61.5%; margin-top:0.5rem">
+                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked>
+                     <label class="form-check-label" for="flexSwitchCheckDefault">전체 공개</label>
+                <input type="hidden" id="viewAll" name="viewAll" value="1">
+                  </div>
+                   <div class="btn-group my-md-0" role="group" aria-label="Basic radio toggle button group"
+                  style="height: 2.7rem;">
+
+                  <input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off">
+                  <button type="button" class="btn btn-outline-primary hide" for="btnradio3"
+                     style="font-size: 1.3rem; width: 2rem; color:rgb(148 180 159); border: 0">취소</button>
+                  &nbsp;&nbsp;&nbsp;
+                  <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
+                  <button class="btn btn-outline-primary show px-md-0" for="btnradio4" onclick="addContent();"
+                     style="font-size: 1.3rem;  width: 2rem; background-color: rgb(148 180 159); border-color:rgb(148 180 159); color: white;">작성</button>
+
+         
+      </div>
+               </div>
                   </div>
                </div>
-         
+               <!--내 글 공개 여부 설정 default값은 전체 공개-->
+                <!--내 글 공개 여부 설정 default값은 전체 공개-->
 
             </div>
+            
+  
+   </div>
 
+   </div>
+   </div>
 
-         </div>
-
-
+   </div>
    </form>
    <script>
       /*작성과 작성검토 부분을 버튼으로 연결함(버튼은 임시)
     up은 작성검토 페이지 화면으로 올리기 down은 내리기
     toggleclass사용
 */
-      
-      
+
 
       $(document).ready(function () {
-         //태그 기능 이벤트
-         var tag ={};
-         var counter = 0;
-         
-         
-         //글자수 많을시 처리 
-         $('#tag').keyup(function () {
-              var contentL = $(this).val().length;
-              console.log(contentL);
-              $('#textL').text(contentL);
-              if (contentL > 30) {
-                 $(this).val($(this).val().substring(0, 30));
-                 alert("태그가 너무 많아요!");
-
-              }
-           });
-         $('#tag').keypress(function(e){
-           
-            //엔터나 스페이스 누를때 실행
-            if(e.key === "Enter" || e.keyCode ==32){
-               
-               var tagValue = $(this).val();
-               
-               if(tagValue !== ""){
-                  
-               }
-            }
-         });
-         
-         
          $(".hide").click(function () {
             $("#articles").show();
             $("#check").hide();
@@ -343,31 +311,11 @@
              if(checkTitle == '') {alert("제목을 입력해주세요!"); return false;}
              if(checkTag == '') {alert("태그를 입력해주세요!"); return false; }
              
-            let content = editor.getHTML();
-              $('#test2').val(content);
             $("#check").show();
             $("#articles").hide();
             $("#check").toggleClass('fadeIn');
             $("#articles").toggleClass();
 
-          //태그
-            const info = {
-                  "tags": $('#tag').val(),
-                  "userId" : '${loginSession.userId}'
-            }
-            $.ajax({
-               type: 'post',
-               url : '<c:url value="/tag/regist"/>',
-               contentType : 'application/json',
-               dataType: 'text',
-               data : JSON.stringify(info),
-               success: function(result){
-                  console.log('태그 전송 성공 '+ result);
-               },
-               error: function(){
-                  console.log('태그 전송 실패 ')
-               }
-            });
 
 
          });
@@ -406,6 +354,10 @@
                alert("최대 100글자까지 가능합니다.");
 
             }
+            $('#textSlash').click(function () {
+               var content = $('.content').val();
+               $('.content').val(content + "~텍스트~");
+            })
          });
          
      

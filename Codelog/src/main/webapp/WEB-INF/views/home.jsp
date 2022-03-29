@@ -77,26 +77,26 @@
                   <div class="card" style="width: 8rem;">
 
                      <div class="card-body " id="day">
-                        <div style="text-align: right;">
+                        <div style="text-align: right;" id="day">
                            <span class="card-text"><strong id="day">오늘</strong></span>
                         </div>
                      </div>
 
                      <div class="card-body " id="week">
-                        <div style="text-align: right;">
+                        <div style="text-align: right;" id="week">
                            <span class="card-text"><strong id="week">이번 주</strong></span>
                         </div>
                      </div>
 
                      <div class="card-body " id="month">
-                        <div style="text-align: right;">
+                        <div style="text-align: right;" id="month">
                            <span class="card-text"><strong id="month">이번 달</strong></span>
                         </div>
                      </div>
 
 
                      <div class="card-body " id="year">
-                        <div style="text-align: right;">
+                        <div style="text-align: right;" id="year">
                            <span class="card-text"><strong id="year">올해</strong></span>
                         </div>
                      </div>
@@ -114,7 +114,7 @@
             <button type="button" class="btn c rounded-circle p-0 position-relative"
                style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
                href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample4">
-               <span id="allChk" class="m-0 pop" style="font-size: 1.1rem; color:rgb(148 180 159); font-weight:bold;">
+               <span id="allChk" allChk = "${allChk}" class="m-0 pop" style="font-size: 1.1rem; color:rgb(148 180 159); font-weight:bold;">
                <c:choose>
                   <c:when test="${allChk=='fol'}">팔로워</c:when>
                   <c:when test="${allChk=='all'}">모든 사람</c:when>
@@ -154,9 +154,7 @@
          </div>
       </div>
    <!-- 최신, 트랜딩 밑줄 애니매이션 -->
-   <div id="tot"  style="<c:choose><c:when test="${trending==true && fromR==false}">margin-left:7.7rem;</c:when>
-      <c:otherwise>margin-left:0.7rem;</c:otherwise></c:choose>width: 5rem; height: 0.1rem; background-color: black;" >
-   </div>
+  
    
    </div>   
       
@@ -396,15 +394,17 @@
         var boardId = $("#posterbox .poster").last().data('bno');
         var likes = $("#posterbox .poster").last().data('lno');
         var period = $("#period").text;
-        var allChk = $("#allChk").text;
-        
+        var allChk = $("#allChk").attr("allChk");
 
+
+        if(allChk == 'fol'){allChk=2;}else{allChk=1};
         
       var lastPoster = $("#start");
         console.log(lastPoster);
 
       console.log("보드아이디: "+boardId);
       console.log("좋아요: "+likes);
+      console.log("올첵: "+allChk);
          
          console.log("i값은 "+i);
         const info = {
@@ -438,14 +438,15 @@
                                 
                         console.log('-------------------');
                         console.log(this.boardId);
-                                console.log(boardId);
+                        console.log("썸네일"+this.thumbnail);
+                        console.log('-------------------');
                                 console.log('-------------------');
                                 
                            var str ="";
                            str += "<div class=" + "'col-md-4 px-md-4 py-md-4'"+">"
                            + "<div class="+"'card poster'"+" style="+"'width: 100%; height: 27rem;'"+ "data-bno='"+this.boardId+"'"+"data-lno='"+this.likes+"'>"
                                + "<a href="+"${pageContext.request.contextPath}/boardController/board?boardId=${Poster.boardId}"+" class="+"'stretched-link'"+"></a>"
-                                   + "<img src="+"'img/cat.jpg'"+ "class="+"'card-img-top'"+" alt="+"'...'"+">"
+                                   + "<img src="+"'<c:url value='/image/display/"+this.thumbnail+"'/>'/>"+ "class="+"'card-img-top'"+" alt="+"'...'"+">"
                                + "<div class="+"'card-body'"+ " >"
                                + "<strong>타이틀"+this.title+"보드아이디"+this.boardId+"</strong>"
                            + "<p class="+"'card-text'"+" style="+"'padding-top: 0.3rem;'"+">"+this.preview+"</p></div>"
@@ -511,14 +512,15 @@
                             
                      console.log('-------------------');
                      console.log(this.boardId);
-                            console.log(boardId);
+                           // console.log(boardId);
+                            console.log("썸네일"+this.thumbnail);
                             console.log('-------------------');
                             
                         var str ="";
                         str += "<div class=" + "'col-md-4 px-md-4 py-md-4'"+">"
                         + "<div class="+"'card poster'"+" style="+"'width: 100%; height: 27rem;'"+ "data-bno='"+this.boardId+"'"+"data-lno='"+this.likes+"'>"
                             + "<a href="+"'aa'"+" class="+"'stretched-link'"+"></a>"
-                               + "<img src="+"'img/cat.jpg'"+ "class="+"'card-img-top'"+" alt="+"'...'"+">"
+                               + "<img src="+"'<c:url value='/image/display/"+this.thumbnail+"'/>'/>"+ "class="+"'card-img-top'"+" alt="+"'...'"+">"
                            + "<div class="+"'card-body'"+ " >"
                            + "<strong>타이틀"+this.title+"보드아이디"+this.boardId+"</strong>"
                         + "<p class="+"'card-text'"+" style="+"'padding-top: 0.3rem;'"+">"+this.preview+"</p></div>"

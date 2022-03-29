@@ -163,7 +163,7 @@
          <hr>
                <c:if test="${not empty tagCount }">
             <c:forEach var ="tag" items="${tagCount}" varStatus="status">
-             		<a href="${pageContext.request.contextPath}//search?keyword=${tag.key}"> ${tag.key} &nbsp;(${tag.value})<br></a>
+             		<a href="${pageContext.request.contextPath}/search?keyword=${tag.key}"> ${tag.key} &nbsp;(${tag.value})<br></a>
              </c:forEach>
          </c:if>
       </div>
@@ -225,7 +225,7 @@
                               <div
                                  style="display: inline-block; float: right; margin-top: 0.13rem">
                                  <i class="fa-solid fa-comment" style="color:black;"></i> <span
-                                    style="margin-right: 0.5rem;" class="">3</span> <i
+                                    style="margin-right: 0.5rem;" class="">${Poster.recnt }</span> <i
                                     class="fa-solid fa-heart"style="color:black;"></i><span class="mx-md-1">${Poster.likes}</span>
                               </div>
                            </div>
