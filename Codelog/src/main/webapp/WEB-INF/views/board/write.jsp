@@ -162,7 +162,7 @@
 
                      <!--썸네일 부분-->
               
-                     <div class="thumbnailBox" id="thumbnailBox" style="height: 19rem; width:100%; position: relative;  text-align: center; top: 127px; left: -176px;">
+                     <div class="thumbnailBox" id="thumbnailBox" style="height: 300px; width:300px; position: relative;  text-align: center; top: 127px; left: -156px;">
                         <img src="<c:url value='/img/change.jpg'/>" class="btn thumbnailBox" type="button" id="img-preview" onclick="document.all.thumbnailUpload.click();"
                            style="width: 100%; height: 100%; position: relative"> 
                            <input type="file" id="thumbnailUpload" name="thumbnailUpload" accept="image/*" onchange="readURL(this)"> 
@@ -257,12 +257,12 @@
                      <!--제목은 글작성 페이지에서 가져오기-->
 					
                      <div class="card-body my-md-2 p-0 "
-                        style=" margin-bottom: 1rem; position: relative; bottom: 183px; left: 165px;">
+                        style=" margin-bottom: 1rem; position: relative; bottom: 183px; left: 156px;">
 		
 						
                         <!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
-                        <div class="form-floating" style="margin-top: 1rem; text-align:center;" >
-                           <textarea class="thumbtext" placeholder="Leave a comment here" id="floatingTextarea" name="preview" style="width: 80%; height: 10rem; resize: none;"></textarea>
+                        <div class="form-floating" style="margin-top: 1rem; text-align:center;padding-top: 13px;" >
+                           <textarea class="thumbtext" placeholder="Leave a comment here" id="floatingTextarea" name="preview" style="width: 290px; height: 146px; resize: none;"></textarea>
                            <span id="textL" style="">0</span>
                            <span style="">/100</span>
                            
