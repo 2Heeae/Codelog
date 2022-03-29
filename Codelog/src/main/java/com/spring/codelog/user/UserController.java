@@ -3,12 +3,9 @@ package com.spring.codelog.user;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Iterator;
-=======
 import java.util.ArrayList;
->>>>>>> main
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -209,7 +206,12 @@ public class UserController {
 		System.out.println("followinglist: "+ followingList);
 		System.out.println("userInfo: "+userInfo);
 		System.out.println("userInfo의 보드리스트: "+userInfo.getBoardList());
-
+		//태그 갯수 출력
+	    List<Map<String, Object>> tagmap = tagService.countTags(user.getUserId());
+		    Map<String, Object> realMap = new HashMap<>();
+		    for(Map<String, Object> map : tagmap) {
+		    	realMap.put((String) map.get("TAG_NAME"), map.get("COUNT(*)"));
+		    }
 		
 		//태그리스트 부르기
 		List<String> tagList =tagService.listbyuId(id);
@@ -222,6 +224,7 @@ public class UserController {
 		mv.addObject("followingList", followingList);
 		mv.addObject("id", user.getUserId());
 		mv.addObject("tagList", tagList);
+		mv.addObject("tagCount", realMap);
 		mv.setViewName("user/userpage");
 		return mv;
 	}
