@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,7 +107,9 @@
                               <span class="card-text"><strong>${a.msg}</strong></span>
 
 
-                              <p class="pt-1" style="font-size: 0.8rem;">${a.regDate}</p>
+                              <p class="pt-1" style="font-size: 0.8rem;">
+                              	<fmt:formatDate value="${a.regDate}" pattern="yy/MM/dd" />
+                              </p>
 
                            </div>
                         </div>
@@ -374,13 +377,6 @@ $('#searchInput').keydown(function(){
                
                location.href= "<c:url value='/user/userpage/${dto.userId}'/>";
             });   
-         
-         //종 알림 알림 클릭 시 이벤트 처리
-         $('.alarm-list').click(function() {
-            console.log('알람리스트 클릭 됨');
-            
-            
-         });
             
      }); //end jQuery     
          

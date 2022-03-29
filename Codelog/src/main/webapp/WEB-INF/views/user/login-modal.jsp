@@ -123,14 +123,14 @@
 		//1. ID 입력값 검증
 		$('#user-id').keyup(function() {
 			if($(this).val() === '') {
-				$(this).css('border-color', 'red');
-				$('#id-msg').html('<b style="font-size: 14px; color: red">[아이디를 입력하세요.]</b>');
+				$(this).css('border-color', 'FF8882');
+				$('#id-msg').html('<b style="font-size: 14px; color: FF8882">[아이디를 입력하세요.]</b>');
 				chk1 = false;
 			}
 			//아이디 입력값 유효성 검사 (영문, 숫자 4~14자 허용)
 			else if(!get_id_check.test($(this).val())) {
-				$(this).css('border-color', 'red');
-				$('#id-msg').html('<b style="font-size: 14px; color: red">[아이디는 영문, 숫자 조합으로 4~14자로 입력하세요.]</b>');
+				$(this).css('border-color', 'FF8882');
+				$('#id-msg').html('<b style="font-size: 14px; color: FF8882">[아이디는 영문, 숫자 조합으로 4~14자로 입력하세요.]</b>');
 				chk1 = false;
 			}
 			//ID 중복 확인 (비동기)
@@ -154,8 +154,8 @@
 							$('#id-msg').html('<b style="font-size: 14px; color: blue">[사용 가능한 아이디입니다.]</b>');
 							chk1 = true;
 						} else {
-							$('#user-id').css('border-color', 'red');
-							$('#id-msg').html('<b style="font-size: 14px; color: red">[아이디가 중복되었습니다.]</b>');
+							$('#user-id').css('border-color', 'FF8882');
+							$('#id-msg').html('<b style="font-size: 14px; color: FF8882">[아이디가 중복되었습니다.]</b>');
 							chk1 = false;
 						}
 					},
@@ -171,14 +171,14 @@
 		$('#user-pw').keyup(function() {
 			//비밀번호란 공백
 			if($(this).val() === '') {
-				$(this).css('border-color', 'red');
-				$('#pw-msg').html('<b style="font-size: 14px; color: red">[비밀번호를 입력하세요.]</b>');
+				$(this).css('border-color', '#FF8882');
+				$('#pw-msg').html('<b style="font-size: 14px; color: #FF8882">[비밀번호를 입력하세요.]</b>');
 				chk2 = false;
 			}
 			//비밀번호 유효성 검사
 			else if(!get_pw_check.test($(this).val()) || $(this).val().length < 8) {
-				$(this).css('border-color', 'red');
-				$('#pw-msg').html('<b style="font-size: 14px; color: red">[영어 대문자, 소문자, 숫자, 특수문자를 각각 하나 이상 포함하여 8~16자]</b>');
+				$(this).css('border-color', '#FF8882');
+				$('#pw-msg').html('<b style="font-size: 14px; color: #FF8882">[영어 대문자, 소문자, 숫자, 특수문자를 각각 하나 이상 포함하여 8~16자]</b>');
 				chk2 = false;
 			}
 			//통과
@@ -193,14 +193,14 @@
 		$('#user-pw-check').keyup(function() {
 			//비밀번호 확인란 공백 검증
 			if($(this).val() === '') {
-				$(this).css('border-color', 'red');
-				$('#pw-check-msg').html('<b style="font-size: 14px; color: red">[비밀번호를 다시 한 번 입력하세요.]</b>');
+				$(this).css('border-color', '#FF8882');
+				$('#pw-check-msg').html('<b style="font-size: 14px; color: #FF8882">[비밀번호를 다시 한 번 입력하세요.]</b>');
 				chk3 = false;
 			}
 			//비밀번호 확인란 유효성 검사
 			else if($(this).val() !== $('#user-pw').val()) {
-				$(this).css('border-color', 'red');
-				$('#pw-check-msg').html('<b style="font-size: 14px; color: red">[비밀번호와 일치하지 않습니다.]</b>');
+				$(this).css('border-color', '#FF8882');
+				$('#pw-check-msg').html('<b style="font-size: 14px; color: #FF8882">[비밀번호와 일치하지 않습니다.]</b>');
 				chk3 = false;
 			} else {
 				$(this).css('border-color', 'blue');
@@ -212,14 +212,14 @@
 		//4. 닉네임 입력값 검증
 		$('#user-nick').keyup(function() {
 			if($(this).val() === '') {
-				$(this).css('border-color', 'red');
-				$('#nick-msg').html('<b style="font-size: 14px; color: red">[닉네임을 입력하세요.]</b>');
+				$(this).css('border-color', '#FF8882');
+				$('#nick-msg').html('<b style="font-size: 14px; color: #FF8882">[닉네임을 입력하세요.]</b>');
 				chk4 = false;
 			}
 			//닉네임값 유효성 검사
 			else if(!get_nick_check.test($(this).val())) {
-				$(this).css('border-color', 'red');
-				$('#nick-msg').html('<b style="font-size: 14px; color: red">[닉네임은 한글, 영어, 숫자 2~20자로 입력하세요.]</b>');
+				$(this).css('border-color', '#FF8882');
+				$('#nick-msg').html('<b style="font-size: 14px; color: #FF8882">[닉네임은 한글, 영어, 숫자 2~20자로 입력하세요.]</b>');
 				chk4 = false;
 			} else {
 				$(this).css('border-color', 'blue');
@@ -231,12 +231,12 @@
 		//5. 이메일1 입력값 검증
 	    $('#email1').keyup(function() {
 			if($(this).val() === '') {
-				$(this).css('border-color', 'red');
-				$('#email-msg').html('<b style="font-size: 14px; color: red">[이메일 주소를 입력하세요.]</b>');
+				$(this).css('border-color', '#FF8882');
+				$('#email-msg').html('<b style="font-size: 14px; color: #FF8882">[이메일 주소를 입력하세요.]</b>');
 				chk5 = false;
 			} else if(!get_email1_check.test($(this).val())) {
-				$(this).css('border-color', 'red');
-				$('#email-msg').html('<b style="font-size: 14px; color: red">[이메일 주소를 다시 입력하세요.]</b>');
+				$(this).css('border-color', '#FF8882');
+				$('#email-msg').html('<b style="font-size: 14px; color: #FF8882">[이메일 주소를 다시 입력하세요.]</b>');
 				chk5 = false;
 			} else {
 				$(this).css('border-color', 'blue');
@@ -260,12 +260,12 @@
 				//이메일2 입력값 검증 시작
 				$('#email2-input').keyup(function() {
 		    		if($(this).val() === '') {
-						$(this).css('border-color', 'red');
-						$('#email-msg').html('<b style="font-size: 14px; color: red">[이메일 주소를 입력하세요.]</b>');
+						$(this).css('border-color', '#FF8882');
+						$('#email-msg').html('<b style="font-size: 14px; color: #FF8882">[이메일 주소를 입력하세요.]</b>');
 						chk6 = false;
 					} else if(!get_email2_check.test($(this).val())) {
-						$(this).css('border-color', 'red');
-						$('#email-msg').html('<b style="font-size: 14px; color: red">[이메일 주소를 다시 입력하세요.]</b>');
+						$(this).css('border-color', '#FF8882');
+						$('#email-msg').html('<b style="font-size: 14px; color: #FF8882">[이메일 주소를 다시 입력하세요.]</b>');
 						chk6 = false;
 					} else {
 						$(this).css('border-color', 'blue');
@@ -339,12 +339,12 @@
 		//로그인 ID 입력값 검증(공백, 정규표현식)
 		$('#login-id').keyup(function() {
 			if($(this).val() === '') {
-				$(this).css('border-color', 'red');
-				$('#login-id-msg').html('<b style="font-size: 14px; color: red">[아이디를 입력하세요.]</b>');
+				$(this).css('border-color', '#FF8882');
+				$('#login-id-msg').html('<b style="font-size: 14px; color: #FF8882">[아이디를 입력하세요.]</b>');
 				chk1 = false;
 			} else if(!get_id_check.test($(this).val())) {
-				$(this).css('border-color', 'red');
-				$('#login-id-msg').html('<b style="font-size: 14px; color: red">[아이디를 다시 확인해주세요.]</b>');
+				$(this).css('border-color', '#FF8882');
+				$('#login-id-msg').html('<b style="font-size: 14px; color: #FF8882">[아이디를 다시 확인해주세요.]</b>');
 				chk1 = false;
 			} else {
 				$(this).css('border-color', 'blue');
@@ -356,12 +356,12 @@
 		//로그인 PW 입력값 검증(공백, 정규표현식)
 		$('#login-pw').keyup(function() {
 			if($(this).val() === '') {
-				$(this).css('border-color', 'red');
-				$('#login-pw-msg').html('<b style="font-size: 14px; color: red">[비밀번호를 입력하세요.]</b>');
+				$(this).css('border-color', '#FF8882');
+				$('#login-pw-msg').html('<b style="font-size: 14px; color: #FF8882">[비밀번호를 입력하세요.]</b>');
 				chk2 = false;
 			} else if(!get_pw_check.test($(this).val())) {
-				$(this).css('border-color', 'red');
-				$('#login-pw-msg').html('<b style="font-size: 14px; color: red">[비밀번호를 다시 확인해주세요.]</b>');
+				$(this).css('border-color', '#FF8882');
+				$('#login-pw-msg').html('<b style="font-size: 14px; color: #FF8882">[비밀번호를 다시 확인해주세요.]</b>');
 				chk2 = false;
 			} else {
 				$(this).css('border-color', 'blue');

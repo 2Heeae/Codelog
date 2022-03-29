@@ -38,6 +38,8 @@ import com.spring.codelog.board.service.ReplyService;
 import com.spring.codelog.board.service.PostLikeService;
 import com.spring.codelog.board.service.TagService;
 import com.spring.codelog.user.model.UserVO;
+import com.spring.codelog.util.websocket.model.NotificationVO;
+import com.spring.codelog.util.websocket.servcice.NotificationService;
 
 
 @Controller
@@ -49,6 +51,8 @@ public class BoardController {
 	@Autowired
 	ReplyService service2;
 
+	@Autowired
+	NotificationService notiService;
 
 	@Autowired
 	PostLikeService likeService;
@@ -148,8 +152,10 @@ public class BoardController {
         
         int like = 0;
         
-        //좋아요 처리
+        
         if(session.getAttribute("loginSession") != null) {
+        	
+    	    //좋아요 처리
         	PostLikeVO vo = new PostLikeVO();
         	UserVO user = (UserVO) session.getAttribute("loginSession");
         	
@@ -167,6 +173,14 @@ public class BoardController {
         	} else {
         		like = likeService.getLikeInfo(vo);
         	}
+        	
+        	//알림 가져오기
+    		List<NotificationVO> alarmList = new ArrayList<>();
+    		alarmList = notiService.alarm(viewUserId);
+    	    System.out.println("알림받을사람: " + viewUserId);
+    	    mav.addObject("alarm", alarmList);
+    	    mav.addObject("countAlarm", notiService.countAlarm(viewUserId));
+    	    //알림가져오기 끝
         	
         }
         
