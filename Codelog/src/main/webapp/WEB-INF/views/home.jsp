@@ -34,10 +34,10 @@
          
          <form action="<c:url value='/'/>" method="post">
          <c:if test="${trending==true }"><input type="hidden" name=fromT value="true"></c:if>
-         <button type="submit" id="recent" class="btn z lo c p-0"
-               style="margin-left: 0.3rem;background-color:transparent; border-color: transparent;  <c:if test="${recent==true }">font-weight: bold; color: black;</c:if>">
-               <i class="fa-regular fa-clock fa-1x mx-md-1"></i>
-               <span class="m-0" style="font-size: 1.1rem;">최신</span>
+         <button type="submit" id="recent" class="btn z lo c p-0 pop"
+               style="margin-left: 0.3rem;background-color:transparent; border-color: transparent;  <c:if test="${recent==true }">font-weight: bold; color: rgb(148 180 159)!important;</c:if>">
+               <i class="fa-regular fa-clock fa-1x mx-md-1 pop"></i>
+               <span class="m-0 pop" style="font-size: 1.2rem;">최신</span>
          </button></form>
          
          </div>
@@ -46,10 +46,10 @@
          <div class="col-md-1 px-md-0" >
          <form action="<c:url value='/trending'/>" method="post">
          <c:if test="${recent==true}"><input type="hidden" name=fromR value="true"></c:if>
-         <button type="submit" id="trend" class="btn z c lo p-0"
-               style="background-color:transparent; border-color: transparent; <c:if test="${trending==true }">font-weight: bold; color: black;</c:if>"><i
-                  class="fa-solid fa-arrow-trend-up fa-1x mx-md-1"></i>
-                  <span class="m-0" style="font-size: 1.1rem;">트랜딩</span>
+         <button type="submit" id="trend" class="btn z c lo p-0 pop"
+               style="background-color:transparent; border-color: transparent; <c:if test="${trending==true }">font-weight: bold; color: rgb(148 180 159)!important;</c:if>">
+                <i class="fa-solid fa-arrow-trend-up fa-1x mx-md-1 pop"></i>
+                  <span class="m-0 pop" style="font-size: 1.2rem;">트랜딩</span>
          </button></form>
          </div>
                      
@@ -61,7 +61,7 @@
             <button type="button" class="btn c rounded-circle p-0 position-relative"
                style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
                href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
-               <span id ="period" class="m-0" id="dateT" style="font-size: 1.1rem;">
+               <span id ="period" class="m-0 pop" id="dateT" style="font-size: 1.2rem;">
                <c:choose>
                   <c:when test="${period=='year'}">올해</c:when>
                   <c:when test="${period=='month'}">이번 달</c:when>
@@ -75,26 +75,26 @@
                   style="position: absolute; width: 10rem; top:2.5rem; left: -3.6rem; z-index: 1000;">
                   <div class="card" style="width: 8rem;">
 
-                     <div class="card-body cc" id="day">
+                     <div class="card-body " id="day">
                         <div style="text-align: right;">
                            <span class="card-text"><strong>오늘</strong></span>
                         </div>
                      </div>
 
-                     <div class="card-body cc" id="week">
+                     <div class="card-body " id="week">
                         <div style="text-align: right;">
                            <span class="card-text"><strong>이번 주</strong></span>
                         </div>
                      </div>
 
-                     <div class="card-body cc" id="month">
+                     <div class="card-body " id="month">
                         <div style="text-align: right;">
                            <span class="card-text"><strong>이번 달</strong></span>
                         </div>
                      </div>
 
 
-                     <div class="card-body cc" id="year">
+                     <div class="card-body " id="year">
                         <div style="text-align: right;">
                            <span class="card-text"><strong>올해</strong></span>
                         </div>
@@ -113,28 +113,28 @@
             <button type="button" class="btn c rounded-circle p-0 position-relative"
                style="background-color:transparent; border-color: transparent;" data-bs-toggle="collapse"
                href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample4">
-               <span id="allChk" class="m-0" style="font-size: 1.1rem;">
+               <span id="allChk" class="m-0 pop" style="font-size: 1.1rem;">
                <c:choose>
                   <c:when test="${allChk=='fol'}">팔로워</c:when>
                   <c:when test="${allChk=='all'}">모든 사람</c:when>
                   <c:otherwise>팔로워</c:otherwise>
                </c:choose>
                
-               <i class="fa-solid fa-caret-down mx-md-1"></i></span>
+               <i class="fa-solid fa-caret-down mx-md-1 pop"></i></span>
 
                <div class="collapse" id="collapseExample4"
                   style="position: absolute; width: 10rem; top:2.5rem; left: -3.6rem; z-index: 1000;">
                   <div class="card" style="width: 8rem;">
 
-                     <div class="card-body cc" id="all">
+                     <div class="card-body " id="all">
                         <div style="text-align: right;" id="all">
-                           <span class="card-text" id="all"><strong id="all">모든 사람</strong></span>
+                           <span class="card-text" id="all"><strong class="pop" id="all">모든 사람</strong></span>
                         </div>
                      </div>
 
-                     <div class="card-body cc" id="fol">
+                     <div class="card-body " id="fol">
                         <div style="text-align: right;" id="fol">
-                           <span class="card-text" id="fol"><strong id="fol">팔로워</strong></span>
+                           <span class="card-text" id="fol"><strong class="pop" id="fol">팔로워</strong></span>
                         </div>
                      </div>
 

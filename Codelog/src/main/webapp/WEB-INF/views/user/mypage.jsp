@@ -226,9 +226,9 @@
                               </div>
                               <div
                                  style="display: inline-block; float: right; margin-top: 0.13rem">
-                                 <i class="fa-solid fa-comment" style=""></i> <span
+                                 <i class="fa-solid fa-comment" style="color:black;"></i> <span
                                     style="margin-right: 0.5rem;" class="">3</span> <i
-                                    class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes}</span>
+                                    class="fa-solid fa-heart"style="color:black;"></i><span class="mx-md-1">${Poster.likes}</span>
                               </div>
                            </div>
                         </div>
