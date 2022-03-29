@@ -565,7 +565,7 @@
 	    let userNo = $(".write_reply").attr('userNo');
 	    
 	    // 소켓 메세지에 보낼 내용(댓작성자id? 닉네임?, 글작성자id)
-	    msg = 'reply' + ',' + writer + ',' + '{dto.userId}';
+	    msg = 'reply' + ',' + writer + ',' + '${dto.userId}';
 	    
 	    if(content == ""){	// 입력된게 없을때
 	        alert("댓글을 입력하세요!");
@@ -980,6 +980,7 @@
 			console.log(post_like);
 			console.log(writer);
 			msg = "like" + "," + view_user_id + "," + writer + "," + post_like; //소켓메세지 보낼 값
+
 			const data = {
 				"viewUserId" : view_user_id, //글 보는사람 아이디값
 				"boardId" : ${dto.boardId}, //글번호

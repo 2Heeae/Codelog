@@ -15,4 +15,5 @@ public class NotificationVO {
 	private int notiNo;
 	private String receiver;
 	private String msg;
+	private String sender;
 }
