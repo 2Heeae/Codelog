@@ -161,6 +161,15 @@
             
 <script>
 
+
+//enter 입력으로 인한 submit 방지(null값 전송 방지)
+$('input[type="text"]').keydown(function() {
+	  if (event.keyCode === 13) {
+		    event.preventDefault();
+		  };
+		});
+    
+
     // start jQuery
     $(document).ready(function () {
        
@@ -182,8 +191,8 @@
          
          file = file.slice(file.indexOf('.') + 1).toLowerCase();
          console.log(file);
-         if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp') {
-            alert('이미지 파일(jpg, png, jpeg, bmp)만 등록이 가능합니다.');
+         if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp'  && file !== 'gif') {
+            alert('이미지 파일(jpg, png, jpeg, bmp, gif)만 등록이 가능합니다.');
             $('#thumbnailUpload').val('');
            return;            
          }
