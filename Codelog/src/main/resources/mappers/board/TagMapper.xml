@@ -28,9 +28,10 @@
 	</delete>
 	
 	<select id="countTags" resultType="map">
-	   SELECT tag_name, count(*)
+	   SELECT tag_name, count(*) AS cnt
 	   FROM tags
 	   WHERE user_id = #{userId}
 	   GROUP BY tag_name
+	   ORDER BY cnt DESC
 	</select>
 </mapper>
