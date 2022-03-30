@@ -225,13 +225,13 @@
 	
 $('#searchInput').keydown(function(){
 		
-		$('#searchResult').remove();
+    $("#toast-area").children().remove();
 	
 	});
 
 	
 	$('#searchInput').keyup(function(){
-		$('#searchResult').remove();
+		$("#toast-area").children().remove();
 
 		let x = $('#searchInput').val();
 		console.log("x는 "+x);
@@ -251,7 +251,7 @@ $('#searchInput').keydown(function(){
 			        	"userId" : x
 			        }),
 			        success : function(pto) {
-			    		$('#searchResult').remove();
+			        	$("#toast-area").children().remove();
 
 			        	console.log(pto);
 			        	console.log("성공");
@@ -263,13 +263,13 @@ $('#searchInput').keydown(function(){
             let listHtml = "";
             listHtml += "	<div class='' id=searchResult style='z-index: 10000; border-collapse: collapse; border:1px solid white; background-color:white; width:78%; margin-left:3rem'  >";
             listHtml += "		<a style='text-decoration:none;' href='${pageContext.request.contextPath}/user/userpage/"+userId+"' >";
-            listHtml += "			<img class='reply_list_profileImage' style='margin-top:0.20rem; border-radius: 70%; overflow: hidden;' width='40rem' src='<c:url value='/image/"+userId+"'/>'/><span style=''>&nbsp;&nbsp;&nbsp;"+userId+"</span>";
+            listHtml += "			<img class='reply_list_profileImage' style='margin-top:0.20rem; border-radius: 70%; overflow: hidden;' width='40rem' src='<c:url value='/image/"+userId+"'/>'/><span style='font-color: rgb(148, 180, 159);'>&nbsp;&nbsp;&nbsp;"+userId+"</span>";
             listHtml += "		</a> ";
             listHtml += "	</div>";
             $("#toast-area").append(listHtml);
 			             }
 			        	} else {
-				    		$('#searchResult').remove();
+			        		$("#toast-area").children().remove();
 
 			        	}
 			        },

@@ -163,11 +163,11 @@
 		<div class="col-md-2 tags">
 			태그목록
 			<hr>
-			       <c:if test="${not empty tagCount }">
-            <c:forEach var ="tag" items="${tagCount}" varStatus="status">
-             		<a href="${pageContext.request.contextPath}/search?keyword=${tag.key}"> ${tag.key} &nbsp;(${tag.value})<br></a>
-             </c:forEach>
-			</c:if>
+			        <c:if test="${not empty tagKey }">            
+            <c:forEach var ="key" items="${tagKey}" varStatus="status" >              
+             		<a href="${pageContext.request.contextPath}/searchByTag?keyword=${key}"> ${key} &nbsp;(${tagValue[status.index]})<br></a>            		
+             </c:forEach>  
+         </c:if>
 		</div>
 		<!--게시글들 -->
 		<div class="col-md-10">

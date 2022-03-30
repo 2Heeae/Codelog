@@ -51,31 +51,14 @@ public class HomeController {
 	      model.addAttribute("recent", true);
 	      model.addAttribute("trending", false);
 	      model.addAttribute("i", 3);
-	      if(fromT!=null) {
-	      if(fromT.equals("true")) {
-	    	  model.addAttribute("fromT", true);
-	    	  model.addAttribute("fromR", false);
-
-	      }
-	      }
-	      else {
-	    	  model.addAttribute("fromT", false);
-	    	  model.addAttribute("fromR", false);
-	      }    
+	      
 	      
 	   
 	   HttpSession session = request.getSession();
 	   if(session.getAttribute("loginSession")!=null) {
 		   UserVO login = (UserVO)session.getAttribute("loginSession");
 		   
-		   //알림 가져오기
-		   //String receiver = login.getUserId();
-		   //System.out.println("알림받을사람: " + receiver);
-		   //System.out.println("알림 가져오기: " + notiService.alarm(receiver));
-		   //System.out.println("알림 갯수 가져오기: " + notiService.countAlarm(receiver));
-		   //model.addAttribute("alarm", notiService.alarm(receiver));
-		   //model.addAttribute("countAlarm", notiService.countAlarm(receiver));
-		   //알림가져오기 끝
+		
 		 		   
 		   System.out.println("로그인 중 id: "+login.getUserId());
 		   System.out.println("들어온 allChk"+allChk);
