@@ -75,11 +75,22 @@ public class ImgController {
 	@GetMapping("/display/{thumbnail}")
 	public ResponseEntity<byte[]> getFile(@PathVariable("thumbnail") String thumbnail, HttpSession session) {
 		String fileName = thumbnail;
-		System.out.println("썸네일이미지 보여주기!!!!!!!!!!!!!----------------------- ");
 		System.out.println("fileName: " + fileName);
 
-		File file = new File("C:\\test\\thumbnail\\" + fileName);
-		System.out.println(file);
+		
+		
+		File file;
+		
+		if(fileName == null || fileName.equals("null")) {
+			file = new File("C:\\test\\thumbnail\\codelog.png");
+			
+		} else {
+			file = new File("C:\\test\\thumbnail\\" + fileName);
+			System.out.println(file);
+			
+		}		
+		
+		
 
 		ResponseEntity<byte[]> result = null;
 		System.out.println(result);
