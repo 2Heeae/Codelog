@@ -82,7 +82,7 @@
             <button type="button" id="notification-btn" class="btn rounded-circle position-relative c mx-md-1  px-md-3 hc" role="button" aria-expanded="false">
             <!--알림 아이콘, 알림개수-->
                <i class="fa-regular fa-bell ic"></i>
-               <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style="left: 2.8rem;">
+               <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger" id="alarm-badge" style="left: 2.8rem;">
                   ${countAlarm}
                   <span class="visually-hidden">unread messages</span>
                </span>
@@ -94,7 +94,7 @@
 
                      <!--알림 목록 내용-->
                      <c:forEach var="a" items="${alarm}">
-                      <div class="card-body" style=" height: 6rem;">
+                      <div class="card-body" style=" height: 6rem;" id="${a.notiNo}">
                         <div class="row alarm-list">
                            <div class="col-md-3">
                               <a href="${pageContext.request.contextPath}/user/userpage/${a.sender}" class="stretched-link" style="position: relative; text-decoration: none;">
@@ -110,7 +110,7 @@
 
                            </div>
                            <div class="col-md-1">
-                              <a class="btn-close shadow-none" data-bs-dismiss="card-body" aria-label="Close">X</a>
+                              <a class="btn-close" data-bs-dismiss="card-body" aria-label="Close"></a>
                            </div>
                         </div>
                      </div>
@@ -403,6 +403,37 @@ $('#searchInput').keydown(function(){
 			//이벤트 전파 방지 (알림 리스트 클릭시 바로 닫혀버려서 추가함)
 			$('#notification').click(function(e) {
 				e.stopPropagation();
+			});
+			
+			//개별 알림 x버튼 클릭 시 삭제 이벤트
+			$('.btn-close').click(function(e) {
+				let target_noti = $(event.target).parent().prev().prev().parent().parent();
+				let notiNo = target_noti.attr('id');
+				
+				if($('#alarm-badge').text() != 1) {
+		        	$('#alarm-badge').text(${countAlarm} - 1);
+	        	} else {
+	        		$('#alarm-badge').text(0);
+	        	}
+				//console.log(target_num);
+				//console.log(notiNo);
+				
+				$.ajax({ //ajax 시작
+			        url : '<c:url value="/user/deleteAlarm" />',
+			        type : 'POST',
+			        contentType : 'application/json',
+					dataType : 'text',
+		            data : notiNo,
+			        success : function() {
+			        	console.log("통신 성공!");
+			        	target_noti.remove();
+			        	location.reload();
+			        },
+			        error : function(status, error) {
+			            alert('통신 실패!');
+			        }
+				}); //ajax 끝
+				
 			});
 			
 			

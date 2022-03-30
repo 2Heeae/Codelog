@@ -10,11 +10,12 @@
 		<result property="msg" column="msg" />	
 		<result property="sender" column="sender" />	
 		<result property="regDate" column="reg_date" />	
+		<result property="category" column="category" />	
 	</resultMap>
 	
 	<insert id="saveNotification">
-		INSERT INTO notification(noti_no, receiver, msg, sender, reg_date)
-		VALUES(notify_seq.NEXTVAL, #{receiver}, #{msg}, #{sender}, to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'))
+		INSERT INTO notification(noti_no, receiver, msg, sender, reg_date, category)
+		VALUES(notify_seq.NEXTVAL, #{receiver}, #{msg}, #{sender}, to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'), #{category})
 	</insert>
 	
 	<select id="alarm" resultMap="NotificationMap">
