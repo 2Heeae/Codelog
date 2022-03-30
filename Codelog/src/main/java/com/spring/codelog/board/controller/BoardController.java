@@ -111,16 +111,22 @@ public class BoardController {
       try {
          hsr.setCharacterEncoding("UTF-8");
       } catch (UnsupportedEncodingException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
       System.out.println("글 작성 요청");
       int boardId = service.write(vo);
+      //태그등록 
+      String tags = vo.getTags();
+      String userId = vo.getUserId();
+      String str = tags.replace(" ", "");
+	  String st = str.replace("\"", "");
+	  System.out.println("정제한 문자열"+st);
+	  String[] eachTag = st.split(",");
+	  for(int i = 0; i<eachTag.length; i++) {
+			tagService.registTags(eachTag[i], userId,boardId);
+		}
+      
       ra.addFlashAttribute("msg", "글 작성 완료");
-      
-      
-      
-      
       return "redirect:/boardController/board?boardId=" + boardId;
    }
 
