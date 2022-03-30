@@ -159,7 +159,7 @@
 					<br>
 					<div class="hashtag">
 						<c:forEach var="tag" items="${tagList }">
-							<a style="color:rgb(120, 147, 149);" href="${pageContext.request.contextPath}/search?keyword=${tag}">
+							<a style="color:rgb(120, 147, 149);" href="${pageContext.request.contextPath}/searchByTag?keyword=${tag}">
 								#${tag}
 							</a>
 						</c:forEach>
@@ -274,7 +274,7 @@
 				<div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted rounded" style="background-color: rgb(249 249 249); height: 540px;">
 					<div style="height:10px; background-color:transparent"></div>
 					<c:if test="${not empty tagList}">
-						<a class="recom-top" style="color: rgb(148 180 159); font-weight:800;" href="${pageContext.request.contextPath}/search?keyword=${tagList.get(0)}" class="d-block h6 my-2 pb-2 border-bottom">
+						<a class="recom-top" style="color: rgb(148 180 159); font-weight:800;" href="${pageContext.request.contextPath}/searchByTag?keyword=${tagList.get(0)}" class="d-block h6 my-2 pb-2 border-bottom">
 						&nbsp;#${tagList.get(0)} 관련 게시글&nbsp;&nbsp;&nbsp;></a>
 					</c:if>
 					
