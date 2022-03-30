@@ -64,7 +64,7 @@
                <input style="border-color:gary; border-right:none;" class="form-control mr-sm-2 shadow-none" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
                <button class="btn btn-outline-secondary my-2 my-sm-0 shadow-none" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159); border-left:none;"><i class="bi bi-search" style="color:white"></i></button>
              </form>
-         <div class="" id="toast_area" style="background-color:transparent; margin-top:0.3rem; width:255px; z-index: 1000; position: absolute; " ></div>
+         <div class="" id="toast-area" style="background-color:transparent; margin-top:0.3rem; width:255px; z-index: 1000; position: absolute; " ></div>
          </div>
          
 
@@ -79,9 +79,7 @@
             </button>
             </div>
             <!--알림,알림 목록 토글-->  
-            <button type="button" class="btn rounded-circle position-relative c mx-md-1  px-md-3 hc" style=""
-               data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-               aria-controls="collapseExample">
+            <button type="button" id="notification-btn" class="btn rounded-circle position-relative c mx-md-1  px-md-3 hc" role="button" aria-expanded="false">
             <!--알림 아이콘, 알림개수-->
                <i class="fa-regular fa-bell ic"></i>
                <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style="left: 2.8rem;">
@@ -90,29 +88,29 @@
                </span>
             <!--알림,알림 목록 토글-(위에 거랑 세트)-->
             <!-- 로그인해서 보여줄 알림 있을 때에만 보여줄 것 -->
-               <div class="collapse" id="collapseExample"
-                  style="position: absolute; width: 20rem; top:2.7rem; right: 0rem; z-index: 1000;">
+               <div id="notification"
+                  style="position: absolute; width: 30rem; top:2.7rem; right: 0rem; z-index: 1000; display: none;">
                   <div class="card" style="width: 100%;">
 
                      <!--알림 목록 내용-->
                      <c:forEach var="a" items="${alarm}">
                       <div class="card-body" style=" height: 6rem;">
-                        <div class="row alarm-list${a.notiNo}">
+                        <div class="row alarm-list">
                            <div class="col-md-3">
                               <a href="${pageContext.request.contextPath}/user/userpage/${a.sender}" class="stretched-link" style="position: relative; text-decoration: none;">
-                              <img width="50rem" src="<c:url value='/image/${a.sender}'/>" class="card-img-right rounded-circle"
-                                 alt=".">
+                              <img src="<c:url value='/image/${a.sender}'/>" class="card-img-right rounded-circle" width="50px" height="50px" style="border-radius: 70px;">
                             </a>
                            </div>
-                           <div class="col-md-9" style=" text-align: left;">
+                           <div class="col-md-8" style="text-align: left;">
                               <span class="card-text"><strong>${a.msg}</strong></span>
                               
-
-
                               <p class="pt-1" style="font-size: 0.8rem;">
                               	<fmt:formatDate value="${a.regDate}" pattern="yy/MM/dd" />
                               </p>
 
+                           </div>
+                           <div class="col-md-1">
+                              <a class="btn-close shadow-none" data-bs-dismiss="card-body" aria-label="Close">X</a>
                            </div>
                         </div>
                      </div>
@@ -152,11 +150,11 @@
                   <!-- 프로필 이미지 -->
                   <c:choose>
                      <c:when test="${loginSession.userImg eq null || loginSession.userImg eq 'null'}">
-                        <img width="10px" style="margin-top:1rem;"  id="small-profile-img" src="<c:url value='/img/user_icon.png'/>" class="card-img-right rounded-circle mx-md-1"
+                        <img style="margin-top:1rem;"  id="small-profile-img" src="<c:url value='/img/user_icon.png'/>" class="card-img-right rounded-circle mx-md-1"
                            alt=".">
                      </c:when>
                      <c:otherwise>
-                           <img width="10px" style="margin-top:1rem;" id="small-profile-img" src="<c:url value='/user/display'/>" class="card-img-right rounded-circle mx-md-1"
+                           <img style="margin-top:1rem;" id="small-profile-img" src="<c:url value='/user/display'/>" class="card-img-right rounded-circle mx-md-1"
                            alt=".">
                      </c:otherwise>
                   </c:choose>
@@ -268,7 +266,7 @@ $('#searchInput').keydown(function(){
             listHtml += "			<img class='reply_list_profileImage' style='margin-top:0.20rem; border-radius: 70%; overflow: hidden;' width='40rem' src='<c:url value='/image/"+userId+"'/>'/><span style=''>&nbsp;&nbsp;&nbsp;"+userId+"</span>";
             listHtml += "		</a> ";
             listHtml += "	</div>";
-            $("#toast_area").append(listHtml);
+            $("#toast-area").append(listHtml);
 			             }
 			        	} else {
 				    		$('#searchResult').remove();
@@ -288,13 +286,12 @@ $('#searchInput').keydown(function(){
 	   	console.log(data);
 	 	// toast
 	    let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
-	    toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
-	    toast += "<small class='text-muted'>just now</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
-	    toast += "<span aria-hidden='true'>&times;</span></button>";
+	    toast += "<div class='toast-header'><i class='fas fa-bell me-2'></i><strong class='me-auto'>알림</strong>";
+	    toast += "<small class='text-muted'>just now</small><button type='button' class='btn-close shadow-none' data-bs-dismiss='toast' aria-label='Close'>";
+	    toast += "</button>";
 	    toast += "</div> <div class='toast-body'>" + data + "</div></div>";
 	    //let toast = data;
-	    $("#toast_area").append(toast);   // msgStack toast 추가
-	    $(".toast").toast({"animation": true, "autohide": true});
+	    $("#toast-area").append(toast);   // msgStack toast 추가
 	    $('.toast').toast('show');
 	};	
    
@@ -394,7 +391,23 @@ $('#searchInput').keydown(function(){
             	location.href= "<c:url value='/user/userpage/${dto.userId}'/>";
             });
 			
-			//알림 클릭시 사라지게 하기
+			//종 버튼 클릭 시 알림 리스트 보여주기
+			$('#notification-btn').click(function() {
+				if($('#notification').css("display") == 'block') {
+					$('#notification').hide();
+				} else {
+					$('#notification').show();
+				}
+			});
+			
+			//이벤트 전파 방지 (알림 리스트 클릭시 바로 닫혀버려서 추가함)
+			$('#notification').click(function(e) {
+				e.stopPropagation();
+			});
+			
+			
+			
+			
             
      }); //end jQuery     
          
