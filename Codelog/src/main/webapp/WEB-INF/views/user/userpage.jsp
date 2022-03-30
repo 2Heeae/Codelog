@@ -165,7 +165,7 @@
 			<hr>
 			        <c:if test="${not empty tagKey }">            
             <c:forEach var ="key" items="${tagKey}" varStatus="status" >              
-             		<a href="${pageContext.request.contextPath}/search?keyword=${key}"> ${key} &nbsp;(${tagValue[status.index]})<br></a>            		
+             		<a href="${pageContext.request.contextPath}/searchByTag?keyword=${key}"> ${key} &nbsp;(${tagValue[status.index]})<br></a>            		
              </c:forEach>  
          </c:if>
 		</div>
