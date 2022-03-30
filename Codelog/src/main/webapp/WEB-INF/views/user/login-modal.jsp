@@ -178,7 +178,7 @@
 			//비밀번호 유효성 검사
 			else if(!get_pw_check.test($(this).val()) || $(this).val().length < 8) {
 				$(this).css('border-color', '#FF8882');
-				$('#pw-msg').html('<b style="font-size: 14px; color: #FF8882">[영어 대문자, 소문자, 숫자, 특수문자를 각각 하나 이상 포함하여 8~16자]</b>');
+				$('#pw-msg').html('<b style="font-size: 14px; color: #FF8882">[영어 대/소문자, 숫자, 특수문자를 각각 하나 이상 포함하여 8~16자]</b>');
 				chk2 = false;
 			}
 			//통과

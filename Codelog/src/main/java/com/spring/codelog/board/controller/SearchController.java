@@ -77,22 +77,22 @@ public class SearchController {
 	
 	//검색 요청 처리
 
-		@ResponseBody
-		@PostMapping("/search/searchId")
-		public List<BoardVO> searchId(@RequestBody  Map<String, String> info, HttpSession session, Model model) {
+	@ResponseBody
+	@PostMapping("/search/searchId")
+	public List<BoardVO> searchId(@RequestBody  Map<String, String> info, HttpSession session, Model model) {
 			
-			//알림 가져오기
-			if(session.getAttribute("loginSession") != null) {
-				UserVO user = (UserVO) session.getAttribute("loginSession");
-				String loginUserId = user.getUserId();
-				List<NotificationVO> alarmList = new ArrayList<>();
-				alarmList = notiService.alarm(loginUserId);
-			    System.out.println("알림받을사람: " + loginUserId);
-			    model.addAttribute("alarm", alarmList);
-			    model.addAttribute("countAlarm", notiService.countAlarm(loginUserId));
-			}
-		    //알림가져오기 끝
-			
+		//알림 가져오기
+		if(session.getAttribute("loginSession") != null) {
+			UserVO user = (UserVO) session.getAttribute("loginSession");
+			String loginUserId = user.getUserId();
+			List<NotificationVO> alarmList = new ArrayList<>();
+			alarmList = notiService.alarm(loginUserId);
+		    System.out.println("알림받을사람: " + loginUserId);
+		    model.addAttribute("alarm", alarmList);
+		    model.addAttribute("countAlarm", notiService.countAlarm(loginUserId));
+		}
+	    //알림가져오기 끝
+		
 		System.out.println("검색아이디: " + info.get("userId"));
 		//검색 결과 게시물 리스트
 		List<BoardVO> list = new ArrayList<>();
@@ -140,16 +140,14 @@ public class SearchController {
 		List<BoardVO> searchList = new ArrayList<>();
 		searchList = service.searchMypage(keyword, userId);
 		
-		String id = ((UserVO) session.getAttribute("loginSession")).getUserId();
+		String id;
+		if(userId.equals(session.getAttribute("loginSEssion"))) {
+			id = ((UserVO) session.getAttribute("loginSession")).getUserId();
+		} else {
+			id = userId;
+		}
 		UserVO userInfo = uservice.getInfo(id);
 		
-		//알림 가져오기
-		List<NotificationVO> alarmList = new ArrayList<>();
-		alarmList = notiService.alarm(id);
-	    System.out.println("알림받을사람: " + id);
-	    model.addAttribute("alarm", alarmList);
-	    model.addAttribute("countAlarm", notiService.countAlarm(id));
-	    //알림가져오기 끝
 
 		//팔로우 리스트 보내기
 		UserVO user = uservice.selectOne(id);
@@ -158,6 +156,14 @@ public class SearchController {
 			UserVO loginUser = (UserVO) session.getAttribute("loginSession");
 			int loginUserNo = loginUser.getUserNo();
 			follow.setActiveUser(loginUserNo);
+
+			//알림 가져오기
+			List<NotificationVO> alarmList = new ArrayList<>();
+			alarmList = notiService.alarm(id);
+		    System.out.println("알림받을사람: " + id);
+		    model.addAttribute("alarm", alarmList);
+		    model.addAttribute("countAlarm", notiService.countAlarm(id));
+		    //알림가져오기 끝
 
 		}
 
@@ -176,7 +182,19 @@ public class SearchController {
 		System.out.println("followinglist: "+ followingList);
 		System.out.println("userInfo: "+userInfo);
 		System.out.println("userInfo의 보드리스트: "+userInfo.getBoardList());
+		
+		List<Map<String, Object>> tagmap = tagService.countTags(id); //mapper가 반환한 태그의 이름과 갯수를 담은 Map을 담은 List
+		List<String> keyList = new ArrayList<>(); //태그의 이름을 담을 list
+		List<Integer> valueList = new ArrayList<>(); //태그의 갯수를 담을 list
 
+		for(Map<String, Object> map : tagmap) { //mapper가 가져온 ListMap에서 key와 value를 분리하여 각각의 list에 삽입
+			String key = (String) map.get("TAG_NAME"); //태그 이름
+			Object value = map.get("CNT"); //태그 갯수
+			int trueValue = Integer.parseInt(value.toString()); //Object로 전달된 태그 갯수를 int로 변환
+			keyList.add(key);
+			valueList.add(trueValue);
+
+		}
 		
 		//태그리스트 부르기
 		List<String> tagList =tagService.listbyuId(id);
@@ -189,8 +207,8 @@ public class SearchController {
 		model.addAttribute("followingList", followingList);
 		model.addAttribute("id", user.getUserId());
 		model.addAttribute("tagList", tagList);
-		
-		
+		model.addAttribute("tagKey", keyList);
+		model.addAttribute("tagValue", valueList);
 		model.addAttribute("searchList", searchList);
 		model.addAttribute("word", keyword);
 		return "user/page";

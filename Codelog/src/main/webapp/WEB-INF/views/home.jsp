@@ -181,7 +181,6 @@
                <div class="card-body ">
                   <strong>${Poster.title }</strong>
                   <p class="card-text" style="padding-top: 0.3rem;">${Poster.preview }
-
                   </p>
                </div>
                <div class="card-footer my-md-0 py-md-0"
