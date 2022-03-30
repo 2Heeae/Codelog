@@ -76,6 +76,7 @@ public class SearchController {
 	
 	
 	//검색 요청 처리
+
 		@ResponseBody
 		@PostMapping("/search/searchId")
 		public List<BoardVO> searchId(@RequestBody  Map<String, String> info, HttpSession session, Model model) {
@@ -92,14 +93,14 @@ public class SearchController {
 			}
 		    //알림가져오기 끝
 			
-			System.out.println("검색아이디: " + info.get("userId"));
-			//검색 결과 게시물 리스트
-			List<BoardVO> list = new ArrayList<>();
-			list = service.searchId(info.get("userId"));
+		System.out.println("검색아이디: " + info.get("userId"));
+		//검색 결과 게시물 리스트
+		List<BoardVO> list = new ArrayList<>();
+		list = service.searchId(info.get("userId"));
 			
-			System.out.println("검색 아이디 리스트: " + list);
-			return list;
-		}
+		System.out.println("검색 아이디 리스트: " + list);
+		return list;
+	}
 		
 	
 	//검색 결과 처리

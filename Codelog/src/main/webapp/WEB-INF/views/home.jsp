@@ -50,7 +50,7 @@
          <button type="submit" id="trend" class="btn z c lo p-0 pop"
                style="background-color:transparent; border-color: transparent; <c:if test="${trending==true }">font-weight: bold; font-size:110%;color: rgb(148 180 159)!important;</c:if>">
                 <i class="fa-solid fa-arrow-trend-up fa-1x mx-md-1 pop"></i>
-                  <span class="m-0 pop" style="font-size: 1.2rem;">트랜딩</span>
+                  <span class="m-0 pop" style="font-size: 1.2rem;">trending</span>
          </button></form>
          </div>
                      
@@ -161,9 +161,9 @@
    <!-- Button trigger modal -->
    <div class="container" style="margin-top: 0rem;" id="posterbox">
    
-   <c:if test="${not empty Posters }">
+   <c:if test="${not empty Posters}">
    <div class="row py-md-1" id="start">
-   <c:forEach var="Poster" items="${Posters }">
+   <c:forEach var="Poster" items="${Posters}">
          <div class="col-md-4 px-md-4 py-md-4">
             <div class="card poster" style="width: 100%; height: 27rem;" data-bno="${Poster.boardId }" data-lno="${Poster.likes }">
                <!--포스터카드 아무대나 클릭해도 링크 걸리기-->
@@ -215,7 +215,7 @@
                         
                         <div  style="display: inline-block; float: right; margin-top: 0.13rem">
                            <i class="fa-solid fa-comment" style=""></i>
-                           <span style="margin-right: 0.5rem;" class="">${Poster.recnt}</span>
+                           <span style="margin-right: 0.5rem;" class="">${Poster.recnt }</span>
                            <i class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes}</span>
                         </div>
                      </div>
@@ -489,17 +489,13 @@
                              //     document.querySelector('#posterbox').appendChild(addContent);
 
                              });
-
                   }
-                 
                },
                error : function() {
                   console.log('통신 실패!');
                }
-               
             }); //end ajax (로그인 비동기 처리) 
         }
-        
         else if(url=="http://localhost:8181/codelog/trending"){
            
            console.log("TRENDING");
@@ -561,21 +557,14 @@
                          lastPoster.append(str);
                          
                           //     document.querySelector('#posterbox').appendChild(addContent);
-
-                         });
-
+                    });
                }
-              
             },
             error : function() {
                console.log('통신 실패!');
             }
-            
          }); //end ajax (로그인 비동기 처리) 
-
         }
-        
-     
       }
    });
 
