@@ -256,7 +256,7 @@ $('input[type="text"]').keydown(function() {
                        
                         <!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
                         <div class="form-floating" style="margin-top: 1rem;">
-                           <textarea name="preview"  style="width: 100%; height: 6rem; resize: none;">${dto2.preview}</textarea>
+                           <textarea name="preview"  id="floatingTextarea" style="width: 100%; height: 6rem; resize: none;">${dto2.preview}</textarea>
                            <span style="float: right">/100</span><span id="textL" style="float: right">0</span>
                         </div>
 
