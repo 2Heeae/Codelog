@@ -50,7 +50,7 @@
          <button type="submit" id="trend" class="btn z c lo p-0 pop"
                style="background-color:transparent; border-color: transparent; <c:if test="${trending==true }">font-weight: bold; font-size:110%;color: rgb(148 180 159)!important;</c:if>">
                 <i class="fa-solid fa-arrow-trend-up fa-1x mx-md-1 pop"></i>
-                  <span class="m-0 pop" style="font-size: 1.2rem;">trending</span>
+                  <span class="m-0 pop" style="font-size: 1.2rem;">트랜딩</span>
          </button></form>
          </div>
                      
