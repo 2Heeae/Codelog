@@ -163,9 +163,9 @@
    <!-- Button trigger modal -->
    <div class="container" style="margin-top: 0rem;" id="posterbox">
    
-   <c:if test="${not empty Posters }">
+   <c:if test="${not empty Posters}">
    <div class="row py-md-1" id="start">
-   <c:forEach var="Poster" items="${Posters }">
+   <c:forEach var="Poster" items="${Posters}">
          <div class="col-md-4 px-md-4 py-md-4">
             <div class="card poster" style="width: 100%; height: 27rem;" data-bno="${Poster.boardId }" data-lno="${Poster.likes }">
                <!--포스터카드 아무대나 클릭해도 링크 걸리기-->
@@ -217,7 +217,7 @@
                         
                         <div  style="display: inline-block; float: right; margin-top: 0.13rem">
                            <i class="fa-solid fa-comment" style=""></i>
-                           <span style="margin-right: 0.5rem;" class="">3</span>
+                           <span style="margin-right: 0.5rem;" class="">${Poster.recnt }</span>
                            <i class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes}</span>
                         </div>
                      </div>
@@ -482,17 +482,13 @@
                              //     document.querySelector('#posterbox').appendChild(addContent);
 
                              });
-
                   }
-                 
                },
                error : function() {
                   console.log('통신 실패!');
                }
-               
             }); //end ajax (로그인 비동기 처리) 
         }
-        
         else if(url=="http://localhost:8181/codelog/trending"){
            
            console.log("TRENDING");
@@ -553,21 +549,14 @@
                          lastPoster.append(str);
                          
                           //     document.querySelector('#posterbox').appendChild(addContent);
-
-                         });
-
+                    });
                }
-              
             },
             error : function() {
                console.log('통신 실패!');
             }
-            
          }); //end ajax (로그인 비동기 처리) 
-
         }
-        
-     
       }
    });
 
