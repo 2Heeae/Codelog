@@ -225,13 +225,13 @@
 	
 $('#searchInput').keydown(function(){
 		
-		$('#searchResult').remove();
+    $("#toast-area").children().remove();
 	
 	});
 
 	
 	$('#searchInput').keyup(function(){
-		$('#searchResult').remove();
+		$("#toast-area").children().remove();
 
 		let x = $('#searchInput').val();
 		console.log("x는 "+x);
@@ -251,7 +251,7 @@ $('#searchInput').keydown(function(){
 			        	"userId" : x
 			        }),
 			        success : function(pto) {
-			    		$('#searchResult').remove();
+			        	$("#toast-area").children().remove();
 
 			        	console.log(pto);
 			        	console.log("성공");
@@ -269,7 +269,7 @@ $('#searchInput').keydown(function(){
             $("#toast-area").append(listHtml);
 			             }
 			        	} else {
-				    		$('#searchResult').remove();
+			        		$("#toast-area").children().remove();
 
 			        	}
 			        },

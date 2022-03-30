@@ -242,30 +242,7 @@
 
          /*최신, 트랜딩 밑줄 애니매이션*/
          $(document).ready(function () {
-              function test2(name, date) { console.log(`프로젝트명: ${name} 일자: ${date}`); } test2('print', '2019-05-13');
-
-      
-         if(${recent}==true){
-            if(${fromT}==true ){
-               $("#tot").removeClass('toto');
-               $("#tot").addClass('toto2')
-            }
-            else {
-            	$("#tot").removeClass('toto2');
-                $("#tot").addClass('toto3')
-            }
-         }
-      
-         if(${trending}==true){
-            if(${fromR}==true){
-               $("#tot").removeClass('toto2');
-               $("#tot").addClass('toto')
-            }
-            else {
-            	$("#tot").removeClass('toto');
-                $("#tot").addClass('toto4')
-            }
-         }   
+          
          
          
          
@@ -368,13 +345,7 @@
             if(LayerPopup4.hasClass("show")){
                LayerPopup4.removeClass("show");
                }
-
-
-
-         });
-         
-        
-         
+         });                        
          });
 
          
@@ -451,8 +422,8 @@
                            var str ="";
                            str += "<div class=" + "'col-md-4 px-md-4 py-md-4'"+">"
                            + "<div class="+"'card poster'"+" style="+"'width: 100%; height: 27rem;'"+ "data-bno='"+this.boardId+"'"+"data-lno='"+this.likes+"'>"
-                               + "<a href="+"${pageContext.request.contextPath}/boardController/board?boardId=${Poster.boardId}"+" class="+"'stretched-link'"+"></a>"
-                                   + "<img src="+"'<c:url value='/image/display/"+this.thumbnail+"'/>'/>"+ "class="+"'card-img-top'"+" alt="+"'...'"+">"
+                               + "<a href="+"${pageContext.request.contextPath}/boardController/board?boardId="+this.boardId+" class="+"'stretched-link'"+"></a>"
+                                   + "<div class='card-thumb'><img src="+"'<c:url value='/image/display/"+this.thumbnail+"'/>'"+ "class="+"'card-img-top'"+" alt="+"'...'"+"></div>"
                                + "<div class="+"'card-body'"+ " >"
                                + "<strong>타이틀"+this.title+"보드아이디"+this.boardId+"</strong>"
                            + "<p class="+"'card-text'"+" style="+"'padding-top: 0.3rem;'"+">"+this.preview+"</p></div>"
@@ -460,18 +431,20 @@
                            
                            + "<div class="+"'card-footer my-md-0 py-md-0'"+"style="+"'font-size: 0.8rem; border-top: 0; background-color: white;'"+">"
                            + "<p class="+"'card-text'"+"style="+"'border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;'"+">"
-                           + this.regDate+"</p>"
-                           + "<div>"
-
-                             + "<div style="+"'margin-top: 0.3rem;'"+">"
+                           + formatDate(this.regDate)+"</p>"
+                           + "<div>";
+                           
+                            
+                           
+                            str += "<div style="+"'margin-top: 0.3rem;'"+">"
                              + "<div style="+"'display: inline-block; float: left;'"+">"
                              + "<div style="+"'border-radius: 70%; overflow: hidden; display: inline-block;'"+">"
-                             + "<img src="+"'img/pome3.jpg'"+" class="+"'img-rounded'"+" width="+"'25rem'"+">"
+                             + "<img src="+"<c:url value='/image/"+this.userId+"'/>"+" class="+"'img-rounded'"+" width="+"'25rem'"+">"
                              + "</div>"   
                              + "</div>"   
                              
                              +"<div style="+"'display: inline-block; float: left; margin-top: 0.13rem;'"+">"
-                           +"<span class="+"'mx-md-1'"+" style="+"'color: gray;'"+">by</span><span>"+this.writer+"</span>"
+                           +"<span class="+"'mx-md-1'"+" style="+"'color: gray;'"+">by</span><span style='color:rgb(120, 147, 149); font-weight:bold;'>"+this.writer+"</span>"
                            + "</div>"   
                            +"<div style="+"'display: inline-block; float: right; margin-top: 0.13rem'"+">"
                                + "<i class="+"'fa-solid fa-comment'"+"></i>"
@@ -522,7 +495,7 @@
                         str += "<div class=" + "'col-md-4 px-md-4 py-md-4'"+">"
                         + "<div class="+"'card poster'"+" style="+"'width: 100%; height: 27rem;'"+ "data-bno='"+this.boardId+"'"+"data-lno='"+this.likes+"'>"
                             + "<a href="+"'aa'"+" class="+"'stretched-link'"+"></a>"
-                               + "<img src="+"'<c:url value='/image/display/"+this.thumbnail+"'/>'/>"+ "class="+"'card-img-top'"+" alt="+"'...'"+">"
+                               + "<div class='card-thumb'><img src="+"'<c:url value='/image/display/"+this.thumbnail+"'/>'/></div>"+ "class="+"'card-img-top'"+" alt="+"'...'"+">"
                            + "<div class="+"'card-body'"+ " >"
                            + "<strong>타이틀"+this.title+"보드아이디"+this.boardId+"</strong>"
                         + "<p class="+"'card-text'"+" style="+"'padding-top: 0.3rem;'"+">"+this.preview+"</p></div>"
@@ -530,22 +503,24 @@
                         
                         + "<div class="+"'card-footer my-md-0 py-md-0'"+"style="+"'font-size: 0.8rem; border-top: 0; background-color: white;'"+">"
                         + "<p class="+"'card-text'"+"style="+"'border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;'"+">"
-                        + this.regDate+"</p>"
+                        + formatDate(this.regDate)+"</p>"
                         + "<div>"
-
+             
+                       
+                        
                          + "<div style="+"'margin-top: 0.3rem;'"+">"
                          + "<div style="+"'display: inline-block; float: left;'"+">"
                          + "<div style="+"'border-radius: 70%; overflow: hidden; display: inline-block;'"+">"
-                         + "<img src="+"'img/pome3.jpg'"+" class="+"'img-rounded'"+" width="+"'25rem'"+">"
+                         + "<img src="+"<c:url value='/image/"+this.userId+"'/>"+" class="+"'img-rounded'"+" width="+"'25rem'"+">"
                          + "</div>"   
                          + "</div>"   
                          
                          +"<div style="+"'display: inline-block; float: left; margin-top: 0.13rem;'"+">"
-                        +"<span class="+"'mx-md-1'"+" style="+"'color: gray;'"+">by</span><span>"+this.writer+"</span>"
+                        +"<span class="+"'mx-md-1'"+" style="+"'color: gray;'"+">by</span><span style='color:rgb(120, 147, 149); font-weight:bold;'>"+this.writer+"</span>"
                         + "</div>"   
                         +"<div style="+"'display: inline-block; float: right; margin-top: 0.13rem'"+">"
                            + "<i class="+"'fa-solid fa-comment'"+"></i>"
-                           +"<span style="+"'margin-right: 0.5rem;'"+">"+this.likes+"</span>"   
+                           +"<span style="+"'margin-right: 0.5rem;'"+">"+this.recnt+"</span>"   
                            +"<i class="+"'fa-solid fa-heart'"+"></i><span class="+"'mx-md-1'"+">"+this.likes+"</span>"      
                            + "</div>"   
                          + "</div>"   
@@ -567,6 +542,27 @@
         }
       }
    });
+   
+   
+   
+   function formatDate(date) {
+	    
+	    var d = new Date(date),
+	    
+	    month = '' + (d.getMonth() + 1) , 
+	    day = '' + d.getDate(), 
+	    year = d.getFullYear();
+	    hour = d.getHours();
+       minute = d.getMinutes();
+	    
+	    if (month.length < 2) month = '0' + month; 
+	    if (day.length < 2) day = '0' + day; 
+	    
+	    let y = [year, month, day].join('/');
+	    
+	    return y;
+	    
+	    };
 
    </script>
 </div>
