@@ -206,7 +206,7 @@
 <!-- 댓글 -->
 
 
-<h3 id=recnt>${dto.recnt}개의 댓글</h3>
+<h5 id="recnt" style="margin-top: 3rem; margin-bottom: 1.5rem;">${dto.recnt}개의 댓글</h5>
 
   <c:if test="${not empty loginSession.nickname}">
                 <div class="row reply_write">
@@ -954,8 +954,8 @@
 	 });
 	</script>
 
-		<!-- 좋아요 클릭 이벤트 처리 -->
-		<script>
+	<!-- 좋아요 클릭 이벤트 처리 -->
+	<script>
 	$(document).ready(function() { //start jQuery
 		
 		$('#like-btn').click(function() {
@@ -977,7 +977,7 @@
 			console.log(view_user_id);
 			console.log(post_like);
 			console.log(writer);
-			msg = "like" + "," + view_user_id + "," + view_user_nick "," + writer + "," + post_like; //소켓메세지 보낼 값
+			msg = "like" + "," + view_user_id + "," + view_user_nick + "," + writer + "," + post_like; //소켓메세지 보낼 값
 
 			const data = {
 				"viewUserId" : view_user_id, //글 보는사람 아이디값
@@ -997,7 +997,7 @@
 						$('#like-check').val(0);
 						$('#like-btn').css("color", "black");
 						let total = $('#result').html();
-						$('#result').html(${dto.likes});		
+						$('#result').html(${dto.likes} - 1);		
 						post_like = 0;
 						
 						
@@ -1006,7 +1006,6 @@
 						console.log('좋아요');
 						$('#like-check').val(1);
 						$('#like-btn').css("color", "red");
-						let total = $('#result').html();
 						$('#result').html(${dto.likes} + 1);
 						post_like = 1;						
 						
@@ -1024,7 +1023,7 @@
 	}); //end jQuery
 		
 	</script>
-		<!-- 좋아요 클릭 이벤트 처리 끝 -->
+	<!-- 좋아요 클릭 이벤트 처리 끝 -->
 
 
 		<!-- 글 상세보기 페이지 끝 -->

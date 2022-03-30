@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ import com.spring.codelog.user.commons.FollowVO;
 import com.spring.codelog.user.model.UserVO;
 import com.spring.codelog.user.service.IFollowService;
 import com.spring.codelog.user.service.IUserService;
+import com.spring.codelog.util.websocket.model.NotificationVO;
+import com.spring.codelog.util.websocket.servcice.INotificationService;
 
 @Controller
 public class SearchController {
@@ -41,9 +44,24 @@ public class SearchController {
 	@Autowired
 	private ITagService tagService;
 	
+	@Autowired
+	private INotificationService notiService;
+	
 	//검색 요청 처리
 	@GetMapping("/search")
-	public String search(@RequestParam String keyword, Model model) {
+	public String search(@RequestParam String keyword, Model model, HttpSession session) {
+		
+		//알림 가져오기
+		if(session.getAttribute("loginSession") != null) {
+			UserVO user = (UserVO) session.getAttribute("loginSession");
+			String loginUserId = user.getUserId();
+			List<NotificationVO> alarmList = new ArrayList<>();
+			alarmList = notiService.alarm(loginUserId);
+		    System.out.println("알림받을사람: " + loginUserId);
+		    model.addAttribute("alarm", alarmList);
+		    model.addAttribute("countAlarm", notiService.countAlarm(loginUserId));
+		}
+	    //알림가져오기 끝
 		
 
 		System.out.println("검색어: " + keyword);
@@ -58,9 +76,22 @@ public class SearchController {
 	
 	
 	//검색 요청 처리
-	@ResponseBody
-	@PostMapping("/search/searchId")
-	public List<BoardVO> searchId(@RequestBody  Map<String, String> info) {
+
+		@ResponseBody
+		@PostMapping("/search/searchId")
+		public List<BoardVO> searchId(@RequestBody  Map<String, String> info, HttpSession session, Model model) {
+			
+			//알림 가져오기
+			if(session.getAttribute("loginSession") != null) {
+				UserVO user = (UserVO) session.getAttribute("loginSession");
+				String loginUserId = user.getUserId();
+				List<NotificationVO> alarmList = new ArrayList<>();
+				alarmList = notiService.alarm(loginUserId);
+			    System.out.println("알림받을사람: " + loginUserId);
+			    model.addAttribute("alarm", alarmList);
+			    model.addAttribute("countAlarm", notiService.countAlarm(loginUserId));
+			}
+		    //알림가져오기 끝
 			
 		System.out.println("검색아이디: " + info.get("userId"));
 		//검색 결과 게시물 리스트
@@ -78,7 +109,20 @@ public class SearchController {
 	
 	//태그 검색 요청 처리
 	@GetMapping("/searchByTag")
-	public String searchByTag(@RequestParam String keyword, Model model) {
+	public String searchByTag(@RequestParam String keyword, Model model, HttpSession session) {
+		
+		//알림 가져오기
+		if(session.getAttribute("loginSession") != null) {
+			UserVO user = (UserVO) session.getAttribute("loginSession");
+			String loginUserId = user.getUserId();
+			List<NotificationVO> alarmList = new ArrayList<>();
+			alarmList = notiService.alarm(loginUserId);
+		    System.out.println("알림받을사람: " + loginUserId);
+		    model.addAttribute("alarm", alarmList);
+		    model.addAttribute("countAlarm", notiService.countAlarm(loginUserId));
+		}
+	    //알림가져오기 끝
+		
 		System.out.println("태그검색어: " + keyword);
 		//검색 결과 게시물 리스트
 		List<BoardVO> list = new ArrayList<>();
@@ -98,6 +142,14 @@ public class SearchController {
 		
 		String id = ((UserVO) session.getAttribute("loginSession")).getUserId();
 		UserVO userInfo = uservice.getInfo(id);
+		
+		//알림 가져오기
+		List<NotificationVO> alarmList = new ArrayList<>();
+		alarmList = notiService.alarm(id);
+	    System.out.println("알림받을사람: " + id);
+	    model.addAttribute("alarm", alarmList);
+	    model.addAttribute("countAlarm", notiService.countAlarm(id));
+	    //알림가져오기 끝
 
 		//팔로우 리스트 보내기
 		UserVO user = uservice.selectOne(id);

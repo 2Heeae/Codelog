@@ -52,8 +52,8 @@
     
     <!-- 02. 게시글 작성 -->
  
-    <insert id="write"> INSERT INTO proj_board(board_id, user_id, title, writer, tags, content, img_path, reg_date,preview, thumbnail, view_all, user_no, hit) 
-VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, 'dd',to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'),#{preview}, #{thumbnail}, #{viewAll}, #{userNo}, 0)</insert>
+    <insert id="write"> INSERT INTO proj_board(board_id, user_id, title, writer, tags, content, img_path, reg_date,preview, thumbnail,  user_no, hit) 
+VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, 'dd',to_date(sysdate, 'yyyy.mm.dd hh24:mi:ss'),#{preview}, #{thumbnail},  #{userNo}, 0)</insert>
 
     <!--03. 게시글 상세보기 조회 -->
     <select id="read" resultMap="BoardMap">
@@ -79,7 +79,8 @@ VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, '
 		title = #{title},
 		tags = #{tags},
 		content = #{content},
-		preview = #{preview}
+		preview = #{preview},
+		thumbnail =  #{thumbnail}
 		WHERE board_id = #{boardId}
     </update>
     

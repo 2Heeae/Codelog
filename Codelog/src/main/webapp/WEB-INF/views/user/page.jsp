@@ -173,8 +173,8 @@
 			<!--검색 -->
 			<form action="d-flex">
 				<section>
-					<input class="form-control search" type="search"value="${word}" placeholder="Search" aria-label="Search"onfocus="this.value='';">
-					<button class="btn btn-outline-primary" type="submit">검색</button>
+					<input class="form-control search shadow-none" type="search"value="${word}" placeholder="Search" aria-label="Search"onfocus="this.value='';">
+					<button class="btn btn-outline-primary shadow-none" type="submit">검색</button>
 				</section>
 			</form>
 			<!-- 사진 썸네일, 글제목, 보이는 곳  -->

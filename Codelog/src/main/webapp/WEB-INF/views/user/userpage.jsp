@@ -163,18 +163,18 @@
 		<div class="col-md-2 tags">
 			태그목록
 			<hr>
-			<c:if test="${not empty tagList }">
-			<c:forEach var ="tag" items="${tagList }">
-			<a href="${pageContext.request.contextPath}//search?keyword=${tag}"> ${tag}<br></a> 
-			</c:forEach>
+			       <c:if test="${not empty tagCount }">
+            <c:forEach var ="tag" items="${tagCount}" varStatus="status">
+             		<a href="${pageContext.request.contextPath}/search?keyword=${tag.key}"> ${tag.key} &nbsp;(${tag.value})<br></a>
+             </c:forEach>
 			</c:if>
 		</div>
 		<!--게시글들 -->
 		<div class="col-md-10">
 			<!--검색 -->
 			<form action="<c:url value='/search/${userInfo.userId }' />">
-					<input class="form-control search" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-primary" type="submit">검색</button>
+					<input class="form-control search shadow-none" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-primary shadow-none" type="submit">검색</button>
 			</form>
 			<!-- 사진 썸네일, 글제목, 보이는 곳  -->
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
@@ -219,7 +219,7 @@
                               <div
                                  style="display: inline-block; float: right; margin-top: 0.13rem">
                                  <i class="fa-solid fa-comment" style=""></i> <span
-                                    style="margin-right: 0.5rem;" class="">3</span> <i
+                                    style="margin-right: 0.5rem;" class="">${Poster.recnt }</span> <i
                                     class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes}</span>
                               </div>
                            </div>

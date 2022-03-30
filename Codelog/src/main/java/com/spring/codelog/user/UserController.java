@@ -3,6 +3,8 @@ package com.spring.codelog.user;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +36,7 @@ import com.spring.codelog.user.service.IUserService;
 import com.spring.codelog.util.websocket.mapper.INotificationMapper;
 import com.spring.codelog.util.websocket.model.NotificationVO;
 import com.spring.codelog.util.websocket.servcice.INotificationService;
+
 
 
 @RestController
@@ -122,7 +125,7 @@ public class UserController {
 
 		int userNo = user.getUserNo();
 		int loginUserNo = loginUser.getUserNo();
-
+       
 		FollowVO follow = new FollowVO();
 		follow.setActiveUser(loginUserNo);
 		follow.setPassiveUser(userNo);
@@ -135,7 +138,9 @@ public class UserController {
 		//팔로잉리스트
 		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
 		System.out.println(followingList);
-
+       
+	    
+		
 		//태그리스트 부르기
 		List<String> tagList =tagService.listbyuId(loginUser.getUserId());
 
@@ -144,7 +149,19 @@ public class UserController {
 		model.addAttribute("followerList", followerList);
 		model.addAttribute("followingList", followingList);
 		model.addAttribute("tagList", tagList);
-
+		List<Map<String, Object>> tagmap = tagService.countTags(user.getUserId());
+		
+		System.out.println(tagmap);
+		Map<String, Object> realMap = new HashMap<>();
+		
+		for(Map<String, Object> map : tagmap) {
+			realMap.put((String) map.get("TAG_NAME"), map.get("COUNT(*)"));
+		}
+		
+		System.out.println(realMap);
+		
+		model.addAttribute("tagCount", realMap);
+	    
 
 		return mv;
 	}
@@ -189,7 +206,12 @@ public class UserController {
 		System.out.println("followinglist: "+ followingList);
 		System.out.println("userInfo: "+userInfo);
 		System.out.println("userInfo의 보드리스트: "+userInfo.getBoardList());
-
+		//태그 갯수 출력
+	    List<Map<String, Object>> tagmap = tagService.countTags(user.getUserId());
+		    Map<String, Object> realMap = new HashMap<>();
+		    for(Map<String, Object> map : tagmap) {
+		    	realMap.put((String) map.get("TAG_NAME"), map.get("COUNT(*)"));
+		    }
 		
 		//태그리스트 부르기
 		List<String> tagList =tagService.listbyuId(id);
@@ -202,6 +224,7 @@ public class UserController {
 		mv.addObject("followingList", followingList);
 		mv.addObject("id", user.getUserId());
 		mv.addObject("tagList", tagList);
+		mv.addObject("tagCount", realMap);
 		mv.setViewName("user/userpage");
 		return mv;
 	}

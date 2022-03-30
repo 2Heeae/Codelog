@@ -45,6 +45,7 @@
 @import url("<c:url value='/css/toastTest.css'/>");
 
 @import url("<c:url value='/css/test.css'/>");
+
 .toastui-editor-md-html, .toastui-editor-md-link.toastui-editor-md-link-url.toastui-editor-md-marked-text,
    .toastui-editor-md-meta {
    position: absolute;
@@ -91,7 +92,7 @@
             </div>
             <ul id="tag-list"></ul>
             <div class="form-group">
-               <input type="text" id="tag" size="7" class="tag" name="tags" placeholder="태그를 입력하세요" style="width: 500px;">
+               <input type="text" id="tag" size="7" class="tag" name="tags" placeholder="태그는 쉼표(,)로 구분합니다." style="width: 500px;">
             </div>
          </div>
          <!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
@@ -156,15 +157,14 @@
             <div class="row py-md-3" style="margin: 5% 15% 0% 15%">
 
                <div class="col-md-6 px-md-4" style="margin: 0 auto; width:70%;">
+               <p class="my-md-1" style="font-weight: bold; font-size: 1.7rem; text-align: center; position: relative; top: 65px; left: -20px; ">포스터 미리보기</p>
                   <div class="card" style="width: 90%; border:0; background-color: transparent;">
 
                      <!--썸네일 부분-->
-
-                     <p class="my-md-1" style="font-weight: bold; font-size: 1.7rem; text-align: center">포스터 미리보기</p>
-                     <div class="thumbnailBox" id="thumbnailBox" style="height: 19rem; width:100%; position: relative; background-color: rgba(128, 128, 128, 0.185); text-align: center;">
-                        <img src="<c:url value='/img/cat.jpg'/>" class="btn" type="button" id="img-preview" onclick="document.all.thumbnailUpload.click();"
+              
+                     <div class="thumbnailBox" id="thumbnailBox" style="height: 300px; width:300px; position: relative;  text-align: center; top: 127px; left: -156px;">
+                        <img src="<c:url value='/img/change.jpg'/>" class="btn thumbnailBox" type="button" id="img-preview" onclick="document.all.thumbnailUpload.click();"
                            style="width: 100%; height: 100%; position: relative"> 
-                           <span style="color: black; margin: 5px;">이미지를 클릭하여 썸네일을 변경하세요</span>
                            <input type="file" id="thumbnailUpload" name="thumbnailUpload" accept="image/*" onchange="readURL(this)"> 
                            <input type="hidden" id="thumbnail" name="thumbnail">
                      </div>
@@ -194,8 +194,8 @@
          
          file = file.slice(file.indexOf('.') + 1).toLowerCase();
          console.log(file);
-         if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp') {
-            alert('이미지 파일(jpg, png, jpeg, bmp)만 등록이 가능합니다.');
+         if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp'  && file !== 'gif') {
+            alert('이미지 파일(jpg, png, jpeg, bmp, gif)만 등록이 가능합니다.');
             $('#thumbnailUpload').val('');
            return;            
          }
@@ -255,19 +255,21 @@
      </script>
 
                      <!--제목은 글작성 페이지에서 가져오기-->
-
+					
                      <div class="card-body my-md-2 p-0 "
-                        style=" margin-bottom: 1rem">
-
+                        style=" margin-bottom: 1rem; position: relative; bottom: 183px; left: 156px;">
+		
+						
                         <!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
-                        <div class="form-floating" style="margin-top: 1rem; text-align:center;" >
-                           <textarea placeholder="Leave a comment here" id="floatingTextarea" name="preview" style="width: 80%; height: 10rem; resize: none;"></textarea>
-                           <span style="float: right">/100</span>
-                           <span id="textL" style="float: right">0</span>
+                        <div class="form-floating" style="margin-top: 1rem; text-align:center;padding-top: 13px;" >
+                           <textarea class="thumbtext" placeholder="Leave a comment here" id="floatingTextarea" name="preview" style="width: 290px; height: 146px; resize: none;"></textarea>
+                           <span id="textL" style="">0</span>
+                           <span style="">/100</span>
+                           
                         </div>
 
                      <div class="row" style="margin-top: 1rem">
-                        <div class="form-check form-switch" style="margin: 0% 0% 0% 75%; margin-top: 0.5rem; margin-bottom:1rem;" >
+                        <div class="form-check form-switch open" style="margin: 0% 0% 0% 75%; margin-top: 0.5rem; margin-bottom:1rem;" >
                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked> 
                            <label class="form-check-label" for="flexSwitchCheckDefault">전체 공개</label> 
                            <input type="hidden" id="viewAll" name="viewAll" value="1">
@@ -275,12 +277,12 @@
                         </div>
                         <div class="btn-group my-md-0" role="group" aria-label="Basic radio toggle button group" style="height: 2.7rem;">
                            <input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off">
-                           <button type="button" class="btn btn-outline-primary hide" for="btnradio3" style="font-size: 1.3rem; width: 2rem; border: 0">
+                           <button type="button" class="btn btn-outline-primary hide" for="btnradio3" style="font-size: 1.3rem; width: 2rem; border: 0; color:rgb(148 180 159); border-color:rgb(148 180 159);">
                               취소
                            </button>
                            &nbsp;&nbsp;&nbsp; 
                            <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
-                           <button class="btn btn-outline-primary show px-md-0" for="btnradio4" style="font-size: 1.3rem; width: 2rem; background-color: #0d6efd; color: white;">
+                           <button class="btn btn-outline-primary show px-md-0" for="btnradio4" style="font-size: 1.3rem; width: 2rem; background-color: rgb(148 180 159); border-color:rgb(148 180 159); color: white;">
                               작성
                            </button>
                         </div>
@@ -302,11 +304,20 @@
       /*작성과 작성검토 부분을 버튼으로 연결함(버튼은 임시)
     up은 작성검토 페이지 화면으로 올리기 down은 내리기
     toggleclass사용
-*/
+*/   
+
+//enter 입력으로 인한 submit 방지(null값 전송 방지)
+  $('input[type="text"]').keydown(function() {
+	  if (event.keyCode === 13) {
+		    event.preventDefault();
+		  };
+		});
       
       
 
       $(document).ready(function () {
+    	  
+    	  
          //태그 기능 이벤트
          var tag ={};
          var counter = 0;

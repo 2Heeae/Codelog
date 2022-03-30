@@ -65,11 +65,11 @@ body {
   background: var(--bkg-color);
 }
 
-
+/*
  span, i, div, a {
   color: var(--text-color);
 } 
-
+*/
 
 body {
   background: var(--bkg-color);

@@ -44,11 +44,11 @@
 @import url("<c:url value='/css/toastTest.css'/>");
 @import url("<c:url value='/css/test.css'/>");
 .toastui-editor-md-html, .toastui-editor-md-link.toastui-editor-md-link-url.toastui-editor-md-marked-text,
-	.toastui-editor-md-meta {
-		position: absolute;
-	font-size: 1px !important;
-	overflow: hidden;
-	margin: -1px;
+   .toastui-editor-md-meta {
+      position: absolute;
+   font-size: 1px !important;
+   overflow: hidden;
+   margin: -1px;
    clip-path: polygon(0 0, 0 0, 0 0);
 }
 </style>
@@ -62,7 +62,7 @@
       class="write-bbs" enctype=multipart/form-data method="post">
       <!-- 글등록 페이지에 따로 작성자를 기입하지는 않으므로 현재 로그인 세션에서 작성자 명을 뽑아옵니다. -->
 
-	<input type="hidden" name="boardId" value="${dto2.boardId}">
+   <input type="hidden" name="boardId" value="${dto2.boardId}">
 
       <input type="hidden" name="writer" value="${loginSession.nickname}">
       <!-- 로그인 세션에 있는 사용자의 닉네임 -->
@@ -77,7 +77,7 @@
          <!-- 글 작성 화면(화면 왼 쪽 절반 div)  -->
       
             <div id="editor"> ${dto2.content} </div>
-	  <input id="modContent" type="hidden" name="content" value="">
+     <input id="modContent" type="hidden" name="content" value="">
          
  
  <script>
@@ -141,49 +141,118 @@
             <div class="row py-md-3" style="margin: 5% 15% 0% 15%">
 
                <div class="col-md-6 px-md-4" style="margin: 0 auto;">
+                  <p class="my-md-1" style="font-weight: bold; font-size: 1.7rem; text-align: center; position: relative; top: 65px; left: -20px; ">포스터 미리보기</p>
                   <div class="card" style="width: 100%; height: 40rem; border: 0; background-color: transparent;">
 
                      <!--썸네일 부분-->
 
-                     <p class="my-md-1" style="font-weight: bold; font-size: 1.7rem; text-align: center">포스터 미리보기</p>
-                     <div class="thumbnailBox" id="thumbnailBox" onclick="document.all.thumbnailUpload.click();"
-                        style="height: 40rem; position: relative; background-color: rgba(128, 128, 128, 0.185); text-align: center;">                   
-                       <img src="<c:url value='/img/cat.jpg'/>" class="btn" type="button" id="img-preview"
+                     <div class="thumbnailBox" id="thumbnailBox" 
+                        style="height: 300px; width:300px; position: relative;  text-align: center; top: 127px; left: -156px;">                   
+                       <img src="<c:url value='/image/display/${dto2.thumbnail}'/>" class="btn" type="button" id="img-preview"
                                     onclick="document.all.thumbnailUpload.click();"
-                                    style="width: 100%; height: 100%; position: relative">
-                                    
-                                    <span style="color: rgb(77, 238, 98);">이미지를 클릭하여 썸네일을 변경하세요</span>
+                                    style="width: 100%; height: 100%; position: relative">    
                                         
                         <input type="file" id="thumbnailUpload" name="thumbnailUpload" accept="image/*"
                            onchange="readURL(this)">
-                           <input type="hidden"   id="thumbnail" name="thumbnail">
-                        <script>
-                           $('#thumbnailUpload').change(function () {
-                              readURL(this);
-                           });
-
-                           function readURL(input) {
-                              if (input.files && input.files[0]) {
-                                 var reader = new FileReader();
-                                 reader.onload = function (e) {
-                                    $('#img-preview').attr('src', e.target.result);
-                           $('#thumbnail').val(e.target.result);
-
-                                 }
-                                 reader.readAsDataURL(input.files[0]);
-                              }
-                           }
-
-                           //미리보기 이미지 삭제
-                           $('#img-del-btn').click(function (e) {
-                              $('#img-preview').attr('src', './images/user_icon.png');
-                           });
-                        </script>
+                           <input type="hidden"   id="thumbnail" name="thumbnail" value="${dto2.thumbnail }">
+                      
                      </div>
+                     <script>
+
+
+//enter 입력으로 인한 submit 방지(null값 전송 방지)
+$('input[type="text"]').keydown(function() {
+	  if (event.keyCode === 13) {
+		    event.preventDefault();
+		  };
+		});
+    
+
+    // start jQuery
+    $(document).ready(function () {
+       
+       
+      //썸네일 이미지 업로드 버튼 클릭 이벤트
+      $('#thumbnailUpload').change(function() {
+        
+         upload();
+         
+     });
+       
+      //이미지 업로드를 담당하는 함수
+      function upload() {
+         console.log("d");
+         //자바스크립트의 파일 확장자 체크 검색
+         let file = $('#thumbnailUpload').val();
+         
+         console.log(file);
+         
+         file = file.slice(file.indexOf('.') + 1).toLowerCase();
+         console.log(file);
+         if(file !== 'jpg' && file !== 'png' && file !== 'jpeg' && file !== 'bmp'  && file !== 'gif') {
+            alert('이미지 파일(jpg, png, jpeg, bmp, gif)만 등록이 가능합니다.');
+            $('#thumbnailUpload').val('');
+           return;            
+         }
+         
+         //ajax 폼 전송의 핵심 FormData 객체
+         const formData = new FormData();
+         const data = $('#thumbnailUpload');
+         
+         console.log('폼 데이터: ' + formData);
+         console.log('data: ' + data);
+         
+         //FormData 객체에 사용자가 업로드한 파일의 정보들이 들어있는 객체에 전달
+        formData.append('file', data[0].files[0]);
+         
+         //비동기 방식으로 썸네일 등록을 진행
+         //ajax 시작
+        $.ajax({
+            url : '<c:url value="/boardController/thumbnail" />',
+            type : 'POST',
+            data : formData,
+            contentType : false,
+            processData : false,
+            
+            success : function(result) { //컨트롤러와 통신 성공 시 파일명을 반환
+               
+                  $('#thumbnail').val(result); //파일명을 BoardVO에 보낼 파라미터 값에 저장
+                  console.log(result);
+                  
+           
+            
+           },
+           error : function(request, status, error) {
+              console.log('code: ' + request + '\n' + 'message: ' + request.responseText + '\n' + 'error: ' + error);
+            
+           }
+         }); //ajax 끝
+         
+     } //프로필 이미지 업로드 버튼 클릭 이벤트 끝
+     //프로필 이미지 업로드 시 미리보기
+         $('#thumbnailUpload').change(function() {
+        
+         readURL(this);
+         
+     });
+
+     function readURL(input) {
+         if (input.files && input.files[0]) {
+             var reader = new FileReader();
+             reader.onload = function (e) {
+                 $('#img-preview').attr('src', e.target.result);
+             }
+             reader.readAsDataURL(input.files[0]);
+             
+          }
+     } ////프로필 이미지 업로드 시 미리보기 끝
+    });
+     </script>
 
                      <!--제목은 글작성 페이지에서 가져오기-->
                 
-                     <div class="card-body my-md-2 p-0 " style="margin-top:2.7rem; margin-bottom:1rem">
+                     <div class="card-body my-md-2 p-0 "
+                        style=" margin-bottom: 1rem; position: relative; bottom: 160px; left: 156px;">
                        
                         <!--키다운 이벤트로 글자 수 실시간 기록 50(임시) 이상시 못씀-->
                         <div class="form-floating" style="margin-top: 1rem;">
@@ -191,7 +260,7 @@
                            <span style="float: right">/100</span><span id="textL" style="float: right">0</span>
                         </div>
 
-                     </div>
+                     
                 <div class="row" style="margin-top:1rem">
                   <div class="form-check form-switch" style="margin: 1.5% 0% 0% 61.5%; margin-top:0.5rem">
                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked>
@@ -203,11 +272,11 @@
 
                   <input type="radio" class="btn-check" name="btnradio2" id="btnradio3" autocomplete="off">
                   <button type="button" class="btn btn-outline-primary hide" for="btnradio3"
-                     style="font-size: 1.3rem; width: 2rem;  border: 0">취소</button>
+                     style="font-size: 1.3rem; width: 2rem; color:rgb(148 180 159); border: 0">취소</button>
                   &nbsp;&nbsp;&nbsp;
                   <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
                   <button class="btn btn-outline-primary show px-md-0" for="btnradio4" onclick="addContent();"
-                     style="font-size: 1.3rem;  width: 2rem; background-color: #0d6efd; color: white;">작성</button>
+                     style="font-size: 1.3rem;  width: 2rem; background-color: rgb(148 180 159); border-color:rgb(148 180 159); color: white;">작성</button>
 
          
       </div>
@@ -245,12 +314,12 @@
 
          });
          $("#show").click(function () {
-        	 var checkTitle = $('#title').val();
-				var checkTag = $('#tag').val();
-				
-			    if(checkTitle == '') {alert("제목을 입력해주세요!"); return false;}
-			    if(checkTag == '') {alert("태그를 입력해주세요!"); return false; }
-			    
+            var checkTitle = $('#title').val();
+            var checkTag = $('#tag').val();
+            
+             if(checkTitle == '') {alert("제목을 입력해주세요!"); return false;}
+             if(checkTag == '') {alert("태그를 입력해주세요!"); return false; }
+             
             $("#check").show();
             $("#articles").hide();
             $("#check").toggleClass('fadeIn');
