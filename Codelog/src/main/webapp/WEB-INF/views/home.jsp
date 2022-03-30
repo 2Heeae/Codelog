@@ -361,7 +361,8 @@
       
       
    $(window).scroll(function() { 
-     if(Math.round($(window).scrollTop()) === $(document).height() - $(window).height()) { 
+     if(Math.round($(window).scrollTop()) === $(document).height() - $(window).height()) {
+    	console.log('무한스크롤 여건 완성!');
         var boardId = $("#posterbox .poster").last().data('bno');
         var likes = $("#posterbox .poster").last().data('lno');
         var period = $("#period").attr("period");
@@ -376,7 +377,7 @@
         else if(period == 'year'){period=4;};
         
       var lastPoster = $("#start");
-        console.log(lastPoster);
+        console.log('lastPoster:' + lastPoster);
 
       console.log("보드아이디: "+boardId);
       console.log("좋아요: "+likes);
@@ -395,7 +396,7 @@
         var url = $(location).attr('href');
         console.log(url);
         
-        if(url=="http://localhost:8181/codelog/"){
+        if(url=="http://172.30.1.18:8181/codelog/"){
            console.log("RECENT");
         
       
@@ -469,7 +470,7 @@
                }
             }); //end ajax (로그인 비동기 처리) 
         }
-        else if(url=="http://localhost:8181/codelog/trending"){
+        else if(url=="http://172.30.1.18:8181/codelog/trending"){
            
            console.log("TRENDING");
            
@@ -495,7 +496,7 @@
                         str += "<div class=" + "'col-md-4 px-md-4 py-md-4'"+">"
                         + "<div class="+"'card poster'"+" style="+"'width: 100%; height: 27rem;'"+ "data-bno='"+this.boardId+"'"+"data-lno='"+this.likes+"'>"
                             + "<a href="+"'aa'"+" class="+"'stretched-link'"+"></a>"
-                               + "<div class='card-thumb'><img src="+"'<c:url value='/image/display/"+this.thumbnail+"'/>'/></div>"+ "class="+"'card-img-top'"+" alt="+"'...'"+">"
+                            + "<div class='card-thumb'><img src="+"'<c:url value='/image/display/"+this.thumbnail+"'/>'"+ "class="+"'card-img-top'"+" alt="+"'...'"+"></div>"
                            + "<div class="+"'card-body'"+ " >"
                            + "<strong>타이틀"+this.title+"보드아이디"+this.boardId+"</strong>"
                         + "<p class="+"'card-text'"+" style="+"'padding-top: 0.3rem;'"+">"+this.preview+"</p></div>"
