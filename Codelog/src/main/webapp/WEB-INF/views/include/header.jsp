@@ -110,7 +110,7 @@
 
                            </div>
                            <div class="col-md-1">
-                              <a class="btn-close shadow-none" data-bs-dismiss="card-body" aria-label="Close">X</a>
+                              <a class="btn-close" data-bs-dismiss="card-body" aria-label="Close"></a>
                            </div>
                         </div>
                      </div>
@@ -403,6 +403,12 @@ $('#searchInput').keydown(function(){
 			//이벤트 전파 방지 (알림 리스트 클릭시 바로 닫혀버려서 추가함)
 			$('#notification').click(function(e) {
 				e.stopPropagation();
+			});
+			
+			//개별 알림 x버튼 클릭 시 삭제 이벤트
+			$('.btn-close').click(function(e) {
+				let target_noti = $(event.target).parent().prev().prev().parent().parent();
+				target_noti.remove();
 			});
 			
 			
