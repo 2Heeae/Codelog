@@ -162,11 +162,11 @@
 		<div class="col-md-2 tags">
 			태그목록
 			<hr>
-			<c:if test="${not empty tagList }">
-			<c:forEach var ="tag" items="${tagList }">
-			<a href="${pageContext.request.contextPath}//search?keyword=${tag}"> ${tag}<br></a> 
-			</c:forEach>
-			</c:if>
+			        <c:if test="${not empty tagKey }">            
+            <c:forEach var ="key" items="${tagKey}" varStatus="status" >              
+             		<a href="${pageContext.request.contextPath}/searchByTag?keyword=${key}"> ${key} &nbsp;(${tagValue[status.index]})<br></a>            		
+             </c:forEach>  
+         </c:if>
 		</div>
 		<!--게시글들 -->
 		<div class="col-md-10">
@@ -179,7 +179,7 @@
 			</form>
 			<!-- 사진 썸네일, 글제목, 보이는 곳  -->
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
-			<c:forEach var="Poster" items="${searchList }">
+			<c:forEach var="Poster" items="${userInfo.boardList }">
 					<div class="col-md-4 px-md-4 py-md-4">
 						<div class="card poster" style="width: 100%; height: 24rem;"
 							data-bno="${Poster.boardId }" data-lno="${Poster.likes }">
@@ -219,7 +219,7 @@
 										<div
 											style="display: inline-block; float: right; margin-top: 0.13rem">
 											<i class="fa-solid fa-comment" style=""></i> <span
-												style="margin-right: 0.5rem;" class="">3</span> <i
+												style="margin-right: 0.5rem;" class="">${Poster.recnt }</span> <i
 												class="fa-solid fa-heart"></i><span class="mx-md-1">${Poster.likes}</span>
 										</div>
 									</div>
