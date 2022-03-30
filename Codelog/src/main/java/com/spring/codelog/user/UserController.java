@@ -5,9 +5,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -48,10 +52,10 @@ public class UserController {
 
 	@Autowired
 	private IFollowService fservice;
-	
+
 	@Autowired
 	private ITagService tagService;
-	
+
 	@Autowired
 	private INotificationService notiService;
 
@@ -110,14 +114,14 @@ public class UserController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("userInfo", userInfo);
 		mv.setViewName("/user/mypage");
-		
-	    //알림 가져오기
+
+		//알림 가져오기
 		List<NotificationVO> alarmList = new ArrayList<>();
 		alarmList = notiService.alarm(id);
-	    System.out.println("알림받을사람: " + id);
-	    model.addAttribute("alarm", alarmList);
-	    model.addAttribute("countAlarm", notiService.countAlarm(id));
-	    //알림가져오기 끝
+		System.out.println("알림받을사람: " + id);
+		model.addAttribute("alarm", alarmList);
+		model.addAttribute("countAlarm", notiService.countAlarm(id));
+		//알림가져오기 끝
 
 		//팔로우 리스트 보내기
 		UserVO user = uservice.selectOne(id);
@@ -125,7 +129,7 @@ public class UserController {
 
 		int userNo = user.getUserNo();
 		int loginUserNo = loginUser.getUserNo();
-       
+
 		FollowVO follow = new FollowVO();
 		follow.setActiveUser(loginUserNo);
 		follow.setPassiveUser(userNo);
@@ -138,9 +142,9 @@ public class UserController {
 		//팔로잉리스트
 		List<FollowVO> followingList = fservice.selectActiveUserList(userNo);
 		System.out.println(followingList);
-       
-	    
-		
+
+
+
 		//태그리스트 부르기
 		List<String> tagList =tagService.listbyuId(loginUser.getUserId());
 
@@ -149,19 +153,29 @@ public class UserController {
 		model.addAttribute("followerList", followerList);
 		model.addAttribute("followingList", followingList);
 		model.addAttribute("tagList", tagList);
-		List<Map<String, Object>> tagmap = tagService.countTags(user.getUserId());
 		
-		System.out.println(tagmap);
-		Map<String, Object> realMap = new HashMap<>();
-		
-		for(Map<String, Object> map : tagmap) {
-			realMap.put((String) map.get("TAG_NAME"), map.get("COUNT(*)"));
+		List<Map<String, Object>> tagmap = tagService.countTags(user.getUserId()); //mapper가 반환한 태그의 이름과 갯수를 담은 Map을 담은 List
+		List<String> keyList = new ArrayList<>(); //태그의 이름을 담을 list
+		List<Integer> valueList = new ArrayList<>(); //태그의 갯수를 담을 list
+
+		for(Map<String, Object> map : tagmap) { //mapper가 가져온 ListMap에서 key와 value를 분리하여 각각의 list에 삽입
+			String key = (String) map.get("TAG_NAME"); //태그 이름
+			Object value = map.get("CNT"); //태그 갯수
+			int trueValue = Integer.parseInt(value.toString()); //Object로 전달된 태그 갯수를 int로 변환
+			keyList.add(key);
+			valueList.add(trueValue);
+
 		}
-		
-		System.out.println(realMap);
-		
-		model.addAttribute("tagCount", realMap);
-	    
+
+
+		System.out.println("키 리스트 :" + keyList);
+		System.out.println("밸류 리스트 : " + valueList);
+
+
+
+		model.addAttribute("tagKey", keyList);
+		model.addAttribute("tagValue", valueList);
+
 
 		return mv;
 	}
@@ -179,15 +193,15 @@ public class UserController {
 			UserVO loginUser = (UserVO) session.getAttribute("loginSession");
 			int loginUserNo = loginUser.getUserNo();
 			follow.setActiveUser(loginUserNo);
-			
+
 			//알림 가져오기
 			String receiver = loginUser.getUserId();
 			List<NotificationVO> alarmList = new ArrayList<>();
 			alarmList = notiService.alarm(receiver);
-		    System.out.println("알림받을사람: " + receiver);
-		    model.addAttribute("alarm", alarmList);
-		    model.addAttribute("countAlarm", notiService.countAlarm(receiver));
-		    //알림가져오기 끝
+			System.out.println("알림받을사람: " + receiver);
+			model.addAttribute("alarm", alarmList);
+			model.addAttribute("countAlarm", notiService.countAlarm(receiver));
+			//알림가져오기 끝
 
 		}
 
@@ -207,15 +221,30 @@ public class UserController {
 		System.out.println("userInfo: "+userInfo);
 		System.out.println("userInfo의 보드리스트: "+userInfo.getBoardList());
 		//태그 갯수 출력
-	    List<Map<String, Object>> tagmap = tagService.countTags(user.getUserId());
-		    Map<String, Object> realMap = new HashMap<>();
-		    for(Map<String, Object> map : tagmap) {
-		    	realMap.put((String) map.get("TAG_NAME"), map.get("COUNT(*)"));
-		    }
+		
+		List<Map<String, Object>> tagmap = tagService.countTags(user.getUserId()); //mapper가 반환한 태그의 이름과 갯수를 담은 Map을 담은 List
+		List<String> keyList = new ArrayList<>(); //태그의 이름을 담을 list
+		List<Integer> valueList = new ArrayList<>(); //태그의 갯수를 담을 list
+
+		for(Map<String, Object> map : tagmap) { //mapper가 가져온 ListMap에서 key와 value를 분리하여 각각의 list에 삽입
+			String key = (String) map.get("TAG_NAME"); //태그 이름
+			Object value = map.get("CNT"); //태그 갯수
+			int trueValue = Integer.parseInt(value.toString()); //Object로 전달된 태그 갯수를 int로 변환
+			keyList.add(key);
+			valueList.add(trueValue);
+
+		}
+
+
+		System.out.println("키 리스트 :" + keyList);
+		System.out.println("밸류 리스트 : " + valueList);
+
+
+
 		
 		//태그리스트 부르기
 		List<String> tagList =tagService.listbyuId(id);
-		
+
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("userInfo", userInfo);//사용자 정보 보내기 
 		mv.addObject("user", user);
@@ -223,8 +252,9 @@ public class UserController {
 		mv.addObject("followerList", followerList);
 		mv.addObject("followingList", followingList);
 		mv.addObject("id", user.getUserId());
-		mv.addObject("tagList", tagList);
-		mv.addObject("tagCount", realMap);
+		mv.addObject("tagList", tagList); //미사용
+		model.addAttribute("tagKey", keyList);
+		model.addAttribute("tagValue", valueList);
 		mv.setViewName("user/userpage");
 		return mv;
 	}
@@ -233,19 +263,19 @@ public class UserController {
 	@GetMapping("/editUser")
 	public ModelAndView editUser(HttpSession session, Model model) {
 		System.out.println("/user/editUser: GET");
-		
-		   if(session.getAttribute("loginSession") != null) {
-			   //알림 가져오기
-			   UserVO user = (UserVO) session.getAttribute("loginSession");
-			   String receiver = user.getUserId();
-			   List<NotificationVO> alarmList = new ArrayList<>();
-			   alarmList = notiService.alarm(receiver);
-			   System.out.println("알림받을사람: " + receiver);
-			   model.addAttribute("alarm", alarmList);
-			   model.addAttribute("countAlarm", notiService.countAlarm(receiver));
-			   //알림가져오기 끝
-		   }
-		
+
+		if(session.getAttribute("loginSession") != null) {
+			//알림 가져오기
+			UserVO user = (UserVO) session.getAttribute("loginSession");
+			String receiver = user.getUserId();
+			List<NotificationVO> alarmList = new ArrayList<>();
+			alarmList = notiService.alarm(receiver);
+			System.out.println("알림받을사람: " + receiver);
+			model.addAttribute("alarm", alarmList);
+			model.addAttribute("countAlarm", notiService.countAlarm(receiver));
+			//알림가져오기 끝
+		}
+
 		return new ModelAndView("/user/editProfile");
 	}
 
