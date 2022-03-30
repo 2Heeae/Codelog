@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -48,6 +47,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		System.out.println("소켓에 메세지 들어왔다~~~!");
 		
 		//서비스 보내야해서 밖에서 선언함
+		String category = null;
 		String sender = null;
 		String receiver = null;
 		String notiMsg = null;
@@ -58,17 +58,16 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			String[] strs = msg.split(",");
 			System.out.println("소켓 전송 메세지값: " + Arrays.toString(strs));
 
+			//좋아요
 			if(strs != null && strs.length == 5) {
-				String category = strs[0];
+				category = strs[0];
 				sender = strs[1]; //글 보는 사람 아이디
 				String nick = strs[2]; //글 보는 사람 닉네임
 				receiver = strs[3]; //글 쓴 사람 아이디
 				String likeChk = strs[4]; //좋아요 눌렀는지 여부
 
 				String comment = "";
-				if(likeChk.equals("1")) {
-					comment = " 좋아요를 취소했습니다.";
-				} else if(likeChk.equals("0")) {
+				if(likeChk.equals("0")) {
 					comment = "을 좋아합니다.";
 				}
 
@@ -83,6 +82,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 					vo.setSender(sender);
 					vo.setReceiver(receiver);
 					vo.setMsg(notiMsg);
+					vo.setCategory(category);
 					System.out.println("noti VO: " + vo);
 					notiService.saveNotification(vo);
 				} else { //지금 같은 서버에 혼자 접속중이어서 메세지 들어오는지 확인이 불가능함. 그래서 나한테 보여줘서 체크하는지 확인하는 용도로 썼음.
@@ -95,12 +95,13 @@ public class WebSocketHandler extends TextWebSocketHandler {
 					vo.setSender(sender);
 					vo.setReceiver(receiver);
 					vo.setMsg(notiMsg);
+					vo.setCategory(category);
 					System.out.println("noti VO: " + vo);
 					notiService.saveNotification(vo);
 				}
 				
-			} else if(strs != null && strs.length == 4) {
-				String category = strs[0];
+			} else if(strs != null && strs.length == 4) { //팔로우
+				category = strs[0];
 				sender = strs[1]; //댓글 쓴 사람 아이디(댓글), 로그인 한 사람 아이디(팔로우)
 				String nick = strs[2];
 				receiver = strs[3]; //글 쓴 사람 아이디(댓글), 팔로우 당하는 사람 아이디(팔로우)
@@ -116,6 +117,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 						vo.setSender(sender);
 						vo.setReceiver(receiver);
 						vo.setMsg(notiMsg);
+						vo.setCategory(category);
 						System.out.println("noti VO: " + vo);
 						notiService.saveNotification(vo);
 					} else { //메세지 받은 사람이 로그인 안했을 경우(혼자 테스트 해야해서 작성해둠)
@@ -126,28 +128,31 @@ public class WebSocketHandler extends TextWebSocketHandler {
 						vo.setSender(sender);
 						vo.setReceiver(receiver);
 						vo.setMsg(notiMsg);
+						vo.setCategory(category);
 						System.out.println("noti VO: " + vo);
 						notiService.saveNotification(vo);
 					}
 				} else if("follow".equals(category)) {
 					if(targetSession != null) {
-						TextMessage txtMsg = new TextMessage(nick + "님이 회원님의 게시물에 댓글을 남겼습니다.");
-						notiMsg = nick + "님이 회원님의 게시물에 댓글을 남겼습니다.";
+						TextMessage txtMsg = new TextMessage(nick + "님이 회원님을 팔로우 했습니다.");
+						notiMsg = nick + "님이 회원님을 팔로우 했습니다.";
 						targetSession.sendMessage(txtMsg);
 						
 						vo.setSender(sender);
 						vo.setReceiver(receiver);
 						vo.setMsg(notiMsg);
+						vo.setCategory(category);
 						System.out.println("noti VO: " + vo);
 						notiService.saveNotification(vo);
 					} else { //메세지 받은 사람이 로그인 안했을 경우(혼자 테스트 해야해서 작성해둠)
-						TextMessage txtMsg = new TextMessage(nick + "님이 회원님의 게시물에 댓글을 남겼습니다.");
-						notiMsg = nick + "님이 회원님의 게시물에 댓글을 남겼습니다.";
+						TextMessage txtMsg = new TextMessage(nick + "님이 회원님을 팔로우 했습니다.");
+						notiMsg = nick + "님이 회원님을 팔로우 했습니다.";
 						session.sendMessage(txtMsg);
 						
 						vo.setSender(sender);
 						vo.setReceiver(receiver);
 						vo.setMsg(notiMsg);
+						vo.setCategory(category);
 						System.out.println("noti VO: " + vo);
 						notiService.saveNotification(vo);
 					}

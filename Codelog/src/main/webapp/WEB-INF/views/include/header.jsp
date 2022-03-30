@@ -82,7 +82,7 @@
             <button type="button" id="notification-btn" class="btn rounded-circle position-relative c mx-md-1  px-md-3 hc" role="button" aria-expanded="false">
             <!--알림 아이콘, 알림개수-->
                <i class="fa-regular fa-bell ic"></i>
-               <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style="left: 2.8rem;">
+               <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger" id="alarm-badge" style="left: 2.8rem;">
                   ${countAlarm}
                   <span class="visually-hidden">unread messages</span>
                </span>
@@ -94,7 +94,7 @@
 
                      <!--알림 목록 내용-->
                      <c:forEach var="a" items="${alarm}">
-                      <div class="card-body" style=" height: 6rem;">
+                      <div class="card-body" style=" height: 6rem;" id="${a.notiNo}">
                         <div class="row alarm-list">
                            <div class="col-md-3">
                               <a href="${pageContext.request.contextPath}/user/userpage/${a.sender}" class="stretched-link" style="position: relative; text-decoration: none;">
@@ -408,7 +408,32 @@ $('#searchInput').keydown(function(){
 			//개별 알림 x버튼 클릭 시 삭제 이벤트
 			$('.btn-close').click(function(e) {
 				let target_noti = $(event.target).parent().prev().prev().parent().parent();
-				target_noti.remove();
+				let notiNo = target_noti.attr('id');
+				
+				if($('#alarm-badge').text() != 1) {
+		        	$('#alarm-badge').text(${countAlarm} - 1);
+	        	} else {
+	        		$('#alarm-badge').text(0);
+	        	}
+				//console.log(target_num);
+				//console.log(notiNo);
+				
+				$.ajax({ //ajax 시작
+			        url : '<c:url value="/user/deleteAlarm" />',
+			        type : 'POST',
+			        contentType : 'application/json',
+					dataType : 'text',
+		            data : notiNo,
+			        success : function() {
+			        	console.log("통신 성공!");
+			        	target_noti.remove();
+			        	location.reload();
+			        },
+			        error : function(status, error) {
+			            alert('통신 실패!');
+			        }
+				}); //ajax 끝
+				
 			});
 			
 			

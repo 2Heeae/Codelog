@@ -19,5 +19,6 @@ public class NotificationVO {
 	private String msg;
 	private String sender;
 	private Timestamp regDate;
+	private String category;
 
 }

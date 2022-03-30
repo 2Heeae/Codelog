@@ -969,8 +969,8 @@
 			
 		});
 	
-		let post_like = ${postLike}; //좋아요 여부 확인 1, 0
 		function like_update() {
+			let post_like = ${postLike}; //좋아요 여부 확인 1, 0
 			const view_user_id = $('#view-user').val(); //글 보는 사람 아이디
 			const view_user_nick = '${loginSession.nickname}';
 			const writer = '${dto.userId}'; //글 쓴 사람
@@ -999,6 +999,7 @@
 						let total = $('#result').html();
 						$('#result').html(${dto.likes} - 1);		
 						post_like = 0;
+						location.reload();
 						
 						
 						
@@ -1007,11 +1008,12 @@
 						$('#like-check').val(1);
 						$('#like-btn').css("color", "red");
 						$('#result').html(${dto.likes} + 1);
-						post_like = 1;						
-						
+						post_like = 1;
+						socket.send(msg);
+						location.reload();
 						
 					}
-					socket.send(msg);
+					
 					
 				}, error : function(result) {
 					console.log('좋아요 에러: ' + result);
