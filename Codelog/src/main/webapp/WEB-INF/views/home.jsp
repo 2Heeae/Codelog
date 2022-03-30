@@ -62,7 +62,7 @@
             <button type="button" class="btn c rounded-circle p-0 position-relative"
                style="background-color:transparent; border-color: transparent; color:rgb(148 180 159);" data-bs-toggle="collapse"
                href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
-               <span id ="period" class="m-0 pop" id="dateT" style="font-size: 1.2rem; font-weight:bold;">
+               <span id ="period" period="${period }" class="m-0 pop" id="dateT" style="font-size: 1.2rem; font-weight:bold;">
                <c:choose>
                   <c:when test="${period=='year'}">올해</c:when>
                   <c:when test="${period=='month'}">이번 달</c:when>
@@ -393,18 +393,24 @@
      if(Math.round($(window).scrollTop()) === $(document).height() - $(window).height()) { 
         var boardId = $("#posterbox .poster").last().data('bno');
         var likes = $("#posterbox .poster").last().data('lno');
-        var period = $("#period").text;
+        var period = $("#period").attr("period");
         var allChk = $("#allChk").attr("allChk");
 
-
+		
         if(allChk == 'fol'){allChk=2;}else{allChk=1};
+        
+        if(period == 'day'){period=1;}
+        else if(period == 'week'){period=2;}
+        else if(period == 'month'){period=3;}
+        else if(period == 'year'){period=4;};
         
       var lastPoster = $("#start");
         console.log(lastPoster);
 
       console.log("보드아이디: "+boardId);
       console.log("좋아요: "+likes);
-      console.log("올첵: "+allChk);
+      console.log("올체크: "+allChk);
+      console.log("기간: "+period);
          
          console.log("i값은 "+i);
         const info = {

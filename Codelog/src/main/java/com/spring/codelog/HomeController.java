@@ -196,7 +196,7 @@ public class HomeController {
    @RequestMapping(value = "/tadd", method = RequestMethod.POST)
    public List<BoardVO> THome(Model model, @RequestBody Map<String,Integer> info,
 		   HttpServletRequest request, 
-			HttpServletResponse response,String period) {
+			HttpServletResponse response) {
 	   
 	   System.out.println("--------------------POST:/TAdd HOME:TRENDING:ADD--------------------");
 	   
@@ -218,28 +218,28 @@ public class HomeController {
 	   
 	   
 
-	   System.out.println("기간은?: "+period);
+	   System.out.println("기간은?: "+info.get("period"));
 	   Calendar calendar = Calendar.getInstance();
-	   if(period == null) {
+	   if(info.get("period") == null) {
 		   calendar.add(Calendar.DATE, -7);
 		   model.addAttribute("period", "week");
 
 	   }else  {
-	   if(period == "week") {
+	   if(info.get("period") == 2) {
 	   calendar.add(Calendar.DATE, -7);
 	   model.addAttribute("period", "week");
 
-	   }else if(period == "month") {
+	   }else if(info.get("period") == 3) {
 	   calendar.add(Calendar.MONTH, -1);
 	   model.addAttribute("period", "month");
 
 
-	   }else if(period == "year") {
+	   }else if(info.get("period") == 4) {
 	   calendar.add(Calendar.YEAR, -1);
 	   model.addAttribute("period", "year");
 
 	   
-	   }else if(period == "day") {
+	   }else if(info.get("period") == 1) {
 	   calendar.add(Calendar.DATE, -1);
 	   model.addAttribute("period", "day");
 	   }
