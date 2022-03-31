@@ -114,4 +114,11 @@ VALUES(board_seq.NEXTVAL, #{userId}, #{title}, #{writer}, #{tags}, #{content}, '
  	<select id="lastbno" resultType="int">
  		SELECT max(board_id)+1 FROM proj_board
  	</select>
+ 	
+ 	<!-- 회원탈퇴하는 사용자 게시물 모두 삭제 -->
+ 	<delete id="deleteAll">
+ 		DELETE FROM proj_board
+ 		WHERE user_id = #{userId}
+ 	</delete>
+ 	
  </mapper>

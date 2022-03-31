@@ -564,7 +564,7 @@
 	    let userNo = $(".write_reply").attr('userNo');
 	    
 	    // 소켓 메세지에 보낼 내용(댓작성자id? 닉네임?, 글작성자id)
-	    msg = 'reply' + ',' + '${loginSession.userId}' + ',' + '${loginSession.nickname}' + ',' + '${dto.userId}';
+	    msg = 'reply' + ',' + '${loginSession.userId}' + ',' + '${loginSession.nickname}' + ',' + '${dto.userId}' + ',' + bno;
 	    
 	    if(content == ""){	// 입력된게 없을때
 	        alert("댓글을 입력하세요!");
@@ -625,6 +625,7 @@
                 "writer" : writer,
                 "userNo" :userNo
             };
+	    
 		console.log("대댓글 여기까지 실행")
 	    if(content == ""){	// 입력된게 없을때
 	        alert("글을 입력하세요!");
@@ -644,6 +645,7 @@
 	              
 	                console.log("대댓글 작성 성공");
 	               	$('#recnt').text(pto+"개의 댓글");
+	               	
 	                // 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
 	                ReplyList(bno);
 	            },
@@ -977,7 +979,7 @@
 			console.log(view_user_id);
 			console.log(post_like);
 			console.log(writer);
-			msg = "like" + "," + view_user_id + "," + view_user_nick + "," + writer + "," + post_like; //소켓메세지 보낼 값
+			msg = "like" + "," + view_user_id + "," + view_user_nick + "," + writer + "," + post_like + "," + ${dto.boardId}; //소켓메세지 보낼 값
 
 			const data = {
 				"viewUserId" : view_user_id, //글 보는사람 아이디값

@@ -19,5 +19,7 @@ public interface BoardMapper {
  
  public BoardVO modify(int boardId);
  
+ public void deleteAll(String userId);
+ 
  
 }

@@ -110,7 +110,7 @@
                width: '100%',
                height: '41.327rem',
                initialEditType: 'markdown',
-               previewStyle: 'vertical'
+               previewStyle: 'vertical',
              });
          
           </script>

@@ -20,5 +20,6 @@ public class NotificationVO {
 	private String sender;
 	private Timestamp regDate;
 	private String category;
+	private int bno;
 
 }

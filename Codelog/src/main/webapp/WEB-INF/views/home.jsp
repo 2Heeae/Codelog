@@ -263,7 +263,7 @@
 
             }
             
-            console.log("date는 "+date);
+            //console.log("date는 "+date);
             
             var form = document.createElement('form');
 
@@ -301,7 +301,7 @@
             }
          
             
-            console.log("allChk는 "+allChk);
+            //console.log("allChk는 "+allChk);
             
             var form = document.createElement('form');
 
@@ -356,12 +356,12 @@
 
 /*무한스크롤*/
       var i = 0;
-      console.log('기간은 ${period}');
+      //console.log('기간은 ${period}');
       
       
    $(window).scroll(function() { 
      if(Math.round($(window).scrollTop()) === $(document).height() - $(window).height()) {
-    	console.log('무한스크롤 여건 완성!');
+    	//console.log('무한스크롤 여건 완성!');
         var boardId = $("#posterbox .poster").last().data('bno');
         var likes = $("#posterbox .poster").last().data('lno');
         var period = $("#period").attr("period");
@@ -376,14 +376,14 @@
         else if(period == 'year'){period=4;};
         
       var lastPoster = $("#start");
-        console.log('lastPoster:' + lastPoster);
+        //console.log('lastPoster:' + lastPoster);
 
-      console.log("보드아이디: "+boardId);
-      console.log("좋아요: "+likes);
-      console.log("올체크: "+allChk);
-      console.log("기간: "+period);
+      //console.log("보드아이디: "+boardId);
+      //console.log("좋아요: "+likes);
+      //console.log("올체크: "+allChk);
+      //console.log("기간: "+period);
          
-         console.log("i값은 "+i);
+         //console.log("i값은 "+i);
         const info = {
                   "i" : i,
                   "boardId" : boardId,
@@ -393,10 +393,10 @@
             };
         
         var url = $(location).attr('href');
-        console.log(url);
+        //console.log(url);
         
         if(url=="http://172.30.1.18:8181/codelog/"){
-           console.log("RECENT");
+           //console.log("RECENT");
         
       
             $.ajax({
@@ -407,17 +407,17 @@
                data : JSON.stringify(info),
                success : function(RPosters) {
                    i = i+1;
-                       console.log("RECENT:ADD 통신 성공");
-                       console.log(RPosters);
+                       //console.log("RECENT:ADD 통신 성공");
+                       //console.log(RPosters);
 
                   if(RPosters != ""){
                      $(RPosters).each(function(){  
                                 
-                        console.log('-------------------');
-                        console.log(this.boardId);
-                        console.log("썸네일"+this.thumbnail);
-                        console.log('-------------------');
-                                console.log('-------------------');
+                        //console.log('-------------------');
+                        //console.log(this.boardId);
+                        //console.log("썸네일"+this.thumbnail);
+                        //console.log('-------------------');
+                                //console.log('-------------------');
                                 
                            var str ="";
                            str += "<div class=" + "'col-md-4 px-md-4 py-md-4'"+">"
@@ -465,13 +465,13 @@
                   }
                },
                error : function() {
-                  console.log('통신 실패!');
+                  //console.log('통신 실패!');
                }
             }); //end ajax (로그인 비동기 처리) 
         }
         else if(url=="http://172.30.1.18:8181/codelog/trending"){
            
-           console.log("TRENDING");
+           //console.log("TRENDING");
            
           $.ajax({
             type : 'POST',
@@ -481,15 +481,15 @@
             data : JSON.stringify(info),
             success : function(TPosters) {
                 i = i+1;
-                  console.log("성공")
+                  //console.log("성공")
                if(TPosters != ""){
                   $(TPosters).each(function(){  
                             
-                     console.log('-------------------');
-                     console.log(this.boardId);
+                     //console.log('-------------------');
+                     //console.log(this.boardId);
                            // console.log(boardId);
-                            console.log("썸네일"+this.thumbnail);
-                            console.log('-------------------');
+                            //console.log("썸네일"+this.thumbnail);
+                            //console.log('-------------------');
                             
                         var str ="";
                         str += "<div class=" + "'col-md-4 px-md-4 py-md-4'"+">"
@@ -536,7 +536,7 @@
                }
             },
             error : function() {
-               console.log('통신 실패!');
+               //console.log('통신 실패!');
             }
          }); //end ajax (로그인 비동기 처리) 
         }
