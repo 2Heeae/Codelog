@@ -1,13 +1,16 @@
 /* 다크모드 css 시작 */
 body {
   --text-color: #222;
-  --bkg-color: #fff;
+  --bkg-color: #F8F9FA;
+  --ckg-color:white;
 }
 
 body.dark-theme {
   --text-color: #eee;
   --bkg-color: #121212;
 }
+
+
 
 body, div {
   background: var(--bkg-color);
@@ -96,3 +99,9 @@ a:hover{
   margin-top: 60px;
   line-height: 28px;
 }
+
+.card-body {
+	  background: var(--ckg-color);
+	
+}
+
