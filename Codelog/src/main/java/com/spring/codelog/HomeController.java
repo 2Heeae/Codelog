@@ -47,7 +47,6 @@ public class HomeController {
 	   System.out.println("---------------------------GET:/ HOME:RECENT-------------------------");
 	 
 	   
-	   System.out.println("formT?: "+fromT); 
 	      model.addAttribute("recent", true);
 	      model.addAttribute("trending", false);
 	      model.addAttribute("i", 3);
@@ -59,28 +58,20 @@ public class HomeController {
 		   UserVO login = (UserVO)session.getAttribute("loginSession");
 		   
 		
-		 		   
-		   System.out.println("로그인 중 id: "+login.getUserId());
-		   System.out.println("들어온 allChk"+allChk);
+		 
 		   
 		   if(allChk == null) {
-			   System.out.println("출력:팔로워");
 			   model.addAttribute("allChk", "fol");
-			   System.out.println("Posters: "+service.FPosters(login.getUserNo()));		  
 			   model.addAttribute("Posters", service.FPosters(login.getUserNo()));
 		   }
 		   else
 		   {
 			   if(allChk.equals("fol")) {
-				   System.out.println("출력:팔로워");
 				   model.addAttribute("allChk", "fol");
-				   System.out.println("Posters: "+service.FPosters(login.getUserNo()));		  
 				   model.addAttribute("Posters", service.FPosters(login.getUserNo()));
 
 			   }else if(allChk.equals("all")) {
-				   System.out.println("출력:모든사람");
 				   model.addAttribute("allChk", "all");
-				   System.out.println("Posters: "+service.RPosters()); 
 				   model.addAttribute("Posters", service.RPosters());
 		    }
 
@@ -93,9 +84,7 @@ public class HomeController {
 		   String receiver = login.getUserId();
 		   List<NotificationVO> alarmList = new ArrayList<>();
 		   alarmList = notiService.alarm(receiver);
-		   System.out.println("알림받을사람: " + receiver);
 		   model.addAttribute("alarm", alarmList);
-		   System.out.println("alarmlist 내용: " + alarmList);
 		   model.addAttribute("countAlarm", notiService.countAlarm(receiver));
 		   //알림가져오기 끝
 
@@ -105,7 +94,6 @@ public class HomeController {
 		   
 	   }
 	   
-	   System.out.println("Posters: "+service.RPosters()); 
 	   model.addAttribute("Posters", service.RPosters());
 	  
      
@@ -122,7 +110,6 @@ public class HomeController {
 			HttpServletResponse response) {
 	   
 	   System.out.println("--------------------POST:/radd HOME:RECENT:ADD--------------------");
-	   System.out.println("allChk는" +info.get("allChk"));
 	   
 	   List<BoardVO> list = new ArrayList<BoardVO>();
 	   
@@ -135,14 +122,11 @@ public class HomeController {
 		   String receiver = login.getUserId();
 		   List<NotificationVO> alarmList = new ArrayList<>();
 		   alarmList = notiService.alarm(receiver);
-		   System.out.println("알림받을사람: " + receiver);
 		   model.addAttribute("alarm", alarmList);
 		   model.addAttribute("countAlarm", notiService.countAlarm(receiver));
 		   //알림가져오기 끝
 		   if(info.get("allChk")==2) {
-		   System.out.println("출력:팔로우");
-		   System.out.println("로그인 중 id: "+login.getUserId());
-		   System.out.println("Posters: "+service.FAPosters(info.get("boardId"), login.getUserNo()));
+		 
 		   list = service.FAPosters(info.get("boardId"),login.getUserNo());
 		   System.out.println("-----------------------------------------------------------------------");
 
@@ -150,10 +134,8 @@ public class HomeController {
 		   }
 		   else if(info.get("allChk")==1) 
 		   {
-			   System.out.println("출력:모든사람");
-			   System.out.println("로그인 중 id: "+login.getUserId());
+			 
 			   list = service.RAPosters(info.get("i"),info.get("boardId"));			   
-			   System.out.println("추가 리스트는 "+list);
 			   System.out.println("-----------------------------------------------------------------------");
 
 			   return list;
@@ -165,7 +147,6 @@ public class HomeController {
 	   
 	   list = service.RAPosters(info.get("i"),info.get("boardId"));
 	   
-	   System.out.println("추가 리스트는 "+list);
 	   
 	   
 	   System.out.println("-----------------------------------------------------------------------");
@@ -233,10 +214,7 @@ public class HomeController {
 	   SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 	   String start = simpleDateFormat.format(date);
 	   String end = simpleDateFormat.format(new Date());
-	   System.out.println("끝 날짜: "+end);
-	   System.out.println("시작 날짜: "+start);
-	   
-	   System.out.println("추가 리스트는 : "+service.TAPosters(info.get("likes"),start, end));
+	 
 	   list = service.TAPosters(info.get("likes"),start, end);
 
 	   System.out.println("-----------------------------------------------------------------------");
@@ -251,7 +229,6 @@ public class HomeController {
 	   
 	   System.out.println("---------------------------POST:/ HOME:RECENT-------------------------");
 
-	   System.out.println("포스트 formT "+fromT);      
 	      model.addAttribute("recent", true);
 	      model.addAttribute("trending", false);
 	     
@@ -264,29 +241,22 @@ public class HomeController {
 		   String receiver = login.getUserId();
 		   List<NotificationVO> alarmList = new ArrayList<>();
 		   alarmList = notiService.alarm(receiver);
-		   System.out.println("알림받을사람: " + receiver);
 		   model.addAttribute("alarm", alarmList);
 		   model.addAttribute("countAlarm", notiService.countAlarm(receiver));
 		   //알림가져오기 끝
 		   
 		   if(allChk == null) {
-			   System.out.println("출력:팔로워");
 			   model.addAttribute("allChk", "fol");
-			   System.out.println("Posters: "+service.FPosters(login.getUserNo()));		  
 			   model.addAttribute("Posters", service.FPosters(login.getUserNo()));
 		   }
 		   else
 		   {
 			   if(allChk.equals("fol")) {
-				   System.out.println("출력:팔로워");
 				   model.addAttribute("allChk", "fol");
-				   System.out.println("Posters: "+service.FPosters(login.getUserNo()));		  
 				   model.addAttribute("Posters", service.FPosters(login.getUserNo()));
 
 			   }else if(allChk.equals("all")) {
-				   System.out.println("출력:모든사람");
 				   model.addAttribute("allChk", "all");
-				   System.out.println("Posters: "+service.RPosters()); 
 				   model.addAttribute("Posters", service.RPosters());
 		    }
 
@@ -300,7 +270,6 @@ public class HomeController {
 
 		   
 	   }
-	   System.out.println("Posters: "+service.RPosters());
 	   model.addAttribute("Posters", service.RPosters());
 	 
     
@@ -319,14 +288,12 @@ public class HomeController {
 		   String receiver = user.getUserId();
 		   List<NotificationVO> alarmList = new ArrayList<>();
 		   alarmList = notiService.alarm(receiver);
-		   System.out.println("알림받을사람: " + receiver);
 		   model.addAttribute("alarm", alarmList);
 		   model.addAttribute("countAlarm", notiService.countAlarm(receiver));
 		   //알림가져오기 끝
 	   }
 	   
 	   //service.TPosters(); 
-	   System.out.println("기간은?: "+period);
 	   Calendar calendar = Calendar.getInstance();
 	   if(period ==null) {
 		   calendar.add(Calendar.DATE, -7);
@@ -358,13 +325,9 @@ public class HomeController {
 	   SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 	   String start = simpleDateFormat.format(date);
 	   String end = simpleDateFormat.format(new Date());
-	   System.out.println("끝 날짜: "+end);
-	   System.out.println("시작 날짜: "+start);
 
-	   System.out.println("Posters: "+service.TPosters(start, end));
 	   model.addAttribute("Posters", service.TPosters(start, end));
 	 
-	  System.out.println("겟 formR "+fromR);      
       model.addAttribute("trending", true);
       model.addAttribute("recent", false);
     
@@ -381,7 +344,6 @@ public class HomeController {
 		   String receiver = user.getUserId();
 		   List<NotificationVO> alarmList = new ArrayList<>();
 		   alarmList = notiService.alarm(receiver);
-		   System.out.println("알림받을사람: " + receiver);
 		   model.addAttribute("alarm", alarmList);
 		   model.addAttribute("countAlarm", notiService.countAlarm(receiver));
 		   //알림가져오기 끝
@@ -391,7 +353,6 @@ public class HomeController {
 	   System.out.println("--------------------POST:/trending HOME:TRENDING--------------------");
 
 	   
-	   System.out.println("기간은?: "+period);
 	   Calendar calendar = Calendar.getInstance();
 	   if(period == null) {
 		   calendar.add(Calendar.DATE, -7);
@@ -423,14 +384,9 @@ public class HomeController {
 	   SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 	   String start = simpleDateFormat.format(date);
 	   String end = simpleDateFormat.format(new Date());
-	   System.out.println("끝 날짜: "+end);
-	   System.out.println("시작 날짜: "+start);
-	   
-	 
-	   System.out.println("Posters: "+service.TPosters(start, end));
+	
 	   model.addAttribute("Posters", service.TPosters(start, end));
 	 
-	  System.out.println("포스트 formR "+fromR);
       model.addAttribute("trending", true);
       model.addAttribute("recent", false);
      

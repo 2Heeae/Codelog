@@ -157,7 +157,7 @@
             <div class="row py-md-3" style="margin: 5% 15% 0% 15%">
 
                <div class="col-md-6 px-md-4" style="margin: 0 auto; width:70%;">
-               <p class="my-md-1" style="font-weight: bold; font-size: 1.7rem; text-align: center; position: relative; top: 65px; left: -20px; ">포스터 미리보기</p>
+               <p class="my-md-1" style="font-weight: bold; font-size: 1.7rem; text-align: center; position: relative; top: 65px; left: -20px; ">썸네일 미리보기</p>
                   <div class="card" style="width: 90%; border:0; background-color: transparent;">
 
                      <!--썸네일 부분-->

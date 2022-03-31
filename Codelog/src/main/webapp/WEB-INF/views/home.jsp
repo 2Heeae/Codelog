@@ -116,7 +116,7 @@
                href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample4">
                <span id="allChk" allChk = "${allChk}" class="m-0 pop" style="font-size: 1.1rem; color:rgb(148 180 159); font-weight:bold;">
                <c:choose>
-                  <c:when test="${allChk=='fol'}">팔로워</c:when>
+                  <c:when test="${allChk=='fol'}">팔로잉</c:when>
                   <c:when test="${allChk=='all'}">모든 사람</c:when>
                   <c:otherwise>팔로워</c:otherwise>
                </c:choose>

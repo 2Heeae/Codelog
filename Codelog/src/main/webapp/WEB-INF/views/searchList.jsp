@@ -17,6 +17,10 @@
 
        @import url("<c:url value='/css/home.css'/>");
    
+     .card-thumb{
+          overflow-y : hidden;
+          
+        }
    </style>
    <title>Document</title>
 </head>
