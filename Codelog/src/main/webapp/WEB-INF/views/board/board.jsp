@@ -122,7 +122,7 @@
 										</c:choose>
 									</c:when>
 									<c:otherwise>
-										<a class="likes" id="like-btn">♥</a>
+										<a class="likes" id="like-btn" style="cursor:pointer;">♥</a>
 										<input type="hidden" id="like-check">
 									</c:otherwise>
 								</c:choose>

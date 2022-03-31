@@ -179,6 +179,7 @@
 			else if(!get_pw_check.test($(this).val()) || $(this).val().length < 8) {
 				$(this).css('border-color', '#E83A14');
 				$('#pw-msg').html('<b style="font-size: 14px; color: #E83A14">[영대문자,소문자,숫자,특수문자를 각각 하나 이상 포함하여 8~16자]</b>');
+
 				chk2 = false;
 			}
 			//통과

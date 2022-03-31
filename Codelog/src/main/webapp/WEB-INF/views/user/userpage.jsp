@@ -191,7 +191,7 @@
 								alt="...">
 							<!--제목 내용-->
 							<div class="card-body ">
-								<strong>${Poster.title }</strong>
+								<strong>${Poster.title }</strong> 
 								<p class="card-text" style="padding-top: 0.3rem;">${Poster.preview }
 
 
