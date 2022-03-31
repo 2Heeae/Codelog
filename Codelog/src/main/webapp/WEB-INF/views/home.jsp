@@ -181,7 +181,6 @@
                <div class="card-body ">
                   <strong>${Poster.title }</strong>
                   <p class="card-text" style="padding-top: 0.3rem;">${Poster.preview }
-
                   </p>
                </div>
                <div class="card-footer my-md-0 py-md-0"
@@ -242,30 +241,7 @@
 
          /*최신, 트랜딩 밑줄 애니매이션*/
          $(document).ready(function () {
-              function test2(name, date) { console.log(`프로젝트명: ${name} 일자: ${date}`); } test2('print', '2019-05-13');
-
-      
-         if(${recent}==true){
-            if(${fromT}==true ){
-               $("#tot").removeClass('toto');
-               $("#tot").addClass('toto2')
-            }
-            else {
-            	$("#tot").removeClass('toto2');
-                $("#tot").addClass('toto3')
-            }
-         }
-      
-         if(${trending}==true){
-            if(${fromR}==true){
-               $("#tot").removeClass('toto2');
-               $("#tot").addClass('toto')
-            }
-            else {
-            	$("#tot").removeClass('toto');
-                $("#tot").addClass('toto4')
-            }
-         }   
+          
          
          
          
@@ -287,7 +263,7 @@
 
             }
             
-            console.log("date는 "+date);
+            //console.log("date는 "+date);
             
             var form = document.createElement('form');
 
@@ -325,7 +301,7 @@
             }
          
             
-            console.log("allChk는 "+allChk);
+            //console.log("allChk는 "+allChk);
             
             var form = document.createElement('form');
 
@@ -368,13 +344,7 @@
             if(LayerPopup4.hasClass("show")){
                LayerPopup4.removeClass("show");
                }
-
-
-
-         });
-         
-        
-         
+         });                        
          });
 
          
@@ -386,11 +356,12 @@
 
 /*무한스크롤*/
       var i = 0;
-      console.log('기간은 ${period}');
+      //console.log('기간은 ${period}');
       
       
    $(window).scroll(function() { 
-     if(Math.round($(window).scrollTop()) === $(document).height() - $(window).height()) { 
+     if(Math.round($(window).scrollTop()) === $(document).height() - $(window).height()) {
+    	//console.log('무한스크롤 여건 완성!');
         var boardId = $("#posterbox .poster").last().data('bno');
         var likes = $("#posterbox .poster").last().data('lno');
         var period = $("#period").attr("period");
@@ -405,14 +376,14 @@
         else if(period == 'year'){period=4;};
         
       var lastPoster = $("#start");
-        console.log(lastPoster);
+        //console.log('lastPoster:' + lastPoster);
 
-      console.log("보드아이디: "+boardId);
-      console.log("좋아요: "+likes);
-      console.log("올체크: "+allChk);
-      console.log("기간: "+period);
+      //console.log("보드아이디: "+boardId);
+      //console.log("좋아요: "+likes);
+      //console.log("올체크: "+allChk);
+      //console.log("기간: "+period);
          
-         console.log("i값은 "+i);
+         //console.log("i값은 "+i);
         const info = {
                   "i" : i,
                   "boardId" : boardId,
@@ -422,10 +393,10 @@
             };
         
         var url = $(location).attr('href');
-        console.log(url);
+        //console.log(url);
         
-        if(url=="http://localhost:8181/codelog/"){
-           console.log("RECENT");
+        if(url=="http://172.30.1.18:8181/codelog/"){
+           //console.log("RECENT");
         
       
             $.ajax({
@@ -436,23 +407,23 @@
                data : JSON.stringify(info),
                success : function(RPosters) {
                    i = i+1;
-                       console.log("RECENT:ADD 통신 성공");
-                       console.log(RPosters);
+                       //console.log("RECENT:ADD 통신 성공");
+                       //console.log(RPosters);
 
                   if(RPosters != ""){
                      $(RPosters).each(function(){  
                                 
-                        console.log('-------------------');
-                        console.log(this.boardId);
-                        console.log("썸네일"+this.thumbnail);
-                        console.log('-------------------');
-                                console.log('-------------------');
+                        //console.log('-------------------');
+                        //console.log(this.boardId);
+                        //console.log("썸네일"+this.thumbnail);
+                        //console.log('-------------------');
+                                //console.log('-------------------');
                                 
                            var str ="";
                            str += "<div class=" + "'col-md-4 px-md-4 py-md-4'"+">"
                            + "<div class="+"'card poster'"+" style="+"'width: 100%; height: 27rem;'"+ "data-bno='"+this.boardId+"'"+"data-lno='"+this.likes+"'>"
-                               + "<a href="+"${pageContext.request.contextPath}/boardController/board?boardId=${Poster.boardId}"+" class="+"'stretched-link'"+"></a>"
-                                   + "<img src="+"'<c:url value='/image/display/"+this.thumbnail+"'/>'/>"+ "class="+"'card-img-top'"+" alt="+"'...'"+">"
+                               + "<a href="+"${pageContext.request.contextPath}/boardController/board?boardId="+this.boardId+" class="+"'stretched-link'"+"></a>"
+                                   + "<div class='card-thumb'><img src="+"'<c:url value='/image/display/"+this.thumbnail+"'/>'"+ "class="+"'card-img-top'"+" alt="+"'...'"+"></div>"
                                + "<div class="+"'card-body'"+ " >"
                                + "<strong>타이틀"+this.title+"보드아이디"+this.boardId+"</strong>"
                            + "<p class="+"'card-text'"+" style="+"'padding-top: 0.3rem;'"+">"+this.preview+"</p></div>"
@@ -460,18 +431,20 @@
                            
                            + "<div class="+"'card-footer my-md-0 py-md-0'"+"style="+"'font-size: 0.8rem; border-top: 0; background-color: white;'"+">"
                            + "<p class="+"'card-text'"+"style="+"'border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;'"+">"
-                           + this.regDate+"</p>"
-                           + "<div>"
-
-                             + "<div style="+"'margin-top: 0.3rem;'"+">"
+                           + formatDate(this.regDate)+"</p>"
+                           + "<div>";
+                           
+                            
+                           
+                            str += "<div style="+"'margin-top: 0.3rem;'"+">"
                              + "<div style="+"'display: inline-block; float: left;'"+">"
                              + "<div style="+"'border-radius: 70%; overflow: hidden; display: inline-block;'"+">"
-                             + "<img src="+"'img/pome3.jpg'"+" class="+"'img-rounded'"+" width="+"'25rem'"+">"
+                             + "<img src="+"<c:url value='/image/"+this.userId+"'/>"+" class="+"'img-rounded'"+" width="+"'25rem'"+">"
                              + "</div>"   
                              + "</div>"   
                              
                              +"<div style="+"'display: inline-block; float: left; margin-top: 0.13rem;'"+">"
-                           +"<span class="+"'mx-md-1'"+" style="+"'color: gray;'"+">by</span><span>"+this.writer+"</span>"
+                           +"<span class="+"'mx-md-1'"+" style="+"'color: gray;'"+">by</span><span style='color:rgb(120, 147, 149); font-weight:bold;'>"+this.writer+"</span>"
                            + "</div>"   
                            +"<div style="+"'display: inline-block; float: right; margin-top: 0.13rem'"+">"
                                + "<i class="+"'fa-solid fa-comment'"+"></i>"
@@ -492,13 +465,13 @@
                   }
                },
                error : function() {
-                  console.log('통신 실패!');
+                  //console.log('통신 실패!');
                }
             }); //end ajax (로그인 비동기 처리) 
         }
-        else if(url=="http://localhost:8181/codelog/trending"){
+        else if(url=="http://172.30.1.18:8181/codelog/trending"){
            
-           console.log("TRENDING");
+           //console.log("TRENDING");
            
           $.ajax({
             type : 'POST',
@@ -508,21 +481,21 @@
             data : JSON.stringify(info),
             success : function(TPosters) {
                 i = i+1;
-                  console.log("성공")
+                  //console.log("성공")
                if(TPosters != ""){
                   $(TPosters).each(function(){  
                             
-                     console.log('-------------------');
-                     console.log(this.boardId);
+                     //console.log('-------------------');
+                     //console.log(this.boardId);
                            // console.log(boardId);
-                            console.log("썸네일"+this.thumbnail);
-                            console.log('-------------------');
+                            //console.log("썸네일"+this.thumbnail);
+                            //console.log('-------------------');
                             
                         var str ="";
                         str += "<div class=" + "'col-md-4 px-md-4 py-md-4'"+">"
                         + "<div class="+"'card poster'"+" style="+"'width: 100%; height: 27rem;'"+ "data-bno='"+this.boardId+"'"+"data-lno='"+this.likes+"'>"
                             + "<a href="+"'aa'"+" class="+"'stretched-link'"+"></a>"
-                               + "<img src="+"'<c:url value='/image/display/"+this.thumbnail+"'/>'/>"+ "class="+"'card-img-top'"+" alt="+"'...'"+">"
+                            + "<div class='card-thumb'><img src="+"'<c:url value='/image/display/"+this.thumbnail+"'/>'"+ "class="+"'card-img-top'"+" alt="+"'...'"+"></div>"
                            + "<div class="+"'card-body'"+ " >"
                            + "<strong>타이틀"+this.title+"보드아이디"+this.boardId+"</strong>"
                         + "<p class="+"'card-text'"+" style="+"'padding-top: 0.3rem;'"+">"+this.preview+"</p></div>"
@@ -530,22 +503,24 @@
                         
                         + "<div class="+"'card-footer my-md-0 py-md-0'"+"style="+"'font-size: 0.8rem; border-top: 0; background-color: white;'"+">"
                         + "<p class="+"'card-text'"+"style="+"'border-bottom: 1px solid rgba(128, 128, 128, 0.178); margin-bottom: 0.4rem; padding-bottom: 0.3rem;'"+">"
-                        + this.regDate+"</p>"
+                        + formatDate(this.regDate)+"</p>"
                         + "<div>"
-
+             
+                       
+                        
                          + "<div style="+"'margin-top: 0.3rem;'"+">"
                          + "<div style="+"'display: inline-block; float: left;'"+">"
                          + "<div style="+"'border-radius: 70%; overflow: hidden; display: inline-block;'"+">"
-                         + "<img src="+"'img/pome3.jpg'"+" class="+"'img-rounded'"+" width="+"'25rem'"+">"
+                         + "<img src="+"<c:url value='/image/"+this.userId+"'/>"+" class="+"'img-rounded'"+" width="+"'25rem'"+">"
                          + "</div>"   
                          + "</div>"   
                          
                          +"<div style="+"'display: inline-block; float: left; margin-top: 0.13rem;'"+">"
-                        +"<span class="+"'mx-md-1'"+" style="+"'color: gray;'"+">by</span><span>"+this.writer+"</span>"
+                        +"<span class="+"'mx-md-1'"+" style="+"'color: gray;'"+">by</span><span style='color:rgb(120, 147, 149); font-weight:bold;'>"+this.writer+"</span>"
                         + "</div>"   
                         +"<div style="+"'display: inline-block; float: right; margin-top: 0.13rem'"+">"
                            + "<i class="+"'fa-solid fa-comment'"+"></i>"
-                           +"<span style="+"'margin-right: 0.5rem;'"+">"+this.likes+"</span>"   
+                           +"<span style="+"'margin-right: 0.5rem;'"+">"+this.recnt+"</span>"   
                            +"<i class="+"'fa-solid fa-heart'"+"></i><span class="+"'mx-md-1'"+">"+this.likes+"</span>"      
                            + "</div>"   
                          + "</div>"   
@@ -561,12 +536,33 @@
                }
             },
             error : function() {
-               console.log('통신 실패!');
+               //console.log('통신 실패!');
             }
          }); //end ajax (로그인 비동기 처리) 
         }
       }
    });
+   
+   
+   
+   function formatDate(date) {
+	    
+	    var d = new Date(date),
+	    
+	    month = '' + (d.getMonth() + 1) , 
+	    day = '' + d.getDate(), 
+	    year = d.getFullYear();
+	    hour = d.getHours();
+       minute = d.getMinutes();
+	    
+	    if (month.length < 2) month = '0' + month; 
+	    if (day.length < 2) day = '0' + day; 
+	    
+	    let y = [year, month, day].join('/');
+	    
+	    return y;
+	    
+	    };
 
    </script>
 </div>

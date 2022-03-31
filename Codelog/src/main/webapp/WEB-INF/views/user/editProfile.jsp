@@ -369,17 +369,21 @@
       
       //회원탈퇴 버튼 클릭 이벤트 처리
       $('#del-user-btn').click(function() {
-         const result = confirm('정말 탈퇴하시겠습니까?');
+    	  
+    	  confirm('정말 탈퇴하시겠습니까? 탈퇴 시 회원님의 기록이 모두 삭제됩니다. 탈퇴하시려면 기존 비밀번호를 입력해주세요.');
+    	  
+    	  if($('#pw').val() === '') {
+    		  alert('비밀번호를 입력하세요.');
+    		  $('#pw').focus();
+    	  } else if($('#pw').val() !== $('#pw-check').val()) {
+    		  alert('비밀번호를 정확하게 입력해주세요.');
+    		  $('#pw-check').focus();
+    	  } else {
+    		  alert('정상적으로 탈퇴처리 되었습니다. 그동안 코드로그를 이용해주셔서 감사합니다. :)');
+    			location.href = "<c:url value='/user/delete' />";
+    	  }
+      })
          
-         if(result) {
-        	
-        	location.href = "<c:url value='/remove'/>"
-            location.href = "<c:url value='/user/delete' />";         
-         } else {
-            
-         }
-         
-      }); //회원탈퇴 버튼 클릭 이벤트 처리 끝
 
     }); // end jQuery
   </script>

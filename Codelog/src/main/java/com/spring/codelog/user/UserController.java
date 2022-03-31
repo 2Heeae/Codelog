@@ -27,10 +27,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.codelog.board.service.IBoardService;
 import com.spring.codelog.board.service.ITagService;
 import com.spring.codelog.user.commons.FollowVO;
 import com.spring.codelog.user.commons.profileImgVO;
@@ -58,6 +60,9 @@ public class UserController {
 
 	@Autowired
 	private INotificationService notiService;
+	
+	@Autowired
+	private IBoardService boardService;
 
 	//아이디 중복 확인 처리
 	@PostMapping("/checkId")
@@ -412,13 +417,15 @@ public class UserController {
 		session.setAttribute("loginSession", dbData);
 		return new ModelAndView("redirect:/user/mypage");
 	}
-
+	
 	//회원탈퇴 처리
 	@GetMapping("/delete")
 	public ModelAndView delete(HttpSession session) {
 		System.out.println("/user/delete: GET");
 		UserVO vo = (UserVO) session.getAttribute("loginSession");
+		String userId = vo.getUserId();
 		fservice.deleteUserAllFollow(vo.getUserNo());
+		boardService.deleteAll(userId);
 		uservice.delete(vo.getUserId());
 		session.invalidate();
 		return new ModelAndView("redirect:/");
@@ -432,5 +439,26 @@ public class UserController {
 		System.out.println("로그아웃 성공!");
 		return new ModelAndView("redirect:/");
 	}
+	
+	//확인한 알림 삭제 처리
+	@PostMapping("/deleteAlarm")
+	public void deleteAlarm(@RequestBody int notiNo) {
+		System.out.println("/user/deleteAlarm: GET");
+		notiService.deleteNotification(notiNo);
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -16,6 +16,7 @@ public class NotificationService implements INotificationService {
 
 	@Override
 	public void saveNotification(NotificationVO vo) {
+		System.out.println("알림 확인 "+vo);
 		notiMapper.saveNotification(vo);
 	}
 

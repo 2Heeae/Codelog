@@ -108,7 +108,7 @@
 <script>
 	
 	//start jQuery
-	$(function() {
+	$(document).ready(function() {
 		//회원가입
 		//각 입력값들의 유효성 검증을 위한 정규표현식을 변수로 선언
 		const get_id_check = RegExp(/^[a-zA-Z0-9]{4,14}$/);
@@ -123,20 +123,20 @@
 		//1. ID 입력값 검증
 		$('#user-id').keyup(function() {
 			if($(this).val() === '') {
-				$(this).css('border-color', 'FF8882');
-				$('#id-msg').html('<b style="font-size: 14px; color: FF8882">[아이디를 입력하세요.]</b>');
+				$(this).css('border-color', '#E83A14');
+				$('#id-msg').html('<b style="font-size: 14px; color: #E83A14">[아이디를 입력하세요.]</b>');
 				chk1 = false;
 			}
 			//아이디 입력값 유효성 검사 (영문, 숫자 4~14자 허용)
 			else if(!get_id_check.test($(this).val())) {
-				$(this).css('border-color', 'FF8882');
-				$('#id-msg').html('<b style="font-size: 14px; color: FF8882">[아이디는 영문, 숫자 조합으로 4~14자로 입력하세요.]</b>');
+				$(this).css('border-color', '#E83A14');
+				$('#id-msg').html('<b style="font-size: 14px; color: #E83A14">[아이디는 영문, 숫자로 4~14자로 입력하세요.]</b>');
 				chk1 = false;
 			}
 			//ID 중복 확인 (비동기)
 			else {
 				const id = $(this).val();
-				console.log(id);
+				//console.log(id);
 				
 				//ajax 호출
 				$.ajax({
@@ -148,20 +148,20 @@
 					dataType : 'text',
 					data : id,
 					success : function(result) {
-						console.log('통신 성공!: ' + result);
+						//console.log('통신 성공!: ' + result);
 						if(result === 'available') {
 							$('#user-id').css('border-color', '#94B49F');
 							$('#id-msg').html('<b style="font-size: 14px; color: #94B49F">[사용 가능한 아이디입니다.]</b>');
 							chk1 = true;
 						} else {
-							$('#user-id').css('border-color', '#FF8882');
-							$('#id-msg').html('<b style="font-size: 14px; color: #FF8882">[아이디가 중복되었습니다.]</b>');
+							$('#user-id').css('border-color', '#E83A14');
+							$('#id-msg').html('<b style="font-size: 14px; color: #E83A14">[아이디가 중복되었습니다.]</b>');
 							chk1 = false;
 						}
 					},
 					error : function(status, error) {
-						console.log('통신 실패!');
-						console.log(status.error);
+						//console.log('통신 실패!');
+						//console.log(status.error);
 					}
 				}); //ajax(아이디 중복 확인) 끝
 			}
@@ -171,14 +171,15 @@
 		$('#user-pw').keyup(function() {
 			//비밀번호란 공백
 			if($(this).val() === '') {
-				$(this).css('border-color', '#FF8882');
-				$('#pw-msg').html('<b style="font-size: 14px; color: #FF8882">[비밀번호를 입력하세요.]</b>');
+				$(this).css('border-color', '#E83A14');
+				$('#pw-msg').html('<b style="font-size: 14px; color: #E83A14">[비밀번호를 입력하세요.]</b>');
 				chk2 = false;
 			}
 			//비밀번호 유효성 검사
 			else if(!get_pw_check.test($(this).val()) || $(this).val().length < 8) {
-				$(this).css('border-color', '#FF8882');
-				$('#pw-msg').html('<b style="font-size: 14px; color: #FF8882">[영어 대문자, 소문자, 숫자, 특수문자를 각각 하나 이상 포함하여 8~16자]</b>');
+				$(this).css('border-color', '#E83A14');
+				$('#pw-msg').html('<b style="font-size: 14px; color: #E83A14">[영대문자,소문자,숫자,특수문자를 각각 하나 이상 포함하여 8~16자]</b>');
+
 				chk2 = false;
 			}
 			//통과
@@ -193,14 +194,14 @@
 		$('#user-pw-check').keyup(function() {
 			//비밀번호 확인란 공백 검증
 			if($(this).val() === '') {
-				$(this).css('border-color', '#FF8882');
-				$('#pw-check-msg').html('<b style="font-size: 14px; color: #FF8882">[비밀번호를 다시 한 번 입력하세요.]</b>');
+				$(this).css('border-color', '#E83A14');
+				$('#pw-check-msg').html('<b style="font-size: 14px; color: #E83A14">[비밀번호를 다시 한 번 입력하세요.]</b>');
 				chk3 = false;
 			}
 			//비밀번호 확인란 유효성 검사
 			else if($(this).val() !== $('#user-pw').val()) {
-				$(this).css('border-color', '#FF8882');
-				$('#pw-check-msg').html('<b style="font-size: 14px; color: #FF8882">[비밀번호와 일치하지 않습니다.]</b>');
+				$(this).css('border-color', '#E83A14');
+				$('#pw-check-msg').html('<b style="font-size: 14px; color: #E83A14">[비밀번호와 일치하지 않습니다.]</b>');
 				chk3 = false;
 			} else {
 				$(this).css('border-color', '#94B49F');
@@ -212,14 +213,14 @@
 		//4. 닉네임 입력값 검증
 		$('#user-nick').keyup(function() {
 			if($(this).val() === '') {
-				$(this).css('border-color', '#FF8882');
-				$('#nick-msg').html('<b style="font-size: 14px; color: #FF8882">[닉네임을 입력하세요.]</b>');
+				$(this).css('border-color', '#E83A14');
+				$('#nick-msg').html('<b style="font-size: 14px; color: #E83A14">[닉네임을 입력하세요.]</b>');
 				chk4 = false;
 			}
 			//닉네임값 유효성 검사
 			else if(!get_nick_check.test($(this).val())) {
-				$(this).css('border-color', '#FF8882');
-				$('#nick-msg').html('<b style="font-size: 14px; color: #FF8882">[닉네임은 한글, 영어, 숫자 2~20자로 입력하세요.]</b>');
+				$(this).css('border-color', '#E83A14');
+				$('#nick-msg').html('<b style="font-size: 14px; color: #E83A14">[닉네임은 한글, 영어, 숫자 2~20자로 입력하세요.]</b>');
 				chk4 = false;
 			} else {
 				$(this).css('border-color', '#94B49F');
@@ -231,12 +232,12 @@
 		//5. 이메일1 입력값 검증
 	    $('#email1').keyup(function() {
 			if($(this).val() === '') {
-				$(this).css('border-color', '#FF8882');
-				$('#email-msg').html('<b style="font-size: 14px; color: #FF8882">[이메일 주소를 입력하세요.]</b>');
+				$(this).css('border-color', '#E83A14');
+				$('#email-msg').html('<b style="font-size: 14px; color: #E83A14">[이메일 주소를 입력하세요.]</b>');
 				chk5 = false;
 			} else if(!get_email1_check.test($(this).val())) {
-				$(this).css('border-color', '#FF8882');
-				$('#email-msg').html('<b style="font-size: 14px; color: #FF8882">[이메일 주소를 다시 입력하세요.]</b>');
+				$(this).css('border-color', '#E83A14');
+				$('#email-msg').html('<b style="font-size: 14px; color: #E83A14">[이메일 주소를 다시 입력하세요.]</b>');
 				chk5 = false;
 			} else {
 				$(this).css('border-color', '#94B49F');
@@ -260,12 +261,12 @@
 				//이메일2 입력값 검증 시작
 				$('#email2-input').keyup(function() {
 		    		if($(this).val() === '') {
-						$(this).css('border-color', '#FF8882');
-						$('#email-msg').html('<b style="font-size: 14px; color: #FF8882">[이메일 주소를 입력하세요.]</b>');
+						$(this).css('border-color', '#E83A14');
+						$('#email-msg').html('<b style="font-size: 14px; color: #E83A14">[이메일 주소를 입력하세요.]</b>');
 						chk6 = false;
 					} else if(!get_email2_check.test($(this).val())) {
-						$(this).css('border-color', '#FF8882');
-						$('#email-msg').html('<b style="font-size: 14px; color: #FF8882">[이메일 주소를 다시 입력하세요.]</b>');
+						$(this).css('border-color', '#E83A14');
+						$('#email-msg').html('<b style="font-size: 14px; color: #E83A14">[이메일 주소를 다시 입력하세요.]</b>');
 						chk6 = false;
 					} else {
 						$(this).css('border-color', '#94B49F');
@@ -318,8 +319,8 @@
 					dataType : 'text',
 					data : JSON.stringify(user),
 					success : function(result) {
-						console.log('통신 성공!: ' + result);
-						alert('회원 가입을 환영합니다.');
+						//console.log('통신 성공!: ' + result);
+						alert('회원 가입을 환영합니다!');
 						location.reload();
 					},
 					error : function() {
@@ -327,7 +328,7 @@
 					}
 				}); //end ajax(회원가입 처리)
 			} else {
-				alert('입력 정보를 다시 확인하세요.');
+				alert('입력 정보를 다시 확인해주세요.');
 			}
 			
 		}); //회원가입 처리 끝
@@ -339,12 +340,12 @@
 		//로그인 ID 입력값 검증(공백, 정규표현식)
 		$('#login-id').keyup(function() {
 			if($(this).val() === '') {
-				$(this).css('border-color', '#FF8882');
-				$('#login-id-msg').html('<b style="font-size: 14px; color: #FF8882">[아이디를 입력하세요.]</b>');
+				$(this).css('border-color', '#E83A14');
+				$('#login-id-msg').html('<b style="font-size: 14px; color: #E83A14">[아이디를 입력하세요.]</b>');
 				chk1 = false;
 			} else if(!get_id_check.test($(this).val())) {
-				$(this).css('border-color', '#FF8882');
-				$('#login-id-msg').html('<b style="font-size: 14px; color: #FF8882">[아이디를 다시 확인해주세요.]</b>');
+				$(this).css('border-color', '#E83A14');
+				$('#login-id-msg').html('<b style="font-size: 14px; color: #E83A14">[아이디를 다시 확인해주세요.]</b>');
 				chk1 = false;
 			} else {
 				$(this).css('border-color', '#94B49F');
@@ -356,12 +357,12 @@
 		//로그인 PW 입력값 검증(공백, 정규표현식)
 		$('#login-pw').keyup(function() {
 			if($(this).val() === '') {
-				$(this).css('border-color', '#FF8882');
-				$('#login-pw-msg').html('<b style="font-size: 14px; color: #FF8882">[비밀번호를 입력하세요.]</b>');
+				$(this).css('border-color', '#E83A14');
+				$('#login-pw-msg').html('<b style="font-size: 14px; color: #E83A14">[비밀번호를 입력하세요.]</b>');
 				chk2 = false;
 			} else if(!get_pw_check.test($(this).val())) {
-				$(this).css('border-color', '#FF8882');
-				$('#login-pw-msg').html('<b style="font-size: 14px; color: #FF8882">[비밀번호를 다시 확인해주세요.]</b>');
+				$(this).css('border-color', '#E83A14');
+				$('#login-pw-msg').html('<b style="font-size: 14px; color: #E83A14">[비밀번호를 다시 확인해주세요.]</b>');
 				chk2 = false;
 			} else {
 				$(this).css('border-color', '#94B49F');
@@ -372,12 +373,13 @@
 		
 		//로그인 버튼 클릭 이벤트
 		$('#login-btn').click(function() {
+			
 			if(chk1 && chk2) {
 				const id = $('#login-id').val();
 				const pw = $('#login-pw').val();
 				
-				console.log('id: ' + id);
-				console.log('pw: ' + pw);
+				//console.log('id: ' + id);
+				//console.log('pw: ' + pw);
 				
 				const loginInfo = {
 					"userId" : id,
@@ -393,23 +395,23 @@
 					data : JSON.stringify(loginInfo),
 					success : function(data) {
 						if(data === 'wrongId') {
-							console.log('없는 아이디임');
+							//console.log('없는 아이디임');
 							alert('존재하지 않는 아이디 입니다.');
 							$('#login-id').val('');
 							$('#login-pw').val('');
 							$('#login-id').focus();
 						} else if(data === 'wrongPw') {
-							console.log('비번 틀림');
+							//console.log('비번 틀림');
 							alert('비밀번호를 다시 확인해주세요.');
 							$('#login-pw').val('');
 							$('#login-pw').focus();
 						} else {
-							console.log('로그인 성공!');
+							//console.log('로그인 성공!');
 							document.location.reload();
 						}
 					},
 					error : function() {
-						console.log('통신 실패!');
+						//console.log('통신 실패!');
 					}
 				}); //end ajax 로그인 비동기 처리
 				

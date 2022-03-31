@@ -132,7 +132,7 @@ aside {
 }
 
 .writer:hover {
-    color: black;
+    color: var(--text-color);
     font-weight: bold;
 }
 
@@ -249,6 +249,23 @@ h2 {
     margin-bottom: 20px;
 }
 
+/* 다크모드 css 시작 */
+body {
+  --text-color: #222;
+  --bkg-color: #F8F9FA;
+  --ckg-color: white;
+  --skg-color: #E9ECEF;
+}
+
+body.dark-theme {
+  --text-color: #eee;
+  --bkg-color: #121212;
+  --ckg-color:  #212121;
+    --skg-color: #121212;
+  
+}
+/* 다크모드 css 끝 */
+
 /* ========== ���� ========== */
 .hiddenDiv {
     position: relative;
@@ -269,5 +286,5 @@ h2 {
 }
 a{
 	text-decoration: none;
-	color: black;
+	color: var(--text-color);
 }

@@ -42,4 +42,8 @@ public interface IBoardMapper {
 	 	//우측 검색
 		//검색 결과 리스트 보여주기
 		List<BoardVO> search(String keyword);
+		
+	//탈퇴하는 사용자 모든 게시물 삭제하기	
+	void deleteAll(String userId);
+	
 }

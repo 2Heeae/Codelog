@@ -122,7 +122,7 @@
 										</c:choose>
 									</c:when>
 									<c:otherwise>
-										<a class="likes" id="like-btn">♥</a>
+										<a class="likes" id="like-btn" style="cursor:pointer;">♥</a>
 										<input type="hidden" id="like-check">
 									</c:otherwise>
 								</c:choose>
@@ -183,7 +183,7 @@
 						<div id="viewer">${dto.content}</div>
 						<script>
 						
-						console.log(view);
+						
 	const viewer = toastui.Editor.factory({
 		  el: document.querySelector('#viewer'),
       viewer: true,
@@ -564,7 +564,7 @@
 	    let userNo = $(".write_reply").attr('userNo');
 	    
 	    // 소켓 메세지에 보낼 내용(댓작성자id? 닉네임?, 글작성자id)
-	    msg = 'reply' + ',' + '${loginSession.userId}' + ',' + '${loginSession.nickname}' + ',' + '${dto.userId}';
+	    msg = 'reply' + ',' + '${loginSession.userId}' + ',' + '${loginSession.nickname}' + ',' + '${dto.userId}' + ',' + bno;
 	    
 	    if(content == ""){	// 입력된게 없을때
 	        alert("댓글을 입력하세요!");
@@ -625,6 +625,7 @@
                 "writer" : writer,
                 "userNo" :userNo
             };
+	    
 		console.log("대댓글 여기까지 실행")
 	    if(content == ""){	// 입력된게 없을때
 	        alert("글을 입력하세요!");
@@ -644,6 +645,7 @@
 	              
 	                console.log("대댓글 작성 성공");
 	               	$('#recnt').text(pto+"개의 댓글");
+	               	
 	                // 게시물 번호(bno)에 해당하는 댓글리스트를 새로 받아오기
 	                ReplyList(bno);
 	            },
@@ -887,7 +889,7 @@
 	 $(document).ready(function(){
 	        
 	        //listReply(); // **댓글 목록 불러오기
-	        listReply2(); // ** json 리턴방식
+	       
 	        
 	        // ** 댓글 쓰기 버튼 클릭 이벤트 (ajax로 처리)
 	        $("#btnReply").click(function(){
@@ -906,39 +908,8 @@
 	        });
 	        
 	     // Controller방식
-	        // **댓글 목록1
-	        function listReply(){
-	            $.ajax({
-	                type: "get",
-	                url: "${path}/reply/list.do?bno=${Poster.bno}",
-	                success: function(result){
-	                // responseText가 result에 저장됨.
-	                    $("#listReply").html(result);
-	                }
-	            });
-	        }
-	        // RestController방식 (Json)
-	        // **댓글 목록2 (json)
-	        function listReply2(){
-	            $.ajax({
-	                type: "get",
-	                //contentType: "application/json", ==> 생략가능(RestController이기때문에 가능)
-	                url: "${path}/reply/listJson.do?bno=${dto.boardId}",
-	                success: function(result){
-	                    console.log(result);
-	                    var output = "<table>";
-	                    for(var i in result){
-	                        output += "<tr>";
-	                        output += "<td>"+result[i].userName;
-	                        output += "("+changeDate(result[i].regdate)+")<br>";
-	                        output += result[i].replytext+"</td>";
-	                        output += "<tr>";
-	                    }
-	                    output += "</table>";
-	                    $("#listReply").html(output);
-	                }
-	            });
-	        }
+	       
+	       
 	        // **날짜 변환 함수 작성
 	        function changeDate(date){
 	            date = new Date(parseInt(date));
@@ -969,15 +940,15 @@
 			
 		});
 	
-		let post_like = ${postLike}; //좋아요 여부 확인 1, 0
 		function like_update() {
+			let post_like = ${postLike}; //좋아요 여부 확인 1, 0
 			const view_user_id = $('#view-user').val(); //글 보는 사람 아이디
 			const view_user_nick = '${loginSession.nickname}';
 			const writer = '${dto.userId}'; //글 쓴 사람
 			console.log(view_user_id);
 			console.log(post_like);
 			console.log(writer);
-			msg = "like" + "," + view_user_id + "," + view_user_nick + "," + writer + "," + post_like; //소켓메세지 보낼 값
+			msg = "like" + "," + view_user_id + "," + view_user_nick + "," + writer + "," + post_like + "," + ${dto.boardId}; //소켓메세지 보낼 값
 
 			const data = {
 				"viewUserId" : view_user_id, //글 보는사람 아이디값
@@ -999,6 +970,7 @@
 						let total = $('#result').html();
 						$('#result').html(${dto.likes} - 1);		
 						post_like = 0;
+						location.reload();
 						
 						
 						
@@ -1007,11 +979,12 @@
 						$('#like-check').val(1);
 						$('#like-btn').css("color", "red");
 						$('#result').html(${dto.likes} + 1);
-						post_like = 1;						
-						
+						post_like = 1;
+						socket.send(msg);
+						location.reload();
 						
 					}
-					socket.send(msg);
+					
 					
 				}, error : function(result) {
 					console.log('좋아요 에러: ' + result);

@@ -51,31 +51,14 @@ public class HomeController {
 	      model.addAttribute("recent", true);
 	      model.addAttribute("trending", false);
 	      model.addAttribute("i", 3);
-	      if(fromT!=null) {
-	      if(fromT.equals("true")) {
-	    	  model.addAttribute("fromT", true);
-	    	  model.addAttribute("fromR", false);
-
-	      }
-	      }
-	      else {
-	    	  model.addAttribute("fromT", false);
-	    	  model.addAttribute("fromR", false);
-	      }    
+	      
 	      
 	   
 	   HttpSession session = request.getSession();
 	   if(session.getAttribute("loginSession")!=null) {
 		   UserVO login = (UserVO)session.getAttribute("loginSession");
 		   
-		   //알림 가져오기
-		   //String receiver = login.getUserId();
-		   //System.out.println("알림받을사람: " + receiver);
-		   //System.out.println("알림 가져오기: " + notiService.alarm(receiver));
-		   //System.out.println("알림 갯수 가져오기: " + notiService.countAlarm(receiver));
-		   //model.addAttribute("alarm", notiService.alarm(receiver));
-		   //model.addAttribute("countAlarm", notiService.countAlarm(receiver));
-		   //알림가져오기 끝
+		
 		 		   
 		   System.out.println("로그인 중 id: "+login.getUserId());
 		   System.out.println("들어온 allChk"+allChk);
@@ -271,16 +254,7 @@ public class HomeController {
 	   System.out.println("포스트 formT "+fromT);      
 	      model.addAttribute("recent", true);
 	      model.addAttribute("trending", false);
-	      if(fromT!=null) {
-	      if(fromT.equals("true")) {
-	    	  model.addAttribute("fromT", true);
-	    	  model.addAttribute("fromR", false);
-	      }
-	      }
-	      else {
-	    	  model.addAttribute("fromT", false);
-	    	  model.addAttribute("fromR", false);     
-	      }     
+	     
 	   
 	   HttpSession session = request.getSession();
 	   if(session.getAttribute("loginSession")!=null) {
@@ -393,17 +367,7 @@ public class HomeController {
 	  System.out.println("겟 formR "+fromR);      
       model.addAttribute("trending", true);
       model.addAttribute("recent", false);
-      if(fromR!=null) {
-      if(fromR.equals("true")) {
-    	  model.addAttribute("fromR", true);
-          model.addAttribute("fromT", false);
-
-      }
-      }
-      else {
-    	  model.addAttribute("fromR", false);
-          model.addAttribute("fromT", false);    
-      }
+    
       return "home";
    }
    
@@ -469,16 +433,7 @@ public class HomeController {
 	  System.out.println("포스트 formR "+fromR);
       model.addAttribute("trending", true);
       model.addAttribute("recent", false);
-      if(fromR!=null) {
-      if(fromR.equals("true")) {
-    	  model.addAttribute("fromR", true);
-          model.addAttribute("fromT", false);
-      }
-      }
-      else {
-    	  model.addAttribute("fromR", false);
-          model.addAttribute("fromT", false);
-      }
+     
       
 	   System.out.println("-----------------------------------------------------------------------");
 	   

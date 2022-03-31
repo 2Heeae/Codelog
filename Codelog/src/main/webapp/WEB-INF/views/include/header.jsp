@@ -60,7 +60,7 @@
 
 		<!-- 검색 창 -->
         <div class="col-md-3 offset-1" style="margin-top: 1.2rem;" >
-            <form style="width: 80%; margin-left:3rem;" action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group shadow-none">
+            <form style="width: 80%; margin-left:3rem;" action="<c:url value='/search' />" class="form-inline my-2 my-lg-0 input-group shadow-none" onsubmit="return search_check()">
                <input style="border-color:gary; border-right:none;" class="form-control mr-sm-2 shadow-none" id = "searchInput" name="keyword" type="search" value="${keyword}" placeholder="Search" aria-label="Search" onfocus="this.value='';">
                <button class="btn btn-outline-secondary my-2 my-sm-0 shadow-none" type="submit" style="background-color: rgb(148, 180, 159); border-color:rgb(148, 180, 159); border-left:none;"><i class="bi bi-search" style="color:white"></i></button>
              </form>
@@ -82,7 +82,7 @@
             <button type="button" id="notification-btn" class="btn rounded-circle position-relative c mx-md-1  px-md-3 hc" role="button" aria-expanded="false">
             <!--알림 아이콘, 알림개수-->
                <i class="fa-regular fa-bell ic"></i>
-               <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style="left: 2.8rem;">
+               <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger" id="alarm-badge" style="left: 2.8rem;">
                   ${countAlarm}
                   <span class="visually-hidden">unread messages</span>
                </span>
@@ -94,10 +94,19 @@
 
                      <!--알림 목록 내용-->
                      <c:forEach var="a" items="${alarm}">
-                      <div class="card-body" style=" height: 6rem;">
+                      <div class="card-body" style=" height: 6rem;" id="${a.notiNo}">
                         <div class="row alarm-list">
                            <div class="col-md-3">
-                              <a href="${pageContext.request.contextPath}/user/userpage/${a.sender}" class="stretched-link" style="position: relative; text-decoration: none;">
+                           
+                           <!-- 알림 사진 클릭하면 이동할 링크 구분하기 -->
+                           <c:choose>
+                           	  <c:when test="${a.bno == 0}">
+                              	<a href="${pageContext.request.contextPath}/user/userpage/${a.sender}" class="stretched-link" style="position: relative; text-decoration: none;">
+                              </c:when>
+                              <c:otherwise>
+                              	<a href="${pageContext.request.contextPath}/boardController/board?boardId=${a.bno}" class="stretched-link" style="position: relative; text-decoration: none;">
+                           	  </c:otherwise>
+                           </c:choose>   
                               <img src="<c:url value='/image/${a.sender}'/>" class="card-img-right rounded-circle" width="50px" height="50px" style="border-radius: 70px;">
                             </a>
                            </div>
@@ -110,7 +119,7 @@
 
                            </div>
                            <div class="col-md-1">
-                              <a class="btn-close shadow-none" data-bs-dismiss="card-body" aria-label="Close">X</a>
+                              <a class="btn-close close-notification-list" data-bs-dismiss="card-body" aria-label="Close"></a>
                            </div>
                         </div>
                      </div>
@@ -215,23 +224,34 @@
 	    	// 웹소켓 연결
 		    sock = new SockJS('<c:url value="/websocket"/>');
 		   	socket = sock;
-			console.log('소켓연결!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+			//console.log('소켓연결!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 			
 		    // 데이터를 전달 받았을때 
 		    socket.onmessage = onMessage; // toast 생성
 	    
 	});
 	
+	//검색값 유효성 검사(입력값 널 방지)
+	function search_check() {
+		let search_value = document.getElementById('searchInput').value;
+		if(search_value !== '') {
+			return true;
+		} else {
+			alert('검색어를 입력해주세요.');
+			return false;
+		}
+	}
+	
 	
 $('#searchInput').keydown(function(){
 		
-		$('#searchResult').remove();
+    $("#toast-area").children().remove();
 	
 	});
 
 	
 	$('#searchInput').keyup(function(){
-		$('#searchResult').remove();
+		$("#toast-area").children().remove();
 
 		let x = $('#searchInput').val();
 		console.log("x는 "+x);
@@ -251,7 +271,7 @@ $('#searchInput').keydown(function(){
 			        	"userId" : x
 			        }),
 			        success : function(pto) {
-			    		$('#searchResult').remove();
+			        	$("#toast-area").children().remove();
 
 			        	console.log(pto);
 			        	console.log("성공");
@@ -269,7 +289,7 @@ $('#searchInput').keydown(function(){
             $("#toast-area").append(listHtml);
 			             }
 			        	} else {
-				    		$('#searchResult').remove();
+			        		$("#toast-area").children().remove();
 
 			        	}
 			        },
@@ -316,9 +336,9 @@ $('#searchInput').keydown(function(){
       //자바스크립트 끝
       
       //start jQuery
-         /*메뉴바들 링크 기능(임시)*/
-         $(document).ready(function() {
-        	 
+      $(document).ready(function() {
+        	
+    	    //다크모드 토글 이벤트 처리
         	$('#theme-icon').click(function() {
 				if($('#theme-icon').attr('class') == 'fa-regular fa-sun ic') {
 					$('#theme-icon').attr('class', 'bi bi-moon-fill');
@@ -326,19 +346,6 @@ $('#searchInput').keydown(function(){
 					$('#theme-icon').attr('class', 'fa-regular fa-sun ic');
 				}
 			});
-        	 
-            $("#so").click(function() {
-               $(location).attr("href", "https://www.naver.com/")
-            });               
-            
-            $("#so4").click(function() {
-               $(location).attr("href", "https://www.naver.com/")
-            });
-            
-            //새 글 작성 버튼 클릭 시 글쓰기페이지 이동 이벤트 처리
-            //$('#write-btn').click(function() {
-            	//location.href = "<c:url value='/write' />";				
-			//}); //새 글 작성 버튼 클릭 시 글쓰기페이지 이동 이벤트 처리 끝
             
             //로고버튼 클릭 시 메인페이지 이동 이벤트 처리
             $('#logo-btn').click(function() {
@@ -405,15 +412,40 @@ $('#searchInput').keydown(function(){
 				e.stopPropagation();
 			});
 			
-			
-			
-			
+			//개별 알림 x버튼 클릭 시 삭제 이벤트
+			$('.close-notification-list').click(function(e) {
+				let target_noti = $(event.target).parent().prev().prev().parent().parent();
+				let notiNo = target_noti.attr('id');
+				
+				if($('#alarm-badge').text() != 1) {
+		        	$('#alarm-badge').text(${countAlarm} - 1);
+	        	} else {
+	        		$('#alarm-badge').text(0);
+	        	}
+				//console.log(target_num);
+				//console.log(notiNo);
+				
+				$.ajax({ //ajax 시작
+			        url : '<c:url value="/user/deleteAlarm" />',
+			        type : 'POST',
+			        contentType : 'application/json',
+					dataType : 'text',
+		            data : notiNo,
+			        success : function() {
+			        	console.log("통신 성공!");
+			        	target_noti.remove();
+			        	location.reload();
+			        },
+			        error : function(status, error) {
+			            alert('통신 실패!');
+			        }
+				}); //ajax 끝
+				
+			});
             
      }); //end jQuery     
          
-         
    </script>
-
 
 </body>
 
