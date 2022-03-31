@@ -183,7 +183,7 @@
 						<div id="viewer">${dto.content}</div>
 						<script>
 						
-						console.log(view);
+						
 	const viewer = toastui.Editor.factory({
 		  el: document.querySelector('#viewer'),
       viewer: true,
@@ -889,7 +889,7 @@
 	 $(document).ready(function(){
 	        
 	        //listReply(); // **댓글 목록 불러오기
-	        listReply2(); // ** json 리턴방식
+	       
 	        
 	        // ** 댓글 쓰기 버튼 클릭 이벤트 (ajax로 처리)
 	        $("#btnReply").click(function(){
@@ -908,39 +908,8 @@
 	        });
 	        
 	     // Controller방식
-	        // **댓글 목록1
-	        function listReply(){
-	            $.ajax({
-	                type: "get",
-	                url: "${path}/reply/list.do?bno=${Poster.bno}",
-	                success: function(result){
-	                // responseText가 result에 저장됨.
-	                    $("#listReply").html(result);
-	                }
-	            });
-	        }
-	        // RestController방식 (Json)
-	        // **댓글 목록2 (json)
-	        function listReply2(){
-	            $.ajax({
-	                type: "get",
-	                //contentType: "application/json", ==> 생략가능(RestController이기때문에 가능)
-	                url: "${path}/reply/listJson.do?bno=${dto.boardId}",
-	                success: function(result){
-	                    console.log(result);
-	                    var output = "<table>";
-	                    for(var i in result){
-	                        output += "<tr>";
-	                        output += "<td>"+result[i].userName;
-	                        output += "("+changeDate(result[i].regdate)+")<br>";
-	                        output += result[i].replytext+"</td>";
-	                        output += "<tr>";
-	                    }
-	                    output += "</table>";
-	                    $("#listReply").html(output);
-	                }
-	            });
-	        }
+	       
+	       
 	        // **날짜 변환 함수 작성
 	        function changeDate(date){
 	            date = new Date(parseInt(date));
