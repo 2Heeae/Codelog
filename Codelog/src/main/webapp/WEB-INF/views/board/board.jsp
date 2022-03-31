@@ -111,25 +111,25 @@
                            <c:when test="${loginSession != null}">
                               <c:choose>
                                  <c:when test="${postLike == 0}">
-                                    <a class="likes" id="like-btn">♥</a>
+                                    <a class="likes" id="like-btn" style="cursor:pointer;">♥</a>
                                     <!-- 이 글을 보는 로그인한 유저가 좋아요 눌렀는지 확인 여부 체크 좋아요=1, 좋아요 안누름=0 -->
                                     <input type="hidden" id="like-check" value="${postLike}">
                                  </c:when>
                                  <c:otherwise>
-                                    <a class="likes" id="like-btn" style="color: red;">♥</a>
+                                    <a class="likes" id="like-btn" style="color: red; cursor:pointer;">♥</a>
                                     <input type="hidden" id="like-check" value="${postLike}">
                                  </c:otherwise>
                               </c:choose>
                            </c:when>
                            <c:otherwise>
-                              <a class="likes" id="like-btn">♥</a>
+                              <a class="likes" id="like-btn" style="cursor:pointer;">♥</a>
                               <input type="hidden" id="like-check">
                            </c:otherwise>
                         </c:choose>
                         <!-- 좋아요 버튼 끝 -->
 
                         <!-- 해당 게시글의 총 좋아요 개수 -->
-                        <div id='result' style="margin-left: 28px;">${dto.likes}</div>
+                        <div id='result' style="text-align: center; width: 65px;">${dto.likes}</div>
                         <!-- 이 글을 보는 사람이 로그인 했다면 여기에 로그인 세션에서 아이디 꺼내와놓기 -->
                         <input type="hidden" id="view-user"   value="${loginSession.userId}">
                         <a href="${pageContext.request.contextPath}/user/userpage/${dto.userId}">

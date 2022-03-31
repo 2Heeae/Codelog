@@ -141,7 +141,7 @@
             <div class="row py-md-3" style="margin: 5% 15% 0% 15%">
 
                <div class="col-md-6 px-md-4" style="margin: 0 auto;">
-                  <p class="my-md-1" style="font-weight: bold; font-size: 1.7rem; text-align: center; position: relative; top: 65px; left: -20px; ">포스터 미리보기</p>
+                  <p class="my-md-1" style="font-weight: bold; font-size: 1.7rem; text-align: center; position: relative; top: 65px; left: -20px; ">썸네일 미리보기</p>
                   <div class="card" style="width: 100%; height: 40rem; border: 0; background-color: transparent;">
 
                      <!--썸네일 부분-->
@@ -276,7 +276,7 @@ $('input[type="text"]').keydown(function() {
                   &nbsp;&nbsp;&nbsp;
                   <input type="radio" class="btn-check" name="btnradio2" id="btnradio4" autocomplete="off">
                   <button class="btn btn-outline-primary show px-md-0" for="btnradio4" onclick="addContent();"
-                     style="font-size: 1.3rem;  width: 2rem; background-color: rgb(148 180 159); border-color:rgb(148 180 159); color: white;">작성</button>
+                     style="font-size: 1.3rem;  width: 2rem; background-color: rgb(148 180 159); border-color:rgb(148 180 159); color: white;">수정</button>
 
          
       </div>
