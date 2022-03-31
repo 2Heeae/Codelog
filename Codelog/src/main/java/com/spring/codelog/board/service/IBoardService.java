@@ -43,7 +43,8 @@ public interface IBoardService {
 	//검색 결과 리스트 보여주기
 	List<BoardVO> search(String keyword);
 
-	
+	//탈퇴하는 사용자 게시물 삭제
+	void deleteAll(String userId);
     
 }
 

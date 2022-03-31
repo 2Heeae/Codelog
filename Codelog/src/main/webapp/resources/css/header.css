@@ -65,11 +65,13 @@ body {
   background: var(--bkg-color);
 }
 
-/*
- span, i, div, a {
+span, i, div, a {
   color: var(--text-color);
+}
+
+.fw-bold, .form-label {
+	color: #212121 !important;
 } 
-*/
 
 body {
   background: var(--bkg-color);

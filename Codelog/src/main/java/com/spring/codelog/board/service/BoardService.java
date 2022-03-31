@@ -124,5 +124,11 @@ public class BoardService implements IBoardService {
 		 return boardMapper.search(keyword);
 	}
 
+	//탈퇴하는 사용자 모든 게시글 삭제
+	@Override
+	public void deleteAll(String userId) {
+		boardMapper.deleteAll(userId);
+	}
+
 }
 
